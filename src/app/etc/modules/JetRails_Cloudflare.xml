@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<config>
+	<modules>
+		<JetRails_Cloudflare>
+			<active>true</active>
+			<codePool>community</codePool>
+		</JetRails_Cloudflare>
+	</modules>
+</config>

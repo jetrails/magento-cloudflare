@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<config>
+	<modules>
+		<JetRails_Cloudflare>
+			<version>1.0.0</version>
+		</JetRails_Cloudflare>
+	</modules>
+	<admin>
+		<routers>
+			<jetrails_cloudflare>
+				<use>admin</use>
+				<args>
+					<module>JetRails_Cloudflare</module>
+					<frontName>cloudflare</frontName>
+				</args>
+			</jetrails_cloudflare>
+		</routers>
+	</admin>
+	<global>
+		<blocks>
+			<cloudflare>
+				<class>JetRails_Cloudflare_Block_Adminhtml</class>
+			</cloudflare>
+		</blocks>
+		<helpers>
+			<cloudflare>
+				<class>JetRails_Cloudflare_Helper</class>
+			</cloudflare>
+		</helpers>
+		<models>
+			<cloudflare>
+				<class>JetRails_Cloudflare_Model_Adminhtml</class>
+			</cloudflare>
+		</models>
+	</global>
+	<default>
+		<cloudflare>
+			<configure></configure>
+		</cloudflare>
+	</default>
+</config>

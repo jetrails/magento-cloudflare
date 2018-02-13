@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<config>
+	<acl>
+		<resources>
+			<admin>
+				<children>
+					<jetrails translate="title" module="cloudflare" >
+						<title>JetRails</title>
+						<sort_order>0</sort_order>
+						<children>
+							<cloudflare translate="title" module="cloudflare" >
+								<title>Cloudflare</title>
+								<sort_order>100</sort_order>
+							</cloudflare>
+						</children>
+					</jetrails>
+				</children>
+			</admin>
+		</resources>
+	</acl>
+	<menu>
+		<jetrails translate="title" module="cloudflare" >
+			<title>JetRails</title>
+			<sort_order>1000</sort_order>
+			<children>
+				<cloudflare translate="title" module="cloudflare" >
+					<title>Cloudflare</title>
+					<sort_order>10</sort_order>
+					<action>cloudflare/dashboard/index</action>
+				</cloudflare>
+			</children>
+		</jetrails>
+	</menu>
+</config>
