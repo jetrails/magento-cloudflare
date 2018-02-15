@@ -6,21 +6,26 @@
 			<p><b>Note:</b> Purge cache to have your change take effect immediately.</p>
 		</div>
 		<div class="wrapper_right" >
-			<input id="javascript" name="javascript" type="checkbox" />
-			<label for="javascript" >JavaScript</label>
-			<br/>
-			<input id="css" name="css" type="checkbox" />
-			<label for="css" >CSS</label>
-			<br/>
-			<input id="html" name="html" type="checkbox" />
-			<label for="html" >HTML</label>
-			<br/>
+			<div>
+				<input id="javascript" name="javascript" type="checkbox" />
+				<label for="javascript" >JavaScript</label>
+				<br/>
+				<input id="css" name="css" type="checkbox" />
+				<label for="css" >CSS</label>
+				<br/>
+				<input id="html" name="html" type="checkbox" />
+				<label for="html" >HTML</label>
+				<br/>
+				<input type="button" value="Update Settings" onmouseup="submitForm ('speed-auto_minify')" />
+			</div>
 		</div>
 	</div>
 	<div class="row" >
 		<div class="wrapper_bottom" >
+			<i class="material-icons success" >done</i>
+			<i class="material-icons error" >error_outline</i>
 			<img class="load" src="<?php echo $this->getSkinUrl ('images/cloudflare/loading.svg') ?>" />
-			<p class="messages" >Messages will show up here</p>
+			<p class="messages" ></p>
 		</div>
 	</div>
 	<div class="lightbox" ></div>
@@ -33,42 +38,59 @@
 			<p><b>Note:</b> Purge cache to have your change take effect immediately.</p>
 		</div>
 		<div class="wrapper_right" >
-			<select>
-				<option>Off</option>
-				<option>Lossless</option>
-				<option>Lossy</option>
-			</select>
-			<br/>
-			<input id="webp" name="webp" type="checkbox" />
-			<label for="webp" >WebP</label>
+			<div>
+				<select>
+					<option>Off</option>
+					<option>Lossless</option>
+					<option>Lossy</option>
+				</select>
+				<br/>
+				<input id="webp" name="webp" type="checkbox" />
+				<label for="webp" >WebP</label>
+				<input type="button" value="Update Settings" onmouseup="submitForm ('speed-polish')" />
+			</div>
 		</div>
 	</div>
 	<div class="row" >
 		<div class="wrapper_bottom" >
+			<i class="material-icons success" >done</i>
+			<i class="material-icons error" >error_outline</i>
 			<img class="load" src="<?php echo $this->getSkinUrl ('images/cloudflare/loading.svg') ?>" />
-			<p class="messages" >Messages will show up here</p>
+			<p class="messages" ></p>
 		</div>
 	</div>
 	<div class="lightbox" ></div>
 </section>
-<section class="cloudflare speed polish" >
+<section class="cloudflare speed rocket_loader" >
 	<div class="row" >
 		<div class="wrapper_left" >
 			<span class="section_title" >Rocket Loader™</span>
 			<p>Improve load time for pages that include JavaScript.</p>
 		</div>
 		<div class="wrapper_right" >
-			<select>
-				<option>Off</option>
-				<option>Automatic</option>
-				<option>Manual</option>
-			</select>
+			<div>
+				<div class="radio_group_wrapper" >
+					<input id="off" type="radio" name="rocket_loader_value" value="Off" />
+					<label for="off" >Off</label>
+				</div>
+				<div class="radio_group_wrapper" >
+					<input id="automatic" type="radio" name="rocket_loader_value" value="Automatic" />
+					<label for="automatic" >Automatic</label>
+				</div>
+				<div class="radio_group_wrapper" >
+					<input id="manual" type="radio" name="rocket_loader_value" value="Manual" />
+					<label for="manual" >Manual</label>
+				</div>
+				<input type="button" value="Update Settings" onmouseup="submitForm ('speed-rocket_loader')" />
+			</div>
 		</div>
 	</div>
 	<div class="row" >
 		<div class="wrapper_bottom" >
+			<i class="material-icons success" >done</i>
+			<i class="material-icons error" >error_outline</i>
 			<img class="load" src="<?php echo $this->getSkinUrl ('images/cloudflare/loading.svg') ?>" />
-			<p class="messages" >Messages will show up here</p>
+			<p class="messages" ></p>
 		</div>
 	</div>
 	<div class="lightbox" ></div>

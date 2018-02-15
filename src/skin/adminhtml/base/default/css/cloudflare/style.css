@@ -27,7 +27,7 @@ section.cloudflare {
 }
 
 section.cloudflare.loading > div.lightbox {
-	transition: all 1s;
+	transition: all 200ms;
 	position: absolute;
 	top: 0;
 	left: 0;
@@ -45,16 +45,30 @@ section.cloudflare > div.row {
 
 section.cloudflare > div.row > div.wrapper_bottom {
 	width: 100%;
-	padding: 15px 25px;
-	border-top: 1px solid #DEDEDE;
 	box-sizing: border-box;
+	height: 0px;
+    padding: 0;
+    border: 0;
+	transition: all 200ms;
+	overflow: hidden;
+}
+
+section.cloudflare.loading > div.row > div.wrapper_bottom,
+section.cloudflare.response_success > div.row > div.wrapper_bottom,
+section.cloudflare.response_error > div.row > div.wrapper_bottom {
 	height: 50px;
+	border-top: 1px solid #DEDEDE;
+	padding: 15px 25px;
 }
 
 section.cloudflare > div.row > div.wrapper_left,
 section.cloudflare > div.row > div.wrapper_right {
 	box-sizing: border-box;
 	padding: 25px;
+}
+
+section.cloudflare > div.row > div.wrapper_right > div {
+	width: 100%;
 }
 
 section.cloudflare > div.row > div.wrapper_left {
@@ -147,6 +161,7 @@ section.cloudflare textarea {
 	border: solid 1px #2869A2;
 	border-radius: 2px;
 	margin: 5px 0;
+	max-height: 200px;
 }
 
 section.cloudflare input[type="text"],
@@ -186,7 +201,7 @@ section.cloudflare input[type="submit"]:hover {
 }
 
 section.cloudflare img.load {
-	transition: all 1s;
+	transition: all 200ms;
 	height: 20px;
     position: relative;
     display: inline;
@@ -200,7 +215,6 @@ section.cloudflare p.messages {
     position: relative;
     display: inline;
     float: left;
-	color: #2F7BBF;
 }
 
 section.cloudflare div.status_pair label {
@@ -264,7 +278,20 @@ section.cloudflare select {
 
 }
 
+section.cloudflare .radio_group_wrapper {
+	width: 100%;
+	margin: 5px;
+}
 
+section.cloudflare .radio_group_wrapper input[type="radio"] {
+	margin-right: 15px;
+	margin-bottom: 3px;
+}
+
+section.cloudflare .radio_group_wrapper + input[type="button"],
+section.cloudflare .radio_group_wrapper + input[type="submit"] {
+	margin-top: 25px;
+}
 
 section.cloudflare .material-icons {
 	display: inline;
