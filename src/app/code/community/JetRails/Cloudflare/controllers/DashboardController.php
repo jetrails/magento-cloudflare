@@ -27,4 +27,13 @@
 			$this->renderLayout ();
 		}
 
+		public function apiAction () {
+			$data = array (
+				"error" => "Some error message",
+				"payload" => null
+			);
+			$this->getResponse ()->setHeader ( "Content-type", "application/json" );
+			$this->getResponse ()->setBody ( json_encode ( $data ) );
+		}
+
 	}

@@ -34,6 +34,15 @@
 			</cloudflare>
 		</models>
 	</global>
+	<adminhtml>
+		<layout>
+			<updates>
+				<cloudflare>
+					<file>cloudflare.xml</file>
+				</cloudflare>
+			</updates>
+		</layout>
+	</adminhtml>
 	<default>
 		<cloudflare>
 			<configure></configure>
