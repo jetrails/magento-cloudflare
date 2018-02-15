@@ -1,0 +1,47 @@
+<section class="cloudflare caching purge_cache" >
+	<div class="row" >
+		<div class="wrapper_left" >
+			<span class="section_title" >Purge Cache</span>
+			<p>Clear cached files to force Cloudflare to fetch a fresh version of those files from your web server. You can purge files selectively or all at once.</p>
+			<p><b>Note:</b> Purging the cache may temporarily degrade performance for your website.</p>
+		</div>
+		<div class="wrapper_right" >
+			<textarea placeholder="Separate with commas, or list one per line" ></textarea>
+			<input type="button" value="Purge Individual Files" onmouseup="submitForm ('caching-purge_cache')" />
+			<input type="button" value="Purge Everything" onmouseup="submitForm ('caching-purge_cache')" />
+		</div>
+	</div>
+	<div class="row" >
+		<div class="wrapper_bottom" >
+			<i class="material-icons success" >done</i>
+			<i class="material-icons error" >error_outline</i>
+			<img class="load" src="<?php echo $this->getSkinUrl ('images/cloudflare/loading.svg') ?>" />
+			<p class="messages" >Messages will show up here</p>
+		</div>
+	</div>
+	<div class="lightbox" ></div>
+</section>
+<section class="cloudflare caching development_mode" >
+	<div class="row" >
+		<div class="wrapper_left" >
+			<span class="section_title" >Development Mode</span>
+			<p>Temporarily bypass our cache allowing you to see changes to your origin server in realtime.</p>
+			<p><b>Note:</b> Enabling this feature can significantly increase origin server load. Development mode does not purge the cache so files will need to be purged after development mode expires.</p>
+		</div>
+		<div class="wrapper_right" >
+			<label class="switch" onmouseup="submitForm ('caching-development_mode')" >
+				<input type="checkbox" name="mode" checked >
+				<span class="slider" ></span>
+			</label>
+		</div>
+	</div>
+	<div class="row" >
+		<div class="wrapper_bottom" >
+			<i class="material-icons success" >done</i>
+			<i class="material-icons error" >error_outline</i>
+			<img class="load" src="<?php echo $this->getSkinUrl ('images/cloudflare/loading.svg') ?>" />
+			<p class="messages" >Messages will show up here</p>
+		</div>
+	</div>
+	<div class="lightbox" ></div>
+</section>

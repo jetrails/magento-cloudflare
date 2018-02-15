@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<layout>
+	<jetrails_cloudflare_dashboard_index>
+	    <reference name="head" >
+			<action method="addItem" >
+				<type>skin_js</type>
+				<name>js/cloudflare/jquery.min.js</name>
+			</action>
+			<action method="addItem" >
+				<type>skin_js</type>
+				<name>js/cloudflare/functions.js</name>
+			</action>
+			<action method="addItem" >
+				<type>external_css</type>
+				<name>//fonts.googleapis.com/icon?family=Material+Icons</name>
+			</action>
+	        <action method="addCss" >
+				<stylesheet>css/cloudflare/style.css</stylesheet>
+			</action>
+	    </reference>
+	</jetrails_cloudflare_dashboard_index>
+</layout>

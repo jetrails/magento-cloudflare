@@ -1,0 +1,75 @@
+<section class="cloudflare speed auto_minify" >
+	<div class="row" >
+		<div class="wrapper_left" >
+			<span class="section_title" >Auto Minify</span>
+			<p>Reduce the file size of source code on your website.</p>
+			<p><b>Note:</b> Purge cache to have your change take effect immediately.</p>
+		</div>
+		<div class="wrapper_right" >
+			<input id="javascript" name="javascript" type="checkbox" />
+			<label for="javascript" >JavaScript</label>
+			<br/>
+			<input id="css" name="css" type="checkbox" />
+			<label for="css" >CSS</label>
+			<br/>
+			<input id="html" name="html" type="checkbox" />
+			<label for="html" >HTML</label>
+			<br/>
+		</div>
+	</div>
+	<div class="row" >
+		<div class="wrapper_bottom" >
+			<img class="load" src="<?php echo $this->getSkinUrl ('images/cloudflare/loading.svg') ?>" />
+			<p class="messages" >Messages will show up here</p>
+		</div>
+	</div>
+	<div class="lightbox" ></div>
+</section>
+<section class="cloudflare speed polish" >
+	<div class="row" >
+		<div class="wrapper_left" >
+			<span class="section_title" >Polish</span>
+			<p>Improve image load time by optimizing images hosted on your domain. Optionally, the WebP image codec can be used with supported clients for additional performance benefits.</p>
+			<p><b>Note:</b> Purge cache to have your change take effect immediately.</p>
+		</div>
+		<div class="wrapper_right" >
+			<select>
+				<option>Off</option>
+				<option>Lossless</option>
+				<option>Lossy</option>
+			</select>
+			<br/>
+			<input id="webp" name="webp" type="checkbox" />
+			<label for="webp" >WebP</label>
+		</div>
+	</div>
+	<div class="row" >
+		<div class="wrapper_bottom" >
+			<img class="load" src="<?php echo $this->getSkinUrl ('images/cloudflare/loading.svg') ?>" />
+			<p class="messages" >Messages will show up here</p>
+		</div>
+	</div>
+	<div class="lightbox" ></div>
+</section>
+<section class="cloudflare speed polish" >
+	<div class="row" >
+		<div class="wrapper_left" >
+			<span class="section_title" >Rocket Loader™</span>
+			<p>Improve load time for pages that include JavaScript.</p>
+		</div>
+		<div class="wrapper_right" >
+			<select>
+				<option>Off</option>
+				<option>Automatic</option>
+				<option>Manual</option>
+			</select>
+		</div>
+	</div>
+	<div class="row" >
+		<div class="wrapper_bottom" >
+			<img class="load" src="<?php echo $this->getSkinUrl ('images/cloudflare/loading.svg') ?>" />
+			<p class="messages" >Messages will show up here</p>
+		</div>
+	</div>
+	<div class="lightbox" ></div>
+</section>
