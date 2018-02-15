@@ -6,16 +6,15 @@
 	        parent::__construct ();
 	        $this->setId ("cloudflare_dashboard");
 	        $this->setDestElementId ("edit_form");
-	        $this->setTitle ( $this->__("Cloudflare Dashboard") );
+	        $this->setTitle ("<img class='cloudflare_logo'  src='" . $this->getSkinUrl ('images/cloudflare/cloudflare.svg') . "' /><span>Cloudflare is a registered trademark of Cloudflare, Inc.</span>");
 	    }
 
 		protected function _beforeToHtml () {
 			$this
-			->addTab ( "account", array (
-				"label"  	=> $this->__("Account"),
-				"title"  	=> $this->__("Account"),
-				"content"   => $this->getLayout ()->createBlock ("cloudflare/dashboard_edit_tab_account")->toHtml (),
-				"section" => "JnJNj"
+			->addTab ( "overview", array (
+				"label"  	=> $this->__("Overview"),
+				"title"  	=> $this->__("Overview"),
+				"content"   => $this->getLayout ()->createBlock ("cloudflare/dashboard_edit_tab_overview")->toHtml (),
 			))
 			->addTab ( "caching", array (
 				"label"  	=> $this->__("Caching"),

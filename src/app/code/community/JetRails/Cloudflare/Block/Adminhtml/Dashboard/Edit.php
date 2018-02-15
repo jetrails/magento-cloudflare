@@ -16,7 +16,7 @@
 			$this->_blockGroup = "cloudflare";
 			$this->_mode = "edit";
 			// Remove buttons and update the save button text
-			$this->_updateButton ( "save", "label", Mage::helper ("cloudflare")->__("Save") );
+			$this->_removeButton ("save");
 			$this->_removeButton ("delete");
 			$this->_removeButton ("back");
 			$this->_removeButton ("reset");
@@ -29,7 +29,10 @@
 		 */
 		public function getHeaderText () {
 			// Simply return the header text for the form
-			return Mage::helper ("cloudflare")->__("Cloudflare Dashboard");
+			$format = Mage::helper ("cloudflare")->__("Cloudflare (%s)");
+			$domain = Mage::getBaseUrl ( Mage_Core_Model_Store::URL_TYPE_WEB );
+			$domain = parse_url ( $domain ) ["host"];
+			return sprintf ( $format, $domain );
 		}
 
 	}
