@@ -1,0 +1,31 @@
+<section class="cloudflare speed polish" >
+	<div class="row" >
+		<div class="wrapper_left" >
+			<span class="section_title" >Polish</span>
+			<p>Improve image load time by optimizing images hosted on your domain. Optionally, the WebP image codec can be used with supported clients for additional performance benefits.</p>
+			<p><b>Note:</b> Purge cache to have your change take effect immediately.</p>
+		</div>
+		<div class="wrapper_right" >
+			<div>
+				<select>
+					<option>Off</option>
+					<option>Lossless</option>
+					<option>Lossy</option>
+				</select>
+				<br/>
+				<input id="webp" name="webp" type="checkbox" />
+				<label for="webp" >WebP</label>
+				<input type="button" value="Update Settings" onmouseup="submitForm ('speed-polish')" />
+			</div>
+		</div>
+	</div>
+	<div class="row" >
+		<div class="wrapper_bottom" >
+			<i class="material-icons success" >done</i>
+			<i class="material-icons error" >error_outline</i>
+			<img class="load" src="<?php echo $this->getSkinUrl ('images/cloudflare/loading.svg') ?>" />
+			<p class="messages" ></p>
+		</div>
+	</div>
+	<div class="lightbox" ></div>
+</section>

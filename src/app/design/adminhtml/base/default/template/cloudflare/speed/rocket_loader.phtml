@@ -1,0 +1,34 @@
+<section class="cloudflare speed rocket_loader" >
+	<div class="row" >
+		<div class="wrapper_left" >
+			<span class="section_title" >Rocket Loader™</span>
+			<p>Improve load time for pages that include JavaScript.</p>
+		</div>
+		<div class="wrapper_right" >
+			<div>
+				<div class="radio_group_wrapper" >
+					<input id="off" type="radio" name="rocket_loader_value" value="Off" />
+					<label for="off" >Off</label>
+				</div>
+				<div class="radio_group_wrapper" >
+					<input id="automatic" type="radio" name="rocket_loader_value" value="Automatic" />
+					<label for="automatic" >Automatic</label>
+				</div>
+				<div class="radio_group_wrapper" >
+					<input id="manual" type="radio" name="rocket_loader_value" value="Manual" />
+					<label for="manual" >Manual</label>
+				</div>
+				<input type="button" value="Update Settings" onmouseup="submitForm ('speed-rocket_loader')" />
+			</div>
+		</div>
+	</div>
+	<div class="row" >
+		<div class="wrapper_bottom" >
+			<i class="material-icons success" >done</i>
+			<i class="material-icons error" >error_outline</i>
+			<img class="load" src="<?php echo $this->getSkinUrl ('images/cloudflare/loading.svg') ?>" />
+			<p class="messages" ></p>
+		</div>
+	</div>
+	<div class="lightbox" ></div>
+</section>

@@ -1,0 +1,41 @@
+<section class="cloudflare overview configuration <?php echo $this->state ?>" >
+	<div class="row" >
+		<div class="wrapper_left" >
+			<span class="section_title" >Configuration</span>
+			<p>Credentials, such as your Cloudflare email address and Cloudflare API token, are used to communicate with the Cloudflare API. The API token is not displayed for security reasons.  Please see the <i>Credential Validation</i> section below to see if valid credentials are currently saved for your Cloudflare account.</p>
+			<div class="status_pair" >
+				<i class="material-icons" >vpn_key</i>
+				<label>Credential Validation:</label>
+				<p><?php echo $this->getValidationState () ?></p>
+			</div>
+			<div class="status_pair" >
+				<i class="material-icons" >code</i>
+				<label>Zone ID:</label>
+				<p><?php echo $this->getZoneId () ?></p>
+			</div>
+		</div>
+		<div class="wrapper_right" >
+			<div>
+				<form method="POST" action="<?php echo $this->getSaveEndpoint () ?>" >
+					<input name="form_key" type="hidden" value="<?php echo $this->getFormKey () ?>" />
+					<input name="email" type="email" placeholder="Email Address" value="<?php echo $this->getAuthEmail () ?>" />
+					<input name="token" type="text" placeholder="API Token" />
+					<input type="submit" value="Save Credentials" onmouseup="submitForm ('overview-configuration')" />
+				</form>
+			</div>
+		</div>
+	</div>
+	<div class="row" >
+		<div class="wrapper_bottom" >
+			<i class="material-icons success" >done</i>
+			<i class="material-icons error" >error_outline</i>
+			<img class="load" src="<?php echo $this->getSkinUrl ('images/cloudflare/loading.svg') ?>" />
+			<p class="messages" >
+				<?php foreach ( $this->messages as $message ): ?>
+					<span class="message" ><?php echo $message ?></span>
+				<?php endforeach ?>
+			</p>
+		</div>
+	</div>
+	<div class="lightbox" ></div>
+</section>

@@ -1,0 +1,26 @@
+<section class="cloudflare caching development_mode" >
+	<div class="row" >
+		<div class="wrapper_left" >
+			<span class="section_title" >Development Mode</span>
+			<p>Temporarily bypass our cache allowing you to see changes to your origin server in realtime.</p>
+			<p><b>Note:</b> Enabling this feature can significantly increase origin server load. Development mode does not purge the cache so files will need to be purged after development mode expires.</p>
+		</div>
+		<div class="wrapper_right" >
+			<div>
+				<label class="switch" onmouseup="submitForm ('caching-development_mode')" >
+					<input type="checkbox" name="mode" checked >
+					<span class="slider" ></span>
+				</label>
+			</div>
+		</div>
+	</div>
+	<div class="row" >
+		<div class="wrapper_bottom" >
+			<i class="material-icons success" >done</i>
+			<i class="material-icons error" >error_outline</i>
+			<img class="load" src="<?php echo $this->getSkinUrl ('images/cloudflare/loading.svg') ?>" />
+			<p class="messages" ></p>
+		</div>
+	</div>
+	<div class="lightbox" ></div>
+</section>

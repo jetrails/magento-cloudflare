@@ -1,0 +1,22 @@
+<section class="cloudflare overview status" >
+	<div class="row" >
+		<div class="wrapper_left" >
+			<span class="section_title" >Pause Website</span>
+			<p>Pause will temporarily deactivate Cloudflare for your domain. Cloudflare will continue to resolve DNS for your website, but all requests will go directly to your origin which means you will not receive performance and security benefits. All of your settings will be saved.</p>
+		</div>
+		<div class="wrapper_right" >
+			<div>
+				<input type="button" value="Pause" onmouseup="submitForm ('overview-status')" />
+			</div>
+		</div>
+	</div>
+	<div class="row" >
+		<div class="wrapper_bottom" >
+			<i class="material-icons success" >done</i>
+			<i class="material-icons error" >error_outline</i>
+			<img class="load" src="<?php echo $this->getSkinUrl ('images/cloudflare/loading.svg') ?>" />
+			<p class="messages" ></p>
+		</div>
+	</div>
+	<div class="lightbox" ></div>
+</section>

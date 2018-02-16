@@ -1,56 +1,9 @@
-<section class="cloudflare overview configuration" >
-	<div class="row" >
-		<div class="wrapper_left" >
-			<span class="section_title" >Configuration</span>
-			<p>Credentials, such as your Cloudflare email address and Cloudflare API token, are used to communicate with the Cloudflare API. The API token is not displayed for security reasons.  Please see the <i>Credential Validation</i> section below to see if valid credentials are currently saved for your Cloudflare account.</p>
-			<div class="status_pair" >
-				<i class="material-icons" >vpn_key</i>
-				<label>Credential Validation:</label>
-				<p>Invalid</p>
-			</div>
-			<div class="status_pair" >
-				<i class="material-icons" >code</i>
-				<label>Zone ID:</label>
-				<p>3c231d80352c58fb49ace2ff1f9006ac</p>
-			</div>
-		</div>
-		<div class="wrapper_right" >
-			<div>
-				<input type="email" placeholder="Email Address" />
-				<input type="text" placeholder="API Token" />
-				<input type="button" value="Save Credentials" onmouseup="submitForm ('overview-configuration')" />
-			</div>
-		</div>
-	</div>
-	<div class="row" >
-		<div class="wrapper_bottom" >
-			<i class="material-icons success" >done</i>
-			<i class="material-icons error" >error_outline</i>
-			<img class="load" src="<?php echo $this->getSkinUrl ('images/cloudflare/loading.svg') ?>" />
-			<p class="messages" ></p>
-		</div>
-	</div>
-	<div class="lightbox" ></div>
-</section>
-<section class="cloudflare overview pause_website" >
-	<div class="row" >
-		<div class="wrapper_left" >
-			<span class="section_title" >Pause Website</span>
-			<p>Pause will temporarily deactivate Cloudflare for your domain. Cloudflare will continue to resolve DNS for your website, but all requests will go directly to your origin which means you will not receive performance and security benefits. All of your settings will be saved.</p>
-		</div>
-		<div class="wrapper_right" >
-			<div>
-				<input type="button" value="Pause" onmouseup="submitForm ('overview-pause_website')" />
-			</div>
-		</div>
-	</div>
-	<div class="row" >
-		<div class="wrapper_bottom" >
-			<i class="material-icons success" >done</i>
-			<i class="material-icons error" >error_outline</i>
-			<img class="load" src="<?php echo $this->getSkinUrl ('images/cloudflare/loading.svg') ?>" />
-			<p class="messages" ></p>
-		</div>
-	</div>
-	<div class="lightbox" ></div>
-</section>
+<?php
+
+	echo $this->getLayout ()
+		->createBlock ("cloudflare/dashboard_section_overview_configuration")
+		->setTemplate ("cloudflare/overview/configuration.phtml")->toHtml ();
+
+	echo $this->getLayout ()
+		->createBlock ("cloudflare/dashboard_section_overview_status")
+		->setTemplate ("cloudflare/overview/status.phtml")->toHtml ();

@@ -45,7 +45,10 @@
 	</adminhtml>
 	<default>
 		<cloudflare>
-			<configure></configure>
+			<configuration>
+				<auth_email></auth_email>
+				<auth_token></auth_token>
+			</configuration>
 		</cloudflare>
 	</default>
 </config>

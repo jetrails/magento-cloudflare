@@ -22,18 +22,50 @@
 			$this->loadLayout ();
 			$this->_initLayoutMessages ("admin/session");
 			$this->_setActiveMenu ("jetrails/cloudflare");
-			$this->_addContent ( $this->getLayout ()->createBlock ("cloudflare/dashboard_edit") )
-				 ->_addLeft ( $this->getLayout ()->createBlock ("cloudflare/dashboard_edit_tabs") );
+
+			$data = Mage::helper ("cloudflare/data");
+			$api = Mage::getSingleton ("cloudflare/api_overview_configuration");
+			$validAuthentication = $api->validateAuth ();
+			$zoneId = $api->getZoneId ();
+			if ( $validAuthentication && $zoneId !== false ) {
+				$this->_addContent ( $this->getLayout ()->createBlock ("cloudflare/dashboard_edit") )
+					 ->_addLeft ( $this->getLayout ()->createBlock ("cloudflare/dashboard_edit_tabs") );
+			}
+			else if ( $validAuthentication ) {
+				$domain = $data->getDomainName ();
+				$this->_addContent (
+					$this->getLayout ()
+					->createBlock ("cloudflare/dashboard_section_overview_configuration")
+					->setTemplate ("cloudflare/overview/configuration.phtml")
+					->setState ("response_error")
+					->setMessages ( array ( "Error : The domain <u>$domain</u> is not associated with your Cloudflare account" ) )
+				);
+			}
+			else {
+				$this->_addContent (
+					$this->getLayout ()
+					->createBlock ("cloudflare/dashboard_section_overview_configuration")
+					->setTemplate ("cloudflare/overview/configuration.phtml")
+					->setState ("response_error")
+					->setMessages ( array ( "Error : Email address or API token could not be authenticated" ) )
+				);
+			}
+
 			$this->renderLayout ();
 		}
 
-		public function apiAction () {
-			$data = array (
-				"error" => "Some error message",
-				"payload" => null
-			);
-			$this->getResponse ()->setHeader ( "Content-type", "application/json" );
-			$this->getResponse ()->setBody ( json_encode ( $data ) );
+		public function saveAction () {
+
+			$api = Mage::getSingleton ("cloudflare/api_overview_configuration");
+			$data = Mage::helper ("cloudflare/data");
+
+			$email = $this->getRequest ()->getPost ("email");
+			$token = $this->getRequest ()->getPost ("token");
+
+			$data->setAuthEmail ( $email );
+			$data->setAuthToken ( $token );
+
+			$this->_redirect ("*/*/index");
 		}
 
 	}

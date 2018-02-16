@@ -30,8 +30,8 @@
 		public function getHeaderText () {
 			// Simply return the header text for the form
 			$format = Mage::helper ("cloudflare")->__("Cloudflare (%s)");
-			$domain = Mage::getBaseUrl ( Mage_Core_Model_Store::URL_TYPE_WEB );
-			$domain = parse_url ( $domain ) ["host"];
+			$data = Mage::helper ("cloudflare/data");
+			$domain = $data->getDomainName ();
 			return sprintf ( $format, $domain );
 		}
 

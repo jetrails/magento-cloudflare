@@ -1,97 +1,13 @@
-<section class="cloudflare speed auto_minify" >
-	<div class="row" >
-		<div class="wrapper_left" >
-			<span class="section_title" >Auto Minify</span>
-			<p>Reduce the file size of source code on your website.</p>
-			<p><b>Note:</b> Purge cache to have your change take effect immediately.</p>
-		</div>
-		<div class="wrapper_right" >
-			<div>
-				<input id="javascript" name="javascript" type="checkbox" />
-				<label for="javascript" >JavaScript</label>
-				<br/>
-				<input id="css" name="css" type="checkbox" />
-				<label for="css" >CSS</label>
-				<br/>
-				<input id="html" name="html" type="checkbox" />
-				<label for="html" >HTML</label>
-				<br/>
-				<input type="button" value="Update Settings" onmouseup="submitForm ('speed-auto_minify')" />
-			</div>
-		</div>
-	</div>
-	<div class="row" >
-		<div class="wrapper_bottom" >
-			<i class="material-icons success" >done</i>
-			<i class="material-icons error" >error_outline</i>
-			<img class="load" src="<?php echo $this->getSkinUrl ('images/cloudflare/loading.svg') ?>" />
-			<p class="messages" ></p>
-		</div>
-	</div>
-	<div class="lightbox" ></div>
-</section>
-<section class="cloudflare speed polish" >
-	<div class="row" >
-		<div class="wrapper_left" >
-			<span class="section_title" >Polish</span>
-			<p>Improve image load time by optimizing images hosted on your domain. Optionally, the WebP image codec can be used with supported clients for additional performance benefits.</p>
-			<p><b>Note:</b> Purge cache to have your change take effect immediately.</p>
-		</div>
-		<div class="wrapper_right" >
-			<div>
-				<select>
-					<option>Off</option>
-					<option>Lossless</option>
-					<option>Lossy</option>
-				</select>
-				<br/>
-				<input id="webp" name="webp" type="checkbox" />
-				<label for="webp" >WebP</label>
-				<input type="button" value="Update Settings" onmouseup="submitForm ('speed-polish')" />
-			</div>
-		</div>
-	</div>
-	<div class="row" >
-		<div class="wrapper_bottom" >
-			<i class="material-icons success" >done</i>
-			<i class="material-icons error" >error_outline</i>
-			<img class="load" src="<?php echo $this->getSkinUrl ('images/cloudflare/loading.svg') ?>" />
-			<p class="messages" ></p>
-		</div>
-	</div>
-	<div class="lightbox" ></div>
-</section>
-<section class="cloudflare speed rocket_loader" >
-	<div class="row" >
-		<div class="wrapper_left" >
-			<span class="section_title" >Rocket Loader™</span>
-			<p>Improve load time for pages that include JavaScript.</p>
-		</div>
-		<div class="wrapper_right" >
-			<div>
-				<div class="radio_group_wrapper" >
-					<input id="off" type="radio" name="rocket_loader_value" value="Off" />
-					<label for="off" >Off</label>
-				</div>
-				<div class="radio_group_wrapper" >
-					<input id="automatic" type="radio" name="rocket_loader_value" value="Automatic" />
-					<label for="automatic" >Automatic</label>
-				</div>
-				<div class="radio_group_wrapper" >
-					<input id="manual" type="radio" name="rocket_loader_value" value="Manual" />
-					<label for="manual" >Manual</label>
-				</div>
-				<input type="button" value="Update Settings" onmouseup="submitForm ('speed-rocket_loader')" />
-			</div>
-		</div>
-	</div>
-	<div class="row" >
-		<div class="wrapper_bottom" >
-			<i class="material-icons success" >done</i>
-			<i class="material-icons error" >error_outline</i>
-			<img class="load" src="<?php echo $this->getSkinUrl ('images/cloudflare/loading.svg') ?>" />
-			<p class="messages" ></p>
-		</div>
-	</div>
-	<div class="lightbox" ></div>
-</section>
+<?php
+
+	echo $this->getLayout ()
+		->createBlock ("cloudflare/dashboard_section_speed_autominify")
+		->setTemplate ("cloudflare/speed/auto_minify.phtml")->toHtml ();
+
+	echo $this->getLayout ()
+		->createBlock ("cloudflare/dashboard_section_speed_polish")
+		->setTemplate ("cloudflare/speed/polish.phtml")->toHtml ();
+
+	echo $this->getLayout ()
+		->createBlock ("cloudflare/dashboard_section_speed_rocketloader")
+		->setTemplate ("cloudflare/speed/rocket_loader.phtml")->toHtml ();
