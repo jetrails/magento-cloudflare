@@ -4,7 +4,7 @@
 
 		public $state = "";
 
-		public $messages = [];
+		public $messages = [""];
 
 		public function getSaveEndpoint () {
 			return Mage::getUrl ("cloudflare/dashboard/save");

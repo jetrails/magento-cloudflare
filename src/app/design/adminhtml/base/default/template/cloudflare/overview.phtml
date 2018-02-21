@@ -7,3 +7,8 @@
 	echo $this->getLayout ()
 		->createBlock ("cloudflare/dashboard_section_overview_status")
 		->setTemplate ("cloudflare/overview/status.phtml")->toHtml ();
+
+?>
+<div class="cloudflare overview debug" >
+	<b>Api Call Count:</b> <?php echo Mage::getSingleton ("core/session")->getApiCallCount () ?>
+</div>

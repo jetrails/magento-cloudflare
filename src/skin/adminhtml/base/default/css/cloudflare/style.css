@@ -55,6 +55,7 @@ section.cloudflare > div.row > div.wrapper_bottom {
 
 section.cloudflare.loading > div.row > div.wrapper_bottom,
 section.cloudflare.response_success > div.row > div.wrapper_bottom,
+section.cloudflare.response_warning > div.row > div.wrapper_bottom,
 section.cloudflare.response_error > div.row > div.wrapper_bottom {
 	height: 50px;
 	border-top: 1px solid #DEDEDE;
@@ -92,6 +93,7 @@ section.cloudflare > div.row > div.wrapper_left > span.section_title {
 
 section.cloudflare > div.row > div.wrapper_left > p {
 	margin: 15px 0;
+	line-height: 1.5em;
 }
 
 
@@ -101,7 +103,7 @@ section.cloudflare > div.row > div.wrapper_left > p {
 /* SWITCH */
 section.cloudflare label.switch {
   position: relative;
-  display: inline-block;
+  display: block;
   width: 60px;
   height: 34px;
   margin: 0 auto;
@@ -133,7 +135,7 @@ section.cloudflare label.switch .slider:before {
   transition: .4s;
 }
 
-section.cloudflare label.switch input:checked + .slider {
+section.cloudflare label.switch input[data-state="true"] + .slider {
   background-color: #9BCA3D;
 }
 
@@ -141,7 +143,7 @@ section.cloudflare label.switch input:focus + .slider {
   box-shadow: 0 0 1px #9BCA3D;
 }
 
-section.cloudflare label.switch input:checked + .slider:before {
+section.cloudflare label.switch input[data-state="true"] + .slider:before {
   -webkit-transform: translateX(26px);
   -ms-transform: translateX(26px);
   transform: translateX(26px);
@@ -217,6 +219,27 @@ section.cloudflare p.messages {
     float: left;
 }
 
+section.cloudflare p.messages > span {
+	width: 100%;
+    display: block;
+	margin-top: 0px;
+	opacity: 1;
+	transition: opacity, margin-top 200s;
+	max-width: 800px;
+	max-height: 20px;
+	overflow: hidden;
+}
+
+section.cloudflare p.messages > span.hidden {
+	display: none;
+	margin-top: -20px;
+	opacity: 0;
+}
+
+section.cloudflare p.messages > span:hidden {
+	margin-top: -15px;
+}
+
 section.cloudflare div.status_pair label {
 	display: inline;
 	float: left;
@@ -278,18 +301,20 @@ section.cloudflare select {
 
 }
 
-section.cloudflare .radio_group_wrapper {
+section.cloudflare .group_wrapper {
 	width: 100%;
-	margin: 5px;
+	margin: 10px auto;
+    max-width: 110px;
 }
 
-section.cloudflare .radio_group_wrapper input[type="radio"] {
+section.cloudflare .group_wrapper input[type="radio"],
+section.cloudflare .group_wrapper input[type="checkbox"] {
 	margin-right: 15px;
 	margin-bottom: 3px;
 }
 
-section.cloudflare .radio_group_wrapper + input[type="button"],
-section.cloudflare .radio_group_wrapper + input[type="submit"] {
+section.cloudflare .group_wrapper + input[type="button"],
+section.cloudflare .group_wrapper + input[type="submit"] {
 	margin-top: 25px;
 }
 
@@ -326,23 +351,31 @@ section.cloudflare i.success {
 	color: #9BCA3D;
 }
 
+section.cloudflare i.warning {
+	color: #FF7900;
+}
+
 /* section.cloudflare i.error {
 	color: #F37F22 !important;
 } */
 
-section.cloudflare.response_success i.success {
-	display: inline;
-}
-
+section.cloudflare.response_success i.success,
+section.cloudflare.response_warning i.warning,
 section.cloudflare.response_error i.error {
 	display: inline;
 }
 
 section.cloudflare i.success,
 section.cloudflare i.error,
+section.cloudflare i.warning,
 section.cloudflare.response_success i.error,
+section.cloudflare.response_success i.warning,
 section.cloudflare.response_error i.success,
+section.cloudflare.response_error i.warning,
+section.cloudflare.response_warning i.error,
+section.cloudflare.response_warning i.success,
 section.cloudflare.loading i.success,
-section.cloudflare.loading i.error {
+section.cloudflare.loading i.error,
+section.cloudflare.loading i.warning {
 	display: none;
 }

@@ -1,4 +1,9 @@
-<section class="cloudflare caching development_mode" >
+<section
+	class="cloudflare caching development_mode initialize loading"
+	data-endpoint="<?php echo $this->getApiEndpoint () ?>"
+	data-form-key="<?php echo $this->getFormKey () ?>"
+	data-tab-name="caching"
+	data-section-name="development_mode" >
 	<div class="row" >
 		<div class="wrapper_left" >
 			<span class="section_title" >Development Mode</span>
@@ -7,9 +12,9 @@
 		</div>
 		<div class="wrapper_right" >
 			<div>
-				<label class="switch" onmouseup="submitForm ('caching-development_mode')" >
-					<input type="checkbox" name="mode" checked >
-					<span class="slider" ></span>
+				<label class="switch" >
+					<input id="state" type="checkbox" name="mode" data-state="false" >
+					<span class="slider trigger" data-target="toggle" ></span>
 				</label>
 			</div>
 		</div>
@@ -17,10 +22,35 @@
 	<div class="row" >
 		<div class="wrapper_bottom" >
 			<i class="material-icons success" >done</i>
-			<i class="material-icons error" >error_outline</i>
+			<i class="material-icons error" >error</i>
+			<i class="material-icons warning" >warning</i>
 			<img class="load" src="<?php echo $this->getSkinUrl ('images/cloudflare/loading.svg') ?>" />
 			<p class="messages" ></p>
 		</div>
 	</div>
 	<div class="lightbox" ></div>
 </section>
+<script>
+
+	$j( document ).on ( "cloudflare.caching.development_mode.initialize", function ( event, data ) {
+		var value = data.response.payload.value == "on" ? "true" : "false";
+		$j( data.section ).find ("#state").eq ( 0 ).data ( "state", value );
+		$j( data.section ).find ("#state").eq ( 0 ).attr ( "data-state", value );
+	});
+
+	$j( document ).on ( "cloudflare.caching.development_mode.toggle", function ( event, data ) {
+		var state = $j( data.section ).find ("#state").eq ( 0 ).data ("state") == "true";
+		$j( data.section ).find ("#state").eq ( 0 ).data ( "state", !state + "" );
+		$j( data.section ).find ("#state").eq ( 0 ).attr ( "data-state", !state + "" );
+		setMessages ( data.section, "loading", [""] );
+		$j.ajax ({
+			url: data.form.endpoint,
+			type: "POST",
+			data: { "form_key": data.form.key, "state": !state },
+			success: function ( response ) {
+				setMessages ( data.section, response.state, response.messages );
+			}
+		});
+	});
+
+</script>

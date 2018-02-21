@@ -1,4 +1,9 @@
-<section class="cloudflare speed rocket_loader" >
+<section
+	class="cloudflare speed rocket_loader initialize loading"
+	data-endpoint="<?php echo $this->getApiEndpoint () ?>"
+	data-form-key="<?php echo $this->getFormKey () ?>"
+	data-tab-name="speed"
+	data-section-name="rocket_loader" >
 	<div class="row" >
 		<div class="wrapper_left" >
 			<span class="section_title" >Rocket Loader™</span>
@@ -6,29 +11,51 @@
 		</div>
 		<div class="wrapper_right" >
 			<div>
-				<div class="radio_group_wrapper" >
-					<input id="off" type="radio" name="rocket_loader_value" value="Off" />
+				<div class="group_wrapper" >
+					<input id="off" type="radio" name="value" value="off" />
 					<label for="off" >Off</label>
 				</div>
-				<div class="radio_group_wrapper" >
-					<input id="automatic" type="radio" name="rocket_loader_value" value="Automatic" />
+				<div class="group_wrapper" >
+					<input id="automatic" type="radio" name="value" value="on" />
 					<label for="automatic" >Automatic</label>
 				</div>
-				<div class="radio_group_wrapper" >
-					<input id="manual" type="radio" name="rocket_loader_value" value="Manual" />
+				<div class="group_wrapper" >
+					<input id="manual" type="radio" name="value" value="manual" />
 					<label for="manual" >Manual</label>
 				</div>
-				<input type="button" value="Update Settings" onmouseup="submitForm ('speed-rocket_loader')" />
+				<input class="trigger" data-target="change" type="button" value="Update Settings" />
 			</div>
 		</div>
 	</div>
 	<div class="row" >
 		<div class="wrapper_bottom" >
 			<i class="material-icons success" >done</i>
-			<i class="material-icons error" >error_outline</i>
+			<i class="material-icons error" >error</i>
+			<i class="material-icons warning" >warning</i>
 			<img class="load" src="<?php echo $this->getSkinUrl ('images/cloudflare/loading.svg') ?>" />
 			<p class="messages" ></p>
 		</div>
 	</div>
 	<div class="lightbox" ></div>
 </section>
+<script>
+
+	$j( document ).on ( "cloudflare.speed.rocket_loader.initialize", function ( event, data ) {
+		var label = data.response.payload.value;
+		$j( data.section ).find ("input[name='value'][value='" + label + "']").prop ( "checked", true );
+	});
+
+	$j( document ).on ( "cloudflare.speed.rocket_loader.change", function ( event, data ) {
+		var newValue = $j( data.section ).find ("input[name='value']:checked").val ();
+		setMessages ( data.section, "loading", [""] );
+		$j.ajax ({
+			url: data.form.endpoint,
+			type: "POST",
+			data: { "form_key": data.form.key, "value": newValue },
+			success: function ( response ) {
+				setMessages ( data.section, response.state, response.messages );
+			}
+		});
+	});
+
+</script>

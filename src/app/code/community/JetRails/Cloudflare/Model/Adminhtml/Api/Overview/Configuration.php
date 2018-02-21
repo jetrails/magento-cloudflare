@@ -1,26 +1,31 @@
 <?php
 
-	class JetRails_Cloudflare_Model_Adminhtml_Api_Overview_Configuration extends JetRails_Cloudflare_Model_Adminhtml_Api {
+	class JetRails_Cloudflare_Model_Adminhtml_Api_Overview_Configuration extends Mage_Core_Model_Abstract {
 
 		public function validateAuth ( $email = null, $token = null ) {
-			if ( $email === null || $token === null ) {
-				$data = Mage::helper ("cloudflare/data");
-				$email = $data->getAuthEmail ();
-				$token = $data->getAuthToken ();
+			$api = Mage::getModel ("cloudflare/api_request");
+			$api->setType ( $api::REQUEST_GET );
+			if ( !empty ( $email ) && !empty ( $token ) ) {
+				$api->setAuth ( $email, $token );
 			}
-			$this->_api->setAuth ( $email, $token );
-			$response = $this->_api->get ( "zones", [], [] );
+			$response = $api->resolve ("zones");
 			return $response->success;
 		}
 
-		public function getZoneId ( $domain = null ) {
-			if ( $domain === null ) {
-				$data = Mage::helper ("cloudflare/data");
-				$domain = $data->getDomainName ();
+		public function getZoneId () {
+			$data = Mage::helper ("cloudflare/data");
+			$domain = $data->getDomainName ();
+
+			$api = Mage::getModel ("cloudflare/api_request");
+			$api->setType ( $api::REQUEST_GET );
+			$api->setQuery ( "name", $domain );
+			$response = $api->resolve ("zones");
+ 			if ( $response->success && count ( $response->result ) > 0 ) {
+				return $response->result [ 0 ]->id;
 			}
-			$params = [ "name" => $domain ];
-			$response = $this->_api->get ( "zones", $params, [] );
-			return $response->success && count ( $response->result ) > 0 ? $response->result [ 0 ]->id : false;
+			return null;
 		}
+
+
 
 	}

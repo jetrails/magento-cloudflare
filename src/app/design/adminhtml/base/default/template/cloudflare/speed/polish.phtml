@@ -1,4 +1,9 @@
-<section class="cloudflare speed polish" >
+<section
+	class="cloudflare speed polish"
+	data-endpoint="<?php echo $this->getApiEndpoint () ?>"
+	data-form-key="<?php echo $this->getFormKey () ?>"
+	data-tab-name="speed"
+	data-section-name="polish" >
 	<div class="row" >
 		<div class="wrapper_left" >
 			<span class="section_title" >Polish</span>
@@ -22,7 +27,8 @@
 	<div class="row" >
 		<div class="wrapper_bottom" >
 			<i class="material-icons success" >done</i>
-			<i class="material-icons error" >error_outline</i>
+			<i class="material-icons error" >error</i>
+			<i class="material-icons warning" >warning</i>
 			<img class="load" src="<?php echo $this->getSkinUrl ('images/cloudflare/loading.svg') ?>" />
 			<p class="messages" ></p>
 		</div>

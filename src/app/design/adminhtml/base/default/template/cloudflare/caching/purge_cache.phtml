@@ -1,4 +1,9 @@
-<section class="cloudflare caching purge_cache" >
+<section
+	class="cloudflare caching purge_cache"
+	data-endpoint="<?php echo $this->getApiEndpoint () ?>"
+	data-form-key="<?php echo $this->getFormKey () ?>"
+	data-tab-name="caching"
+	data-section-name="purge_cache" >
 	<div class="row" >
 		<div class="wrapper_left" >
 			<span class="section_title" >Purge Cache</span>
@@ -7,19 +12,51 @@
 		</div>
 		<div class="wrapper_right" >
 			<div>
-				<textarea placeholder="Separate with commas, or list one per line" ></textarea>
-				<input type="button" value="Purge Individual Files" onmouseup="submitForm ('caching-purge_cache')" />
-				<input type="button" value="Purge Everything" onmouseup="submitForm ('caching-purge_cache')" />
+				<textarea id="files" placeholder="Separate with commas, or list one per line" ></textarea>
+				<input class="trigger" data-target="individual" type="button" value="Purge Individual Files" />
+				<input class="trigger" data-target="everything" type="button" value="Purge Everything" />
 			</div>
 		</div>
 	</div>
 	<div class="row" >
 		<div class="wrapper_bottom" >
 			<i class="material-icons success" >done</i>
-			<i class="material-icons error" >error_outline</i>
+			<i class="material-icons error" >error</i>
+			<i class="material-icons warning" >warning</i>
 			<img class="load" src="<?php echo $this->getSkinUrl ('images/cloudflare/loading.svg') ?>" />
 			<p class="messages" ></p>
 		</div>
 	</div>
 	<div class="lightbox" ></div>
 </section>
+<script>
+
+	$j( document ).on ( "cloudflare.caching.purge_cache.individual", function ( event, data ) {
+		var files = $j( data.section ).find ("#files").eq ( 0 ).val ()
+			.split (/\n|,/)
+			.map ( i => i.trim () )
+			.filter ( i => i !== "" );
+		setMessages ( data.section, "loading", [""] );
+		$j.ajax ({
+			url: data.form.endpoint,
+			type: "POST",
+			data: { "form_key": data.form.key, "files": files },
+			success: function ( response ) {
+				setMessages ( data.section, response.state, response.messages );
+			}
+		});
+	});
+
+	$j( document ).on ( "cloudflare.caching.purge_cache.everything", function ( event, data ) {
+		setMessages ( data.section, "loading", [""] );
+		$j.ajax ({
+			url: data.form.endpoint,
+			type: "POST",
+			data: { "form_key": data.form.key },
+			success: function ( response ) {
+				setMessages ( data.section, response.state, response.messages );
+			}
+		});
+	});
+
+</script>

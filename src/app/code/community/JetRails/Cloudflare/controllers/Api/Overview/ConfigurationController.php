@@ -1,0 +1,3 @@
+<?php
+
+	class JetRails_Cloudflare_Api_Overview_ConfigurationController extends JetRails_Cloudflare_Controller_ApiAction {}

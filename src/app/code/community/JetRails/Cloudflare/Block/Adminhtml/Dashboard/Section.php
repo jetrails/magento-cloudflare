@@ -7,7 +7,8 @@
 		}
 
 		public function getApiEndpoint () {
-			return Mage::getUrl ("cloudflare/api");
+			$caller = explode ( "_section_", strtolower ( get_class ( $this ) ) ) [ 1 ];
+			return Mage::getUrl ("cloudflare/api_$caller");
 		}
 
 	}

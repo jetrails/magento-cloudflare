@@ -1,4 +1,9 @@
-<section class="cloudflare speed auto_minify" >
+<section
+	class="cloudflare speed auto_minify"
+	data-endpoint="<?php echo $this->getApiEndpoint () ?>"
+	data-form-key="<?php echo $this->getFormKey () ?>"
+	data-tab-name="speed"
+	data-section-name="auto_minify" >
 	<div class="row" >
 		<div class="wrapper_left" >
 			<span class="section_title" >Auto Minify</span>
@@ -7,15 +12,18 @@
 		</div>
 		<div class="wrapper_right" >
 			<div>
-				<input id="javascript" name="javascript" type="checkbox" />
-				<label for="javascript" >JavaScript</label>
-				<br/>
-				<input id="css" name="css" type="checkbox" />
-				<label for="css" >CSS</label>
-				<br/>
-				<input id="html" name="html" type="checkbox" />
-				<label for="html" >HTML</label>
-				<br/>
+				<div class="group_wrapper" >
+					<input id="javascript" name="javascript" type="checkbox" />
+					<label for="javascript" >JavaScript</label>
+				</div>
+				<div class="group_wrapper" >
+					<input id="css" name="css" type="checkbox" />
+					<label for="css" >CSS</label>
+				</div>
+				<div class="group_wrapper" >
+					<input id="html" name="html" type="checkbox" />
+					<label for="html" >HTML</label>
+				</div>
 				<input type="button" value="Update Settings" onmouseup="submitForm ('speed-auto_minify')" />
 			</div>
 		</div>
@@ -23,7 +31,8 @@
 	<div class="row" >
 		<div class="wrapper_bottom" >
 			<i class="material-icons success" >done</i>
-			<i class="material-icons error" >error_outline</i>
+			<i class="material-icons error" >error</i>
+			<i class="material-icons warning" >warning</i>
 			<img class="load" src="<?php echo $this->getSkinUrl ('images/cloudflare/loading.svg') ?>" />
 			<p class="messages" ></p>
 		</div>
