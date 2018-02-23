@@ -1,5 +1,5 @@
 <section
-	class="cloudflare overview status"
+	class="cloudflare overview status initialize loading"
 	data-endpoint="<?php echo $this->getApiEndpoint () ?>"
 	data-form-key="<?php echo $this->getFormKey () ?>"
 	data-tab-name="overview"
@@ -11,7 +11,7 @@
 		</div>
 		<div class="wrapper_right" >
 			<div>
-				<input type="button" value="Pause" onmouseup="submitForm ('overview-status')" />
+				<input class="trigger" data-target="resume" type="button" value="Pause" />
 			</div>
 		</div>
 	</div>

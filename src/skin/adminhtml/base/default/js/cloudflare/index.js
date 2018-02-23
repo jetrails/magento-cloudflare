@@ -2,10 +2,13 @@ const $ = require ("jquery")
 
 const cloudflare = require ("cloudflare/common")
 
+require ("cloudflare/overview/status")
 require ("cloudflare/caching/purge_cache")
 require ("cloudflare/caching/development_mode")
 require ("cloudflare/speed/auto_minify")
+require ("cloudflare/speed/polish")
 require ("cloudflare/speed/rocket_loader")
+
 
 
 $( window ).on ( "load", function () {

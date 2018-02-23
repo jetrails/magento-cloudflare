@@ -1,5 +1,5 @@
 <section
-	class="cloudflare speed polish"
+	class="cloudflare speed polish initialize loading"
 	data-endpoint="<?php echo $this->getApiEndpoint () ?>"
 	data-form-key="<?php echo $this->getFormKey () ?>"
 	data-tab-name="speed"
@@ -12,16 +12,18 @@
 		</div>
 		<div class="wrapper_right" >
 			<div>
-				<select>
-					<option>Off</option>
-					<option>Lossless</option>
-					<option>Lossy</option>
-				</select>
+				<div class="group_wrapper" >
+					<select class="selection" >
+						<option value="off" >Off</option>
+						<option value="lossless" >Lossless</option>
+						<option value="lossy">Lossy</option>
+					</select>
+				</div>
 				<div class="group_wrapper" >
 					<input id="webp" value="webp" type="checkbox" />
 					<label for="webp" >WebP</label>
 				</div>
-				<input type="button" value="Update Settings" onmouseup="submitForm ('speed-polish')" />
+				<input class="trigger" data-target="change" type="button" value="Update Settings" />
 			</div>
 		</div>
 	</div>

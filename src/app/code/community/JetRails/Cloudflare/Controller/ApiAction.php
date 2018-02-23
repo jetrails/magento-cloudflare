@@ -27,7 +27,7 @@
 				->setBody ( Mage::helper ("core")->jsonEncode ( $response ) );
 		}
 
-		protected function _formatAndSend ( $response ) {
+		protected function _format ( $response ) {
 			$formatted = array ();
 			$formatted [ "state" ] = $response->success ? "response_success" : "response_warning";
 			$formatted [ "messages" ] = $response->success ? $response->messages : array_map (
@@ -36,6 +36,18 @@
 			);
 			if ( count ( $response->messages ) == 0 && $response->success ) $formatted [ "messages" ] = [ "Success" ];
 			$formatted [ "payload" ] = $response->result;
+			return $formatted;
+		}
+
+		protected function _formatAndSend ( $response ) {
+			$formatted = null;
+			if ( is_array ( $response ) ) {
+				$callback = $this->_format;
+				$formatted = array_map ( function ( $i ) use ( $callback ) { return $this->_format ( $i ); }, $response );
+			}
+			else {
+				$formatted = $this->_format ( $response );
+			}
 			$this->_sendResponse ( $formatted );
 		}
 

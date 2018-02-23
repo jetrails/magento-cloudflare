@@ -23,7 +23,7 @@ function loadSections () {
 				console.log ( "Triggered: " + event.target.name );
 			},
 			error: function () {
-				setMessages ( section, "response_error", ["Error : Could not load initial values"] );
+				setMessages ( section, "response_warning", ["Error: Could not load initial values"] );
 			}
 		});
 	});
