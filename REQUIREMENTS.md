@@ -10,10 +10,10 @@
 	- Lossless
 	- Lossy
 - Enable Rocketloader
-
+- Pause site
 
 - Change DNS records
-- Pause site
+
 - Page Rules
 	- Create
 	- Enable/Disable

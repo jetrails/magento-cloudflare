@@ -38,24 +38,3 @@
 	</div>
 	<div class="lightbox" ></div>
 </section>
-<script>
-
-	$j( document ).on ( "cloudflare.speed.rocket_loader.initialize", function ( event, data ) {
-		var label = data.response.payload.value;
-		$j( data.section ).find ("input[name='value'][value='" + label + "']").prop ( "checked", true );
-	});
-
-	$j( document ).on ( "cloudflare.speed.rocket_loader.change", function ( event, data ) {
-		var newValue = $j( data.section ).find ("input[name='value']:checked").val ();
-		setMessages ( data.section, "loading", [""] );
-		$j.ajax ({
-			url: data.form.endpoint,
-			type: "POST",
-			data: { "form_key": data.form.key, "value": newValue },
-			success: function ( response ) {
-				setMessages ( data.section, response.state, response.messages );
-			}
-		});
-	});
-
-</script>

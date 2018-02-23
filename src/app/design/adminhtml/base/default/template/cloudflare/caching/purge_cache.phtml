@@ -31,32 +31,32 @@
 </section>
 <script>
 
-	$j( document ).on ( "cloudflare.caching.purge_cache.individual", function ( event, data ) {
-		var files = $j( data.section ).find ("#files").eq ( 0 ).val ()
-			.split (/\n|,/)
-			.map ( i => i.trim () )
-			.filter ( i => i !== "" );
-		setMessages ( data.section, "loading", [""] );
-		$j.ajax ({
-			url: data.form.endpoint,
-			type: "POST",
-			data: { "form_key": data.form.key, "files": files },
-			success: function ( response ) {
-				setMessages ( data.section, response.state, response.messages );
-			}
-		});
-	});
-
-	$j( document ).on ( "cloudflare.caching.purge_cache.everything", function ( event, data ) {
-		setMessages ( data.section, "loading", [""] );
-		$j.ajax ({
-			url: data.form.endpoint,
-			type: "POST",
-			data: { "form_key": data.form.key },
-			success: function ( response ) {
-				setMessages ( data.section, response.state, response.messages );
-			}
-		});
-	});
+	// $j( document ).on ( "cloudflare.caching.purge_cache.individual", function ( event, data ) {
+	// 	var files = $j( data.section ).find ("#files").eq ( 0 ).val ()
+	// 		.split (/\n|,/)
+	// 		.map ( i => i.trim () )
+	// 		.filter ( i => i !== "" );
+	// 	setMessages ( data.section, "loading", [""] );
+	// 	$j.ajax ({
+	// 		url: data.form.endpoint,
+	// 		type: "POST",
+	// 		data: { "form_key": data.form.key, "files": files },
+	// 		success: function ( response ) {
+	// 			setMessages ( data.section, response.state, response.messages );
+	// 		}
+	// 	});
+	// });
+	//
+	// $j( document ).on ( "cloudflare.caching.purge_cache.everything", function ( event, data ) {
+	// 	setMessages ( data.section, "loading", [""] );
+	// 	$j.ajax ({
+	// 		url: data.form.endpoint,
+	// 		type: "POST",
+	// 		data: { "form_key": data.form.key },
+	// 		success: function ( response ) {
+	// 			setMessages ( data.section, response.state, response.messages );
+	// 		}
+	// 	});
+	// });
 
 </script>
