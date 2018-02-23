@@ -19,6 +19,7 @@ const SOURCE_PATH = path.join ( __dirname, SOURCE_DIR )
 const BUILD_PATH = path.join ( __dirname, BUILD_DIR )
 const STAGING_PATH = path.join ( __dirname, STAGING_DIR )
 const MAGENTO_SKIN_CSS = path.join ( "skin", "adminhtml", "base", "default", "css" )
+const MAGENTO_SKIN_SCSS = path.join ( "skin", "adminhtml", "base", "default", "scss" )
 const MAGENTO_SKIN_JS = path.join ( "skin", "adminhtml", "base", "default", "js" )
 
 gulp.task ( "default", [ "build-styles", "build-scripts" ] );
@@ -32,8 +33,8 @@ gulp.task ( "init", [], ( callback ) => {
 })
 
 gulp.task ( "build-styles", [ "init" ], ( callback ) => {
-	gulp.src ( path.join ( SOURCE_PATH, "**", "*.scss" ) )
-		.pipe ( sass () )
+	gulp.src ( path.join ( SOURCE_PATH, MAGENTO_SKIN_SCSS, MODULE_SHORT_NAME, "index.scss" ) )
+		.pipe ( sass ({ includePaths: path.join ( SOURCE_PATH, MAGENTO_SKIN_SCSS ) }) )
 		.pipe ( minify () )
 		.pipe ( concat ("bundle.min.css") )
 		.pipe ( gulp.dest ( path.join ( BUILD_PATH, MAGENTO_SKIN_CSS, MODULE_SHORT_NAME ) ) )
