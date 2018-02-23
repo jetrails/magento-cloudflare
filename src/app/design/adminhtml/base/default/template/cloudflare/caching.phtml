@@ -1,3 +1,5 @@
+<h1 class="tab-content" >Caching</h1>
+<h2 class="tab-content" >Manage caching settings for your website.</h2>
 <?php
 
 	echo $this->getLayout ()
@@ -7,3 +9,4 @@
 	echo $this->getLayout ()
 		->createBlock ("cloudflare/dashboard_section_caching_developmentmode")
 		->setTemplate ("cloudflare/caching/development_mode.phtml")->toHtml ();
+?>

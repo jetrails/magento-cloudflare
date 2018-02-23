@@ -1,3 +1,22 @@
+h1.tab-content {
+	font-family: "Open Sans", Helvetica, Arial, sans-serif;
+	font-weight: 400;
+	color: $color-text_gray_dark;
+	margin-bottom: 0;
+	font-size: 28px;
+	max-width: 960px;
+	margin: 30px auto 0;
+}
+
+h2.tab-content {
+	font-family: "Open Sans", Helvetica, Arial, sans-serif;
+	font-weight: 100;
+	color: $color-text_gray_light;
+	font-size: 22px;
+	max-width: 960px;
+	margin: 0 auto 0;
+}
+
 section.cloudflare {
 	font-family: "Open Sans", Helvetica, Arial, sans-serif;
 	font-size: 15px;
@@ -11,6 +30,12 @@ section.cloudflare {
 	max-width: 960px;
 	display: block;
 	position: relative;
+	transition: all 1s;
+	box-shadow: 0;
+}
+
+section.cloudflare.loading {
+ 	box-shadow: 0 19px 38px rgba(0,0,0,0.30), 0 15px 12px rgba(0,0,0,0.22);
 }
 
 section.cloudflare.loading > div.lightbox {
@@ -20,7 +45,7 @@ section.cloudflare.loading > div.lightbox {
 	left: 0;
 	height: 100%;
 	width: 100%;
-	background: rgba( 0, 0, 0, 0.1 );
+	background: rgba( 0, 0, 0, 0.05 );
 	cursor: not-allowed;
 }
 
@@ -237,6 +262,11 @@ section.cloudflare .group_wrapper {
 	width: 100%;
 	margin: 10px auto;
     max-width: 110px;
+}
+
+section.cloudflare .group_wrapper label {
+	font-weight: 100;
+    font-size: 0.9em;
 }
 
 section.cloudflare .group_wrapper input[type="radio"],

@@ -1,7 +1,9 @@
 ul.tabs {
+	border: none;
+    border-top: solid 1px $color-border_gray;
 	a, a:hover {
 		transition: all 200ms;
-		background: #E6E6E6 !important;
+		background: $color-white !important;
 		padding-top: 4px;
 		span {
 			display: inline-block;
@@ -34,11 +36,12 @@ ul.tabs {
 		padding: 0 0.5em 0 1.5em;
 	}
 	.active, .active:hover {
+		padding-top: 4px !important;
+		background: $color-fill_gray_dark !important;
+		border-bottom: 0 !important;
 		span {
 			background: none !important;
 		}
-		background: #FFFFFF !important;
-		border-bottom: 0 !important;
 		.cloudflare_tab_icon {
 			background: #1F4E78;
 		}

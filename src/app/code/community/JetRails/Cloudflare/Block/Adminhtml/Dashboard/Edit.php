@@ -29,10 +29,9 @@
 		 */
 		public function getHeaderText () {
 			// Simply return the header text for the form
-			$format = Mage::helper ("cloudflare")->__("Cloudflare (%s)");
 			$data = Mage::helper ("cloudflare/data");
 			$domain = $data->getDomainName ();
-			return sprintf ( $format, $domain );
+			return $domain;
 		}
 
 	}

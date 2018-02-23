@@ -1,7 +1,8 @@
 .cloudflare_logo {
 	width: 60%;
     margin-left: 20%;
-	margin-top: 30px;
+	margin-top: 15px;
+    margin-bottom: 15px;
 }
 
 .cloudflare_logo + span {
@@ -10,4 +11,9 @@
     text-align: center;
     font-weight: 100;
     margin-top: 20px;
+}
+
+.side-col > h3 {
+	background: $color-fill_gray_light;
+	margin-bottom: 0;
 }

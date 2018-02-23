@@ -1,3 +1,4 @@
+<h1 class="tab-content" >Overview</h1>
 <?php
 
 	echo $this->getLayout ()
@@ -9,6 +10,3 @@
 		->setTemplate ("cloudflare/overview/status.phtml")->toHtml ();
 
 ?>
-<div class="cloudflare overview debug" >
-	<b>Api Call Count:</b> <?php echo Mage::getSingleton ("core/session")->getApiCallCount () ?>
-</div>

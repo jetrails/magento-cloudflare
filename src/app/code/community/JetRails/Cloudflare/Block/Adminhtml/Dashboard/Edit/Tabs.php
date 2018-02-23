@@ -6,13 +6,13 @@
 	        parent::__construct ();
 	        $this->setId ("cloudflare_dashboard");
 	        $this->setDestElementId ("edit_form");
-	        $this->setTitle ("<img class='cloudflare_logo'  src='" . $this->getSkinUrl ('images/cloudflare/cloudflare.svg') . "' /><span>Cloudflare is a registered trademark of Cloudflare, Inc.</span>");
+	        $this->setTitle ("<img class='cloudflare_logo'  src='" . $this->getSkinUrl ('images/cloudflare/cloudflare.svg') . "' />");
 	    }
 
 		protected function _createTabIcon ( $type ) {
 			$label = $type;
 			$icon = strtolower ( str_replace ( " ", " ", $type ) );
-			return "<img class='cloudflare_tab_icon' src='" . $this->getSkinUrl ("images/cloudflare/icons/$icon.svg") . "' /><span class='cloudflare_tab_label' >$label</span>";
+			return "<img class='cloudflare_tab_icon' src='" . $this->getSkinUrl ("images/cloudflare/icons/tab/$icon.svg") . "' /><span class='cloudflare_tab_label' >$label</span>";
 		}
 
 		protected function _beforeToHtml () {
