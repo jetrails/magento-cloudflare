@@ -1,19 +1,31 @@
 const $ = require ("jquery");
+const cloudflare = require ("cloudflare/common");
 
 $( document ).on ( "cloudflare.speed.auto_minify.initialize", function ( event, data ) {
-	// var label = data.response.payload.value;
-	// $( data.section ).find ("input[name='value'][value='" + label + "']").prop ( "checked", true );
+	var jsState = data.response.payload.value.js === "on";
+	var cssState = data.response.payload.value.css === "on";
+	var htmlState = data.response.payload.value.html === "on";
+	$( data.section ).find ("input[value='javascript']").prop ( "checked", jsState );
+	$( data.section ).find ("input[value='css']").prop ( "checked", cssState );
+	$( data.section ).find ("input[value='html']").prop ( "checked", htmlState );
 });
 
 $( document ).on ( "cloudflare.speed.auto_minify.change", function ( event, data ) {
-	// var newValue = $( data.section ).find ("input[name='value']:checked").val ();
-	// setMessages ( data.section, "loading", [""] );
-	// $.ajax ({
-	// 	url: data.form.endpoint,
-	// 	type: "POST",
-	// 	data: { "form_key": data.form.key, "value": newValue },
-	// 	success: function ( response ) {
-	// 		setMessages ( data.section, response.state, response.messages );
-	// 	}
-	// });
+	var jsVal = $( data.section ).find ("input[value='javascript']").prop ("checked");
+	var cssVal = $( data.section ).find ("input[value='css']").prop ("checked");
+	var htmlVal = $( data.section ).find ("input[value='html']").prop ("checked");
+
+	console.log ( jsVal );
+	console.log ( cssVal );
+	console.log ( htmlVal );
+
+	cloudflare.setMessages ( data.section, "loading", [""] );
+	$.ajax ({
+		url: data.form.endpoint,
+		type: "POST",
+		data: { "form_key": data.form.key, "js": jsVal, "css": cssVal, "html": htmlVal },
+		success: function ( response ) {
+			cloudflare.setMessages ( data.section, response.state, response.messages );
+		}
+	});
 });
