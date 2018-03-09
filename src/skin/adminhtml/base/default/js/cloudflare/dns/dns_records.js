@@ -4,7 +4,6 @@ const notification = require ("cloudflare/core/notification")
 
 $( document ).on ( "cloudflare.dns.dns_records.initialize", function ( event, data ) {
 	const imageBase = $( data.section ).find ("table").data ("image-base");
-	console.log ( imageBase );
 	$( data.section ).find ("table tr:not(:first)").remove ();
 	data.response.payload.map ( entry => {
 		var row = $("<tr>");
@@ -37,7 +36,6 @@ $( document ).on ( "cloudflare.dns.dns_records.initialize", function ( event, da
 		)
 		$( data.section ).find ("table").append ( row );
 	});
-	console.log ( data );
 });
 
 $( document ).on ( "cloudflare.dns.dns_records.delete", function ( event, data ) {

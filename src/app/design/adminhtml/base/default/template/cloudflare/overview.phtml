@@ -1,12 +1,37 @@
 <h1 class="tab-content" >Overview</h1>
 <?php
 
-	echo $this->getLayout ()
-		->createBlock ("cloudflare/dashboard_section_overview_configuration")
-		->setTemplate ("cloudflare/overview/configuration.phtml")->toHtml ();
+	if ( Mage::getSingleton ("admin/session")->isAllowed ("jetrails/cloudflare/overview") ) {
 
-	echo $this->getLayout ()
-		->createBlock ("cloudflare/dashboard_section_overview_status")
-		->setTemplate ("cloudflare/overview/status.phtml")->toHtml ();
+		$counter = 0;
+
+		if ( Mage::getSingleton ("admin/session")->isAllowed ("jetrails/cloudflare/overview/configuration") ) {
+			$counter++;
+			echo $this->getLayout ()
+				->createBlock ("cloudflare/dashboard_section_overview_configuration")
+				->setTemplate ("cloudflare/overview/configuration.phtml")->toHtml ();
+		}
+
+		if ( Mage::getSingleton ("admin/session")->isAllowed ("jetrails/cloudflare/overview/status") ) {
+			$counter++;
+			echo $this->getLayout ()
+				->createBlock ("cloudflare/dashboard_section")
+				->setTemplate ("cloudflare/overview/status.phtml")->toHtml ();
+		}
+
+		if ( $counter === 0 ) {
+			echo $this->getLayout ()
+				->createBlock ("cloudflare/dashboard_section")
+				->setTemplate ("cloudflare/core/empty.phtml")->toHtml ();
+		}
+
+	}
+	else {
+
+		echo $this->getLayout ()
+			->createBlock ("cloudflare/dashboard_section")
+			->setTemplate ("cloudflare/core/restricted.phtml")->toHtml ();
+
+	}
 
 ?>

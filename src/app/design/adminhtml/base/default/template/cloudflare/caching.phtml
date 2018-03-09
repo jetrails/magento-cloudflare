@@ -2,11 +2,38 @@
 <h2 class="tab-content" >Manage caching settings for your website.</h2>
 <?php
 
-	echo $this->getLayout ()
-		->createBlock ("cloudflare/dashboard_section_caching_purgecache")
-		->setTemplate ("cloudflare/caching/purge_cache.phtml")->toHtml ();
+	if ( Mage::getSingleton ("admin/session")->isAllowed ("jetrails/cloudflare/caching") ) {
 
-	echo $this->getLayout ()
-		->createBlock ("cloudflare/dashboard_section_caching_developmentmode")
-		->setTemplate ("cloudflare/caching/development_mode.phtml")->toHtml ();
+		$counter = 0;
+
+		if ( Mage::getSingleton ("admin/session")->isAllowed ("jetrails/cloudflare/caching/purge_cache") ) {
+			$counter++;
+			echo $this->getLayout ()
+				->createBlock ("cloudflare/dashboard_section")
+				->setTemplate ("cloudflare/caching/purge_cache.phtml")->toHtml ();
+		}
+
+		if ( Mage::getSingleton ("admin/session")->isAllowed ("jetrails/cloudflare/caching/development_mode") ) {
+			$counter++;
+			echo $this->getLayout ()
+				->createBlock ("cloudflare/dashboard_section")
+				->setTemplate ("cloudflare/caching/development_mode.phtml")->toHtml ();
+		}
+
+		if ( $counter === 0 ) {
+			echo $this->getLayout ()
+				->createBlock ("cloudflare/dashboard_section")
+				->setTemplate ("cloudflare/core/empty.phtml")->toHtml ();
+		}
+
+	}
+	else {
+
+		echo $this->getLayout ()
+			->createBlock ("cloudflare/dashboard_section")
+		 	->setTemplate ("cloudflare/core/restricted.phtml")->toHtml ();
+
+	}
+
+
 ?>

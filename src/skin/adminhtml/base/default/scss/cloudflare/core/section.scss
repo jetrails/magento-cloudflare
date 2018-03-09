@@ -448,3 +448,29 @@ section.cloudflare {
 		}
 	}
 }
+
+
+section.cloudflare.restricted,
+section.cloudflare.empty {
+	background: none;
+	border: none;
+	.section_title, p {
+		padding: 0 !important;
+	}
+	.cloudflare-font {
+	    vertical-align: -2px;
+	    padding-right: 5px;
+	}
+}
+
+section.cloudflare.restricted {
+	.cloudflare-font {
+	    color: $color-red;
+	}
+}
+
+section.cloudflare.empty {
+	.cloudflare-font {
+	    color: $color-orange;
+	}
+}

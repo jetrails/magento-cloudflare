@@ -2,7 +2,12 @@
 
 	class JetRails_Cloudflare_Api_Caching_PurgeCacheController extends JetRails_Cloudflare_Controller_ApiAction {
 
-		function everythingAction () {
+		protected function _isAllowed () {
+			$session = Mage::getSingleton ("admin/session");
+			return $session->isAllowed ("jetrails/cloudflare/caching/purge_cache");
+		}
+
+		public function everythingAction () {
 			$api = Mage::getModel ("cloudflare/api_caching_purgecache");
 			$response = $api->purgeEverything ();
 			if ( $response->success ) $response->messages = [
@@ -11,7 +16,7 @@
 			return $this->_formatAndSend ( $response );
 		}
 
-		function individualAction () {
+		public function individualAction () {
 			$api = Mage::getModel ("cloudflare/api_caching_purgecache");
 			$response = $api->purgeIndividual ( $this->_request->getParam ("files") );
 			if ( $response->success ) $response->messages = [

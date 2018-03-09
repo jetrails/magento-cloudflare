@@ -2,13 +2,18 @@
 
 	class JetRails_Cloudflare_Api_Speed_AutoMinifyController extends JetRails_Cloudflare_Controller_ApiAction {
 
-		function indexAction () {
+		protected function _isAllowed () {
+			$session = Mage::getSingleton ("admin/session");
+			return $session->isAllowed ("jetrails/cloudflare/speed/auto_minify");
+		}
+
+		public function indexAction () {
 			$api = Mage::getModel ("cloudflare/api_speed_autominify");
 			$response = $api->getValue ();
 			return $this->_formatAndSend ( $response );
 		}
 
-		function changeAction () {
+		public function changeAction () {
 			$api = Mage::getModel ("cloudflare/api_speed_autominify");
 			$response = $api->change (
 				$this->_request->getParam ("js"),

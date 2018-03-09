@@ -1,5 +1,0 @@
-<?php
-
-	class JetRails_Cloudflare_Block_Adminhtml_Dashboard_Section_Caching_PurgeCache extends JetRails_Cloudflare_Block_Adminhtml_Dashboard_Section {
-
-	}

@@ -8,7 +8,6 @@
 		 * @return      boolean                                 Is the user allowed to see page?
 		 */
 		protected function _isAllowed () {
-			// Is user allowed to manage 2FA accounts?
 			$session = Mage::getSingleton ("admin/session");
 			return $session->isAllowed ("jetrails/cloudflare");
 		}

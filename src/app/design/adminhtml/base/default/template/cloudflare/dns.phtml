@@ -2,12 +2,37 @@
 <h2 class="tab-content" >Manage your Domain Name System (DNS) settings.</h2>
 <?php
 
-	echo $this->getLayout ()
-		->createBlock ("cloudflare/dashboard_section_dns_dnsrecords")
-		->setTemplate ("cloudflare/dns/dns_records.phtml")->toHtml ();
+	if ( Mage::getSingleton ("admin/session")->isAllowed ("jetrails/cloudflare/dns") ) {
 
-	echo $this->getLayout ()
-		->createBlock ("cloudflare/dashboard_section_dns_cloudflarenameservers")
-		->setTemplate ("cloudflare/dns/cloudflare_nameservers.phtml")->toHtml ();
+		$counter = 0;
+
+		if ( Mage::getSingleton ("admin/session")->isAllowed ("jetrails/cloudflare/dns/dns_records") ) {
+			$counter++;
+			echo $this->getLayout ()
+				->createBlock ("cloudflare/dashboard_section")
+				->setTemplate ("cloudflare/dns/dns_records.phtml")->toHtml ();
+		}
+
+		if ( Mage::getSingleton ("admin/session")->isAllowed ("jetrails/cloudflare/dns/cloudflare_nameservers") ) {
+			$counter++;
+			echo $this->getLayout ()
+				->createBlock ("cloudflare/dashboard_section")
+				->setTemplate ("cloudflare/dns/cloudflare_nameservers.phtml")->toHtml ();
+		}
+
+		if ( $counter === 0 ) {
+			echo $this->getLayout ()
+				->createBlock ("cloudflare/dashboard_section")
+				->setTemplate ("cloudflare/core/empty.phtml")->toHtml ();
+		}
+
+	}
+	else {
+
+		echo $this->getLayout ()
+			->createBlock ("cloudflare/dashboard_section")
+			->setTemplate ("cloudflare/core/restricted.phtml")->toHtml ();
+
+	}
 
 ?>

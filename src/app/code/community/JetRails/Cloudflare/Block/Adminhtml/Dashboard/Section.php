@@ -7,8 +7,18 @@
 		}
 
 		public function getApiEndpoint () {
-			$caller = explode ( "_section_", strtolower ( get_class ( $this ) ) ) [ 1 ];
-			return Mage::getUrl ("cloudflare/api_$caller");
+			$route = $this->getTemplate ();
+			$route = preg_replace ( "/^cloudflare\/|\.phtml$/", "", $route );
+			$route = explode ( "/", $route );
+			$route = array_map ( function ( $i ) {
+				$i = explode ( "_", $i );
+				$i = array_map ( "ucfirst", $i );
+				$i [ 0 ] = strtolower ( $i [ 0 ] );
+				$i = implode ( "", $i );
+				return $i;
+			}, $route );
+			$route = implode ( "_", $route );
+			return Mage::getUrl ("cloudflare/api_$route");
 		}
 
 	}

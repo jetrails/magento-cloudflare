@@ -12,6 +12,78 @@
 							<cloudflare translate="title" module="cloudflare" >
 								<title>Cloudflare</title>
 								<sort_order>100</sort_order>
+								<children>
+									<overview translate="title" module="cloudflare" >
+										<title>Overview</title>
+										<sort_order>100</sort_order>
+										<children>
+											<configuration translate="title" module="cloudflare" >
+												<title>Configuration</title>
+												<sort_order>100</sort_order>
+											</configuration>
+											<status translate="title" module="cloudflare" >
+												<title>Status</title>
+												<sort_order>200</sort_order>
+											</status>
+										</children>
+									</overview>
+									<caching translate="title" module="cloudflare" >
+										<title>Caching</title>
+										<sort_order>200</sort_order>
+										<children>
+											<purge_cache translate="title" module="cloudflare" >
+												<title>Purge Cache</title>
+												<sort_order>100</sort_order>
+											</purge_cache>
+											<development_mode translate="title" module="cloudflare" >
+												<title>Development Mode</title>
+												<sort_order>200</sort_order>
+											</development_mode>
+										</children>
+									</caching>
+									<dns translate="title" module="cloudflare" >
+										<title>DNS</title>
+										<sort_order>300</sort_order>
+										<children>
+											<dns_records translate="title" module="cloudflare" >
+												<title>DNS Records</title>
+												<sort_order>100</sort_order>
+											</dns_records>
+											<cloudflare_nameservers translate="title" module="cloudflare" >
+												<title>Cloudflare Nameservers</title>
+												<sort_order>200</sort_order>
+											</cloudflare_nameservers>
+										</children>
+									</dns>
+									<page_rules translate="title" module="cloudflare" >
+										<title>Page Rules</title>
+										<sort_order>400</sort_order>
+										<children>
+											<page_rules translate="title" module="cloudflare" >
+												<title>Page Rules</title>
+												<sort_order>100</sort_order>
+											</page_rules>
+										</children>
+									</page_rules>
+									<speed translate="title" module="cloudflare" >
+										<title>Speed</title>
+										<sort_order>500</sort_order>
+										<children>
+											<auto_minify translate="title" module="cloudflare" >
+												<title>Auto Minify</title>
+												<sort_order>100</sort_order>
+											</auto_minify>
+											<polish translate="title" module="cloudflare" >
+												<title>Polish</title>
+												<sort_order>200</sort_order>
+											</polish>
+											<rocket_loader translate="title" module="cloudflare" >
+												<title>Rocket Loader</title>
+												<sort_order>300</sort_order>
+											</rocket_loader>
+										</children>
+									</speed>
+								</children>
 							</cloudflare>
 						</children>
 					</jetrails>
