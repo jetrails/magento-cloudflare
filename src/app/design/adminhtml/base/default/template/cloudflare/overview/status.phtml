@@ -15,14 +15,14 @@
 			</div>
 		</div>
 	</div>
-	<div class="row" >
+	<div class="row collapsable" >
 		<div class="wrapper_bottom" >
-			<i class="material-icons success" >done</i>
-			<i class="material-icons error" >error</i>
-			<i class="material-icons warning" >warning</i>
-			<img class="load" src="<?php echo $this->getSkinUrl ('images/cloudflare/loading.svg') ?>" />
-			<p class="messages" ></p>
+			<a data-tab="help" >Help</a>
 		</div>
+		<div data-tab-content="help" >Content for help</div>
 	</div>
-	<div class="lightbox" ></div>
+	<div
+		class="lightbox"
+		style="background-image: url(<?php echo $this->getSkinUrl ('images/cloudflare/loading.svg') ?>)" >
+	</div>
 </section>

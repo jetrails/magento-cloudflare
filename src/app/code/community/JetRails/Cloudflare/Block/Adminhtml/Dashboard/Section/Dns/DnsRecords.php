@@ -1,0 +1,5 @@
+<?php
+
+	class JetRails_Cloudflare_Block_Adminhtml_Dashboard_Section_Dns_DnsRecords extends JetRails_Cloudflare_Block_Adminhtml_Dashboard_Section {
+
+	}

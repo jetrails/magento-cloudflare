@@ -17,40 +17,21 @@
 					<span class="slider trigger" data-target="toggle" ></span>
 				</label>
 			</div>
+			<div class="lightbox" style="background-image: url(<?php echo $this->getSkinUrl ('images/cloudflare/loading.svg') ?>)" > </div>
 		</div>
 	</div>
-	<div class="row" >
+	<div class="row collapsable" >
 		<div class="wrapper_bottom" >
-			<i class="material-icons success" >done</i>
-			<i class="material-icons error" >error</i>
-			<i class="material-icons warning" >warning</i>
-			<img class="load" src="<?php echo $this->getSkinUrl ('images/cloudflare/loading.svg') ?>" />
-			<p class="messages" ></p>
+			<a data-tab="help" >Help</a>
+		</div>
+		<div data-tab-content="help" >
+			<h4>What does Development Mode do?</h4>
+			<p>When Development Mode is on, all requests will be passed to the origin server. This allows requests for your website to temporarily bypass our cache so you can verify changes made to cached content.</p>
+			<p>This is useful if you need to see changes immediately. Once enabled, Development Mode lasts for three hours and then automatically turns off.</p>
+			<p><strong>Note:</strong> Unless you are making major changes to your website, we recommend using the Purge Individual Files option instead of turning on Development Mode. This is because Development Mode will cause all requests to go to your origin server, and increased requests to your origin server will temporarily raise your bandwidth and CPU usage.</p>
+			<br>
+			<h5>Additional Resources</h5>
+			<a href="https://support.cloudflare.com/hc/en-us/articles/200168246-What-does-Cloudflare-Development-mode-mean">What does Cloudflare Development mode mean?</a>
 		</div>
 	</div>
-	<div class="lightbox" ></div>
 </section>
-<script>
-
-	// $j( document ).on ( "cloudflare.caching.development_mode.initialize", function ( event, data ) {
-	// 	var value = data.response.payload.value == "on" ? "true" : "false";
-	// 	$j( data.section ).find ("#state").eq ( 0 ).data ( "state", value );
-	// 	$j( data.section ).find ("#state").eq ( 0 ).attr ( "data-state", value );
-	// });
-	//
-	// $j( document ).on ( "cloudflare.caching.development_mode.toggle", function ( event, data ) {
-	// 	var state = $j( data.section ).find ("#state").eq ( 0 ).data ("state") == "true";
-	// 	$j( data.section ).find ("#state").eq ( 0 ).data ( "state", !state + "" );
-	// 	$j( data.section ).find ("#state").eq ( 0 ).attr ( "data-state", !state + "" );
-	// 	setMessages ( data.section, "loading", [""] );
-	// 	$j.ajax ({
-	// 		url: data.form.endpoint,
-	// 		type: "POST",
-	// 		data: { "form_key": data.form.key, "state": !state },
-	// 		success: function ( response ) {
-	// 			setMessages ( data.section, response.state, response.messages );
-	// 		}
-	// 	});
-	// });
-
-</script>

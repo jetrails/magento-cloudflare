@@ -1,1 +1,37 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="50" height="48"><g fill="#333"><path d="M21 0h8v12h-8z"><animate attributeName="opacity" begin="-1.7142857142857142s" dur="2s" repeatCount="indefinite" values="1;0"/></path><path d="M41.3 6l5 6.2-9.4 7.5-5-6.3z"><animate attributeName="opacity" begin="-1.4285714285714286s" dur="2s" repeatCount="indefinite" values="1;0"/></path><path d="M49.3 25.4l-1.8 7.8-11.7-2.7 1.8-7.8z"><animate attributeName="opacity" begin="-1.1428571428571428s" dur="2s" repeatCount="indefinite" values="1;0"/></path><path d="M39 44l-7.2 3.4-5.2-10.8 7.2-3.5z"><animate attributeName="opacity" begin="-0.8571428571428571s" dur="2s" repeatCount="indefinite" values="1;0"/></path><path d="M18.2 47.4L11 43.9l5.2-10.8 7.2 3.5z"><animate attributeName="opacity" begin="-0.5714285714285714s" dur="2s" repeatCount="indefinite" values="1;0"/></path><path d="M2.5 33.2L.7 25.4l11.7-2.7 1.8 7.8z"><animate attributeName="opacity" begin="-0.2857142857142857s" dur="2s" repeatCount="indefinite" values="1;0"/></path><path d="M3.8 12.2l5-6.3 9.3 7.5-5 6.3z"><animate attributeName="opacity" begin="0s" dur="2s" repeatCount="indefinite" values="1;0"/></path></g></svg>
+<!-- By Sam Herbert (@sherb), for everyone. More @ http://goo.gl/7AJzbL -->
+<svg width="44" height="44" viewBox="0 0 44 44" xmlns="http://www.w3.org/2000/svg" stroke="#FF7800" >
+    <g fill="none" fill-rule="evenodd" stroke-width="2">
+        <circle cx="22" cy="22" r="1">
+            <animate attributeName="r"
+                begin="0s" dur="1.8s"
+                values="1; 20"
+                calcMode="spline"
+                keyTimes="0; 1"
+                keySplines="0.165, 0.84, 0.44, 1"
+                repeatCount="indefinite" />
+            <animate attributeName="stroke-opacity"
+                begin="0s" dur="1.8s"
+                values="1; 0"
+                calcMode="spline"
+                keyTimes="0; 1"
+                keySplines="0.3, 0.61, 0.355, 1"
+                repeatCount="indefinite" />
+        </circle>
+        <circle cx="22" cy="22" r="1">
+            <animate attributeName="r"
+                begin="-0.9s" dur="1.8s"
+                values="1; 20"
+                calcMode="spline"
+                keyTimes="0; 1"
+                keySplines="0.165, 0.84, 0.44, 1"
+                repeatCount="indefinite" />
+            <animate attributeName="stroke-opacity"
+                begin="-0.9s" dur="1.8s"
+                values="1; 0"
+                calcMode="spline"
+                keyTimes="0; 1"
+                keySplines="0.3, 0.61, 0.355, 1"
+                repeatCount="indefinite" />
+        </circle>
+    </g>
+</svg>

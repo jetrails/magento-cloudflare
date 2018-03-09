@@ -17,3 +17,6 @@
 - Page Rules
 	- Create
 	- Enable/Disable
+
+- Firewall
+- Show cloudflare name servers

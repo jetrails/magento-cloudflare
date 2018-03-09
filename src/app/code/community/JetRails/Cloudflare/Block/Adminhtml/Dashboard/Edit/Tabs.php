@@ -11,7 +11,7 @@
 
 		protected function _createTabIcon ( $type ) {
 			$label = $type;
-			$icon = strtolower ( str_replace ( " ", " ", $type ) );
+			$icon = strtolower ( str_replace ( " ", "_", $type ) );
 			return "<img class='cloudflare_tab_icon' src='" . $this->getSkinUrl ("images/cloudflare/icons/tab/$icon.svg") . "' /><span class='cloudflare_tab_label' >$label</span>";
 		}
 
@@ -31,6 +31,11 @@
 				"label"  	=> $this->_createTabIcon ("DNS"),
 				"title"  	=> $this->__("DNS"),
 				"content"   => $this->getLayout ()->createBlock ("cloudflare/dashboard_edit_tab_dns")->toHtml (),
+			))
+			->addTab ( "pagerules", array (
+				"label"  	=> $this->_createTabIcon ("Page Rules"),
+				"title"  	=> $this->__("Page Rules"),
+				"content"   => $this->getLayout ()->createBlock ("cloudflare/dashboard_edit_tab_pagerules")->toHtml (),
 			))
 			->addTab ( "speed", array (
 				"label"  	=> $this->_createTabIcon ("Speed"),

@@ -1,0 +1,13 @@
+<h1 class="tab-content" >DNS</h1>
+<h2 class="tab-content" >Manage your Domain Name System (DNS) settings.</h2>
+<?php
+
+	echo $this->getLayout ()
+		->createBlock ("cloudflare/dashboard_section_dns_dnsrecords")
+		->setTemplate ("cloudflare/dns/dns_records.phtml")->toHtml ();
+
+	echo $this->getLayout ()
+		->createBlock ("cloudflare/dashboard_section_dns_cloudflarenameservers")
+		->setTemplate ("cloudflare/dns/cloudflare_nameservers.phtml")->toHtml ();
+
+?>

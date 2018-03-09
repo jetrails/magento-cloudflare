@@ -1,5 +1,6 @@
 const $ = require ("jquery")
 const cloudflare = require ("cloudflare/common");
+const notification = require ("cloudflare/core/notification")
 
 $( document ).on ( "cloudflare.speed.polish.initialize", function ( event, data ) {
 	var value = data.response.state.value;
@@ -8,7 +9,7 @@ $( document ).on ( "cloudflare.speed.polish.initialize", function ( event, data 
 	$( data.section ).find (".selection").val ( value );
 	if ( !data.response.state.editable || !data.response.webp.editable ) {
 		var button = "<a href='https://www.cloudflare.com/plans/' target='_blank' ><input type='button' value='Upgrade to Pro' /></a>"
-		$( data.section ).find (".wrapper_right > div").html ( button );
+		$( data.section ).find (".wrapper_right > div").eq ( 0 ).html ( button );
 	}
 });
 

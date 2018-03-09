@@ -27,7 +27,7 @@
 			$api = Mage::getSingleton ("cloudflare/api_overview_configuration");
 			$validAuthentication = $api->validateAuth ();
 			$zoneId = $api->getZoneId ();
-			if ( $validAuthentication && $zoneId !== false ) {
+			if ( $validAuthentication && !empty ( $zoneId ) ) {
 				$this->_addContent ( $this->getLayout ()->createBlock ("cloudflare/dashboard_edit") )
 					 ->_addLeft ( $this->getLayout ()->createBlock ("cloudflare/dashboard_edit_tabs") );
 			}
@@ -55,7 +55,6 @@
 		}
 
 		public function saveAction () {
-
 			$api = Mage::getSingleton ("cloudflare/api_overview_configuration");
 			$data = Mage::helper ("cloudflare/data");
 

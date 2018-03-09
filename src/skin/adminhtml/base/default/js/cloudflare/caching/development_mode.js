@@ -1,6 +1,6 @@
 const $ = require ("jquery")
 const cloudflare = require ("cloudflare/common")
-
+const notification = require ("cloudflare/core/notification")
 
 $( document ).on ( "cloudflare.caching.development_mode.initialize", function ( event, data ) {
 	var value = data.response.payload.value == "on" ? "true" : "false";
@@ -19,6 +19,7 @@ $( document ).on ( "cloudflare.caching.development_mode.toggle", function ( even
 		data: { "form_key": data.form.key, "state": !state },
 		success: function ( response ) {
 			cloudflare.setMessages ( data.section, response.state, response.messages );
+			notification.addMessages ( response.state, response.messages );
 		}
 	});
 });

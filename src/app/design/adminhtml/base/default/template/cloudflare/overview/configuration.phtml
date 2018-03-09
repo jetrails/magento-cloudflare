@@ -32,16 +32,11 @@
 	</div>
 	<div class="row" >
 		<div class="wrapper_bottom" >
-			<i class="material-icons success" >done</i>
-			<i class="material-icons error" >error</i>
-			<i class="material-icons warning" >warning</i>
-			<img class="load" src="<?php echo $this->getSkinUrl ('images/cloudflare/loading.svg') ?>" />
-			<p class="messages" >
-				<?php foreach ( $this->messages as $message ): ?>
-					<span class="message" ><?php echo $message ?></span>
-				<?php endforeach ?>
-			</p>
+			Hello
 		</div>
 	</div>
-	<div class="lightbox" ></div>
+	<div
+		class="lightbox"
+		style="background-image: url(<?php echo $this->getSkinUrl ('images/cloudflare/loading.svg') ?>)" >
+	</div>
 </section>

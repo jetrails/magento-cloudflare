@@ -1,5 +1,6 @@
 const $ = require ("jquery");
 const cloudflare = require ("cloudflare/common");
+const notification = require ("cloudflare/core/notification")
 
 $( document ).on ( "cloudflare.speed.auto_minify.initialize", function ( event, data ) {
 	var jsState = data.response.payload.value.js === "on";
@@ -15,17 +16,15 @@ $( document ).on ( "cloudflare.speed.auto_minify.change", function ( event, data
 	var cssVal = $( data.section ).find ("input[value='css']").prop ("checked");
 	var htmlVal = $( data.section ).find ("input[value='html']").prop ("checked");
 
-	console.log ( jsVal );
-	console.log ( cssVal );
-	console.log ( htmlVal );
-
 	cloudflare.setMessages ( data.section, "loading", [""] );
+
 	$.ajax ({
 		url: data.form.endpoint,
 		type: "POST",
 		data: { "form_key": data.form.key, "js": jsVal, "css": cssVal, "html": htmlVal },
 		success: function ( response ) {
 			cloudflare.setMessages ( data.section, response.state, response.messages );
+			notification.addMessages ( response.state, response.messages );
 		}
 	});
 });

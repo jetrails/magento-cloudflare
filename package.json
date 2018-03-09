@@ -21,6 +21,7 @@
 		"webpack-stream": "^4.0.2"
 	},
 	"dependencies": {
+		"gulp-eslint": "^4.0.2",
 		"jquery": "^3.2.1"
 	}
 }
