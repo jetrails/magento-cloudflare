@@ -8,13 +8,7 @@
 			$this->_request = $this->getRequest ();
 		}
 
-		/**
-		 * This method simply asks Magento's ACL if the logged in user is allowed to see the
-		 * configure page that belongs to this module.
-		 * @return      boolean                                 Is the user allowed to see page?
-		 */
 		protected function _isAllowed () {
-			// Is user allowed to manage 2FA accounts?
 			$session = Mage::getSingleton ("admin/session");
 			return $session->isAllowed ("jetrails/cloudflare");
 		}

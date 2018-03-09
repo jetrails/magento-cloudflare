@@ -57,6 +57,10 @@ section.cloudflare {
 				    width: 30px;
 					cursor: pointer;
 					transition: all 200ms;
+					text-align: center;
+					font-size: 1em;
+				    padding-top: 7px;
+				    box-sizing: border-box;
 					&:hover {
 						background: #CCC;
 					}

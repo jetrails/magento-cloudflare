@@ -31,7 +31,7 @@ $( document ).on ( "cloudflare.dns.dns_records.initialize", function ( event, da
 			.html ( $("<div class='trigger delete_entry cloudflare-font' >")
 				.data ( "target", "delete" )
 				.data ( "id", entry.id )
-				.html ("&#xF00A;")
+				.html ("&#xF01A;")
 			)
 		)
 		$( data.section ).find ("table").append ( row );
