@@ -1,10 +1,14 @@
-@import "cloudflare/variables.scss";
-@import "cloudflare/common.scss";
-
+@import "//fonts.googleapis.com/icon?family=Material+Icons";
+@import "//fonts.googleapis.com/css?family=Open+Sans";
 @font-face {
 	font-family: "cloudflare-font";
 	src: url("./fonts/cloudflare-font.woff") format("woff")
 }
+
+@import "cloudflare/variables.scss";
+@import "cloudflare/common.scss";
+
+
 
 @import "cloudflare/core/notification.scss";
 @import "cloudflare/core/modal.scss";
