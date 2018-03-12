@@ -20,27 +20,42 @@
 			->addTab ( "overview", array (
 				"label"  	=> $this->_createTabIcon ("Overview"),
 				"title"  	=> $this->__("Overview"),
-				"content"   => $this->getLayout ()->createBlock ("cloudflare/dashboard_edit_tab_overview")->toHtml (),
+				"content"   => $this->getLayout ()
+									->createBlock ("adminhtml/widget_form")
+									->setTemplate ("cloudflare/overview.phtml")
+									->toHtml (),
 			))
 			->addTab ( "caching", array (
 				"label"  	=> $this->_createTabIcon ("Caching"),
 				"title"  	=> $this->__("Caching"),
-				"content"   => $this->getLayout ()->createBlock ("cloudflare/dashboard_edit_tab_caching")->toHtml (),
+				"content"   => $this->getLayout ()
+									->createBlock ("adminhtml/widget_form")
+									->setTemplate ("cloudflare/caching.phtml")
+									->toHtml (),
 			))
 			->addTab ( "dns", array (
 				"label"  	=> $this->_createTabIcon ("DNS"),
 				"title"  	=> $this->__("DNS"),
-				"content"   => $this->getLayout ()->createBlock ("cloudflare/dashboard_edit_tab_dns")->toHtml (),
+				"content"   => $this->getLayout ()
+									->createBlock ("adminhtml/widget_form")
+									->setTemplate ("cloudflare/dns.phtml")
+									->toHtml (),
 			))
 			->addTab ( "pagerules", array (
 				"label"  	=> $this->_createTabIcon ("Page Rules"),
 				"title"  	=> $this->__("Page Rules"),
-				"content"   => $this->getLayout ()->createBlock ("cloudflare/dashboard_edit_tab_pagerules")->toHtml (),
+				"content"   => $this->getLayout ()
+									->createBlock ("adminhtml/widget_form")
+									->setTemplate ("cloudflare/page_rules.phtml")
+									->toHtml (),
 			))
 			->addTab ( "speed", array (
 				"label"  	=> $this->_createTabIcon ("Speed"),
 				"title"  	=> $this->__("Speed"),
-				"content"   => $this->getLayout ()->createBlock ("cloudflare/dashboard_edit_tab_speed")->toHtml (),
+				"content"   => $this->getLayout ()
+									->createBlock ("adminhtml/widget_form")
+									->setTemplate ("cloudflare/speed.phtml")
+									->toHtml (),
 			));
 			return parent::_beforeToHtml ();
 		}

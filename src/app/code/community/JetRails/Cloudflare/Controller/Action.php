@@ -1,6 +1,6 @@
 <?php
 
-	class JetRails_Cloudflare_Controller_ApiAction extends Mage_Adminhtml_Controller_Action {
+	class JetRails_Cloudflare_Controller_Action extends Mage_Adminhtml_Controller_Action {
 
 		protected $_request;
 

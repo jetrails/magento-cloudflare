@@ -11,7 +11,8 @@
 		}
 
 		public function getAuthEmail () {
-			return Mage::helper ("cloudflare/data")->getAuthEmail ();
+			$email = Mage::helper ("cloudflare/data")->getAuthEmail ();
+			return empty ( $email ) ? "" : $email;
 		}
 
 		public function getValidationState () {

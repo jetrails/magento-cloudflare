@@ -1,6 +1,6 @@
 <?php
 
-	class JetRails_Cloudflare_Api_Caching_PurgeCacheController extends JetRails_Cloudflare_Controller_ApiAction {
+	class JetRails_Cloudflare_Api_Caching_PurgeCacheController extends JetRails_Cloudflare_Controller_Action {
 
 		protected function _isAllowed () {
 			$session = Mage::getSingleton ("admin/session");
@@ -8,7 +8,7 @@
 		}
 
 		public function everythingAction () {
-			$api = Mage::getModel ("cloudflare/api_caching_purgecache");
+			$api = Mage::getModel ("cloudflare/api_caching_purgeCache");
 			$response = $api->purgeEverything ();
 			if ( $response->success ) $response->messages = [
 				"Successfully purged all assets. Please allow up to 30 seconds for changes to take effect."
@@ -17,7 +17,7 @@
 		}
 
 		public function individualAction () {
-			$api = Mage::getModel ("cloudflare/api_caching_purgecache");
+			$api = Mage::getModel ("cloudflare/api_caching_purgeCache");
 			$response = $api->purgeIndividual ( $this->_request->getParam ("files") );
 			if ( $response->success ) $response->messages = [
 				"Successfully purged all assets. Please allow up to 30 seconds for changes to take effect."

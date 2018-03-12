@@ -1,6 +1,6 @@
 <?php
 
-	class JetRails_Cloudflare_Api_Speed_RocketLoaderController extends JetRails_Cloudflare_Controller_ApiAction {
+	class JetRails_Cloudflare_Api_Speed_RocketLoaderController extends JetRails_Cloudflare_Controller_Action {
 
 		protected function _isAllowed () {
 			$session = Mage::getSingleton ("admin/session");
@@ -8,13 +8,13 @@
 		}
 
 		public function indexAction () {
-			$api = Mage::getModel ("cloudflare/api_speed_rocketloader");
+			$api = Mage::getModel ("cloudflare/api_speed_rocketLoader");
 			$response = $api->getValue ();
 			return $this->_formatAndSend ( $response );
 		}
 
 		public function changeAction () {
-			$api = Mage::getModel ("cloudflare/api_speed_rocketloader");
+			$api = Mage::getModel ("cloudflare/api_speed_rocketLoader");
 			$response = $api->change ( $this->_request->getParam ("value") );
 			return $this->_formatAndSend ( $response );
 		}
