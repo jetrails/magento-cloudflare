@@ -46,8 +46,8 @@
 	<default>
 		<cloudflare>
 			<configuration>
-				<auth_email>Not a valid email</auth_email>
-				<auth_token>Not a valid token</auth_token>
+				<auth_email></auth_email>
+				<auth_token></auth_token>
 			</configuration>
 		</cloudflare>
 	</default>

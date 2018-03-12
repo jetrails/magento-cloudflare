@@ -55,9 +55,19 @@
 											</cloudflare_nameservers>
 										</children>
 									</dns>
+									<firewall translate="title" module="cloudflare" >
+										<title>Firewall</title>
+										<sort_order>400</sort_order>
+										<children>
+											<access_rules translate="title" module="cloudflare" >
+												<title>Access Rules</title>
+												<sort_order>100</sort_order>
+											</access_rules>
+										</children>
+									</firewall>
 									<page_rules translate="title" module="cloudflare" >
 										<title>Page Rules</title>
-										<sort_order>400</sort_order>
+										<sort_order>500</sort_order>
 										<children>
 											<page_rules translate="title" module="cloudflare" >
 												<title>Page Rules</title>
@@ -67,7 +77,7 @@
 									</page_rules>
 									<speed translate="title" module="cloudflare" >
 										<title>Speed</title>
-										<sort_order>500</sort_order>
+										<sort_order>600</sort_order>
 										<children>
 											<auto_minify translate="title" module="cloudflare" >
 												<title>Auto Minify</title>

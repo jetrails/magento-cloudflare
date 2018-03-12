@@ -41,6 +41,14 @@
 									->setTemplate ("cloudflare/dns.phtml")
 									->toHtml (),
 			))
+			->addTab ( "firewall", array (
+				"label"  	=> $this->_createTabIcon ("Firewall"),
+				"title"  	=> $this->__("Firewall"),
+				"content"   => $this->getLayout ()
+									->createBlock ("adminhtml/widget_form")
+									->setTemplate ("cloudflare/firewall.phtml")
+									->toHtml (),
+			))
 			->addTab ( "pagerules", array (
 				"label"  	=> $this->_createTabIcon ("Page Rules"),
 				"title"  	=> $this->__("Page Rules"),

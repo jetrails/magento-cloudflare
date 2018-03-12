@@ -11,6 +11,7 @@ require ("cloudflare/speed/polish")
 require ("cloudflare/speed/rocket_loader")
 require ("cloudflare/dns/dns_records")
 require ("cloudflare/dns/cloudflare_nameservers")
+require ("cloudflare/firewall/access_rules")
 
 $( window ).on ( "load", function () {
 	cloudflare.loadSections ();

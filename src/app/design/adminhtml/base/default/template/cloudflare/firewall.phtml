@@ -1,0 +1,31 @@
+<h1 class="tab-content" >Firewall</h1>
+<h2 class="tab-content" >Manage access by IP, country, or query rules.</h2>
+<?php
+
+	if ( Mage::getSingleton ("admin/session")->isAllowed ("jetrails/cloudflare/firewall") ) {
+
+		$counter = 0;
+
+		if ( Mage::getSingleton ("admin/session")->isAllowed ("jetrails/cloudflare/firewall/access_rules") ) {
+			$counter++;
+			echo $this->getLayout ()
+				->createBlock ("cloudflare/dashboard_section")
+				->setTemplate ("cloudflare/firewall/access_rules.phtml")->toHtml ();
+		}
+
+		if ( $counter === 0 ) {
+			echo $this->getLayout ()
+				->createBlock ("cloudflare/dashboard_section")
+				->setTemplate ("cloudflare/core/empty.phtml")->toHtml ();
+		}
+
+	}
+	else {
+
+		echo $this->getLayout ()
+			->createBlock ("cloudflare/dashboard_section")
+			->setTemplate ("cloudflare/core/restricted.phtml")->toHtml ();
+
+	}
+
+?>

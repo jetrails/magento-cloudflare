@@ -1,0 +1,27 @@
+<section
+	class="cloudflare firewall access_rules initialize loading"
+	data-endpoint="<?php echo $this->getApiEndpoint () ?>"
+	data-form-key="<?php echo $this->getFormKey () ?>"
+	data-tab-name="firewall"
+	data-section-name="access_rules" >
+	<div class="row" >
+		<div class="wrapper_left" >
+			<span class="section_title" >Access Rules</span>
+			<p>Firewall rules can be based on IP address, IP address range, Autonomous System Number (ASN) or country.</p>
+		</div>
+		<div class="wrapper_right" >
+			<div>
+				Form Goes Here
+			</div>
+			<div class="lightbox" style="background-image: url(<?php echo $this->getSkinUrl ('images/cloudflare/loading.svg') ?>)" ></div>
+		</div>
+	</div>
+	<div class="row collapsable" >
+		<div class="wrapper_bottom" >
+			<a data-tab="help" >Help</a>
+		</div>
+		<div data-tab-content="help"
+			This is the help section
+		</div>
+	</div>
+</section>
