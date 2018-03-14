@@ -18,6 +18,21 @@
 			return $api->resolve ( $endpoint );
 		}
 
+		public function createRecord ( $type, $name, $content, $ttl, $proxied ) {
+			$zoneId = Mage::getModel ("cloudflare/api_overview_configuration")->getZoneId ();
+			$endpoint = sprintf ( "zones/%s/dns_records", $zoneId );
+			$api = Mage::getModel ("cloudflare/api_request");
+			$api->setType ( $api::REQUEST_POST );
+			$api->setData ( array (
+				"type" => $type,
+				"name" => $name,
+				"content" => $content,
+				"ttl" => $ttl,
+				"proxied" => $proxied
+			));
+			return $api->resolve ( $endpoint );
+		}
+
 		public function searchRecords ( $query ) {
 			$original = $query;
 			$domain = Mage::helper ("cloudflare/data")->getDomainName ();

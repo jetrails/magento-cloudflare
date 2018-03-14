@@ -19,6 +19,18 @@
 			return $this->_formatAndSend ( $response );
 		}
 
+		public function createAction () {
+			$api = Mage::getModel ("cloudflare/api_dns_dnsRecords");
+			$response = $api->createRecord (
+				trim ( strtoupper ( $this->_request->getParam ("type") ) ),
+				trim ( $this->_request->getParam ("name") ),
+				trim ( $this->_request->getParam ("content") ),
+				intval ( $this->_request->getParam ("ttl") ),
+				$this->_request->getParam ("proxied") == "true"
+			);
+			return $this->_formatAndSend ( $response );
+		}
+
 		public function searchAction () {
 			$api = Mage::getModel ("cloudflare/api_dns_dnsRecords");
 			$response = $api->searchRecords ( trim ( $this->_request->getParam ("query") ) );

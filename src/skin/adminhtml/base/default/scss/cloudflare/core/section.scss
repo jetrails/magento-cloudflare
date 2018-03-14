@@ -39,23 +39,29 @@ section.cloudflare.loading {
 	transform: translateY( -5px );
 }
 
-section.cloudflare div.lightbox {
-	display: none;
-}
-
-section.cloudflare.loading div.lightbox {
-	transition: opacity 200ms;
-	position: absolute;
-	display: block;
-	top: 0;
-	left: 0;
-	height: 100%;
-	width: 100%;
-	background-color: rgba( 0, 0, 0, 0.1 );
-	background-repeat: no-repeat;
-    background-position: top right;
-    background-size: 50px;
-	cursor: not-allowed;
+section.cloudflare {
+	div.lightbox {
+		transition: all 200ms;
+		position: absolute;
+		display: block;
+		visibility: visible;
+		top: 0;
+		left: 0;
+		height: 100%;
+		width: 100%;
+		background-color: rgba( 0, 0, 0, 0 );
+		background-repeat: no-repeat;
+	    background-position: top right;
+	    background-size: 50px;
+		visibility: hidden;
+		cursor: not-allowed;
+	}
+	&.loading {
+		div.lightbox {
+			background-color: rgba( 0, 0, 0, 0 );
+			visibility: visible;
+		}
+	}
 }
 
 section.cloudflare > div.row {
