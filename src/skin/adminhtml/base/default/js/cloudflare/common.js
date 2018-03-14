@@ -1,5 +1,7 @@
 const $ = require ("jquery")
 
+
+
 function loadSections () {
 	$("section.cloudflare.initialize").each ( function ( index, section ) {
 		$.ajax ({

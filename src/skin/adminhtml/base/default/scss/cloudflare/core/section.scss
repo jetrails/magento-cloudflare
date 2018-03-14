@@ -178,11 +178,16 @@ section.cloudflare input[type="submit"] {
 	transition: all 200ms;
 	cursor: pointer;
 	font-weight: 100;
-}
+	&:hover {
+		background: #215685;
+		&.green {
+			background: $color-green_dark;
+		}
+	}
+	&.green {
+		background: $color-green;
+	}
 
-section.cloudflare input[type="button"]:hover,
-section.cloudflare input[type="submit"]:hover {
-	background: #215685;
 }
 
 section.cloudflare img.load {
@@ -330,7 +335,7 @@ section.cloudflare .group_wrapper + input[type="submit"] {
 }
 
 section.cloudflare input.search {
-	margin: 10px;
+	margin: 20px 10px 0px 10px;
 	padding-left: 30px;
 	width: calc(100% - 20px );
 }
@@ -472,5 +477,29 @@ section.cloudflare.restricted {
 section.cloudflare.empty {
 	.cloudflare-font {
 	    color: $color-orange;
+	}
+}
+
+
+.dynamic_wrapper {
+	display: flex;
+	padding: 10px 5px;
+	height: 32px;
+	> * {
+		margin: 0 5px !important;
+	}
+	> select, input {
+		width: auto !important;
+	}
+	> div[data-dynamic-wrapper] {
+		flex-grow: 1;
+		display: none;
+		&.active {
+			display: flex;
+		}
+		> * {
+			width: 100% !important;
+			margin: 0 5px !important;
+		}
 	}
 }

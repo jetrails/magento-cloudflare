@@ -19,4 +19,10 @@
 			return $this->_formatAndSend ( $response );
 		}
 
+		public function searchAction () {
+			$api = Mage::getModel ("cloudflare/api_dns_dnsRecords");
+			$response = $api->searchRecords ( trim ( $this->_request->getParam ("query") ) );
+			return $this->_formatAndSend ( $response );
+		}
+
 	}

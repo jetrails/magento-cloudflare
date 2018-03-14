@@ -8,11 +8,76 @@
 		<div class="wrapper_left holds_table" >
 			<span class="section_title" >DNS Records</span>
 			<p>A, AAAA, and CNAME records can have their traffic routed through the Cloudflare system. Add more records using this form, and click the cloud next to each record to toggle Cloudflare on or off.</p>
-			<input class="search" type="text" placeholder="Search DNS records" />
-			<input class="trigger" data-target="search" type="button" value="Search" >
-			<div class="group_wrapper" />
-				<input type="text" placeholder="Name" />
-				<input type="text" placeholder="IPv4 address" />
+			<div class="" />
+				<input class="search trigger-change" type="text" placeholder="Search DNS records" data-target="search" />
+			</div>
+			<div class="dynamic_wrapper" />
+				<select class="dynamic-trigger" >
+					<option value="a" selected >A</option>
+					<option value="aaaa" >AAAA</option>
+					<option value="cname" >CNAME</option>
+					<option value="mx" >MX</option>
+					<option value="loc" >LOC</option>
+					<option value="srv" >SRV</option>
+					<option value="spf" >SPF</option>
+					<option value="txt" >TXT</option>
+					<option value="ns" >NS</option>
+					<option value="caa" >CAA</option>
+				</select>
+				<div class="active" data-dynamic-wrapper="a" >
+					<input type="text" placeholder="Name" />
+					<input type="text" placeholder="IPv4 address" />
+				</div>
+				<div data-dynamic-wrapper="aaaa" >
+					<input type="text" placeholder="Name" />
+					<input type="text" placeholder="IPv6 address" />
+				</div>
+				<div data-dynamic-wrapper="cname" >
+					<input type="text" placeholder="Name" />
+					<input type="text" placeholder="Domain Name" />
+				</div>
+				<div data-dynamic-wrapper="mx" >
+					<input type="text" placeholder="Name" />
+					<input type="text" placeholder="Click to configure" />
+				</div>
+				<div data-dynamic-wrapper="loc" >
+					<input type="text" placeholder="Name" />
+					<input type="text" placeholder="Click to configure" />
+				</div>
+				<div data-dynamic-wrapper="srv" >
+					<input type="text" placeholder="Click to configure" />
+					<input type="text" placeholder="Click to configure" />
+				</div>
+				<div data-dynamic-wrapper="spf" >
+					<input type="text" placeholder="Name" />
+					<input type="text" placeholder="Click to configure" />
+				</div>
+				<div data-dynamic-wrapper="txt" >
+					<input type="text" placeholder="Name" />
+					<input type="text" placeholder="Click to configure" />
+				</div>
+				<div data-dynamic-wrapper="ns" >
+					<input type="text" placeholder="Name" />
+					<input type="text" placeholder="Nameserver" />
+				</div>
+				<div data-dynamic-wrapper="caa" >
+					<input type="text" placeholder="Name" />
+					<input type="text" placeholder="Click to configure" />
+				</div>
+				<select class="ttl" >
+					<option value="0" selected >Automatic TTL</option>
+					<option value="120" >2 minutes</option>
+					<option value="300" >5 minutes</option>
+					<option value="600" >10 minutes</option>
+					<option value="900" >15 minutes</option>
+					<option value="1800" >30 minutes</option>
+					<option value="3600" >1 hour</option>
+					<option value="7200" >2 hour</option>
+					<option value="18000" >5 hours</option>
+					<option value="43200" >12 hours</option>
+					<option value="86400" >1 day</option>
+				</select>
+				<input class="green" type="button" value="Add Record" />
 			</div>
 			<table cellpadding="0" cellspacing="0" data-image-base="<?php echo $this->getSkinUrl ('images/cloudflare') ?>" >
 				<tr>
