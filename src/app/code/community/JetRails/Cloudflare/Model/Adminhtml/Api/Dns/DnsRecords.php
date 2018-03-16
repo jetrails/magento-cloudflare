@@ -18,7 +18,7 @@
 			return $api->resolve ( $endpoint );
 		}
 
-		public function createRecord ( $type, $name, $content, $ttl, $proxied = null, $priority = 0 ) {
+		public function createRecord ( $type, $name, $content, $ttl, $proxied = null, $priority = 1 ) {
 			$data = array (
 				"type" => $type,
 				"name" => $name,

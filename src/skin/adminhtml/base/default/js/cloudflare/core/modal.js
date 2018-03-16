@@ -45,7 +45,27 @@ function Modal () {
 		addParagraph: ( text ) => {
 			$( components.container ).append ( $("<p>").html ( text ) );
 		},
+		addButtons: ( callback = false ) => {
+			components.buttonsContainer = $("<div class='buttons' >");
+			$( components.container ).append ( components.buttonsContainer )
+			if ( callback ) callback ( components )
+		},
+		addCancel: ( callback = false ) => {
+			var button = $("<input type='button' value='Cancel' class='gray' />")
+			$( components.buttonsContainer ).append ( button )
+			if ( callback ) $( button ).on ( "click", callback.bind ( null, components ) )
+		},
+		addSave: ( callback = false ) => {
+		var button = $("<input type='button' value='Save' class='green' />")
+			$( components.buttonsContainer ).append ( button )
+			if ( callback ) $( button ).on ( "click", callback.bind ( null, components ) )
+		},
+		close: () => {
+			$(".cloudflare_modal").removeClass ("active");
+			setTimeout ( function () { $( components.modal ).remove () }, 1000 );
+		},
 		show: () => {
+			$("*").blur ();
 			render ( components );
 			setTimeout ( function () { $( components.modal ).addClass ("active") }, 200 );
 		}

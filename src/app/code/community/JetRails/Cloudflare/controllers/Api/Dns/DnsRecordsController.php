@@ -26,7 +26,8 @@
 				trim ( $this->_request->getParam ("name") ),
 				trim ( $this->_request->getParam ("content") ),
 				intval ( $this->_request->getParam ("ttl") ),
-				$this->_request->getParam ("proxied") == "true"
+				$this->_request->getParam ("proxied") == "true",
+				intval ( $this->_request->getParam ("priority") )
 			);
 			return $this->_formatAndSend ( $response );
 		}

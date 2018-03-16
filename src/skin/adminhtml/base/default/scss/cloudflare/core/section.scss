@@ -185,9 +185,16 @@ section.cloudflare, .cloudflare_modal {
 			&.green {
 				background: $color-green_dark;
 			}
+			&.gray {
+				background: #CCC;
+			}
 		}
 		&.green {
 			background: $color-green;
+		}
+		&.gray {
+			background: $color-border_gray;
+			color: $color-text_gray_dark;
 		}
 
 	}

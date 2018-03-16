@@ -73,7 +73,8 @@ $( document ).on ( "cloudflare.dns.dns_records.create", function ( event, data )
 			"name": $( data.section ).find ("div.active > input[name='name']").val (),
 			"content": $( data.section ).find ("div.active > input[name='content']").val (),
 			"ttl": $( data.section ).find ("select.ttl").val (),
-			"proxied": $( data.section ).find (".proxied.add").data ("value")
+			"proxied": $( data.section ).find (".proxied.add").data ("value"),
+			"priority": $( data.section ).find (".priority.add").val ()
 		},
 		success: function ( response ) {
 			if ( response.state == "response_success" ) {
@@ -147,10 +148,20 @@ $( document ).on ( "cloudflare.dns.dns_records.search", function ( event, data )
 	});
 });
 
-$(document).on ( "click", ".show-form-mx", function () {
+$(document).on ( "focus", ".show-form-mx", function () {
 	var confirm = new modal.Modal ()
-	confirm.addTitle ( "Add Record: MX content", "mail.google.com" )
-	confirm.addRow ( "Server", $("<input type='text' >") )
-	confirm.addRow ( "Priority", $("<input type='text' >") )
+	confirm.addTitle ( "Add Record: MX content", $(this).val () )
+	confirm.addRow ( "Server", $("<input type='text' placeholder='Mail server' name='server' >").val ( $(this).val () ) )
+	confirm.addRow ( "Priority", $("<input type='text' placeholder='1' name='priority' >").val ( $(this).parent ().parent ().closest (".priority").val () ) )
+	confirm.addButtons ()
+	confirm.addCancel ( confirm.close )
+	var that = this;
+	confirm.addSave ( function ( components ) {
+		$(that).val ( $( components.container ).find ("input[name='server']").val () )
+		var priority = $( components.container ).find ("input[name='priority']").val ()
+		if ( priority.trim () === "" ) priority = "1"
+		$(that).closest (".priority").val ( priority )
+		confirm.close ()
+	})
 	confirm.show ()
 })
