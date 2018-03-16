@@ -1,6 +1,7 @@
 const $ = require ("jquery")
 const cloudflare = require ("cloudflare/common");
 const notification = require ("cloudflare/core/notification")
+const modal = require ("cloudflare/core/modal")
 
 $( document ).on ( "cloudflare.dns.dns_records.initialize", function ( event, data ) {
 	const imageBase = $( data.section ).find ("table").data ("image-base");
@@ -38,6 +39,9 @@ $( document ).on ( "cloudflare.dns.dns_records.initialize", function ( event, da
 			row.appendTo ( $( data.section ).find ("table") );
 		}, index * 100 );
 	});
+	if ( data.response.payload.length == 0 ) {
+		$( data.section ).find ("table").append ( $("<tr>").append ( $("<td colspan='6' >").text ("No DNS records found.") ) );
+	}
 });
 
 $( document ).on ( "cloudflare.dns.dns_records.delete", function ( event, data ) {
@@ -69,7 +73,7 @@ $( document ).on ( "cloudflare.dns.dns_records.create", function ( event, data )
 			"name": $( data.section ).find ("div.active > input[name='name']").val (),
 			"content": $( data.section ).find ("div.active > input[name='content']").val (),
 			"ttl": $( data.section ).find ("select.ttl").val (),
-			"proxied": false
+			"proxied": $( data.section ).find (".proxied.add").data ("value")
 		},
 		success: function ( response ) {
 			if ( response.state == "response_success" ) {
@@ -142,3 +146,11 @@ $( document ).on ( "cloudflare.dns.dns_records.search", function ( event, data )
 		}
 	});
 });
+
+$(document).on ( "click", ".show-form-mx", function () {
+	var confirm = new modal.Modal ()
+	confirm.addTitle ( "Add Record: MX content", "mail.google.com" )
+	confirm.addRow ( "Server", $("<input type='text' >") )
+	confirm.addRow ( "Priority", $("<input type='text' >") )
+	confirm.show ()
+})

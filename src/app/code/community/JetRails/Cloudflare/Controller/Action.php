@@ -24,10 +24,20 @@
 		protected function _format ( $response ) {
 			$formatted = array ();
 			$formatted [ "state" ] = $response->success ? "response_success" : "response_warning";
-			$formatted [ "messages" ] = $response->success ? $response->messages : array_map (
-				function ( $message ) { return "Error $message->code: $message->message"; },
-				$response->errors
-			);
+			$messages = array ();
+			if ( $response->success ) {
+				$messages = $response->messages;
+			}
+			else {
+				foreach ( $response->errors as $error ) {
+					array_push ( $messages, "Error $error->code: $error->message" );
+					foreach ( $error->error_chain as $chained ) {
+						array_push ( $messages, "Error $chained->code: $chained->message" );
+					}
+				}
+			}
+			$formatted ["messages"] = $messages;
+
 			if ( count ( $response->messages ) == 0 && $response->success ) $formatted [ "messages" ] = [ "Success" ];
 			$formatted [ "payload" ] = $response->result;
 			return $formatted;

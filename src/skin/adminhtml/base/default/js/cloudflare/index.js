@@ -17,6 +17,10 @@ $( window ).on ( "load", function () {
 	cloudflare.loadSections ();
 	cloudflare.rotateMessages ();
 
+	$( ".proxied" ).each ( function ( index ) {
+		$(this).data ( "value", /proxied_on/.test ( $(this).attr ("src") ) )
+	})
+
 	$( document ).on ( "click", ".trigger", function () {
 		var section = $( this ).closest ("section");
 		var event = {
@@ -69,23 +73,15 @@ $( window ).on ( "load", function () {
 
 $(document).on ( "click", "[data-tab]", function () {
 	var section = $(this).closest ("section");
-	if ( $(section).find ("[data-tab-content].active").length > 0 ) {
-		if ( $(section).find ("[data-tab-content].active").data ("tab-content") == $(this).data ("tab") ) {
-			$(section).find ("[data-tab-content]").removeClass ("active");
-			$(this).removeClass ("active");
-		}
-		else {
-			$(section).find ("[data-tab-content]").removeClass ("active");
-			$(section).find ("[data-tab-content='" + $(this).data ("tab") + "']").addClass ("active");
-			$(section).find ("data-tab").removeClass ("active");
-			$(this).addClass ("active");
-		}
+	if ( $(this).hasClass ("active") ) {
+		$(section).find ("[data-tab-content]").removeClass ("active");
+		$(section).find ("[data-tab]").removeClass ("active");
 	}
 	else {
 		$(section).find ("[data-tab-content]").removeClass ("active");
-		$(section).find ("[data-tab-content='" + $(this).data ("tab") + "']").addClass ("active");
-		$(section).find ("data-tab").removeClass ("active");
+		$(section).find ("[data-tab]").removeClass ("active");
 		$(this).addClass ("active");
+		$(section).find ("[data-tab-content='" + $(this).data ("tab") + "']").addClass ("active");
 	}
 });
 
@@ -93,4 +89,25 @@ $(document).on ( "change", ".dynamic-trigger", function () {
 	const target = $(this).val ();
 	$(this).parent ().find ("div[data-dynamic-wrapper]").removeClass ("active");
 	$(this).parent ().find ("div[data-dynamic-wrapper='" + target + "']").addClass ("active");
+	$(this).parent ().find ("[data-dynamic-show]").each ( function () {
+		if ( $(this).data ("dynamic-show").includes ( target.toLowerCase () ) ) {
+			$(this).show ();
+		}
+		else {
+			$(this).hide ();
+		}
+	})
 });
+
+$(document).on ( "click", ".proxied", function () {
+	let source = $(this).attr ("src")
+	if ( /proxied_on/.test ( source ) ) {
+		source = source.replace ( /proxied_on/, "proxied_off" )
+		$(this).data ( "value", false )
+	}
+	else {
+		source = source.replace ( /proxied_off/, "proxied_on" )
+		$(this).data ( "value", true )
+	}
+	$(this).attr ( "src", source )
+})

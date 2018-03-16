@@ -2,6 +2,7 @@ section.cloudflare {
 	table {
 		width: 100%;
 		tr {
+			transition: all 500ms;
 			background: #FAFAFA;
 			&:nth-child(even) {
 				background: #FFFFFF;

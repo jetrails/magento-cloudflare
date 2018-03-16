@@ -4,7 +4,7 @@ function createComponents () {
 	return {
 		modal: $("<div class='cloudflare_modal' >"),
 		container: $("<div class='container' >"),
-		close: $("<div class='close' >")
+		close: $("<div class='close cloudflare-font' >").html ("&#xF01A;")
 	}
 }
 
@@ -23,18 +23,24 @@ function render ( components ) {
 	);
 }
 
-function show ( components ) {
-
-}
-
 function Modal () {
 	const components = createComponents ();
 	bindComponents ( components );
 
 	return {
 		components: components,
-		addTitle: ( title ) => {
-			$( components.container ).append ( $("<div class='title' >").html ( title ) )
+		addTitle: ( title, subTitle = "" ) => {
+			let titleElement = $("<div class='title' >")
+			$( components.container ).append ( titleElement.html ( title ) )
+			if ( subTitle.trim () !== "" ) {
+				$( titleElement ).append ( $("<div class='sub-title' >").text ( subTitle ) )
+			}
+		},
+		addRow: ( label, element ) => {
+			let row = $("<div class='row' >")
+			row.append ( $("<div class='label' >").text ( label ) )
+			row.append ( $("<div class='element' >").html ( element ) )
+			$( components.container ).append ( row )
 		},
 		addParagraph: ( text ) => {
 			$( components.container ).append ( $("<p>").html ( text ) );

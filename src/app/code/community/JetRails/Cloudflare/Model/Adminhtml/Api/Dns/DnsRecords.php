@@ -18,18 +18,26 @@
 			return $api->resolve ( $endpoint );
 		}
 
-		public function createRecord ( $type, $name, $content, $ttl, $proxied ) {
-			$zoneId = Mage::getModel ("cloudflare/api_overview_configuration")->getZoneId ();
-			$endpoint = sprintf ( "zones/%s/dns_records", $zoneId );
-			$api = Mage::getModel ("cloudflare/api_request");
-			$api->setType ( $api::REQUEST_POST );
-			$api->setData ( array (
+		public function createRecord ( $type, $name, $content, $ttl, $proxied = null, $priority = 0 ) {
+			$data = array (
 				"type" => $type,
 				"name" => $name,
 				"content" => $content,
 				"ttl" => $ttl,
-				"proxied" => $proxied
-			));
+				"priority" => $priority
+			);
+			if ( in_array ( $type, array ( "a", "aaaa", "cname" ) ) ) {
+				$data ["proxied"] = $proxied;
+			}
+			if ( $type == "mx" ) {
+				$data ["priority"] = $priority;
+			}
+
+			$zoneId = Mage::getModel ("cloudflare/api_overview_configuration")->getZoneId ();
+			$endpoint = sprintf ( "zones/%s/dns_records", $zoneId );
+			$api = Mage::getModel ("cloudflare/api_request");
+			$api->setType ( $api::REQUEST_POST );
+			$api->setData ( $data );
 			return $api->resolve ( $endpoint );
 		}
 

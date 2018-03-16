@@ -17,30 +17,65 @@
 	transition: all 300ms linear;
 	.container {
 		opacity: 0;
-		padding: 22.5px;
-		background: #FFFFFF;
 		box-shadow: 0 1px 15px rgba(0,0,0,0.75);
 		width: 450px;
 		min-height: 200px;
 		box-sizing: border-box;
 		transform: scale(0.85) perspective(200px) rotateX(5deg);
 		transition: all 300ms;
+		border-radius: 3px;
 		.close {
 			position: absolute;
-			top: 0;
-			right: 0;
-		    background: url(http://howtospeedupmagento.com/skin/adminhtml/base/default/images/cloudflare/delete.svg);
+			top: 12px;
+			right: 6px;
+			color: #777;
 		    height: 50px;
 		    width: 50px;
-		    background-position: center;
-		    background-size: 40px;
+			line-height: 50px;
+			transition: all 200ms;
 			cursor: pointer;
+			text-align: center;
+			&:hover {
+				color: #333;
+			}
 		}
 		.title {
+			padding: 22.5px;
 			font-weight: 400;
-			font-size: 1.5em;
+			font-size: 1.8em;
 			line-height: 1.3em;
-			margin-bottom: 10px;
+			border-bottom: solid 1px $color-border_gray;
+			background: $color-white;
+			color: $color-text_gray_dark;
+			border-radius: 3px 3px 3px 0px;
+		}
+		.sub-title {
+			font-weight: 400;
+			font-size: 0.7em;
+			margin-top: 10px;
+			line-height: 1em;
+			background: $color-white;
+			color: $color-text_gray_dark;
+		}
+		.row {
+			padding: 15px 22.5px;
+			border-bottom: solid 1px $color-border_gray;
+			background: #F5F5F5;
+			display: flex;
+			width: 100%;
+			box-sizing: border-box;
+			align-items: center;
+ 			.label {
+				text-align: right;
+				width: 120px;
+				padding-right: 30px;
+				font-size: 1.1em;
+			}
+			.element {
+				flex-grow: 1;
+				font-size: 14px;
+				color: #333;
+			}
 		}
 		p {
 			font-size: 1.3em;
