@@ -279,17 +279,6 @@ section.cloudflare.loading label.switch .slider {
 
 
 
-
-
-section.cloudflare select {
-	padding: 15px;
-	color: #333;
-	font-size: 1em;
-	width: 100%;
-}
-
-
-
 @media screen and (max-width:1100px) {
 
 	section.cloudflare > div.row {
@@ -528,6 +517,12 @@ section.cloudflare.empty {
 		> * {
 			width: 100% !important;
 			margin: 0 5px !important;
+		}
+		> *:first-child {
+ 			margin-left: 0 !important;
+		}
+		> *:last-child {
+			margin-right: 0 !important;
 		}
 	}
 }

@@ -1,9 +1,11 @@
 const $ = require ("jquery");
 
-function createComponents () {
+function createComponents ( large ) {
+	let container = $("<div class='container' >")
+	if ( large ) $( container ).css ({ width: "630px" })
 	return {
 		modal: $("<div class='cloudflare_modal' >"),
-		container: $("<div class='container' >"),
+		container: container,
 		close: $("<div class='close cloudflare-font' >").html ("&#xF01A;")
 	}
 }
@@ -23,8 +25,8 @@ function render ( components ) {
 	);
 }
 
-function Modal () {
-	const components = createComponents ();
+function Modal ( large = false ) {
+	const components = createComponents ( large );
 	bindComponents ( components );
 
 	return {
@@ -104,13 +106,9 @@ function createRows () {
 }
 
 function createSelect ( name, options ) {
-	let select = $(`<select name="${name}" >`)
-	for ( let i in options ) {
-		$(select).append (
-			$(`<option value="${options [ i ].value}" ${options [ i ].selected ? "selected" : ""} >`)
-				.text ( options [ i ].value )
-		)
-	}
+	let select = $("<select name='" + name + "' >")
+	options = options.map ( option => { return new Option ( option.label, option.value ) } )
+	$(select).append ( options )
 	return select
 }
 

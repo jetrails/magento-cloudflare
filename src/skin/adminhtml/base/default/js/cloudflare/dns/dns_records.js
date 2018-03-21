@@ -331,7 +331,7 @@ $(document).on ( "focus", ".show-form-txt", function () {
 })
 
 $(document).on ( "focus", ".show-form-caa", function () {
-	var confirm = new modal.Modal ()
+	var confirm = new modal.Modal ( true )
 	confirm.addTitle ( "Add Record: CAA content", $(this).val () )
 	confirm.addRow ( "Tag", $("<select><option selected >Only allow specific hostnames</option><option>Only allow wildcards</option><option>Send violation reports to URL (http:, https:, or mailto:)</option></select>") )
 	confirm.addRow ( "Value", $("<input type='text' placeholder='Certificate authority (CA) domain name' />") )
