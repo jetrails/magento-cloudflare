@@ -36,8 +36,9 @@ function Modal () {
 				$( titleElement ).append ( $("<div class='sub-title' >").text ( subTitle ) )
 			}
 		},
-		addRow: ( label, element ) => {
+		addRow: ( label, element, tight = false ) => {
 			let row = $("<div class='row' >")
+			if ( tight ) $( row ).addClass ("tight")
 			row.append ( $("<div class='label' >").text ( label ) )
 			row.append ( $("<div class='element' >").html ( element ) )
 			$( components.container ).append ( row )
@@ -84,7 +85,40 @@ function confirm () {
 	setTimeout ( function () { $( modal ).addClass ("active") }, 200 );
 }
 
+function createInput ( type = "text", name, placeholder = "", value = "" ) {
+	return $(`<input type="${type}" name="${name}" placeholder="${placeholder}" value="${value}" />`)
+}
+
+function createRow ( label, element ) {
+	return $("<div class='row tight' >")
+		.html ( $("<div class='label' >").text ( label ) )
+		.append ( element )
+}
+
+function createRows () {
+	let rows = $("<div class='rows' >")
+	for ( let i in arguments ) {
+		$(rows).append ( arguments [ i ] )
+	}
+	return rows
+}
+
+function createSelect ( name, options ) {
+	let select = $(`<select name="${name}" >`)
+	for ( let i in options ) {
+		$(select).append (
+			$(`<option value="${options [ i ].value}" ${options [ i ].selected ? "selected" : ""} >`)
+				.text ( options [ i ].value )
+		)
+	}
+	return select
+}
+
 module.exports = {
 	Modal: Modal,
-	confirm: confirm
+	confirm: confirm,
+	createInput: createInput,
+	createSelect: createSelect,
+	createRows: createRows,
+	createRow: createRow
 }

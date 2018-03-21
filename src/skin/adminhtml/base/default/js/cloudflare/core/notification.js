@@ -4,7 +4,7 @@ function addMessage ( type, message ) {
 	if ( $(".cloudflare_notification").length == 0 ) {
 		$("body").append ( $("<div class='cloudflare_notification' >") )
 	}
-	icon = type == "response_success" ? "&#xF004;" : "&#xF006;";
+	icon = type == "response_success" ? "&#xF004;" : "&#xF005;";
 	type = type == "response_success" ? "response_success" : "response_error";
 	const notification = $("<div class='notification " + type + "' >")
 		.append ( $("<span class='message' >").text ( message ) )

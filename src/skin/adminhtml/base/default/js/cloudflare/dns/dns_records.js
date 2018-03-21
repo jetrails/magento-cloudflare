@@ -152,7 +152,7 @@ $(document).on ( "focus", ".show-form-mx", function () {
 	var confirm = new modal.Modal ()
 	confirm.addTitle ( "Add Record: MX content", $(this).val () )
 	confirm.addRow ( "Server", $("<input type='text' placeholder='Mail server' name='server' >").val ( $(this).val () ) )
-	confirm.addRow ( "Priority", $("<input type='text' placeholder='1' name='priority' >").val ( $(this).parent ().parent ().closest (".priority").val () ) )
+	confirm.addRow ( "Priority", $("<input type='text' placeholder='1' name='priority' >").val ( $(document).find (".priority.add").val () ) )
 	confirm.addButtons ()
 	confirm.addCancel ( confirm.close )
 	var that = this;
@@ -160,7 +160,189 @@ $(document).on ( "focus", ".show-form-mx", function () {
 		$(that).val ( $( components.container ).find ("input[name='server']").val () )
 		var priority = $( components.container ).find ("input[name='priority']").val ()
 		if ( priority.trim () === "" ) priority = "1"
-		$(that).closest (".priority").val ( priority )
+		$(document).find (".priority.add").val ( priority )
+		confirm.close ()
+	})
+	confirm.show ()
+})
+
+$(document).on ( "focus", ".show-form-loc", function () {
+	var that = this
+	var confirm = new modal.Modal ()
+	var latitude = modal.createRows (
+		modal.createRow ( "degrees", modal.createInput ( "text", "lat-degrees", "", "0" ) ),
+		modal.createRow ( "minutes", modal.createInput ( "text", "lat-minutes", "", "0" ) ),
+		modal.createRow ( "seconds", modal.createInput ( "text", "lat-seconds", "", "0" ) ),
+		modal.createRow ( "direction", modal.createSelect ( "lat-direction", [
+			{ "value": "N", "label": "North", "selected": true },
+			{ "value": "S", "label": "South" }
+		]))
+	)
+	var longitude = modal.createRows (
+		modal.createRow ( "degrees", modal.createInput ( "text", "lon-degrees", "", "0" ) ),
+		modal.createRow ( "minutes", modal.createInput ( "text", "lon-minutes", "", "0" ) ),
+		modal.createRow ( "seconds", modal.createInput ( "text", "lon-seconds", "", "0" ) ),
+		modal.createRow ( "direction", modal.createSelect ( "lon-direction", [
+			{ "value": "W", "label": "West", "selected": true },
+			{ "value": "E", "label": "East" }
+		]))
+	)
+	var percision = modal.createRows (
+		modal.createRow ( "horizontal precision", modal.createInput ( "text", "pre-horizontal", false, "0" ) ),
+		modal.createRow ( "vertical precision", modal.createInput ( "text", "pre-vertical", false, "0" ) )
+	)
+	var altitude = modal.createInput ( "text", "altitude", false, "0" )
+	var size = modal.createInput ( "text", "size", false, "0" )
+	var matches = $(this).val ().match (/^IN LOC ([^ ]+) ([^ ]+) ([^ ]+) ([NS]) ([^ ]+) ([^ ]+) ([^ ]+) ([WE]) ([^ ]+)m ([^ ]+)m ([^ ]+)m ([^ ]+)m$/)
+	if ( matches ) {
+		$(latitude).find ("[name='lat-degrees']").val ( matches [ 1 ] )
+		$(latitude).find ("[name='lat-minutes']").val ( matches [ 2 ] )
+		$(latitude).find ("[name='lat-seconds']").val ( matches [ 3 ] )
+		$(latitude).find ("[name='lat-direction']").val ( matches [ 4 ] )
+		$(longitude).find ("[name='lon-degrees']").val ( matches [ 5 ] )
+		$(longitude).find ("[name='lon-minutes']").val ( matches [ 6 ] )
+		$(longitude).find ("[name='lon-seconds']").val ( matches [ 7 ] )
+		$(longitude).find ("[name='lon-direction']").val ( matches [ 8 ] )
+		$(altitude).val ( matches [ 9 ] )
+		$(size).val ( matches [ 10 ] )
+		$(percision).find ("[name='pre-horizontal']").val ( matches [ 11 ] )
+		$(percision).find ("[name='pre-vertical']").val ( matches [ 12 ] )
+	}
+	confirm.addTitle ( "Add Record: LOC content", $(this).val () )
+	confirm.addRow ( "Latitude", latitude, true )
+	confirm.addRow ( "Longitude", longitude, true )
+	confirm.addRow ( "Altitude (in meters)", altitude, true )
+	confirm.addRow ( "Size (in meters)", size, true )
+	confirm.addRow ( "Percision (in meters)", percision, true )
+	confirm.addButtons ()
+	confirm.addCancel ( confirm.close )
+	confirm.addSave ( function ( components ) {
+		var latDegrees = $( components.container ).find ("[name='lat-degrees']").val ().trim ()
+		var latMinutes = $( components.container ).find ("[name='lat-minutes']").val ().trim ()
+		var latSeconds = $( components.container ).find ("[name='lat-seconds']").val ().trim ()
+		var latDirection = $( components.container ).find ("[name='lat-direction']").val ().trim ()
+		var lonDegrees = $( components.container ).find ("[name='lon-degrees']").val ().trim ()
+		var lonMinutes = $( components.container ).find ("[name='lon-minutes']").val ().trim ()
+		var lonSeconds = $( components.container ).find ("[name='lon-seconds']").val ().trim ()
+		var lonDirection = $( components.container ).find ("[name='lon-direction']").val ().trim ()
+		var altitude = $( components.container ).find ("[name='altitude']").val ().trim ()
+		var size = $( components.container ).find ("[name='size']").val ().trim ()
+		var preHorizontal = $( components.container ).find ("[name='pre-horizontal']").val ().trim ()
+		var preVertical = $( components.container ).find ("[name='pre-vertical']").val ().trim ()
+		$(that).val (`IN LOC ${latDegrees} ${latMinutes} ${latSeconds} ${latDirection} ${lonDegrees} ${lonMinutes} ${lonSeconds} ${lonDirection} ${altitude}m ${size}m ${preHorizontal}m ${preVertical}m`)
+		confirm.close ()
+	})
+	confirm.show ()
+})
+
+$(document).on ( "focus", ".show-form-srv-name", function () {
+	var that = this;
+	var confirm = new modal.Modal ()
+	var service = modal.createInput ( "text", "service", "_sip" )
+	var protocol = $("<select name='protocol' ><option value='_udp' >UDP</option><option value='_tcp' >TCP</option><option value='_tls' selected >TLS</option><select/>")
+	var name = modal.createInput ( "text", "name", "@" )
+	var matches = $(this).val ().match (/^([^ ]+)\.([^ ]+)\.(.+)\.$/)
+	if ( matches ) {
+		$(service).val ( matches [ 1 ] )
+		$(protocol).val ( matches [ 2 ] )
+		$(name).val ( matches [ 3 ] )
+	}
+	confirm.addTitle ( "Add Record: SRV name", $(this).val () )
+	confirm.addRow ( "Service name", service )
+	confirm.addRow ( "Protocol", protocol )
+	confirm.addRow ( "Name", name )
+	confirm.addButtons ()
+	confirm.addCancel ( confirm.close )
+	confirm.addSave ( function ( components ) {
+		var service = $( components.container ).find ("input[name='service']").val ().trim () || "_sip"
+		var protocol = $( components.container ).find ("select[name='protocol']").val ().trim ()
+		var name = $( components.container ).find ("input[name='name']").val ().trim () || "@"
+		$(that).val (`${service}.${protocol}.${name}.`)
+		confirm.close ()
+	})
+	confirm.show ()
+})
+
+$(document).on ( "focus", ".show-form-srv", function () {
+	var that = this;
+	var confirm = new modal.Modal ()
+	var priority = $("<input type='text' placeholder='1' name='priority' value='1' />")
+	var weight = $("<input type='text' placeholder='10' name='weight' value='1' />")
+	var port = $("<input type='text' placeholder='8444' name='port' value='1' />")
+	var target = $("<input type='text' placeholder='example.com' name='target' />")
+	var matches = $(this).val ().match (/^SRV ([^ ]+) ([^ ]+) ([^ ]+) (.+)$/)
+	if ( matches ) {
+		$(priority).val ( matches [ 1 ] )
+		$(weight).val ( matches [ 2 ] )
+		$(port).val ( matches [ 3 ] )
+		$(target).val ( matches [ 4 ] )
+	}
+	confirm.addTitle ( "Add Record: SRV content", $(this).val () )
+	confirm.addRow ( "Priority", priority )
+	confirm.addRow ( "Weight", weight )
+	confirm.addRow ( "Port", port )
+	confirm.addRow ( "Target", target )
+	confirm.addButtons ()
+	confirm.addCancel ( confirm.close )
+	confirm.addSave ( function ( components ) {
+		var priority = $( components.container ).find ("input[name='priority']").val ().trim () || "1"
+		var weight = $( components.container ).find ("input[name='weight']").val ().trim () || "1"
+		var port = $( components.container ).find ("input[name='port']").val ().trim () || "1"
+		var target = $( components.container ).find ("input[name='target']").val ().trim () || "@"
+		$(that).val (`SRV ${priority} ${weight} ${port} ${target}`)
+		$(document).find (".priority.add").val ( priority )
+		confirm.close ()
+	})
+	confirm.show ()
+})
+
+$(document).on ( "focus", ".show-form-spf", function () {
+	var confirm = new modal.Modal ()
+	confirm.addTitle ( "Add Record: SPF content", $(this).val () )
+	confirm.addRow ( "Content", $("<textarea placeholder='Policy parameters' ></textarea>") )
+	confirm.addButtons ()
+	confirm.addCancel ( confirm.close )
+	var that = this;
+	confirm.addSave ( function ( components ) {
+		$(that).val ( $( components.container ).find ("input[name='server']").val () )
+		var priority = $( components.container ).find ("input[name='priority']").val ()
+		if ( priority.trim () === "" ) priority = "1"
+		$(document).find (".priority.add").val ( priority )
+		confirm.close ()
+	})
+	confirm.show ()
+})
+
+$(document).on ( "focus", ".show-form-txt", function () {
+	var confirm = new modal.Modal ()
+	confirm.addTitle ( "Add Record: TXT content", $(this).val () )
+	confirm.addRow ( "Content", $("<textarea placeholder='Text' ></textarea>"), true )
+	confirm.addButtons ()
+	confirm.addCancel ( confirm.close )
+	var that = this;
+	confirm.addSave ( function ( components ) {
+		$(that).val ( $( components.container ).find ("input[name='server']").val () )
+		var priority = $( components.container ).find ("input[name='priority']").val ()
+		if ( priority.trim () === "" ) priority = "1"
+		$(document).find (".priority.add").val ( priority )
+		confirm.close ()
+	})
+	confirm.show ()
+})
+
+$(document).on ( "focus", ".show-form-caa", function () {
+	var confirm = new modal.Modal ()
+	confirm.addTitle ( "Add Record: CAA content", $(this).val () )
+	confirm.addRow ( "Tag", $("<select><option selected >Only allow specific hostnames</option><option>Only allow wildcards</option><option>Send violation reports to URL (http:, https:, or mailto:)</option></select>") )
+	confirm.addRow ( "Value", $("<input type='text' placeholder='Certificate authority (CA) domain name' />") )
+	confirm.addButtons ()
+	confirm.addCancel ( confirm.close )
+	var that = this;
+	confirm.addSave ( function ( components ) {
+		$(that).val ( $( components.container ).find ("input[name='server']").val () )
+		var priority = $( components.container ).find ("input[name='priority']").val ()
+		if ( priority.trim () === "" ) priority = "1"
+		$(document).find (".priority.add").val ( priority )
 		confirm.close ()
 	})
 	confirm.show ()
