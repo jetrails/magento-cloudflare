@@ -1,0 +1,38 @@
+section.cloudflare, .cloudflare_modal {
+	input[type="button"],
+	input[type="submit"] {
+		box-sizing: border-box;
+		width: 100%;
+		padding: 7px 15px;
+		color: #FFF;
+		background: $color-blue;
+		border-radius: 2px;
+		border: 0;
+		font-size: 1em;
+		margin: 5px 0;
+		transition: all 200ms;
+		cursor: pointer;
+		font-weight: 600;
+		letter-spacing: -0.04em;
+		border-bottom: solid 1px rgba( 0, 0, 0, 0.2 );
+		&:hover {
+			background: #215685;
+			&.green {
+				background: $color-green_dark;
+			}
+			&.gray {
+				background: #CCC;
+			}
+		}
+		&.green {
+			background: $color-green;
+		}
+		&.gray {
+			background: $color-border_gray;
+			color: $color-text_gray_dark;
+		}
+		&:focus {
+			box-shadow: inset 0px 0px 0px 1px rgba(0, 0, 0, 0.5);
+		}
+	}
+}
