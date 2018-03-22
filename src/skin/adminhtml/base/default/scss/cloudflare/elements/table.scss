@@ -19,6 +19,16 @@ section.cloudflare {
 				color: #333;
 				font-weight: 600;
 				cursor: pointer;
+				&.sort-asc:after {
+				    font-family: "cloudflare-font";
+				    content: "\F000";
+					margin-left: 5px;
+				}
+				&.sort-desc:after {
+					font-family: "cloudflare-font";
+					content: "\F003";
+					margin-left: 5px;
+				}
 			}
 			td {
 				&.type { width: 75px }
@@ -27,6 +37,7 @@ section.cloudflare {
 				&.ttl { max-width: 200px }
 				&.status { max-width: 200px }
 				&.delete { max-width: 37px }
+				position: relative;
 				font-family: "Open Sans";
 				text-align: left;
 				vertical-align: middle;
@@ -50,6 +61,9 @@ section.cloudflare {
 				&.type_txt { border-left: solid 2px #9BCA3E; color: #9BCA3E; }
 				&.type_ns { border-left: solid 2px #9545E5; color: #9545E5; }
 				&.type_caa { border-left: solid 2px #BD2527; color: #BD2527; }
+				&.value {
+					padding: 10px 40px 10px 10px;
+				}
 				.delete_entry {
 				    background: #DEDEDE;
 				    border-radius: 2px;
@@ -65,6 +79,18 @@ section.cloudflare {
 					&:hover {
 						background: #CCC;
 					}
+				}
+				.priority {
+					position: absolute;
+					right: 0;
+					top: calc( 50% - 0.4em - 6px );
+					font-size: 0.8em;
+					border-radius: 0.7em;
+					line-height: 1.5em;
+					border: solid 1px #777;
+					background: none;
+					padding: 2px 5px;
+					color: #777;
 				}
 			}
 			th:hover {

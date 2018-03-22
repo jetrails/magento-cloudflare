@@ -70,7 +70,10 @@ function Modal ( large = false ) {
 		show: () => {
 			$("*").blur ();
 			render ( components );
-			setTimeout ( function () { $( components.modal ).addClass ("active") }, 200 );
+			setTimeout ( function () {
+				$( components.modal ).addClass ("active")
+				$( components.modal ).find ("input,textarea,select").first ().focus ()
+			}, 200 );
 		}
 	}
 }
@@ -112,11 +115,17 @@ function createSelect ( name, options ) {
 	return select
 }
 
+function createTextarea ( name, placeholder = "", value = "" ) {
+	let textarea = $(`<textarea name="${name}" >`).text ( value )
+	return textarea
+}
+
 module.exports = {
 	Modal: Modal,
 	confirm: confirm,
 	createInput: createInput,
 	createSelect: createSelect,
 	createRows: createRows,
-	createRow: createRow
+	createRow: createRow,
+	createTextarea: createTextarea
 }

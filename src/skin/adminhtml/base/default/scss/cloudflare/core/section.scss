@@ -207,7 +207,9 @@ section.cloudflare, .cloudflare_modal {
 			background: $color-border_gray;
 			color: $color-text_gray_dark;
 		}
-
+		&:focus {
+			box-shadow: inset 0px 0px 0px 1px rgba(0, 0, 0, 0.5);
+		}
 	}
 }
 

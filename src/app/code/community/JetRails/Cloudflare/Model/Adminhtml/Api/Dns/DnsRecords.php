@@ -19,6 +19,9 @@
 		}
 
 		public function createRecord ( $type, $name, $content, $ttl, $proxied = null, $priority = 1 ) {
+			if ( $name == "@" ) {
+				$name = Mage::helper ("cloudflare/data")->getDomainName ();
+			}
 			$data = array (
 				"type" => $type,
 				"name" => $name,
@@ -29,10 +32,10 @@
 			if ( in_array ( $type, array ( "A", "AAAA", "CNAME" ) ) ) {
 				$data ["proxied"] = $proxied;
 			}
-			if ( $type == "MX" ) {
+			else if ( $type == "MX" ) {
 				$data ["priority"] = $priority;
 			}
-			if ( $type == "LOC" && preg_match ( "/^IN LOC ([^ ]+) ([^ ]+) ([^ ]+) ([NS]) ([^ ]+) ([^ ]+) ([^ ]+) ([WE]) ([^ ]+)m ([^ ]+)m ([^ ]+)m ([^ ]+)m$/", $content, $matches ) ) {
+			else if ( $type == "LOC" && preg_match ( "/^IN LOC ([^ ]+) ([^ ]+) ([^ ]+) ([NS]) ([^ ]+) ([^ ]+) ([^ ]+) ([WE]) ([^ ]+)m ([^ ]+)m ([^ ]+)m ([^ ]+)m$/", $content, $matches ) ) {
 				$data ["data"] = array (
 					"lat_degrees" => intval ( $matches [ 1 ] ),
 					"lat_minutes" => intval ( $matches [ 2 ] ),
@@ -46,6 +49,34 @@
 					"size" => intval ( $matches [ 10 ] ),
 					"precision_horz" => intval ( $matches [ 11 ] ),
 					"precision_vert" => intval ( $matches [ 12 ] )
+				);
+				$data ["priority"] = 1;
+				$data ["proxied"] = false;
+			}
+			else if ( $type == "SRV" && preg_match ( "/^([^ ]+)\.([^ ]+)\.(.+)\.$/", $name, $matchesName ) && preg_match ( "/^SRV ([^ ]+) ([^ ]+) ([^ ]+) (.+)$/", $content, $matchesContent ) ) {
+				if ( $matchesName [ 3 ] == "@" ) {
+					$matchesName [ 3 ] = Mage::helper ("cloudflare/data")->getDomainName ();
+				}
+				if ( $matchesContent [ 4 ] == "@" ) {
+					$matchesContent [ 4 ] = Mage::helper ("cloudflare/data")->getDomainName ();
+				}
+				$data ["data"] = array (
+					"name" => $matchesName [ 3 ],
+					"priority" => $matchesContent [ 1 ],
+					"proto" => $matchesName [ 2 ],
+					"weight" => $matchesContent [ 2 ],
+					"port" => $matchesContent [ 3 ],
+					"target" => $matchesContent [ 4 ],
+					"service" => $matchesName [ 1 ]
+				);
+				$data ["priority"] = 1;
+				$data ["proxied"] = false;
+			}
+			else if ( $type == "CAA" && preg_match ( "/^0 ((?:issue|issuewild|iodef)) \"(.+)\"$/", $content, $matches ) ) {
+				$data ["data"] = array (
+					"tag" => $matches [ 1 ],
+					"value" => $matches [ 2 ],
+					"flags" => 0
 				);
 				$data ["priority"] = 1;
 				$data ["proxied"] = false;

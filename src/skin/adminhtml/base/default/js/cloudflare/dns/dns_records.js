@@ -3,6 +3,17 @@ const cloudflare = require ("cloudflare/common");
 const notification = require ("cloudflare/core/notification")
 const modal = require ("cloudflare/core/modal")
 
+function secondsToAppropriate ( seconds ) {
+	if ( seconds == 1 ) return "Automatic";
+	if ( seconds < 60 ) return seconds + " seconds";
+	if ( seconds == 60 ) return "1 minute";
+	if ( seconds < 3600 ) return seconds / 60 + " minutes";
+	if ( seconds == 3600 ) return "1 hour";
+	if ( seconds < 216000 ) return seconds / 3600 + " hours";
+	if ( seconds = 216000 ) return "1 day";
+	return seconds / 216000 + " days";
+}
+
 $( document ).on ( "cloudflare.dns.dns_records.initialize", function ( event, data ) {
 	const imageBase = $( data.section ).find ("table").data ("image-base");
 	$( data.section ).find ("table tr:not(:first)").remove ();
@@ -19,10 +30,11 @@ $( document ).on ( "cloudflare.dns.dns_records.initialize", function ( event, da
 		$( row ).append ( $("<td>")
 			.attr ( "class", "value" )
 			.text ( entry.content )
+			.append ( entry.type == "MX" ? `<div class="priority" >${entry.priority}</div>` : "" )
 		)
 		$( row ).append ( $("<td>")
 			.attr ( "class", "ttl" )
-			.text ( entry.ttl == 1 ? "Automatic" : entry.ttl + " seconds" )
+			.text ( secondsToAppropriate ( entry.ttl ) )
 		)
 		$( row ).append ( $("<td>")
 			.attr ( "class", "status" )
@@ -78,6 +90,7 @@ $( document ).on ( "cloudflare.dns.dns_records.create", function ( event, data )
 		},
 		success: function ( response ) {
 			if ( response.state == "response_success" ) {
+				$( data.section ).find ("[name='name'],[name='content']").val ("")
 				$( data.section ).find (".search").trigger ("keyup");
 			}
 			else {
@@ -120,10 +133,11 @@ $( document ).on ( "cloudflare.dns.dns_records.search", function ( event, data )
 					$( row ).append ( $("<td>")
 						.attr ( "class", "value" )
 						.text ( entry.content )
+						.append ( entry.type == "MX" ? `<div class="priority" >${entry.priority}</div>` : "" )
 					)
 					$( row ).append ( $("<td>")
 						.attr ( "class", "ttl" )
-						.text ( entry.ttl == 1 ? "Automatic" : entry.ttl + " seconds" )
+						.text ( secondsToAppropriate ( entry.ttl ) )
 					)
 					$( row ).append ( $("<td>")
 						.attr ( "class", "status" )
@@ -266,10 +280,10 @@ $(document).on ( "focus", ".show-form-srv-name", function () {
 $(document).on ( "focus", ".show-form-srv", function () {
 	var that = this;
 	var confirm = new modal.Modal ()
-	var priority = $("<input type='text' placeholder='1' name='priority' value='1' />")
-	var weight = $("<input type='text' placeholder='10' name='weight' value='1' />")
-	var port = $("<input type='text' placeholder='8444' name='port' value='1' />")
-	var target = $("<input type='text' placeholder='example.com' name='target' />")
+	var priority = modal.createInput ( "text", "priority", "1", "1" )
+	var weight = modal.createInput ( "text", "weight", "10", "1" )
+	var port = modal.createInput ( "text", "port", "8444", "1" )
+	var target = modal.createInput ( "text", "target", "example.com", "@" )
 	var matches = $(this).val ().match (/^SRV ([^ ]+) ([^ ]+) ([^ ]+) (.+)$/)
 	if ( matches ) {
 		$(priority).val ( matches [ 1 ] )
@@ -297,52 +311,61 @@ $(document).on ( "focus", ".show-form-srv", function () {
 })
 
 $(document).on ( "focus", ".show-form-spf", function () {
+	var that = this
 	var confirm = new modal.Modal ()
+	var policy = modal.createTextarea ( "policy", "Policy parameters", $(this).val () )
 	confirm.addTitle ( "Add Record: SPF content", $(this).val () )
-	confirm.addRow ( "Content", $("<textarea placeholder='Policy parameters' ></textarea>") )
+	confirm.addRow ( "Content", policy, true )
 	confirm.addButtons ()
 	confirm.addCancel ( confirm.close )
-	var that = this;
 	confirm.addSave ( function ( components ) {
-		$(that).val ( $( components.container ).find ("input[name='server']").val () )
-		var priority = $( components.container ).find ("input[name='priority']").val ()
-		if ( priority.trim () === "" ) priority = "1"
-		$(document).find (".priority.add").val ( priority )
+		var policy = $( components.container ).find ("[name='policy']").val ()
+		$(that).val ( policy )
 		confirm.close ()
 	})
 	confirm.show ()
 })
 
 $(document).on ( "focus", ".show-form-txt", function () {
+	var that = this
 	var confirm = new modal.Modal ()
+	var text = modal.createTextarea ( "text", "Text", $(this).val () )
 	confirm.addTitle ( "Add Record: TXT content", $(this).val () )
-	confirm.addRow ( "Content", $("<textarea placeholder='Text' ></textarea>"), true )
+	confirm.addRow ( "Content", text, true )
 	confirm.addButtons ()
 	confirm.addCancel ( confirm.close )
-	var that = this;
 	confirm.addSave ( function ( components ) {
-		$(that).val ( $( components.container ).find ("input[name='server']").val () )
-		var priority = $( components.container ).find ("input[name='priority']").val ()
-		if ( priority.trim () === "" ) priority = "1"
-		$(document).find (".priority.add").val ( priority )
+		var text = $( components.container ).find ("[name='text']").val ()
+		console.log ( text )
+		$(that).val ( text )
 		confirm.close ()
 	})
 	confirm.show ()
 })
 
 $(document).on ( "focus", ".show-form-caa", function () {
+	var that = this
 	var confirm = new modal.Modal ( true )
+	var tag = modal.createSelect ( "tag", [
+		{ label: "Only allow specific hostnames", value: "issue", selected: true },
+		{ label: "Only allow wildcards", value: "issuewild" },
+		{ label: "Send violation reports to URL (http:, https:, or mailto:)", value: "iodef" }
+	])
+	var value = modal.createInput ( "text", "value", "Certificate authority (CA) domain name" )
+	var matches = $(this).val ().match (/0 ((?:issue|issuewild|iodef)) \"(.+)\"/)
+	if ( matches ) {
+		$(tag).val ( matches [ 1 ] )
+		$(value).val ( matches [ 2 ] )
+	}
 	confirm.addTitle ( "Add Record: CAA content", $(this).val () )
-	confirm.addRow ( "Tag", $("<select><option selected >Only allow specific hostnames</option><option>Only allow wildcards</option><option>Send violation reports to URL (http:, https:, or mailto:)</option></select>") )
-	confirm.addRow ( "Value", $("<input type='text' placeholder='Certificate authority (CA) domain name' />") )
+	confirm.addRow ( "Tag", tag )
+	confirm.addRow ( "Value", value )
 	confirm.addButtons ()
 	confirm.addCancel ( confirm.close )
-	var that = this;
 	confirm.addSave ( function ( components ) {
-		$(that).val ( $( components.container ).find ("input[name='server']").val () )
-		var priority = $( components.container ).find ("input[name='priority']").val ()
-		if ( priority.trim () === "" ) priority = "1"
-		$(document).find (".priority.add").val ( priority )
+		var tag = $( components.container ).find ("[name='tag']").val ().trim ()
+		var value = $( components.container ).find ("[name='value']").val ().trim ()
+		$(that).val (`0 ${tag} "${value}"`)
 		confirm.close ()
 	})
 	confirm.show ()
