@@ -16,6 +16,9 @@ ul.tabs {
 		.cloudflare_tab_icon {
 			background: #2968A2;
 		}
+		&changed {
+			font-style: normal;
+		}
 	}
 	.cloudflare_tab_icon {
 		display: inline !important;

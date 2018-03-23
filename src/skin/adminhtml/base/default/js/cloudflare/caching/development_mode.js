@@ -1,25 +1,24 @@
 const $ = require ("jquery")
-const cloudflare = require ("cloudflare/common")
 const notification = require ("cloudflare/core/notification")
 
 $( document ).on ( "cloudflare.caching.development_mode.initialize", function ( event, data ) {
-	var value = data.response.payload.value == "on" ? "true" : "false";
-	$( data.section ).find ("#state").eq ( 0 ).data ( "state", value );
-	$( data.section ).find ("#state").eq ( 0 ).attr ( "data-state", value );
+	var value = data.response.payload.value == "on"
+	$( data.section ).find ("[name='mode']").prop ( "checked", value )
 });
 
 $( document ).on ( "cloudflare.caching.development_mode.toggle", function ( event, data ) {
-	var state = $( data.section ).find ("#state").eq ( 0 ).data ("state") == "true";
-	$( data.section ).find ("#state").eq ( 0 ).data ( "state", !state + "" );
-	$( data.section ).find ("#state").eq ( 0 ).attr ( "data-state", !state + "" );
-	cloudflare.setMessages ( data.section, "loading", [""] );
+	var state = $( data.section ).find ("[name='mode']:checked").length > 0
+	$( data.section ).addClass ("loading")
 	$.ajax ({
 		url: data.form.endpoint,
 		type: "POST",
-		data: { "form_key": data.form.key, "state": !state },
+		data: { "form_key": data.form.key, "state": state },
 		success: function ( response ) {
-			cloudflare.setMessages ( data.section, response.state, response.messages );
+			if ( response && response.state != "response_success" ) {
+				$( data.section ).find ("[name='mode']").prop ( "checked", !state );
+			}
 			notification.addMessages ( response.state, response.messages );
+			$( data.section ).removeClass ("loading")
 		}
 	});
 });

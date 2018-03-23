@@ -1,0 +1,3 @@
+<?php
+
+	class JetRails_Cloudflare_Api_Firewall_RateLimitingController extends JetRails_Cloudflare_Controller_Action {}

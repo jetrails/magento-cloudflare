@@ -1,0 +1,3 @@
+<?php
+
+	class JetRails_Cloudflare_Api_Firewall_FirewallEventsController extends JetRails_Cloudflare_Controller_Action {}
