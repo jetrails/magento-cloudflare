@@ -6,11 +6,39 @@
 
 		$counter = 0;
 
+		if ( Mage::getSingleton ("admin/session")->isAllowed ("jetrails/cloudflare/firewall/rate_limiting") ) {
+			$counter++;
+			echo $this->getLayout ()
+				->createBlock ("cloudflare/dashboard_section")
+				->setTemplate ("cloudflare/firewall/rate_limiting.phtml")->toHtml ();
+		}
+
+		if ( Mage::getSingleton ("admin/session")->isAllowed ("jetrails/cloudflare/firewall/security_level") ) {
+			$counter++;
+			echo $this->getLayout ()
+				->createBlock ("cloudflare/dashboard_section")
+				->setTemplate ("cloudflare/firewall/security_level.phtml")->toHtml ();
+		}
+
+		if ( Mage::getSingleton ("admin/session")->isAllowed ("jetrails/cloudflare/firewall/challenge_passage") ) {
+			$counter++;
+			echo $this->getLayout ()
+				->createBlock ("cloudflare/dashboard_section")
+				->setTemplate ("cloudflare/firewall/challenge_passage.phtml")->toHtml ();
+		}
+
 		if ( Mage::getSingleton ("admin/session")->isAllowed ("jetrails/cloudflare/firewall/access_rules") ) {
 			$counter++;
 			echo $this->getLayout ()
 				->createBlock ("cloudflare/dashboard_section")
 				->setTemplate ("cloudflare/firewall/access_rules.phtml")->toHtml ();
+		}
+
+		if ( Mage::getSingleton ("admin/session")->isAllowed ("jetrails/cloudflare/firewall/firewall_events") ) {
+			$counter++;
+			echo $this->getLayout ()
+				->createBlock ("cloudflare/dashboard_section")
+				->setTemplate ("cloudflare/firewall/firewall_events.phtml")->toHtml ();
 		}
 
 		if ( $counter === 0 ) {

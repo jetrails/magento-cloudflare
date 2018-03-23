@@ -20,8 +20,23 @@
 		<div class="wrapper_bottom" >
 			<a data-tab="help" >Help</a>
 		</div>
-		<div data-tab-content="help"
-			This is the help section
+		<div data-tab-content="help" >
+			<h4>What option should I choose?</h4>
+			<ul>
+				<li><strong>Block:</strong> Ensures that an IP address will never be allowed to access your website</li>
+				<li><strong>CAPTCHA:</strong> Specified IP addresses will be shown a CAPTCHA before being allowed to access your website</li>
+				<li><strong>JavaScript Challenge</strong>: The JavaScript challenge page requires the visitor to wait 5 seconds while Cloudflare determines if the visitor is coming from a real browser. The challenge requires the visitor's browser to answer a math problem which takes a bit of time to compute. Once successfully answered, the browser will be remembered and won't be challenged again.</li>
+				<li><strong>Whitelist:</strong> Ensures that an IP address will never be blocked from accessing your website. Only use for verified IPs that you trust!</li>
+			</ul>
+			<p><strong>What can Access Rules be applied to?</strong><br>Access Rules can be applied based on:</p>
+			<ul>
+				<li><strong>IP address</strong></li>
+				<li><strong>IP address range:</strong> Cloudflare accepts the following CIDR notations: /16 and /24 for IPv4 addresses and /64, /48, and /32 for IPv6</li>
+				<li><strong>Autonomous System Number (ASN):</strong> An ASN is the unique identifier for any network, such as the Cloudflare network (AS13335). The accepted format for ASN's is "AS12345"</li>
+				<li><strong>Country:</strong> Specified using ISO 2-letter country codes, such as "US" for the United States</li>
+			</ul>
+			<p>You can apply Access Rules to this domain only or all domains in your account.</p>
+			<p>To modify an existing Access Rule, create a new Access Rule and delete the existing one.</p>
 		</div>
 	</div>
 </section>

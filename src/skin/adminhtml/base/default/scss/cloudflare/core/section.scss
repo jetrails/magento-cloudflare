@@ -60,7 +60,7 @@ section.cloudflare {
 	}
 	&.loading {
 		div.lightbox {
-			background-color: rgba( 0, 0, 0, 0 );
+			background-color: rgba(230, 230, 230, 0.2901960784313726);
 			visibility: visible;
 		}
 	}
@@ -295,6 +295,20 @@ section.cloudflare input.search {
 	background-position: 5px center;
 }
 
+section.cloudflare, .cloudflare_modal {
+	a {
+		color: $color-blue;
+		text-decoration: none;
+		transition: all 200ms;
+		cursor: pointer;
+	}
+	a:hover {
+		color: $color-orange;
+	}
+	a.active {
+		color: $color-orange;
+	}
+}
 
 section.cloudflare {
 	.collapsable {
@@ -302,18 +316,8 @@ section.cloudflare {
 		.wrapper_bottom {
 			border-bottom: solid 1px $color-border_gray;
 			a {
-				color: $color-blue;
-				text-decoration: none;
-				transition: all 200ms;
-				cursor: pointer;
 				vertical-align: -50%;
 				margin-left: 20px;
-			}
-			a:hover {
-				color: $color-orange;
-			}
-			a.active {
-				color: $color-orange;
 			}
 			a:after {
 				font-family: "cloudflare-font";
@@ -335,9 +339,9 @@ section.cloudflare {
 			color: #383838;
 			line-height: 1.2em;
 			h3 {
-				font-size: 1.46667rem;
-				font-weight: 600;
-    			line-height: 1.3;
+				font-size: 1.5em;
+			    font-weight: 100;
+			    line-height: 1.3;
 			}
 			h4 {
 				font-size: 1.15rem;

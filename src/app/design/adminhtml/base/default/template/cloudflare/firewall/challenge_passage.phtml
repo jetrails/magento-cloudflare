@@ -1,0 +1,43 @@
+<section
+	class="cloudflare firewall challenge_passage initialize loading"
+	data-endpoint="<?php echo $this->getApiEndpoint () ?>"
+	data-form-key="<?php echo $this->getFormKey () ?>"
+	data-tab-name="firewall"
+	data-section-name="challenge_passage" >
+	<div class="row" >
+		<div class="wrapper_left" >
+			<span class="section_title" >Challenge Passage</span>
+			<p>Specify how long a visitor with a bad IP reputation is allowed access to your website after completing a challenge. After the Challenge Passage TTL expires the visitor in question will have to pass a new Challenge.</p>
+		</div>
+		<div class="wrapper_right" >
+			<div>
+				<select>
+					<option>5 minutes</option>
+					<option>15 minutes</option>
+					<option>30 minutes</option>
+					<option>45 minutes</option>
+					<option>1 hour</option>
+					<option>2 hours</option>
+					<option>3 hours</option>
+					<option>4 hours</option>
+					<option>8 hours</option>
+					<option>16 hours</option>
+					<option>1 day</option>
+					<option>1 week</option>
+					<option>1 month</option>
+					<option>1 year</option>
+				</select>
+			</div>
+			<div class="lightbox" style="background-image: url(<?php echo $this->getSkinUrl ('images/cloudflare/loading.svg') ?>)" ></div>
+		</div>
+	</div>
+	<div class="row collapsable" >
+		<div class="wrapper_bottom" >
+			<a data-tab="help" >Help</a>
+		</div>
+		<div data-tab-content="help" >
+			<h4>Why doesn’t the TTL apply to the WAF?</h4>
+			<p>Challenge passage does not apply to challenges issued by the Web Application Firewall (WAF) as these challenges are not based on the visitor’s IP address reputation.</p>
+		</div>
+	</div>
+</section>

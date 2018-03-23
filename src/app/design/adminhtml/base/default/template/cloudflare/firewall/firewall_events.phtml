@@ -1,0 +1,48 @@
+<section
+	class="cloudflare firewall firewall_events initialize loading"
+	data-endpoint="<?php echo $this->getApiEndpoint () ?>"
+	data-form-key="<?php echo $this->getFormKey () ?>"
+	data-tab-name="firewall"
+	data-section-name="firewall_events" >
+	<div class="row" >
+		<div class="wrapper_left" >
+			<span class="section_title" >Firewall Events</span>
+			<p>Requests affected by both IP Firewall and Web Application Firewall (WAF) rules.</p>
+		</div>
+		<div class="wrapper_right" >
+			<div>
+				Form?
+			</div>
+			<div class="lightbox" style="background-image: url(<?php echo $this->getSkinUrl ('images/cloudflare/loading.svg') ?>)" ></div>
+		</div>
+	</div>
+	<div class="row collapsable" >
+		<div class="wrapper_bottom" >
+			<a data-tab="help" >Help</a>
+		</div>
+		<div data-tab-content="help" >
+			<h4>Firewall Events</h4>
+			<p>For a better understanding of how our Firewall events work along with how our WAF correlates with these events, please check out our detailed article <a href="https://support.cloudflare.com/hc/en-us/articles/115000223771-How-do-I-configure-the-WAF">here</a>.</p>
+			<p>Each entry contains:</p>
+			<ul>
+				<li><strong>Rule type</strong></li>
+				<li><strong>Action taken</strong></li>
+				<li><strong>Source IP of the web request</strong></li>
+				<li><strong>Country associated with the source of the web request</strong></li>
+				<li><strong>Hostname of your server which has been accessed</strong></li>
+				<li><strong>Time</strong></li>
+			</ul>
+			<p>The <strong>details</strong> link provides additional information about a specific request.</p>
+			<p>You can search Firewall events based on:</p>
+			<ul>
+				<li><strong>Ray ID:</strong> A specific identifier of a request going through Cloudflare's network</li>
+				<li><strong>Source IP Address</strong></li>
+				<li><strong>Rule ID of a Firewall Rule</strong></li>
+				<li>
+					<p><strong>Group ID:</strong> Contains several firewall rules.</p>
+					<p>Click <a href="https://support.cloudflare.com/hc/en-us/articles/200172036-Where-can-I-find-WAF-events-">here</a> for additional information on searching in your Firewall events</p>
+				</li>
+			</ul>
+		</div>
+	</div>
+</section>
