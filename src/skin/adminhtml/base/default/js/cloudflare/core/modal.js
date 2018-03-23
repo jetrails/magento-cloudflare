@@ -2,7 +2,12 @@ const $ = require ("jquery");
 
 function createComponents ( large ) {
 	let container = $("<div class='container' >")
-	if ( large ) $( container ).css ({ width: "630px" })
+	if ( large && typeof large !== "boolean" ) {
+		$( container ).css ({ width: large + "px" })
+	}
+	else if ( large ) {
+		$( container ).css ({ width: "630px" })
+	}
 	return {
 		modal: $("<div class='cloudflare_modal' >"),
 		container: container,
@@ -41,7 +46,7 @@ function Modal ( large = false ) {
 		addRow: ( label, element, tight = false ) => {
 			let row = $("<div class='row' >")
 			if ( tight ) $( row ).addClass ("tight")
-			row.append ( $("<div class='label' >").text ( label ) )
+			row.append ( $("<div class='label' >").html ( label ) )
 			row.append ( $("<div class='element' >").html ( element ) )
 			$( components.container ).append ( row )
 		},
@@ -120,6 +125,12 @@ function createTextarea ( name, placeholder = "", value = "" ) {
 	return textarea
 }
 
+function createSwitch ( name, state = false ) {
+	return $(`<label class="switch" >`)
+		.append ( $(`<input class="trigger" type="checkbox" name="${name}" data-target="toggle" >`).prop ( "checked", state ) )
+		.append ( $(`<span class="knob" >`) )
+}
+
 module.exports = {
 	Modal: Modal,
 	confirm: confirm,
@@ -127,5 +138,6 @@ module.exports = {
 	createSelect: createSelect,
 	createRows: createRows,
 	createRow: createRow,
-	createTextarea: createTextarea
+	createTextarea: createTextarea,
+	createSwitch: createSwitch
 }

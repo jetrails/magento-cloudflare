@@ -304,6 +304,11 @@ section.cloudflare, .cloudflare_modal {
 	a.active {
 		color: $color-orange;
 	}
+	.dashed {
+		border-bottom: dashed 1px;
+		line-height: 2em;
+		font-weight: 600;
+	}
 }
 
 section.cloudflare {

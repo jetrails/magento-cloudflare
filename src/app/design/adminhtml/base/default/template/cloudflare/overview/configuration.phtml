@@ -25,18 +25,19 @@
 					<input name="form_key" type="hidden" value="<?php echo $this->getFormKey () ?>" />
 					<input name="email" type="email" placeholder="Email Address" value="<?php echo $this->getAuthEmail () ?>" />
 					<input name="token" type="text" placeholder="API Token" />
-					<input type="submit" value="Save Credentials" onmouseup="submitForm ('overview-configuration')" />
+					<input class="full" type="submit" value="Save Credentials" onmouseup="submitForm ('overview-configuration')" />
 				</form>
 			</div>
 		</div>
 	</div>
-	<div class="row" >
+	<div class="lightbox" style="background-image: url(<?php echo $this->getSkinUrl ('images/cloudflare/loading.svg') ?>)" > </div>
+	<div class="row collapsable" >
 		<div class="wrapper_bottom" >
-			Hello
+			<a data-tab="help" >Help</a>
 		</div>
-	</div>
-	<div
-		class="lightbox"
-		style="background-image: url(<?php echo $this->getSkinUrl ('images/cloudflare/loading.svg') ?>)" >
+		<div data-tab-content="help" >
+			<h3>Configure Cloudflare API</h3>
+			<p>This will be the help section</p>
+		</div>
 	</div>
 </section>
