@@ -115,7 +115,12 @@ function createRows () {
 
 function createSelect ( name, options ) {
 	let select = $("<select name='" + name + "' >")
-	options = options.map ( option => { return new Option ( option.label, option.value ) } )
+	options = options.map ( option => {
+		var element = new Option ( option.label, option.value )
+		if ( option.selected ) $(element).prop ( "selected", true )
+		if ( option.disabled ) $(element).prop ( "disabled", true )
+		return element
+	})
 	$(select).append ( options )
 	return select
 }
@@ -127,9 +132,14 @@ function createTextarea ( name, placeholder = "", value = "" ) {
 
 function createSwitch ( name, state = false ) {
 	return $(`<label class="switch" >`)
-		.append ( $(`<input class="trigger" type="checkbox" name="${name}" data-target="toggle" >`).prop ( "checked", state ) )
+		.append ( $(`<input type="checkbox" name="${name}" >`).prop ( "checked", state ) )
 		.append ( $(`<span class="knob" >`) )
 }
+
+$(document).on ( "click", "input[type='checkbox']", function () {
+	console.log ( $(this).val () );
+})
+
 
 module.exports = {
 	Modal: Modal,

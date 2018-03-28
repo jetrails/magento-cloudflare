@@ -74,6 +74,7 @@
 			.element {
 				flex-grow: 1;
 				font-size: 14px;
+				flex-wrap: wrap;
 				color: #333;
 			}
 			&.tight {
@@ -138,32 +139,40 @@
 			margin-bottom: 15px;
 			line-height: 1.5em;
 		}
-		.collection {
+		.collections {
 			width: 100%;
-			display: flex;
-			padding-left: 0;
-    		padding-right: 0;
-			.delete {
-				background: #DEDEDE;
-				border-radius: 2px;
-				border-bottom: solid 1px #BABABA;
-				height: 30px;
-				width: 30px;
-				cursor: pointer;
-				transition: all 200ms;
-				text-align: center;
-				font-size: 1em;
-				padding-top: 7px;
-				box-sizing: border-box;
-				&:hover {
-					background: #CCC;
+			.collection {
+				width: 100%;
+				display: flex;
+				padding-top: 5px;
+				padding-bottom: 5px;
+				padding-left: 0;
+	    		padding-right: 0;
+				.delete {
+					background: #DEDEDE;
+					border-radius: 2px;
+					border-bottom: solid 1px #BABABA;
+					height: 30px;
+					width: 30px;
+					cursor: pointer;
+					transition: all 200ms;
+					text-align: center;
+					font-size: 1em;
+					padding-top: 7px;
+					box-sizing: border-box;
+					&:hover {
+						background: #CCC;
+					}
 				}
-			}
-			> *:first-child {
-				margin-left: 0 !important;
-			}
-			> *:last-child {
-				margin-right: 0 !important;
+				> *:first-child {
+					margin-left: 0 !important;
+				}
+				> *:last-child {
+					margin-right: 0 !important;
+				}
+				p {
+					line-height: 2em;
+				}
 			}
 		}
 	}
