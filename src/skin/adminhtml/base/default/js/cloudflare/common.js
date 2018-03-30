@@ -2,8 +2,8 @@ const $ = require ("jquery")
 
 
 
-function loadSections () {
-	$("section.cloudflare.initialize").each ( function ( index, section ) {
+function loadSections ( additional = "" ) {
+	$("section.cloudflare.initialize" + additional ).each ( function ( index, section ) {
 		$.ajax ({
 			url: $( section ).data ("endpoint"),
 			type: "POST",

@@ -1,5 +1,4 @@
 const $ = require ("jquery")
-
 const notification = require ("cloudflare/core/notification")
 const cloudflare = require ("cloudflare/common")
 

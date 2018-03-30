@@ -136,10 +136,9 @@ function createSwitch ( name, state = false ) {
 		.append ( $(`<span class="knob" >`) )
 }
 
-$(document).on ( "click", "input[type='checkbox']", function () {
-	console.log ( $(this).val () );
-})
-
+function createIconButton ( className, icon ) {
+	return $(`<div class="icon-button cloudflare-font ${className}" >`).html ( icon )
+}
 
 module.exports = {
 	Modal: Modal,
@@ -149,5 +148,6 @@ module.exports = {
 	createRows: createRows,
 	createRow: createRow,
 	createTextarea: createTextarea,
-	createSwitch: createSwitch
+	createSwitch: createSwitch,
+	createIconButton: createIconButton
 }

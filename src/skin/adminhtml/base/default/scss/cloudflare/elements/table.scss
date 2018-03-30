@@ -2,7 +2,7 @@ section.cloudflare {
 	table {
 		width: 100%;
 		tr {
-			transition: all 500ms;
+			transition: background 500ms;
 			background: #FAFAFA;
 			&:nth-child(even) {
 				background: #FFFFFF;
@@ -90,6 +90,24 @@ section.cloudflare {
 					background: none;
 					padding: 2px 5px;
 					color: #777;
+				}
+				&.no_white_space {
+					white-space: normal;
+					line-height: 1.6em;
+					span {
+						display: block;
+						color: #7C7C7C;
+						line-height: 1.4em;
+					}
+				}
+				&.handle {
+					font-family: "cloudflare-font";
+					word-break: unset;
+					white-space: normal;
+					line-height: 0.6;
+					font-size: 1.1em;
+					cursor: ns-resize;
+					padding-top: 17px;
 				}
 			}
 			th:hover {

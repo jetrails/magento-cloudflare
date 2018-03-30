@@ -7,11 +7,11 @@
 			return $session->isAllowed ("jetrails/cloudflare/page_rules/page_rules");
 		}
 
-		// public function indexAction () {
-		// 	$api = Mage::getModel ("cloudflare/api_overview_status");
-		// 	$response = $api->getStatus ();
-		// 	return $this->_formatAndSend ( $response );
-		// }
+		public function indexAction () {
+			$api = Mage::getModel ("cloudflare/api_pageRules_pageRules");
+			$response = $api->load ();
+			return $this->_formatAndSend ( $response );
+		}
 
 		public function createAction () {
 			$api = Mage::getModel ("cloudflare/api_pageRules_pageRules");
@@ -20,8 +20,22 @@
 				$this->_request->getParam ("actions"),
 				$this->_request->getParam ("status") == "true"
 			);
-			return $this->_sendResponse ( $response );
-			// return $this->_formatAndSend ( $response );
+			return $this->_formatAndSend ( $response );
+		}
+
+		public function toggleAction () {
+			$api = Mage::getModel ("cloudflare/api_pageRules_pageRules");
+			$response = $api->toggle (
+				$this->_request->getParam ("id"),
+				$this->_request->getParam ("state") == "true"
+			);
+			return $this->_formatAndSend ( $response );
+		}
+
+		public function deleteAction () {
+			$api = Mage::getModel ("cloudflare/api_pageRules_pageRules");
+			$response = $api->delete ( $this->_request->getParam ("id") );
+			return $this->_formatAndSend ( $response );
 		}
 
 	}

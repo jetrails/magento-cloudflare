@@ -473,3 +473,24 @@ section.cloudflare.empty {
 		}
 	}
 }
+
+
+section.cloudflare {
+	.icon-button {
+		background-color: #DEDEDE;
+	    height: 35px;
+	    width: 35px;
+	    text-align: center;
+	    font-size: 1em;
+	    line-height: 35px;
+	    color: #333;
+	    border-radius: 2px;
+	    border-bottom: 1px solid #CCC;
+		transition: all 200ms;
+		cursor: pointer;
+		&:hover {
+			background-color: #CCC;
+			border-color: #BABABA;
+		}
+	}
+}
