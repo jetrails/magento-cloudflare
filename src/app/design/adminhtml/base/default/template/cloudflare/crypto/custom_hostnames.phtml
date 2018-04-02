@@ -1,0 +1,37 @@
+<section
+	class="cloudflare crypto custom_hostnames "
+	data-endpoint="<?php echo $this->getApiEndpoint () ?>"
+	data-form-key="<?php echo $this->getFormKey () ?>"
+	data-tab-name="crypto"
+	data-section-name="custom_hostnames" >
+	<div class="row" >
+		<div class="wrapper_left" >
+			<span class="section_title" >Custom Hostnames</span>
+			<p>Manage the hostnames and SSL certificates for third-parties that CNAME to your domain.</p>
+		</div>
+		<div class="wrapper_right" >
+			<div>
+				<input class="trigger" data-target="change" type="button" value="Upgrade to Enterprise" />
+			</div>
+			<div class="lightbox" style="background-image: url(<?php echo $this->getSkinUrl ('images/cloudflare/loading.svg') ?>)" ></div>
+		</div>
+	</div>
+	<div class="row collapsable" >
+		<div class="wrapper_bottom" >
+			<a data-tab="help" >Help</a>
+		</div>
+		<div data-tab-content="help" >
+			<h4>What are Custom Hostnames?</h4>
+			<p>Custom hostnames are third party hostnames that CNAME to your domain in order to receive the performance and security benefits of Cloudflare. Before you can use this feature your account must be configured with assistance from Cloudflare. If you are not yet an Enterprise customer, please fill our the <a href="https://www.cloudflare.com/plans/enterprise/contact/">Enterprise contact form</a> and someone will be in touch shortly. If you already are an Enterprise customer, please contact your Customer Success Manager.</p>
+			<h4>How do I add a custom hostname?</h4>
+			<p>Once your account has been provisioned, you should type the hostname you wish to add (i.e., the one that has a CNAME to your domain) in the ‘Hostname to add’ input box, select a validation method—we recommend HTTP validation as it requires no interaction from the third party for SSL issuance other than adding the initial CNAME—and then click the ‘Add Custom Hostname’ button. Once you click the button, Cloudflare will attempt to issue an SSL certificate for the custom hostname according to the validation method selected; validation methods are described below in detail.</p>
+			<h4>Which validation methods are available for SSL issuance?</h4>
+			<p>There are three validation methods available for use with custom hostnames: HTTP, email, and CNAME. HTTP validation is recommended as it requires no action for the owner of the custom hostname (other than initially pointing the CNAME). Email and CNAME validation can be used if you wish to have the SSL certificate issued and deployed to Cloudflare’s edge before you instruct the owner of the custom hostname to add the CNAME record; typically this is only required if that hostname previously had HTTPS support and a downtime of a couple minutes (for the certificate issuance) is unacceptable. If you select email validation, an email will be sent to the WHOIS contacts on file for the zone in addition to the following addresses at the domain: admin, administrator, hostmaster, postmaster, and webmaster. The recipient will then need to click on the link and approve the certificate request. If you select CNAME validation, you will be provided with an additional CNAME to provide to the custom hostname owner for addition to their authoritative DNS provider.</p>
+			<p>What does the refresh button do?<br>The refresh button can be used to request that Cloudflare check the status of the certificate issuance. Statuses transition automatically from Initializing to Pending Validation to Pending Issuance to Pending Deployment and then to Active.</p>
+			<h4>What happens if I exceed my custom hostname quota?</h4>
+			<p>If you exceed your quota you will no longer be able to issue additional certificates. You will need to contact your Customer Success Manager to have this quota increased.</p>
+			<h4>How can I upload custom certificates?</h4>
+			<p>You must use the API to upload custom certificates. Details can be found at <a href="api.cloudflare.com">https://api.cloudflare.com</a>.</p>
+		</div>
+	</div>
+</section>

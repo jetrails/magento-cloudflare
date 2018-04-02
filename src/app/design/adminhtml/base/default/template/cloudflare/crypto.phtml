@@ -1,0 +1,109 @@
+<h1 class="tab-content" >Crypto</h1>
+<h2 class="tab-content" >Manage cryptography settings for your website</h2>
+<?php
+
+	if ( Mage::getSingleton ("admin/session")->isAllowed ("jetrails/cloudflare/crypto") ) {
+
+		$counter = 0;
+
+		if ( Mage::getSingleton ("admin/session")->isAllowed ("jetrails/cloudflare/crypto/ssl") ) {
+			$counter++;
+			echo $this->getLayout ()
+				->createBlock ("cloudflare/dashboard_section")
+				->setTemplate ("cloudflare/crypto/ssl.phtml")->toHtml ();
+		}
+
+		if ( Mage::getSingleton ("admin/session")->isAllowed ("jetrails/cloudflare/crypto/edge_certificates") ) {
+			$counter++;
+			echo $this->getLayout ()
+				->createBlock ("cloudflare/dashboard_section")
+				->setTemplate ("cloudflare/crypto/edge_certificates.phtml")->toHtml ();
+		}
+
+		if ( Mage::getSingleton ("admin/session")->isAllowed ("jetrails/cloudflare/crypto/custom_hostnames") ) {
+			$counter++;
+			echo $this->getLayout ()
+				->createBlock ("cloudflare/dashboard_section")
+				->setTemplate ("cloudflare/crypto/custom_hostnames.phtml")->toHtml ();
+		}
+
+		if ( Mage::getSingleton ("admin/session")->isAllowed ("jetrails/cloudflare/crypto/origin_certificates") ) {
+			$counter++;
+			echo $this->getLayout ()
+				->createBlock ("cloudflare/dashboard_section")
+				->setTemplate ("cloudflare/crypto/origin_certificates.phtml")->toHtml ();
+		}
+
+		if ( Mage::getSingleton ("admin/session")->isAllowed ("jetrails/cloudflare/crypto/always_use_https") ) {
+			$counter++;
+			echo $this->getLayout ()
+				->createBlock ("cloudflare/dashboard_section")
+				->setTemplate ("cloudflare/crypto/always_use_https.phtml")->toHtml ();
+		}
+
+		if ( Mage::getSingleton ("admin/session")->isAllowed ("jetrails/cloudflare/crypto/http_strict_transport_security") ) {
+			$counter++;
+			echo $this->getLayout ()
+				->createBlock ("cloudflare/dashboard_section")
+				->setTemplate ("cloudflare/crypto/http_strict_transport_security.phtml")->toHtml ();
+		}
+
+		if ( Mage::getSingleton ("admin/session")->isAllowed ("jetrails/cloudflare/crypto/authenticated_origin_pulls") ) {
+			$counter++;
+			echo $this->getLayout ()
+				->createBlock ("cloudflare/dashboard_section")
+				->setTemplate ("cloudflare/crypto/authenticated_origin_pulls.phtml")->toHtml ();
+		}
+
+		if ( Mage::getSingleton ("admin/session")->isAllowed ("jetrails/cloudflare/crypto/require_modern_tls") ) {
+			$counter++;
+			echo $this->getLayout ()
+				->createBlock ("cloudflare/dashboard_section")
+				->setTemplate ("cloudflare/crypto/require_modern_tls.phtml")->toHtml ();
+		}
+
+		if ( Mage::getSingleton ("admin/session")->isAllowed ("jetrails/cloudflare/crypto/opportunistic_encryption") ) {
+			$counter++;
+			echo $this->getLayout ()
+				->createBlock ("cloudflare/dashboard_section")
+				->setTemplate ("cloudflare/crypto/opportunistic_encryption.phtml")->toHtml ();
+		}
+
+		if ( Mage::getSingleton ("admin/session")->isAllowed ("jetrails/cloudflare/crypto/tls_1.3") ) {
+			$counter++;
+			echo $this->getLayout ()
+				->createBlock ("cloudflare/dashboard_section")
+				->setTemplate ("cloudflare/crypto/tls_1.3.phtml")->toHtml ();
+		}
+
+		if ( Mage::getSingleton ("admin/session")->isAllowed ("jetrails/cloudflare/crypto/automatic_https_rewrites") ) {
+			$counter++;
+			echo $this->getLayout ()
+				->createBlock ("cloudflare/dashboard_section")
+				->setTemplate ("cloudflare/crypto/automatic_https_rewrites.phtml")->toHtml ();
+		}
+
+		if ( Mage::getSingleton ("admin/session")->isAllowed ("jetrails/cloudflare/crypto/disable_universal_ssl") ) {
+			$counter++;
+			echo $this->getLayout ()
+				->createBlock ("cloudflare/dashboard_section")
+				->setTemplate ("cloudflare/crypto/disable_universal_ssl.phtml")->toHtml ();
+		}
+
+		if ( $counter === 0 ) {
+			echo $this->getLayout ()
+				->createBlock ("cloudflare/dashboard_section")
+				->setTemplate ("cloudflare/core/empty.phtml")->toHtml ();
+		}
+
+	}
+	else {
+
+		echo $this->getLayout ()
+			->createBlock ("cloudflare/dashboard_section")
+			->setTemplate ("cloudflare/core/restricted.phtml")->toHtml ();
+
+	}
+
+
+?>

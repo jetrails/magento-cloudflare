@@ -1,0 +1,47 @@
+<section
+	class="cloudflare crypto origin_certificates "
+	data-endpoint="<?php echo $this->getApiEndpoint () ?>"
+	data-form-key="<?php echo $this->getFormKey () ?>"
+	data-tab-name="crypto"
+	data-section-name="origin_certificates" >
+	<div class="row" >
+		<div class="wrapper_left" >
+			<span class="section_title" >Origin Certificates</span>
+			<p>Generate a free TLS certificate signed by Cloudflare to install on your origin server.</p>
+		</div>
+		<div class="wrapper_right" >
+			<div>
+				<input class="trigger" data-target="create" type="button" value="Create Certificate" />
+			</div>
+			<div class="lightbox" style="background-image: url(<?php echo $this->getSkinUrl ('images/cloudflare/loading.svg') ?>)" ></div>
+		</div>
+	</div>
+	<div class="row" >
+		<table cellspacing="0" cellpadding="0" >
+			<thead>
+				<th>Hosts</th>
+				<th>Expires On</th>
+			</thead>
+			<tbody>
+				<td colspan="2" >No Certificates</td>
+			</tbody>
+		</table>
+	</div>
+	<div class="row collapsable" >
+		<div class="wrapper_bottom" >
+			<a data-tab="help" >Help</a>
+		</div>
+		<div data-tab-content="help" >
+			<h4>What are Origin Certificates?</h4>
+			<p>Cloudflare Origin Certificates are free TLS certificates issued by Cloudflare that can be installed on your origin server to facilitate end-to-end encryption for your visitors using HTTPS. Click “Create Certificate” and follow the instructions provided to generate and install a certificate. If not already set, you can now optionally change the SSL setting about to use “Full (strict)” mode.</p>
+			<h4>Hostname/Wildcard Coverage</h4>
+			<p>Certificates may be generated with up to 100 individual Subject Alternative Names (SANs). A SAN can take the form of a fully-qualified domain name (www.example.com) or a wildcard (<em>.example.com); IP addresses are not permitted as SANs on Cloudflare Origin Certificates. Wildcards may only cover one level, but can be used multiple times on the same certificate for broader coverage (e.g., </em>.example.com and *.secure.example.com may co-exist).</p>
+			<h4>Expiration</h4>
+			<p>Note that by default, newly generated certificates are valid for 15 years. If you wish to generate shorter-lived certificates (e.g., as short as 7 days), you should use the API or CLI tools provided.</p>
+			<h4>Revocation</h4>
+			<p>If you misplace your key material or wish to indicate that a certificate should otherwise no longer be trusted, you can click the “x” icon to the far-right of the Origin Certificate and click “OK”. This process cannot be undone.</p>
+			<h4>Automated Issuance</h4>
+			<p>If you wish to automate the issuance of Origin Certificates, click the CLI or API links to the right of the Help link to see additional instructions.</p>
+		</div>
+	</div>
+</section>

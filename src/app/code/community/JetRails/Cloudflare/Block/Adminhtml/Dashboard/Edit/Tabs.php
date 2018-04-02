@@ -41,6 +41,14 @@
 									->setTemplate ("cloudflare/dns.phtml")
 									->toHtml (),
 			))
+			->addTab ( "crypto", array (
+				"label"  	=> $this->_createTabIcon ("Crypto"),
+				"title"  	=> $this->__("Crypto"),
+				"content"   => $this->getLayout ()
+									->createBlock ("adminhtml/widget_form")
+									->setTemplate ("cloudflare/crypto.phtml")
+									->toHtml (),
+			))
 			->addTab ( "firewall", array (
 				"label"  	=> $this->_createTabIcon ("Firewall"),
 				"title"  	=> $this->__("Firewall"),
