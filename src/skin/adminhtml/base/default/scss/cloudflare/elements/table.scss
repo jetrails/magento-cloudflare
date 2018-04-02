@@ -118,5 +118,10 @@ section.cloudflare {
 				transition: all 200ms;
 			}
 		}
+		&.rules {
+			td:nth-child( 5 ) {
+				padding: 0;
+			}
+		}
 	}
 }
