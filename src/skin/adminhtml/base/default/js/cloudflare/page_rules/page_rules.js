@@ -288,8 +288,7 @@ $( document ).on ( "cloudflare.page_rules.page_rules.create", function ( event, 
 		],
 		true
 	)
-	confirm.addButton ({ label: "Cancel", class: "gray", callback: confirm.close })
-	confirm.addButton ({ label: "Save", class: "green", callback: ( components ) => {
+	var saveCallback = ( components, status ) => {
 		var target = $(components.container).find ("[name='target']").val ()
 		var actions = $.makeArray ( $( components.container )
 			.find (".collections > .collection")
@@ -311,7 +310,7 @@ $( document ).on ( "cloudflare.page_rules.page_rules.create", function ( event, 
 				"form_key": data.form.key,
 				"target": target,
 				"actions": actions,
-				"status": true
+				"status": status
 			},
 			success: function ( response ) {
 				if ( response.state == "response_success" ) {
@@ -321,11 +320,15 @@ $( document ).on ( "cloudflare.page_rules.page_rules.create", function ( event, 
 					common.loadSections (".page_rules")
 				}
 				else {
+					$(components.modal).removeClass ("loading")
 					notification.addMessages ( response.state, response.messages );
 				}
 			}
 		});
-	}})
+	}
+	confirm.addButton ({ label: "Cancel", class: "gray", callback: confirm.close })
+	confirm.addButton ({ label: "Save as Draft", class: "gray", callback: ( components ) => { saveCallback ( components, false ) } })
+	confirm.addButton ({ label: "Save and Deploy", callback: ( components ) => { saveCallback ( components, true ) } })
 	confirm.show ()
 });
 
