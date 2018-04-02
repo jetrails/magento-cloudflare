@@ -240,16 +240,24 @@ $( document ).on ( "cloudflare.page_rules.page_rules.toggle", function ( event, 
 });
 
 $( document ).on ( "cloudflare.page_rules.page_rules.delete", function ( event, data ) {
-	var id = data.trigger.data ("id")
-	$(data.section).addClass ("loading")
-	$.ajax ({
-		url: data.form.endpoint,
-		type: "POST",
-		data: { "form_key": data.form.key, "id": id },
-		success: function ( response ) {
-			common.loadSections (".page_rules")
-		}
-	});
+	var confirm = new modal.Modal ()
+	confirm.addTitle ("Confirm")
+	confirm.addElement ( $("<p>").text ("Are you sure you want to delete this page rule?") )
+	confirm.addButton ({ label: "OK", callback: ( components ) => {
+		confirm.close ()
+		var id = data.trigger.data ("id")
+		$(data.section).addClass ("loading")
+		$.ajax ({
+			url: data.form.endpoint,
+			type: "POST",
+			data: { "form_key": data.form.key, "id": id },
+			success: function ( response ) {
+				common.loadSections (".page_rules")
+			}
+		});
+	}})
+	confirm.addButton ({ label: "Cancel", class: "gray", callback: confirm.close })
+	confirm.show ()
 });
 
 $( document ).on ( "cloudflare.page_rules.page_rules.edit", function ( event, data ) {
@@ -280,9 +288,8 @@ $( document ).on ( "cloudflare.page_rules.page_rules.create", function ( event, 
 		],
 		true
 	)
-	confirm.addButtons ()
-	confirm.addCancel ( confirm.close )
-	confirm.addSave ( function ( components ) {
+	confirm.addButton ({ label: "Cancel", class: "gray", callback: confirm.close })
+	confirm.addButton ({ label: "Save", class: "green", callback: ( components ) => {
 		var target = $(components.container).find ("[name='target']").val ()
 		var actions = $.makeArray ( $( components.container )
 			.find (".collections > .collection")
@@ -318,7 +325,7 @@ $( document ).on ( "cloudflare.page_rules.page_rules.create", function ( event, 
 				}
 			}
 		});
-	})
+	}})
 	confirm.show ()
 });
 

@@ -50,23 +50,17 @@ function Modal ( large = false ) {
 			row.append ( $("<div class='element' >").html ( element ) )
 			$( components.container ).append ( row )
 		},
-		addParagraph: ( text ) => {
-			$( components.container ).append ( $("<p>").html ( text ) );
+		addButton: ( options ) => {
+			if ( !( "buttonsContainer" in components ) ) {
+				components.buttonsContainer = $("<div class='buttons' >");
+				$(components.container).append ( components.buttonsContainer )
+			}
+			var button = $(`<input type="button" class="${options.class}" value="${options.label}" />`)
+			if ( "callback" in options ) $( button ).on ( "click", options.callback.bind ( null, components ) )
+			$(components.buttonsContainer).append ( button )
 		},
-		addButtons: ( callback = false ) => {
-			components.buttonsContainer = $("<div class='buttons' >");
-			$( components.container ).append ( components.buttonsContainer )
-			if ( callback ) callback ( components )
-		},
-		addCancel: ( callback = false ) => {
-			var button = $("<input type='button' value='Cancel' class='gray' />")
-			$( components.buttonsContainer ).append ( button )
-			if ( callback ) $( button ).on ( "click", callback.bind ( null, components ) )
-		},
-		addSave: ( callback = false ) => {
-		var button = $("<input type='button' value='Save' class='green' />")
-			$( components.buttonsContainer ).append ( button )
-			if ( callback ) $( button ).on ( "click", callback.bind ( null, components ) )
+		addElement: ( element ) => {
+			$(components.container).append ( element )
 		},
 		close: () => {
 			$(".cloudflare_modal").removeClass ("active");

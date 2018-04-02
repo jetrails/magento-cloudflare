@@ -1,5 +1,6 @@
 const $ = require ("jquery")
 const cloudflare = require ("cloudflare/common");
+const common = require ("cloudflare/common");
 const notification = require ("cloudflare/core/notification")
 const modal = require ("cloudflare/core/modal")
 
@@ -44,6 +45,8 @@ $( document ).on ( "cloudflare.dns.dns_records.initialize", function ( event, da
 			.html ( $("<div class='trigger delete_entry cloudflare-font' >")
 				.data ( "target", "delete" )
 				.data ( "id", entry.id )
+				.data ( "type", entry.type )
+				.data ( "name", entry.name )
 				.html ("&#xF01A;")
 			)
 		)
@@ -57,21 +60,27 @@ $( document ).on ( "cloudflare.dns.dns_records.initialize", function ( event, da
 });
 
 $( document ).on ( "cloudflare.dns.dns_records.delete", function ( event, data ) {
-	cloudflare.setMessages ( data.section, "loading", [""] );
-	$.ajax ({
-		url: data.form.endpoint,
-		type: "POST",
-		data: { "form_key": data.form.key, "id": $( data.trigger ).data ("id") },
-		success: function ( response ) {
-			if ( response.state == "response_success" ) {
-				$( data.section ).find (".search").trigger ("keyup");
+	var id = $( data.trigger ).data ("id")
+	var type = $( data.trigger ).data ("type").toUpperCase ()
+	var name = $( data.trigger ).data ("name")
+	var confirm = new modal.Modal ()
+	confirm.addTitle ("Confirm")
+	confirm.addElement ( $("<p>").text (`Are you sure you want to delete the ${type} Record?`) )
+	confirm.addElement ( $("<li>").append ( $("<strong>").text ( name ) ) )
+	confirm.addButton ({ label: "OK", callback: ( components ) => {
+		confirm.close ()
+		$(data.section).addClass ("loading")
+		$.ajax ({
+			url: data.form.endpoint,
+			type: "POST",
+			data: { "form_key": data.form.key, "id": id },
+			success: function ( response ) {
+				common.loadSections (".dns_records")
 			}
-			else {
-				cloudflare.setMessages ( data.section, response.state, response.messages );
-				notification.addMessages ( response.state, response.messages );
-			}
-		}
-	});
+		});
+	}})
+	confirm.addButton ({ label: "Cancel", class: "gray", callback: confirm.close })
+	confirm.show ()
 });
 
 $( document ).on ( "cloudflare.dns.dns_records.create", function ( event, data ) {
@@ -167,16 +176,15 @@ $(document).on ( "focus", ".show-form-mx", function () {
 	confirm.addTitle ( "Add Record: MX content", $(this).val () )
 	confirm.addRow ( "Server", $("<input type='text' placeholder='Mail server' name='server' >").val ( $(this).val () ) )
 	confirm.addRow ( "Priority", $("<input type='text' placeholder='1' name='priority' >").val ( $(document).find (".priority.add").val () ) )
-	confirm.addButtons ()
-	confirm.addCancel ( confirm.close )
+	confirm.addButton ({ label: "Cancel", class: "gray", callback: confirm.close })
 	var that = this;
-	confirm.addSave ( function ( components ) {
+	confirm.addButton ({ label: "Save", class: "green", callback: ( components ) => {
 		$(that).val ( $( components.container ).find ("input[name='server']").val () )
 		var priority = $( components.container ).find ("input[name='priority']").val ()
 		if ( priority.trim () === "" ) priority = "1"
 		$(document).find (".priority.add").val ( priority )
 		confirm.close ()
-	})
+	}})
 	confirm.show ()
 })
 
@@ -228,9 +236,8 @@ $(document).on ( "focus", ".show-form-loc", function () {
 	confirm.addRow ( "Altitude (in meters)", altitude, true )
 	confirm.addRow ( "Size (in meters)", size, true )
 	confirm.addRow ( "Percision (in meters)", percision, true )
-	confirm.addButtons ()
-	confirm.addCancel ( confirm.close )
-	confirm.addSave ( function ( components ) {
+	confirm.addButton ({ label: "Cancel", class: "gray", callback: confirm.close })
+	confirm.addButton ({ label: "Save", class: "green", callback: ( components ) => {
 		var latDegrees = $( components.container ).find ("[name='lat-degrees']").val ().trim ()
 		var latMinutes = $( components.container ).find ("[name='lat-minutes']").val ().trim ()
 		var latSeconds = $( components.container ).find ("[name='lat-seconds']").val ().trim ()
@@ -245,7 +252,7 @@ $(document).on ( "focus", ".show-form-loc", function () {
 		var preVertical = $( components.container ).find ("[name='pre-vertical']").val ().trim ()
 		$(that).val (`IN LOC ${latDegrees} ${latMinutes} ${latSeconds} ${latDirection} ${lonDegrees} ${lonMinutes} ${lonSeconds} ${lonDirection} ${altitude}m ${size}m ${preHorizontal}m ${preVertical}m`)
 		confirm.close ()
-	})
+	}})
 	confirm.show ()
 })
 
@@ -265,15 +272,14 @@ $(document).on ( "focus", ".show-form-srv-name", function () {
 	confirm.addRow ( "Service name", service )
 	confirm.addRow ( "Protocol", protocol )
 	confirm.addRow ( "Name", name )
-	confirm.addButtons ()
-	confirm.addCancel ( confirm.close )
-	confirm.addSave ( function ( components ) {
+	confirm.addButton ({ label: "Cancel", class: "gray", callback: confirm.close })
+	confirm.addButton ({ label: "Save", class: "green", callback: ( components ) => {
 		var service = $( components.container ).find ("input[name='service']").val ().trim () || "_sip"
 		var protocol = $( components.container ).find ("select[name='protocol']").val ().trim ()
 		var name = $( components.container ).find ("input[name='name']").val ().trim () || "@"
 		$(that).val (`${service}.${protocol}.${name}.`)
 		confirm.close ()
-	})
+	}})
 	confirm.show ()
 })
 
@@ -296,9 +302,8 @@ $(document).on ( "focus", ".show-form-srv", function () {
 	confirm.addRow ( "Weight", weight )
 	confirm.addRow ( "Port", port )
 	confirm.addRow ( "Target", target )
-	confirm.addButtons ()
-	confirm.addCancel ( confirm.close )
-	confirm.addSave ( function ( components ) {
+	confirm.addButton ({ label: "Cancel", class: "gray", callback: confirm.close })
+	confirm.addButton ({ label: "Save", class: "green", callback: ( components ) => {
 		var priority = $( components.container ).find ("input[name='priority']").val ().trim () || "1"
 		var weight = $( components.container ).find ("input[name='weight']").val ().trim () || "1"
 		var port = $( components.container ).find ("input[name='port']").val ().trim () || "1"
@@ -306,7 +311,7 @@ $(document).on ( "focus", ".show-form-srv", function () {
 		$(that).val (`SRV ${priority} ${weight} ${port} ${target}`)
 		$(document).find (".priority.add").val ( priority )
 		confirm.close ()
-	})
+	}})
 	confirm.show ()
 })
 
@@ -316,13 +321,12 @@ $(document).on ( "focus", ".show-form-spf", function () {
 	var policy = modal.createTextarea ( "policy", "Policy parameters", $(this).val () )
 	confirm.addTitle ( "Add Record: SPF content", $(this).val () )
 	confirm.addRow ( "Content", policy, true )
-	confirm.addButtons ()
-	confirm.addCancel ( confirm.close )
-	confirm.addSave ( function ( components ) {
+	confirm.addButton ({ label: "Cancel", class: "gray", callback: confirm.close })
+	confirm.addButton ({ label: "Save", class: "green", callback: ( components ) => {
 		var policy = $( components.container ).find ("[name='policy']").val ()
 		$(that).val ( policy )
 		confirm.close ()
-	})
+	}})
 	confirm.show ()
 })
 
@@ -332,14 +336,12 @@ $(document).on ( "focus", ".show-form-txt", function () {
 	var text = modal.createTextarea ( "text", "Text", $(this).val () )
 	confirm.addTitle ( "Add Record: TXT content", $(this).val () )
 	confirm.addRow ( "Content", text, true )
-	confirm.addButtons ()
-	confirm.addCancel ( confirm.close )
-	confirm.addSave ( function ( components ) {
+	confirm.addButton ({ label: "Cancel", class: "gray", callback: confirm.close })
+	confirm.addButton ({ label: "Save", class: "green", callback: ( components ) => {
 		var text = $( components.container ).find ("[name='text']").val ()
-		console.log ( text )
 		$(that).val ( text )
 		confirm.close ()
-	})
+	}})
 	confirm.show ()
 })
 
@@ -360,13 +362,12 @@ $(document).on ( "focus", ".show-form-caa", function () {
 	confirm.addTitle ( "Add Record: CAA content", $(this).val () )
 	confirm.addRow ( "Tag", tag )
 	confirm.addRow ( "Value", value )
-	confirm.addButtons ()
-	confirm.addCancel ( confirm.close )
-	confirm.addSave ( function ( components ) {
+	confirm.addButton ({ label: "Cancel", class: "gray", callback: confirm.close })
+	confirm.addButton ({ label: "Save", class: "green", callback: ( components ) => {
 		var tag = $( components.container ).find ("[name='tag']").val ().trim ()
 		var value = $( components.container ).find ("[name='value']").val ().trim ()
 		$(that).val (`0 ${tag} "${value}"`)
 		confirm.close ()
-	})
+	}})
 	confirm.show ()
 })

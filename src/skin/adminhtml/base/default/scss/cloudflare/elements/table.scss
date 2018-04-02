@@ -94,6 +94,7 @@ section.cloudflare {
 				&.no_white_space {
 					white-space: normal;
 					line-height: 1.6em;
+					width: 100%;
 					span {
 						display: block;
 						color: #7C7C7C;
@@ -108,6 +109,8 @@ section.cloudflare {
 					font-size: 1.1em;
 					cursor: ns-resize;
 					padding-top: 17px;
+					max-width: 25px;
+				    text-align: center;
 				}
 			}
 			th:hover {
