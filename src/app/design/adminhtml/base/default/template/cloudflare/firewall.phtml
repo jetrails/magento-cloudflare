@@ -27,12 +27,43 @@
 				->setTemplate ("cloudflare/firewall/challenge_passage.phtml")->toHtml ();
 		}
 
-		if ( Mage::getSingleton ("admin/session")->isAllowed ("jetrails/cloudflare/firewall/access_rules") ) {
-			$counter++;
+		echo "<section class='tabs-wrapper at_least_one' >";
+		if ( Mage::getSingleton ("admin/session")->isAllowed ("jetrails/cloudflare/firewall/ip_firewall") ) {
+			echo "<div data-tab='ip_firewall' class='active' >IP Firewall</div>";
+			echo "<div data-tab='web_application_firewall' >Web Application Firewall</div>";
+			echo "<div data-tab-content='web_application_firewall' >";
 			echo $this->getLayout ()
 				->createBlock ("cloudflare/dashboard_section")
-				->setTemplate ("cloudflare/firewall/access_rules.phtml")->toHtml ();
+				->setTemplate ("cloudflare/core/empty.phtml")->toHtml ();
+			echo "</div>";
+			echo "<div data-tab-content='ip_firewall' class='active' >";
+			if ( Mage::getSingleton ("admin/session")->isAllowed ("jetrails/cloudflare/firewall/access_rules") ) {
+				$counter++;
+				echo $this->getLayout ()
+					->createBlock ("cloudflare/dashboard_section")
+					->setTemplate ("cloudflare/firewall/access_rules.phtml")->toHtml ();
+			}
+			if ( Mage::getSingleton ("admin/session")->isAllowed ("jetrails/cloudflare/firewall/user_agent_blocking") ) {
+				$counter++;
+				echo $this->getLayout ()
+					->createBlock ("cloudflare/dashboard_section")
+					->setTemplate ("cloudflare/firewall/user_agent_blocking.phtml")->toHtml ();
+			}
+			if ( Mage::getSingleton ("admin/session")->isAllowed ("jetrails/cloudflare/firewall/zone_lockdown") ) {
+				$counter++;
+				echo $this->getLayout ()
+					->createBlock ("cloudflare/dashboard_section")
+					->setTemplate ("cloudflare/firewall/zone_lockdown.phtml")->toHtml ();
+			}
+			if ( Mage::getSingleton ("admin/session")->isAllowed ("jetrails/cloudflare/firewall/unmetered_ddos_mitigation") ) {
+				$counter++;
+				echo $this->getLayout ()
+					->createBlock ("cloudflare/dashboard_section")
+					->setTemplate ("cloudflare/firewall/unmetered_ddos_mitigation.phtml")->toHtml ();
+			}
+			echo "</div>";
 		}
+		echo "</section>";
 
 		if ( Mage::getSingleton ("admin/session")->isAllowed ("jetrails/cloudflare/firewall/firewall_events") ) {
 			$counter++;

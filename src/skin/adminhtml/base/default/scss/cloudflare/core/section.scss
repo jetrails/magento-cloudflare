@@ -494,3 +494,52 @@ section.cloudflare {
 		}
 	}
 }
+
+section.tabs-wrapper {
+	display: flex;
+	flex-wrap: wrap;
+	align-items: flex-start;
+	padding: 0 20px;
+	> [data-tab] {
+		cursor: pointer;
+		position: relative;
+		width: 50%;
+		background: $color-white;
+		color: $color-blue;
+		box-sizing: border-box;
+		padding: 22.5px;
+		text-align: center;
+		font-size: 1.3em;
+		transition: all 200ms;
+		font-weight: 100;
+		-webkit-font-smoothing: antialiased;
+		margin-bottom: 40px;
+		&:before {
+			content: "";
+			position: absolute;
+			left: calc(50% - 15px);
+			bottom: 0px;
+			width: 0;
+			height: 0;
+			border-left: 15px solid transparent;
+			border-right: 15px solid transparent;
+			border-top: 15px solid $color-white;
+			transition: all 200ms;
+		}
+		&.active {
+			color: $color-white;
+			background: $color-blue;
+			&:before {
+				bottom: -15px;
+				border-top: 15px solid $color-blue;
+			}
+		}
+	}
+	> [data-tab-content] {
+		width: 100%;
+		display: none;
+		&.active {
+			display: block;
+		}
+	}
+}

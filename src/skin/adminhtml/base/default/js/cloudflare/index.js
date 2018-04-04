@@ -73,7 +73,7 @@ $( window ).on ( "load", function () {
 
 $(document).on ( "click", "[data-tab]", function () {
 	var section = $(this).closest ("section");
-	if ( $(this).hasClass ("active") ) {
+	if ( $(this).hasClass ("active") && !$(section).hasClass ("at_least_one") ) {
 		$(section).find ("[data-tab-content]").removeClass ("active");
 		$(section).find ("[data-tab]").removeClass ("active");
 	}
@@ -97,6 +97,22 @@ $(document).on ( "change", ".dynamic-trigger", function () {
 			$(this).hide ();
 		}
 	})
+});
+
+$(document).on ( "click", ".dynamic-trigger", function () {
+	const target = $(this).data ("tab");
+	if ( target ) {
+		$(this).parent ().find ("div[data-dynamic-wrapper]").removeClass ("active");
+		$(this).parent ().find ("div[data-dynamic-wrapper='" + target + "']").addClass ("active");
+		$(this).parent ().find ("[data-dynamic-show]").each ( function () {
+			if ( $(this).data ("dynamic-show").includes ( target.toLowerCase () ) ) {
+				$(this).show ();
+			}
+			else {
+				$(this).hide ();
+			}
+		})
+	}
 });
 
 $(document).on ( "click", ".proxied", function () {
