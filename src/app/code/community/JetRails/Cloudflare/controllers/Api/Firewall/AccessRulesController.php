@@ -4,7 +4,11 @@
 
 		public function indexAction () {
 			$api = Mage::getModel ("cloudflare/api_firewall_accessRules");
-			return $this->_sendResponse ( array () );
+			$response = $api->load (
+				$this->_request->getParam ("page"),
+				$this->_request->getParam ("page-size")
+			);
+			return $this->_sendResponse ( $response );
 		}
 
 	}

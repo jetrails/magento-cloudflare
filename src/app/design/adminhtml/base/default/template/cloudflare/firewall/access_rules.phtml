@@ -1,23 +1,66 @@
 <section
-	class="cloudflare firewall access_rules"
+	class="cloudflare firewall access_rules initialize loading"
 	data-endpoint="<?php echo $this->getApiEndpoint () ?>"
 	data-form-key="<?php echo $this->getFormKey () ?>"
 	data-tab-name="firewall"
-	data-section-name="access_rules" >
+	data-section-name="access_rules"
+	data-count="0"
+	data-count-total="0"
+	data-page="1"
+	data-page-count="1"
+	data-page-size="20" >
 	<div class="row" >
-		<div class="wrapper_left" >
+		<div class="wrapper_left no_padding_bottom" >
 			<span class="section_title" >Access Rules</span>
 			<p>Firewall rules can be based on IP address, IP address range, Autonomous System Number (ASN) or country.</p>
 		</div>
-		<div class="wrapper_right" >
-			<div>
-				Form Goes Here
+	</div>
+	<div class="row" >
+		<div>
+			<input class="search trigger-change" type="text" placeholder="Search Access Rules" data-target="search" style="background-image: url(<?php echo $this->getSkinUrl ('images/cloudflare/search.svg') ?>);" />
+			<div class="dynamic_wrapper" >
+				<input class="grow" type="text" name="value" placeholder="Enter an IP, IP range, country name, or ASN" />
+				<select name="type" >
+					<option selected>Block</option>
+					<option>Whitelist</option>
+					<option>Challenge</option>
+					<option>JavaScript Challenge</option>
+				</select>
+				<select name="scope" >
+					<option selected>This website</option>
+				</select>
+				<input type="text" name="note" placeholder="Add a note" />
+				<input type="button" value="Add" />
 			</div>
-			<div class="lightbox" style="background-image: url(<?php echo $this->getSkinUrl ('images/cloudflare/loading.svg') ?>)" ></div>
 		</div>
+	</div>
+	<div class="row" >
+		<table cellspacing="0" cellpadding="0" >
+			<thead>
+				<tr>
+					<th>Value</th>
+					<th>Applies to</th>
+					<th>Action</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<td colspan="3" >No Access Rules</td>
+				</tr>
+			</tbody>
+		</table>
+		<div class="lightbox" style="background-image: url(<?php echo $this->getSkinUrl ('images/cloudflare/loading.svg') ?>)" ></div>
 	</div>
 	<div class="row collapsable" >
 		<div class="wrapper_bottom" >
+			<div class="pagination_container" >
+				<span class="previous trigger" data-target="previous_page" >&#xF002;</span>
+				<div class="pages" >
+					<span class="trigger page current" data-target="page" data-page="1" >1</span>
+				</div>
+				<span class="next trigger" data-target="next_page" >&#xF003;</span>
+				<span class="showing" >0 - 0 rules</span>
+			</div>
 			<a data-tab="help" >Help</a>
 		</div>
 		<div data-tab-content="help" >

@@ -88,6 +88,9 @@ section.cloudflare > div.row > div.wrapper_right {
 	position: relative;
 	box-sizing: border-box;
 	padding: 25px 0;
+	&.no_padding_bottom {
+		padding-bottom: 0;
+	}
 }
 
 section.cloudflare > div.row > div.wrapper_left.holds_table {
@@ -282,13 +285,18 @@ section.cloudflare .group_wrapper + input[type="submit"] {
 	font-feature-settings: 'liga';
 }
 
-section.cloudflare input.search {
-	margin: 20px 10px 0px 10px;
-	padding-left: 30px;
-	width: calc(100% - 20px );
-	background-repeat: no-repeat;
-	background-size: 22px;
-	background-position: 5px center;
+section.cloudflare {
+	div.row > div {
+		width: 100%;
+		input.search {
+			margin: 20px 10px 0px 10px;
+			padding-left: 30px;
+			width: calc(100% - 20px );
+			background-repeat: no-repeat;
+			background-size: 22px;
+			background-position: 5px center;
+		}
+	}
 }
 
 section.cloudflare, .cloudflare_modal {
@@ -449,6 +457,9 @@ section.cloudflare.empty {
 	display: flex;
 	padding: 10px 5px;
 	height: 32px;
+	> .grow {
+		flex-grow: 1;
+	}
 	> * {
 		margin: 0 5px !important;
 	}

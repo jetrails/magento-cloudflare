@@ -7,7 +7,11 @@ function loadSections ( additional = "" ) {
 		$.ajax ({
 			url: $( section ).data ("endpoint"),
 			type: "POST",
-			data: { form_key: $( section ).data ("form-key") },
+			data: {
+				form_key: $( section ).data ("form-key"),
+				page: $( section ).data ("page") || 1,
+				page_size: $( section ).data ("page-size") || 20
+			},
 			success: function ( response ) {
 				setMessages ( section, "", [""] );
 				var event = {
