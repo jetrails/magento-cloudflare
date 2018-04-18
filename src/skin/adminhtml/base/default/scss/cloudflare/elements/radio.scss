@@ -1,6 +1,7 @@
 input[type="radio"] {
 	margin-right: 12px;
 	visibility: hidden;
+	cursor: pointer;
 	&:after {
 	    content: "";
 	    position: absolute;

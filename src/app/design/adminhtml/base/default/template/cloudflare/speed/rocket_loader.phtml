@@ -12,18 +12,17 @@
 		<div class="wrapper_right" >
 			<div>
 				<div class="group_wrapper" >
-					<input id="off" type="radio" name="value" value="off" />
+					<input class="trigger-radio" data-target="change" id="off" type="radio" name="value" value="off" />
 					<label for="off" >Off</label>
 				</div>
 				<div class="group_wrapper" >
-					<input id="automatic" type="radio" name="value" value="on" />
+					<input class="trigger-radio" data-target="change" id="automatic" type="radio" name="value" value="on" />
 					<label for="automatic" >Automatic</label>
 				</div>
 				<div class="group_wrapper" >
-					<input id="manual" type="radio" name="value" value="manual" />
+					<input class="trigger-radio" data-target="change" id="manual" type="radio" name="value" value="manual" />
 					<label for="manual" >Manual</label>
 				</div>
-				<input class="trigger" data-target="change" type="button" value="Update Settings" />
 			</div>
 			<div class="lightbox" style="background-image: url(<?php echo $this->getSkinUrl ('images/cloudflare/loading.svg') ?>)" > </div>
 		</div>
