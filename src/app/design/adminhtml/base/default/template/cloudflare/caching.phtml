@@ -13,6 +13,27 @@
 				->setTemplate ("cloudflare/caching/purge_cache.phtml")->toHtml ();
 		}
 
+		if ( Mage::getSingleton ("admin/session")->isAllowed ("jetrails/cloudflare/caching/caching_level") ) {
+			$counter++;
+			echo $this->getLayout ()
+				->createBlock ("cloudflare/dashboard_section")
+				->setTemplate ("cloudflare/caching/caching_level.phtml")->toHtml ();
+		}
+
+		if ( Mage::getSingleton ("admin/session")->isAllowed ("jetrails/cloudflare/caching/browser_cache_expiration") ) {
+			$counter++;
+			echo $this->getLayout ()
+				->createBlock ("cloudflare/dashboard_section")
+				->setTemplate ("cloudflare/caching/browser_cache_expiration.phtml")->toHtml ();
+		}
+
+		if ( Mage::getSingleton ("admin/session")->isAllowed ("jetrails/cloudflare/caching/always_online") ) {
+			$counter++;
+			echo $this->getLayout ()
+				->createBlock ("cloudflare/dashboard_section")
+				->setTemplate ("cloudflare/caching/always_online.phtml")->toHtml ();
+		}
+
 		if ( Mage::getSingleton ("admin/session")->isAllowed ("jetrails/cloudflare/caching/development_mode") ) {
 			$counter++;
 			echo $this->getLayout ()

@@ -35,9 +35,21 @@
 												<title>Purge Cache</title>
 												<sort_order>100</sort_order>
 											</purge_cache>
+											<caching_level translate="title" module="cloudflare" >
+												<title>Caching Level</title>
+												<sort_order>200</sort_order>
+											</caching_level>
+											<browser_cache_expiration translate="title" module="cloudflare" >
+												<title>Browser Cache Expiration</title>
+												<sort_order>300</sort_order>
+											</browser_cache_expiration>
+											<always_online translate="title" module="cloudflare" >
+												<title>Always Online</title>
+												<sort_order>400</sort_order>
+											</always_online>
 											<development_mode translate="title" module="cloudflare" >
 												<title>Development Mode</title>
-												<sort_order>200</sort_order>
+												<sort_order>500</sort_order>
 											</development_mode>
 										</children>
 									</caching>
