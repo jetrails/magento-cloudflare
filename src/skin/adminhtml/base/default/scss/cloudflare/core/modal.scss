@@ -185,6 +185,11 @@
 				}
 			}
 		}
+		ul {
+			list-style-type: disc;
+			padding: 0;
+			margin-left: 60px;
+		}
 	}
 	&.active {
 		opacity: 1;

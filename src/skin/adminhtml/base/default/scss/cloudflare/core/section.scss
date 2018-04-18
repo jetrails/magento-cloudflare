@@ -244,6 +244,9 @@ section.cloudflare .group_wrapper {
 	margin: 10px auto;
     max-width: 110px;
 	text-align: left;
+	&.full {
+		max-width: initial;
+	}
 }
 
 section.cloudflare .group_wrapper label {

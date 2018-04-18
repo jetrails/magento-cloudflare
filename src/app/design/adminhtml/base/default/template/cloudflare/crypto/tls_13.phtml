@@ -1,23 +1,22 @@
 <section
-	class="cloudflare crypto tls_1.3 "
+	class="cloudflare crypto tls_13 initialize loading"
 	data-endpoint="<?php echo $this->getApiEndpoint () ?>"
 	data-form-key="<?php echo $this->getFormKey () ?>"
 	data-tab-name="crypto"
-	data-section-name="tls_1.3" >
+	data-section-name="tls_13" >
 	<div class="row" >
 		<div class="wrapper_left" >
 			<span class="section_title" >TLS 1.3</span>
 			<p>Enable the latest version of the TLS protocol for improved security and performance.</p>
 		</div>
 		<div class="wrapper_right" >
-			<div class="group_wrapper" >
-				<select class="selection" >
-					<option value="disabled" >Disabled</option>
-					<option value="enabled" >Enabled</option>
-					<option value="enabled_0rtt" >Enabled+0RTT</option>
+			<div class="group_wrapper full" >
+				<select name="value" data-target="change" class="trigger-select selection" >
+					<option value="off" >Disabled</option>
+					<option value="on" >Enabled</option>
+					<option value="zrt" >Enabled+0RTT</option>
 				</select>
 			</div>
-			<input class="trigger" data-target="change" type="button" value="Update Settings" />
 			<div class="lightbox" style="background-image: url(<?php echo $this->getSkinUrl ('images/cloudflare/loading.svg') ?>)" ></div>
 		</div>
 	</div>

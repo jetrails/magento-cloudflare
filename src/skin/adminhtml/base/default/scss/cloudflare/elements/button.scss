@@ -25,9 +25,15 @@ section.cloudflare, .cloudflare_modal {
 			&.gray {
 				background: #CCC;
 			}
+			&.red {
+				background: #9E2022;
+			}
 		}
 		&.green {
 			background: $color-green;
+		}
+		&.red {
+			background: #BD2527;
 		}
 		&.gray {
 			background: $color-border_gray;

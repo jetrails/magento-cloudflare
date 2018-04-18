@@ -1,5 +1,5 @@
 <section
-	class="cloudflare crypto ssl "
+	class="cloudflare crypto ssl initialize loading"
 	data-endpoint="<?php echo $this->getApiEndpoint () ?>"
 	data-form-key="<?php echo $this->getFormKey () ?>"
 	data-tab-name="crypto"
@@ -9,23 +9,24 @@
 			<span class="section_title" >SSL</span>
 			<p>Encrypt communication to and from your website <a href="https://www.cloudflare.com/ssl" >using SSL</a>.</p>
 			<p>It may take up to 24 hours after the site becomes active on Cloudflare for new certificates to issue.</p>
-			<p>
+			<p class="status" style="display:none" >
 				<strong>Status</strong>
-				<svg width="12" height="12" class="c_dj c_dk c_dl"><circle cx="6" cy="6" r="4" class="c_dm"></circle><circle cx="6" cy="6" r="5" fill="transparent" stroke="white" stroke-width="1"></circle></svg>
-				Active Certificate
+				<svg width="12" height="12" >
+					<circle cx="6" cy="6" r="4" fill="#689610" ></circle>
+				</svg>
+				<span class="status_message" >Active Certificate</span>
 			</p>
 		</div>
 		<div class="wrapper_right" >
 			<div>
-				<div class="group_wrapper" >
-					<select class="selection" >
+				<div class="group_wrapper full" >
+					<select name="value" data-target="change" class="trigger-select selection" >
 						<option value="off" >Off</option>
 						<option value="flexible" >Flexible</option>
 						<option value="full">Full</option>
-						<option value="full_strict">Full (strict)</option>
+						<option value="strict">Full (strict)</option>
 					</select>
 				</div>
-				<input class="trigger" data-target="change" type="button" value="Update Settings" />
 			</div>
 			<div class="lightbox" style="background-image: url(<?php echo $this->getSkinUrl ('images/cloudflare/loading.svg') ?>)" ></div>
 		</div>

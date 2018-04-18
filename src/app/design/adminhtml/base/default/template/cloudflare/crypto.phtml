@@ -69,11 +69,11 @@
 				->setTemplate ("cloudflare/crypto/opportunistic_encryption.phtml")->toHtml ();
 		}
 
-		if ( Mage::getSingleton ("admin/session")->isAllowed ("jetrails/cloudflare/crypto/tls_1.3") ) {
+		if ( Mage::getSingleton ("admin/session")->isAllowed ("jetrails/cloudflare/crypto/tls_13") ) {
 			$counter++;
 			echo $this->getLayout ()
 				->createBlock ("cloudflare/dashboard_section")
-				->setTemplate ("cloudflare/crypto/tls_1.3.phtml")->toHtml ();
+				->setTemplate ("cloudflare/crypto/tls_13.phtml")->toHtml ();
 		}
 
 		if ( Mage::getSingleton ("admin/session")->isAllowed ("jetrails/cloudflare/crypto/automatic_https_rewrites") ) {
