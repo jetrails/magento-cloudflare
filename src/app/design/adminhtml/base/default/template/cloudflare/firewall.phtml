@@ -6,13 +6,6 @@
 
 		$counter = 0;
 
-		if ( Mage::getSingleton ("admin/session")->isAllowed ("jetrails/cloudflare/firewall/rate_limiting") ) {
-			$counter++;
-			echo $this->getLayout ()
-				->createBlock ("cloudflare/dashboard_section")
-				->setTemplate ("cloudflare/firewall/rate_limiting.phtml")->toHtml ();
-		}
-
 		if ( Mage::getSingleton ("admin/session")->isAllowed ("jetrails/cloudflare/firewall/security_level") ) {
 			$counter++;
 			echo $this->getLayout ()
@@ -34,7 +27,7 @@
 			echo "<div data-tab-content='web_application_firewall' >";
 			echo $this->getLayout ()
 				->createBlock ("cloudflare/dashboard_section")
-				->setTemplate ("cloudflare/core/empty.phtml")->toHtml ();
+				->setTemplate ("cloudflare/core/coming_soon.phtml")->toHtml ();
 			echo "</div>";
 			echo "<div data-tab-content='ip_firewall' class='active' >";
 			if ( Mage::getSingleton ("admin/session")->isAllowed ("jetrails/cloudflare/firewall/access_rules") ) {

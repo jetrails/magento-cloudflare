@@ -23,6 +23,7 @@ require ("cloudflare/dns/dns_records")
 require ("cloudflare/dns/cloudflare_nameservers")
 require ("cloudflare/firewall/access_rules")
 require ("cloudflare/firewall/security_level")
+require ("cloudflare/firewall/challenge_passage")
 require ("cloudflare/page_rules/page_rules")
 
 $( window ).on ( "load", function () {

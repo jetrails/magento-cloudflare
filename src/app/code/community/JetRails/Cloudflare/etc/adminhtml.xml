@@ -125,21 +125,17 @@
 										<title>Firewall</title>
 										<sort_order>500</sort_order>
 										<children>
-											<rate_limiting translate="title" module="cloudflare" >
-												<title>Rate Limiting</title>
-												<sort_order>100</sort_order>
-											</rate_limiting>
 											<security_level translate="title" module="cloudflare" >
 												<title>Security Level</title>
-												<sort_order>200</sort_order>
+												<sort_order>100</sort_order>
 											</security_level>
 											<challenge_passage translate="title" module="cloudflare" >
 												<title>Challenge Passage</title>
-												<sort_order>300</sort_order>
+												<sort_order>200</sort_order>
 											</challenge_passage>
 											<ip_firewall translate="title" module="cloudflare" >
 												<title>IP Firewall</title>
-												<sort_order>400</sort_order>
+												<sort_order>300</sort_order>
 												<children>
 													<access_rules translate="title" module="cloudflare" >
 														<title>Access Rules</title>
@@ -161,7 +157,7 @@
 											</ip_firewall>
 											<firewall_events translate="title" module="cloudflare" >
 												<title>Firewall Events</title>
-												<sort_order>500</sort_order>
+												<sort_order>400</sort_order>
 											</firewall_events>
 										</children>
 									</firewall>
