@@ -13,20 +13,6 @@
 				->setTemplate ("cloudflare/crypto/ssl.phtml")->toHtml ();
 		}
 
-		if ( Mage::getSingleton ("admin/session")->isAllowed ("jetrails/cloudflare/crypto/edge_certificates") ) {
-			$counter++;
-			echo $this->getLayout ()
-				->createBlock ("cloudflare/dashboard_section")
-				->setTemplate ("cloudflare/crypto/edge_certificates.phtml")->toHtml ();
-		}
-
-		if ( Mage::getSingleton ("admin/session")->isAllowed ("jetrails/cloudflare/crypto/custom_hostnames") ) {
-			$counter++;
-			echo $this->getLayout ()
-				->createBlock ("cloudflare/dashboard_section")
-				->setTemplate ("cloudflare/crypto/custom_hostnames.phtml")->toHtml ();
-		}
-
 		if ( Mage::getSingleton ("admin/session")->isAllowed ("jetrails/cloudflare/crypto/origin_certificates") ) {
 			$counter++;
 			echo $this->getLayout ()

@@ -75,49 +75,41 @@
 												<title>SSL</title>
 												<sort_order>100</sort_order>
 											</ssl>
-											<edge_certificates translate="title" module="cloudflare" >
-												<title>Edge Certificates</title>
-												<sort_order>200</sort_order>
-											</edge_certificates>
-											<custom_hostnames translate="title" module="cloudflare" >
-												<title>Custom Hostnames</title>
-												<sort_order>300</sort_order>
-											</custom_hostnames>
 											<origin_certificates translate="title" module="cloudflare" >
 												<title>Origin Certificates</title>
-												<sort_order>400</sort_order>
+												<sort_order>200</sort_order>
 											</origin_certificates>
 											<always_use_https translate="title" module="cloudflare" >
 												<title>Always Use HTTPS</title>
-												<sort_order>500</sort_order>
+												<sort_order>300</sort_order>
 											</always_use_https>
 											<http_strict_transport_security translate="title" module="cloudflare" >
 												<title>HTTP Strict Transport Security (HSTS)</title>
-												<sort_order>500</sort_order>
+												<sort_order>400</sort_order>
 											</http_strict_transport_security>
 											<authenticated_origin_pulls translate="title" module="cloudflare" >
 												<title>Authenticated Origin Pulls</title>
-												<sort_order>600</sort_order>
+												<sort_order>500</sort_order>
 											</authenticated_origin_pulls>
 											<require_modern_tls translate="title" module="cloudflare" >
 												<title>Require Modern TLS</title>
-												<sort_order>700</sort_order>
+												<sort_order>600</sort_order>
 											</require_modern_tls>
 											<opportunistic_encryption translate="title" module="cloudflare" >
 												<title>Opportunistic Encryption</title>
-												<sort_order>800</sort_order>
+												<sort_order>700</sort_order>
 											</opportunistic_encryption>
 											<tls_13 translate="title" module="cloudflare" >
 												<title>TLS 1.3</title>
-												<sort_order>900</sort_order>
+												<sort_order>800</sort_order>
 											</tls_13>
 											<automatic_https_rewrites translate="title" module="cloudflare" >
 												<title>Automatic HTTPS Rewrites</title>
-												<sort_order>1000</sort_order>
+												<sort_order>900</sort_order>
 											</automatic_https_rewrites>
 											<disable_universal_ssl translate="title" module="cloudflare" >
 												<title>Disable Universal SSL</title>
-												<sort_order>1100</sort_order>
+												<sort_order>1000</sort_order>
 											</disable_universal_ssl>
 										</children>
 									</crypto>
