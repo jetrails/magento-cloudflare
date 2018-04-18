@@ -12,4 +12,39 @@
 			return $api->resolve ( $endpoint );
 		}
 
+		public function delete ( $id ) {
+			$zoneId = Mage::getModel ("cloudflare/api_overview_configuration")->getZoneId ();
+			$endpoint = sprintf ( "zones/%s/firewall/access_rules/rules/%s", $zoneId, $id );
+			$api = Mage::getModel ("cloudflare/api_request");
+			$api->setType ( $api::REQUEST_DELETE );
+			return $api->resolve ( $endpoint );
+		}
+
+		public function add ( $target, $value, $mode, $notes ) {
+			$zoneId = Mage::getModel ("cloudflare/api_overview_configuration")->getZoneId ();
+			$endpoint = sprintf ( "zones/%s/firewall/access_rules/rules", $zoneId );
+			$api = Mage::getModel ("cloudflare/api_request");
+			$api->setType ( $api::REQUEST_POST );
+			$api->setData ( array (
+				"mode" => $mode,
+				"configuration" => array (
+					"target" => $target,
+					"value" => $value
+				),
+				"notes" => $notes
+			));
+			return $api->resolve ( $endpoint );
+		}
+
+		public function updateMode ( $id, $mode ) {
+			$zoneId = Mage::getModel ("cloudflare/api_overview_configuration")->getZoneId ();
+			$endpoint = sprintf ( "zones/%s/firewall/access_rules/rules/%s", $zoneId, $id );
+			$api = Mage::getModel ("cloudflare/api_request");
+			$api->setType ( $api::REQUEST_PATCH );
+			$api->setData ( array (
+				"mode" => $mode
+			));
+			return $api->resolve ( $endpoint );
+		}
+
 	}

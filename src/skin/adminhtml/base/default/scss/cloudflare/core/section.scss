@@ -491,6 +491,8 @@ section.cloudflare {
 		background-color: #DEDEDE;
 	    height: 35px;
 	    width: 35px;
+	    min-width: 35px;
+		margin: auto 7px;
 	    text-align: center;
 	    font-size: 1em;
 	    line-height: 35px;
@@ -504,13 +506,17 @@ section.cloudflare {
 			border-color: #BABABA;
 		}
 	}
+	.icon-button + .icon-button {
+		margin-left: 0;
+	}
 }
 
 section.tabs-wrapper {
+	max-width: 960px;
+    margin: auto;
 	display: flex;
 	flex-wrap: wrap;
 	align-items: flex-start;
-	padding: 0 20px;
 	> [data-tab] {
 		cursor: pointer;
 		position: relative;

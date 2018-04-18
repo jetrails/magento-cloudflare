@@ -15,7 +15,7 @@ $( document ).on ( "cloudflare.firewall.access_rules.initialize", function ( eve
 	$(section).data ( "page-size", data.response.result_info.per_page )
 	$(section).find (".pagination_container .pages").html ("")
 	$(section).find (".pagination_container .showing").html (
-		`${( data.response.result_info.page - 1 ) * data.response.result_info.per_page} - ${data.response.result_info.total_count} rules`
+		`${data.response.result_info.per_page * ( data.response.result_info.page - 1 )} - ${ Math.min ( data.response.result_info.per_page * data.response.result_info.page, data.response.result_info.total_count )} rules`
 	)
 	for ( let i = 1; i <= data.response.result_info.total_pages; i++ ) {
 		$(section).find (".pagination_container .pages").append (
@@ -29,17 +29,111 @@ $( document ).on ( "cloudflare.firewall.access_rules.initialize", function ( eve
 	$(table).html ("")
 	data.response.result.map ( entry => {
 		$(table).append ( $(`<tr>`)
-			.append ( $(`<td>`).text ( entry.configuration.value ).append ( $(`<span>`).text ( entry.notes ) ) )
-			.append ( $(`<td>`).html ( modal.createSelect ( "mode", [
-				{ "label": "Block", "value": "block", selected: entry.mode == "block" },
-				{ "label": "Challenge", "value": "challenge", selected: entry.mode == "challenge" },
-				{ "label": "Whitelist", "value": "whitelist", selected: entry.mode == "whitelist" },
-				{ "label": "JavaScript Challenge", "value": "js_challenge", selected: entry.mode == "js_challenge" }
-			])))
-			.append ( $(`<td>`).text ( entry.status ) )
+			.append ( $(`<td>`)
+				.text ( entry.configuration.value )
+				.append ( $(`<span>`).text ( entry.notes ) )
+				.css ({ width: "100%" })
+			)
+			.append ( $(`<td>`).text ("This website") )
+			.append ( $(`<td>`).css ( "display", "flex" )
+				.html ( modal.createSelect ( "mode", [
+						{ "label": "Block", "value": "block", selected: entry.mode == "block" },
+						{ "label": "Challenge", "value": "challenge", selected: entry.mode == "challenge" },
+						{ "label": "Whitelist", "value": "whitelist", selected: entry.mode == "whitelist" },
+						{ "label": "JavaScript Challenge", "value": "js_challenge", selected: entry.mode == "js_challenge" }
+					])
+					.css ({ minWidth: "200px" })
+					.addClass ("trigger-select")
+					.data ( "target", "update_mode" )
+					.data ( "id", entry.id )
+				)
+				.append ( modal.createIconButton ( "trigger edit", "&#xF013;" )
+					.data ( "id", entry.id )
+					.data ( "target", "edit" )
+				)
+				.append ( modal.createIconButton ( "trigger delete", "&#xF01A;" )
+					.data ( "id", entry.id )
+					.data ( "target", "delete" )
+				)
+			)
 		)
 	})
 	$(data.section).removeClass ("loading")
+});
+
+$( document ).on ( "cloudflare.firewall.access_rules.add", function ( event, data ) {
+	$(data.section).addClass ("loading")
+	var value = $(data.section).find ("[name='value']").val ()
+	var mode = $(data.section).find ("[name='mode']").val ()
+	var note = $(data.section).find ("[name='note']").val ()
+	var target = ""
+	switch ( true ) {
+		case /[0-9]+(?:\.[0-9]+){3}\/[0-9]+/.test ( value ):
+			target = "ip_range"
+			break
+		case /[0-9]+(?:\.[0-9]+){3}/.test ( value ):
+			target = "ip"
+			break
+		case /AS[0-9]+/.test ( value ):
+			target = "asn"
+			break
+		default:
+			target = "country"
+	}
+	$.ajax ({
+		url: data.form.endpoint,
+		type: "POST",
+		data: {
+			"form_key": data.form.key,
+			"target": target,
+			"value": value,
+			"mode": mode,
+			"note": note
+		},
+		success: function ( response ) {
+			$(data.section).addClass ("loading")
+			$(data.section).find ("[name='value']").val ("")
+			$(data.section).find ("[name='mode']").val ("block")
+			$(data.section).find ("[name='note']").val ("")
+			common.loadSections (".access_rules")
+		}
+	});
+	common.loadSections (".access_rules")
+});
+
+$( document ).on ( "cloudflare.firewall.access_rules.delete", function ( event, data ) {
+	var confirm = new modal.Modal ()
+	confirm.addTitle ("Confirm")
+	confirm.addElement ( $("<p>").text (`Are you sure you want to delete this rule?`) )
+	confirm.addButton ({ label: "OK", callback: ( components ) => {
+		confirm.close ()
+		$(data.section).addClass ("loading")
+		var id = $(data.trigger).data ("id")
+		$.ajax ({
+			url: data.form.endpoint,
+			type: "POST",
+			data: { "form_key": data.form.key, "id": id },
+			success: function ( response ) {
+				common.loadSections (".access_rules")
+			}
+		});
+	}})
+	confirm.addButton ({ label: "Cancel", class: "gray", callback: confirm.close })
+	confirm.show ()
+});
+
+$( document ).on ( "cloudflare.firewall.access_rules.update_mode", function ( event, data ) {
+	$(data.section).addClass ("loading")
+	var id = $(data.trigger).data ("id")
+	var mode = $(data.trigger).val ()
+	$.ajax ({
+		url: data.form.endpoint,
+		type: "POST",
+		data: { "form_key": data.form.key, "id": id, "mode": mode },
+		success: function ( response ) {
+			common.loadSections (".access_rules")
+		}
+	});
 });
 
 $( document ).on ( "cloudflare.firewall.access_rules.page", function ( event, data ) {

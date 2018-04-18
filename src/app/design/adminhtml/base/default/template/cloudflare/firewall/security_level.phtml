@@ -11,13 +11,13 @@
 		</div>
 		<div class="wrapper_right" >
 			<div>
-				<select>
-					<option>Off</option>
-					<option selected >Esentially Off</option>
-					<option>Low</option>
-					<option>Medium</option>
-					<option>High</option>
-					<option>I'm Under Attack!</option>
+				<select class="trigger-select" name="value" data-target="update" >
+					<option value="off" >Off</option>
+					<option value="essentially_off" >Esentially Off</option>
+					<option value="low" >Low</option>
+					<option value="medium" >Medium</option>
+					<option value="high" >High</option>
+					<option value="under_attack" >I'm Under Attack!</option>
 				</select>
 			</div>
 			<div class="lightbox" style="background-image: url(<?php echo $this->getSkinUrl ('images/cloudflare/loading.svg') ?>)" ></div>

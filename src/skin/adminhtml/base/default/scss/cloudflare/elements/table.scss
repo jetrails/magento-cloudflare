@@ -112,6 +112,12 @@ section.cloudflare {
 					max-width: 25px;
 				    text-align: center;
 				}
+				span {
+					display: block;
+					color: #838383;
+					font-size: 0.9em;
+					line-height: 1.7em;
+				}
 			}
 			th:hover {
 				background: #CECECE;

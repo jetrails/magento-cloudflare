@@ -20,17 +20,17 @@
 			<input class="search trigger-change" type="text" placeholder="Search Access Rules" data-target="search" style="background-image: url(<?php echo $this->getSkinUrl ('images/cloudflare/search.svg') ?>);" />
 			<div class="dynamic_wrapper" >
 				<input class="grow" type="text" name="value" placeholder="Enter an IP, IP range, country name, or ASN" />
-				<select name="type" >
-					<option selected>Block</option>
-					<option>Whitelist</option>
-					<option>Challenge</option>
-					<option>JavaScript Challenge</option>
+				<select name="mode" >
+					<option value="block" selected>Block</option>
+					<option value="whitelist" >Whitelist</option>
+					<option value-"challenge" >Challenge</option>
+					<option value="js_challenge" >JavaScript Challenge</option>
 				</select>
 				<select name="scope" >
-					<option selected>This website</option>
+					<option selected disabled >This website</option>
 				</select>
 				<input type="text" name="note" placeholder="Add a note" />
-				<input type="button" value="Add" />
+				<input type="button" value="Add" class="trigger" data-target="add" />
 			</div>
 		</div>
 	</div>

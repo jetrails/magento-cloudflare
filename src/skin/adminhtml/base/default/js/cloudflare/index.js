@@ -11,6 +11,7 @@ require ("cloudflare/speed/rocket_loader")
 require ("cloudflare/dns/dns_records")
 require ("cloudflare/dns/cloudflare_nameservers")
 require ("cloudflare/firewall/access_rules")
+require ("cloudflare/firewall/security_level")
 require ("cloudflare/page_rules/page_rules")
 
 $( window ).on ( "load", function () {
@@ -22,6 +23,27 @@ $( window ).on ( "load", function () {
 	})
 
 	$( document ).on ( "click", ".trigger", function () {
+		var section = $( this ).closest ("section");
+		var event = {
+			"target": {
+				"tab": $( section ).data ("tab-name"),
+				"section": $( section ).data ("section-name"),
+				"action": $( this ).data ("target")
+			},
+			"form": {
+				"endpoint": $( this ).closest ("section").data ("endpoint") + $( this ).data ("target"),
+				"key": $( this ).closest ("section").data ("form-key")
+			},
+			"section": section,
+			"trigger": $( this )
+		};
+		event.target.name = event.target.tab + "." + event.target.section + "." + event.target.action;
+		event.target.name = "cloudflare." + event.target.name;
+ 		$.event.trigger ( event.target.name, event );
+		console.log ( "Triggered: " + event.target.name )
+	});
+
+	$( document ).on ( "change", ".trigger-select", function () {
 		var section = $( this ).closest ("section");
 		var event = {
 			"target": {

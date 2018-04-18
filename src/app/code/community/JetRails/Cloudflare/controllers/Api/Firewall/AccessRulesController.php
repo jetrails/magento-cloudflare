@@ -11,4 +11,32 @@
 			return $this->_sendResponse ( $response );
 		}
 
+		public function deleteAction () {
+			$api = Mage::getModel ("cloudflare/api_firewall_accessRules");
+			$response = $api->delete (
+				$this->_request->getParam ("id")
+			);
+			return $this->_sendResponse ( $response );
+		}
+
+		public function addAction () {
+			$api = Mage::getModel ("cloudflare/api_firewall_accessRules");
+			$response = $api->add (
+				$this->_request->getParam ("target"),
+				$this->_request->getParam ("value"),
+				$this->_request->getParam ("mode"),
+				$this->_request->getParam ("note")
+			);
+			return $this->_sendResponse ( $response );
+		}
+
+		public function updateModeAction () {
+			$api = Mage::getModel ("cloudflare/api_firewall_accessRules");
+			$response = $api->updateMode (
+				$this->_request->getParam ("id"),
+				$this->_request->getParam ("mode")
+			);
+			return $this->_sendResponse ( $response );
+		}
+
 	}
