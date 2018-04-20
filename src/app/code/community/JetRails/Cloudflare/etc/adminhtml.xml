@@ -175,9 +175,17 @@
 												<title>Polish</title>
 												<sort_order>200</sort_order>
 											</polish>
+											<brotli translate="title" module="cloudflare" >
+												<title>Brotli</title>
+												<sort_order>300</sort_order>
+											</brotli>
+											<mirage translate="title" module="cloudflare" >
+												<title>Mirage</title>
+												<sort_order>400</sort_order>
+											</mirage>
 											<rocket_loader translate="title" module="cloudflare" >
 												<title>Rocket Loader</title>
-												<sort_order>300</sort_order>
+												<sort_order>500</sort_order>
 											</rocket_loader>
 										</children>
 									</speed>

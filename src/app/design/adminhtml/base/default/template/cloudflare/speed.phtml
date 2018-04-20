@@ -20,6 +20,20 @@
 				->setTemplate ("cloudflare/speed/polish.phtml")->toHtml ();
 		}
 
+		if ( Mage::getSingleton ("admin/session")->isAllowed ("jetrails/cloudflare/speed/brotli") ) {
+			$counter++;
+			echo $this->getLayout ()
+				->createBlock ("cloudflare/dashboard_section")
+				->setTemplate ("cloudflare/speed/brotli.phtml")->toHtml ();
+		}
+
+		if ( Mage::getSingleton ("admin/session")->isAllowed ("jetrails/cloudflare/speed/mirage") ) {
+			$counter++;
+			echo $this->getLayout ()
+				->createBlock ("cloudflare/dashboard_section")
+				->setTemplate ("cloudflare/speed/mirage.phtml")->toHtml ();
+		}
+
 		if ( Mage::getSingleton ("admin/session")->isAllowed ("jetrails/cloudflare/speed/rocket_loader") ) {
 			$counter++;
 			echo $this->getLayout ()

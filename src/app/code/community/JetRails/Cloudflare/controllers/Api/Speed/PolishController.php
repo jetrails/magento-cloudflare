@@ -19,7 +19,10 @@
 
 		public function changeAction () {
 			$api = Mage::getModel ("cloudflare/api_speed_polish");
-			$response = $api->change ( $this->_request->getParam ("value") );
+			$response = $api->change (
+				$this->_request->getParam ("value"),
+				$this->_request->getParam ("webp") === "true"
+			);
 			return $this->_formatAndSend ( $response );
 		}
 
