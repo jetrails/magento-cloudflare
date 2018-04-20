@@ -187,6 +187,10 @@
 				}
 			}
 		}
+		textarea {
+			margin: 0 22.5px;
+			width: calc( 100% - 45px );
+		}
 		p + p {
 			padding-top: 0 !important;
 		}

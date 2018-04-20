@@ -120,7 +120,7 @@ function createSelect ( name, options ) {
 }
 
 function createTextarea ( name, placeholder = "", value = "" ) {
-	let textarea = $(`<textarea name="${name}" >`).text ( value )
+	let textarea = $(`<textarea name="${name}" placeholder="${placeholder}" >`).text ( value )
 	return textarea
 }
 
