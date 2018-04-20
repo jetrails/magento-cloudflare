@@ -564,3 +564,9 @@ section.tabs-wrapper {
 		}
 	}
 }
+
+p[class^="option_"] {
+    margin-top: 0 !important;
+    margin-bottom: 0 !important;
+    color: #7d7d7d;
+}
