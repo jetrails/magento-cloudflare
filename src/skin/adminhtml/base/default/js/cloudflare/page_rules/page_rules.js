@@ -5,6 +5,43 @@ const notification = require ("cloudflare/core/notification")
 const modal = require ("cloudflare/core/modal")
 const common = require ("cloudflare/common")
 
+function upperCaseFirst ( target ) {
+	target = target + ""
+	return target.charAt ( 0 ).toUpperCase () + target.slice ( 1 )
+}
+
+function valueToLabel ( value ) {
+	let lookup = {
+		"pick_a_setting": "Pick a Setting",
+		"always_online": "Always Online",
+		"always_use_https": "Always Use HTTPS",
+		"browser_cache_ttl": "Browser Cache TTL",
+		"browser_check": "Browser Integrity Check",
+		"cache_deception_armor": "Cache Deception Armor",
+		"cache_level": "Cache Level",
+		"disable_apps": "Disable Apps",
+		"disable_performance": "Disable Performance",
+		"disable_security": "Disable Security",
+		"edge_cache_ttl": "Edge Cache TTL",
+		"email_obfuscation": "Email Obfuscation",
+		"forwarding_url": "Forward URL",
+		"automatic_https_rewrites": "Automatic HTTPS Rewrites",
+		"ip_geolocation": "IP Geolocation Header",
+		"opportunistic_encryption": "Opportunistic Encryption",
+		"explicit_cache_control": "Origin Cache Control",
+		"rocket_loader": "Rocket Loader",
+		"security_level": "Security Level",
+		"server_side_exclude": "Server Side Excludes",
+		"ssl": "SSL",
+		"status_code": "Status Code",
+		"url": "Url"
+	}
+	if ( value in lookup ) {
+		return lookup [ value ]
+	}
+	return "Undefined"
+}
+
 function createRow ( previousExists = false ) {
 	var close = $("<div class='cloudflare-font delete' >").html ("&#xF01A;")
 	return $("<div class='dynamic_wrapper collection' >")
@@ -179,7 +216,26 @@ $( document ).on ( "cloudflare.page_rules.page_rules.initialize", function ( eve
 				.append (
 					$("<td class='no_white_space' >")
 						.text ( rule.targets [ 0 ].constraint.value )
-						.append ( $("<span>").text ( rule.actions.map ( i => { return i.id + ": " + i.value } ).join (", ") ) )
+						.append ( $("<span>").text (
+							rule.actions.map ( i => {
+								let id = valueToLabel ( i.id )
+								let value = ""
+								if ( i.value && i.value instanceof Object ) {
+									value = ": ("
+									let delim = ""
+									for ( let key in i.value ) {
+										value += delim + valueToLabel ( key ) + ": " + i.value [ key ]
+										delim = ", "
+									}
+									value += ")"
+								}
+								else if ( i.value ) {
+									value = ": " + upperCaseFirst ( i.value )
+								}
+								let string = id + value
+								return string
+							}).join (", ")
+						))
 				)
 				.append ( $("<td>").append (
 					( () => {
