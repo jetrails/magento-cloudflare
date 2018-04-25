@@ -237,22 +237,23 @@ $( document ).on ( "cloudflare.page_rules.page_rules.initialize", function ( eve
 							}).join (", ")
 						))
 				)
-				.append ( $("<td>").append (
-					( () => {
+				.append ( $("<td>")
+					.append (( () => {
 						var element = modal.createSwitch ( "status", rule.status == "active" )
 						$(element).find ("input")
 							.addClass ("trigger")
 							.data ( "target", "toggle" )
 							.data ( "id", rule.id )
 						return element
-					}) ()
-				))
-				.append ( $("<td>").append ( modal.createIconButton ( "edit", "&#xF019;" ) ) )
-				.append ( $("<td>").append (
-					modal.createIconButton ( "delete", "&#xF01A;" ) )
-						.addClass ("trigger")
-						.data ( "target", "delete" )
-						.data ( "id", rule.id )
+					}) () )
+					.append ( modal.createIconButton ( "edit", "&#xF019;" ).css ( "display", "inline-block" ) )
+					.append (
+						modal.createIconButton ( "delete", "&#xF01A;" )
+							.addClass ("trigger")
+							.data ( "target", "delete" )
+							.data ( "id", rule.id )
+							.css ( "display", "inline-block" )
+					)
 				)
 			)
 		})
