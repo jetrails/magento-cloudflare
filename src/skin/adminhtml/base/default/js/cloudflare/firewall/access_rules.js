@@ -37,6 +37,9 @@ function populateResult ( table, results ) {
 			)
 		)
 	})
+	if ( results.length == 0 ) {
+		$(table).append ( $("<tr>").append ( $("<td colspan='6' >").text ("No access rules found.") ) );
+	}
 }
 
 $( document ).on ( "cloudflare.firewall.access_rules.initialize", function ( event, data ) {
@@ -69,9 +72,10 @@ $( document ).on ( "cloudflare.firewall.access_rules.initialize", function ( eve
 
 $( document ).on ( "cloudflare.firewall.access_rules.search", function ( event, data ) {
 	let table = $(data.section).find ("table > tbody")
-	let searchTerm = data.trigger.val ().toLowerCase ()
+	let searchTerm = $(data.trigger).val ().toLowerCase ().trim ()
 	var results = $(data.section).data ("result").filter ( entry => {
-		return entry.notes.toLowerCase ().indexOf ( searchTerm ) > -1 || entry.configuration.value.toLowerCase ().indexOf ( searchTerm ) > -1
+		return entry.notes.toLowerCase ().indexOf ( searchTerm ) > -1
+			|| entry.configuration.value.toLowerCase ().indexOf ( searchTerm ) > -1
 	})
 	$(table).children ().remove ()
 	populateResult ( table, results )
