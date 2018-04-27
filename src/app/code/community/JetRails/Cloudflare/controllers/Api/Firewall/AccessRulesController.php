@@ -30,7 +30,7 @@
 			return $this->_sendResponse ( $response );
 		}
 
-		public function updateModeAction () {
+		public function modeAction () {
 			$api = Mage::getModel ("cloudflare/api_firewall_accessRules");
 			$response = $api->updateMode (
 				$this->_request->getParam ("id"),

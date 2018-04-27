@@ -44,7 +44,7 @@ $( document ).on ( "cloudflare.firewall.access_rules.initialize", function ( eve
 					])
 					.css ({ minWidth: "200px" })
 					.addClass ("trigger-select")
-					.data ( "target", "update_mode" )
+					.data ( "target", "mode" )
 					.data ( "id", entry.id )
 				)
 				.append ( modal.createIconButton ( "trigger edit", "&#xF013;" )
@@ -122,7 +122,7 @@ $( document ).on ( "cloudflare.firewall.access_rules.delete", function ( event, 
 	confirm.show ()
 });
 
-$( document ).on ( "cloudflare.firewall.access_rules.update_mode", function ( event, data ) {
+$( document ).on ( "cloudflare.firewall.access_rules.mode", function ( event, data ) {
 	$(data.section).addClass ("loading")
 	var id = $(data.trigger).data ("id")
 	var mode = $(data.trigger).val ()
