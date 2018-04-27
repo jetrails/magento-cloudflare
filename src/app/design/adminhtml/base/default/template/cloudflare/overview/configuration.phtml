@@ -16,7 +16,7 @@
 			<div class="status_pair" >
 				<i class="material-icons" >code</i>
 				<label>Zone ID:</label>
-				<p><?php echo $this->getZoneId () ?></p>
+				<p><?php echo empty ( $this->getZoneId () ) ? "Unrecognized Site" : $this->getZoneId () ?></p>
 			</div>
 		</div>
 		<div class="wrapper_right" >
