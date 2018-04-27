@@ -29,14 +29,4 @@
 			return $response === false ? "N/A" : $response;
 		}
 
-		public function setState ( $state ) {
-			$this->state = $state;
-			return $this;
-		}
-
-		public function setMessages ( $messages ) {
-			$this->messages = $messages;
-			return $this;
-		}
-
 	}

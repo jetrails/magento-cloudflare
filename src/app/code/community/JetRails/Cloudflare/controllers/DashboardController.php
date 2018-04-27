@@ -36,8 +36,6 @@
 					$this->getLayout ()
 					->createBlock ("cloudflare/dashboard_section_overview_configuration")
 					->setTemplate ("cloudflare/overview/configuration.phtml")
-					->setState ("response_error")
-					->setMessages ( array ( "Error : The domain <u>$domain</u> is not associated with your Cloudflare account" ) )
 				);
 			}
 			else {
@@ -45,8 +43,6 @@
 					$this->getLayout ()
 					->createBlock ("cloudflare/dashboard_section_overview_configuration")
 					->setTemplate ("cloudflare/overview/configuration.phtml")
-					->setState ("response_error")
-					->setMessages ( array ( "Error : Email address or API token could not be authenticated" ) )
 				);
 			}
 

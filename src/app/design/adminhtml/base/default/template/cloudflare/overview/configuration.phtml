@@ -3,7 +3,8 @@
 	data-endpoint="<?php echo $this->getApiEndpoint () ?>"
 	data-form-key="<?php echo $this->getFormKey () ?>"
 	data-tab-name="overview"
-	data-section-name="configuration" >
+	data-section-name="configuration"
+	<?php echo empty ( $this->getZoneId () ) ? "style='margin-top:140px'" : "" ?> >
 	<div class="row" >
 		<div class="wrapper_left" >
 			<span class="section_title" >Configuration</span>
