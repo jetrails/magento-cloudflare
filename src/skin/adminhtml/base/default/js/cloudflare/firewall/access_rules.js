@@ -4,30 +4,8 @@ const common = require ("cloudflare/common")
 const notification = require ("cloudflare/core/notification")
 const modal = require ("cloudflare/core/modal")
 
-$( document ).on ( "cloudflare.firewall.access_rules.initialize", function ( event, data ) {
-	let section = $(data.section)
-	let table = $(data.section).find ("table > tbody")
-	let currentPage = data.response.result_info.page
-	$(section).data ( "count", data.response.result_info.count )
-	$(section).data ( "count_total", data.response.result_info.total_count )
-	$(section).data ( "page", data.response.result_info.page )
-	$(section).data ( "page-count", data.response.result_info.total_pages )
-	$(section).data ( "page-size", data.response.result_info.per_page )
-	$(section).find (".pagination_container .pages").html ("")
-	$(section).find (".pagination_container .showing").html (
-		`${data.response.result_info.per_page * ( data.response.result_info.page - 1 )} - ${ Math.min ( data.response.result_info.per_page * data.response.result_info.page, data.response.result_info.total_count )} of ${data.response.result_info.total_count} rules`
-	)
-	for ( let i = 1; i <= data.response.result_info.total_pages; i++ ) {
-		$(section).find (".pagination_container .pages").append (
-			$(`<span class="trigger page" >`)
-				.addClass ( i == currentPage ? "current" : "" )
-				.data ( "target", "page" )
-				.data ( "page", i )
-				.text ( i )
-		)
-	}
-	$(table).html ("")
-	data.response.result.map ( entry => {
+function populateResult ( table, results ) {
+	results.map ( entry => {
 		$(table).append ( $(`<tr>`)
 			.append ( $(`<td>`)
 				.text ( entry.configuration.value )
@@ -59,7 +37,44 @@ $( document ).on ( "cloudflare.firewall.access_rules.initialize", function ( eve
 			)
 		)
 	})
+}
+
+$( document ).on ( "cloudflare.firewall.access_rules.initialize", function ( event, data ) {
+	let section = $(data.section)
+	let table = $(data.section).find ("table > tbody")
+	let currentPage = data.response.result_info.page
+	$(section).data ( "count", data.response.result_info.count )
+	$(section).data ( "count_total", data.response.result_info.total_count )
+	$(section).data ( "page", data.response.result_info.page )
+	$(section).data ( "page-count", data.response.result_info.total_pages )
+	$(section).data ( "page-size", data.response.result_info.per_page )
+	$(section).find (".pagination_container .pages").html ("")
+	$(section).find (".pagination_container .showing").html (
+		`${data.response.result_info.per_page * ( data.response.result_info.page - 1 )} - ${ Math.min ( data.response.result_info.per_page * data.response.result_info.page, data.response.result_info.total_count )} of ${data.response.result_info.total_count} rules`
+	)
+	for ( let i = 1; i <= data.response.result_info.total_pages; i++ ) {
+		$(section).find (".pagination_container .pages").append (
+			$(`<span class="trigger page" >`)
+				.addClass ( i == currentPage ? "current" : "" )
+				.data ( "target", "page" )
+				.data ( "page", i )
+				.text ( i )
+		)
+	}
+	$(table).html ("")
+	$(data.section).data ( "result", data.response.result )
+	populateResult ( table, data.response.result )
 	$(data.section).removeClass ("loading")
+})
+
+$( document ).on ( "cloudflare.firewall.access_rules.search", function ( event, data ) {
+	let table = $(data.section).find ("table > tbody")
+	let searchTerm = data.trigger.val ().toLowerCase ()
+	var results = $(data.section).data ("result").filter ( entry => {
+		return entry.notes.toLowerCase ().indexOf ( searchTerm ) > -1 || entry.configuration.value.toLowerCase ().indexOf ( searchTerm ) > -1
+	})
+	$(table).children ().remove ()
+	populateResult ( table, results )
 })
 
 $( document ).on ( "cloudflare.firewall.access_rules.add", function ( event, data ) {

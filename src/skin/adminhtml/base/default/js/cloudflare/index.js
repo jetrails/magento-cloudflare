@@ -100,8 +100,6 @@ $( window ).on ( "load", function () {
 		console.log ( "Triggered: " + event.target.name )
 	});
 
-	var triggerChangeTimeout;
-
 	$( document ).on ( "keyup", ".trigger-change", function () {
 		var section = $( this ).closest ("section");
 		var event = {
@@ -119,12 +117,8 @@ $( window ).on ( "load", function () {
 		};
 		event.target.name = event.target.tab + "." + event.target.section + "." + event.target.action;
 		event.target.name = "cloudflare." + event.target.name;
-
-		clearTimeout ( triggerChangeTimeout );
-		triggerChangeTimeout = setTimeout ( function () {
-			$.event.trigger ( event.target.name, event );
-			console.log ( "Triggered (Change): " + event.target.name )
-		}, 1000 );
+		$.event.trigger ( event.target.name, event );
+		console.log ( "Triggered (Change): " + event.target.name )
 	});
 
 });
