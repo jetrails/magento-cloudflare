@@ -47,4 +47,15 @@
 			return $api->resolve ( $endpoint );
 		}
 
+		public function updateNote ( $id, $notes ) {
+			$zoneId = Mage::getModel ("cloudflare/api_overview_configuration")->getZoneId ();
+			$endpoint = sprintf ( "zones/%s/firewall/access_rules/rules/%s", $zoneId, $id );
+			$api = Mage::getModel ("cloudflare/api_request");
+			$api->setType ( $api::REQUEST_PATCH );
+			$api->setData ( array (
+				"notes" => $notes
+			));
+			return $api->resolve ( $endpoint );
+		}
+
 	}

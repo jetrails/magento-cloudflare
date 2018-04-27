@@ -1,6 +1,6 @@
 const $ = require ("jquery")
-const cloudflare = require ("cloudflare/common");
-const common = require ("cloudflare/common");
+const cloudflare = require ("cloudflare/common")
+const common = require ("cloudflare/common")
 const notification = require ("cloudflare/core/notification")
 const modal = require ("cloudflare/core/modal")
 
@@ -49,6 +49,7 @@ $( document ).on ( "cloudflare.firewall.access_rules.initialize", function ( eve
 				)
 				.append ( modal.createIconButton ( "trigger edit", "&#xF013;" )
 					.data ( "id", entry.id )
+					.data ( "note", entry.notes )
 					.data ( "target", "edit" )
 				)
 				.append ( modal.createIconButton ( "trigger delete", "&#xF01A;" )
@@ -59,7 +60,7 @@ $( document ).on ( "cloudflare.firewall.access_rules.initialize", function ( eve
 		)
 	})
 	$(data.section).removeClass ("loading")
-});
+})
 
 $( document ).on ( "cloudflare.firewall.access_rules.add", function ( event, data ) {
 	$(data.section).addClass ("loading")
@@ -97,9 +98,9 @@ $( document ).on ( "cloudflare.firewall.access_rules.add", function ( event, dat
 			$(data.section).find ("[name='note']").val ("")
 			common.loadSections (".access_rules")
 		}
-	});
+	})
 	common.loadSections (".access_rules")
-});
+})
 
 $( document ).on ( "cloudflare.firewall.access_rules.delete", function ( event, data ) {
 	var confirm = new modal.Modal ()
@@ -116,11 +117,11 @@ $( document ).on ( "cloudflare.firewall.access_rules.delete", function ( event, 
 			success: function ( response ) {
 				common.loadSections (".access_rules")
 			}
-		});
+		})
 	}})
 	confirm.addButton ({ label: "Cancel", class: "gray", callback: confirm.close })
 	confirm.show ()
-});
+})
 
 $( document ).on ( "cloudflare.firewall.access_rules.mode", function ( event, data ) {
 	$(data.section).addClass ("loading")
@@ -133,14 +134,38 @@ $( document ).on ( "cloudflare.firewall.access_rules.mode", function ( event, da
 		success: function ( response ) {
 			common.loadSections (".access_rules")
 		}
-	});
-});
+	})
+})
+
+$( document ).on ( "cloudflare.firewall.access_rules.edit", function ( event, data ) {
+	let notes = modal.createTextarea ( "notes", "", $(data.trigger).data ("note") ).css ({
+		marginTop: "22.5px",
+		fontSize: "1.1em"
+	})
+	let edit = new modal.Modal ( 800 )
+	edit.addTitle ("Edit notes")
+	edit.addElement ( notes )
+	edit.addButton ({ label: "Close", class: "gray", callback: edit.close })
+	edit.addButton ({ label: "Save", callback: ( components ) => {
+		edit.close ()
+		$(data.section).addClass ("loading")
+		$.ajax ({
+			url: data.form.endpoint,
+			type: "POST",
+			data: { "form_key": data.form.key, "id": $(data.trigger).data ("id"), "note": notes.val () },
+			success: function ( response ) {
+				common.loadSections (".access_rules")
+			}
+		})
+	}})
+	edit.show ()
+})
 
 $( document ).on ( "cloudflare.firewall.access_rules.page", function ( event, data ) {
 	$(data.section).addClass ("loading")
 	$(data.section).data ( "page", $(data.trigger).data ("page") )
 	common.loadSections (".access_rules")
-});
+})
 
 $( document ).on ( "cloudflare.firewall.access_rules.next_page", function ( event, data ) {
 	if ( $(data.section).data ("page") + 1 <= $(data.section).data ("page-count") ) {
@@ -148,7 +173,7 @@ $( document ).on ( "cloudflare.firewall.access_rules.next_page", function ( even
 		$(data.section).data ( "page", $(data.section).data ("page") + 1 )
 		common.loadSections (".access_rules")
 	}
-});
+})
 
 $( document ).on ( "cloudflare.firewall.access_rules.previous_page", function ( event, data ) {
 	if ( $(data.section).data ("page") - 1 > 0 ) {
@@ -156,4 +181,4 @@ $( document ).on ( "cloudflare.firewall.access_rules.previous_page", function ( 
 		$(data.section).data ( "page", $(data.section).data ("page") - 1 )
 		common.loadSections (".access_rules")
 	}
-});
+})
