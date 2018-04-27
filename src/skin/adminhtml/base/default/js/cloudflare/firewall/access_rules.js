@@ -15,7 +15,7 @@ $( document ).on ( "cloudflare.firewall.access_rules.initialize", function ( eve
 	$(section).data ( "page-size", data.response.result_info.per_page )
 	$(section).find (".pagination_container .pages").html ("")
 	$(section).find (".pagination_container .showing").html (
-		`${data.response.result_info.per_page * ( data.response.result_info.page - 1 )} - ${ Math.min ( data.response.result_info.per_page * data.response.result_info.page, data.response.result_info.total_count )} rules`
+		`${data.response.result_info.per_page * ( data.response.result_info.page - 1 )} - ${ Math.min ( data.response.result_info.per_page * data.response.result_info.page, data.response.result_info.total_count )} of ${data.response.result_info.total_count} rules`
 	)
 	for ( let i = 1; i <= data.response.result_info.total_pages; i++ ) {
 		$(section).find (".pagination_container .pages").append (
