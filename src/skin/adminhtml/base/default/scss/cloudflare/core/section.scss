@@ -265,8 +265,8 @@ section.cloudflare .group_wrapper + input[type="submit"] {
 	float: left;
 	font-family: 'Material Icons';
 	font-weight: normal;
-	font-style: normal;
-	font-size: 24px;  /* Preferred icon size */
+	font-style: normal !important;
+	font-size: 24px;
 	display: inline-block;
 	text-transform: none;
 	letter-spacing: normal;
@@ -274,19 +274,11 @@ section.cloudflare .group_wrapper + input[type="submit"] {
 	white-space: nowrap;
 	direction: ltr;
 	color: #2F7BBF;
-
 	padding-right: 15px;
-
-	/* Support for all WebKit browsers. */
 	-webkit-font-smoothing: antialiased;
-	/* Support for Safari and Chrome. */
 	text-rendering: optimizeLegibility;
-
-	/* Support for Firefox. */
 	-moz-osx-font-smoothing: grayscale;
-
-	/* Support for IE. */
-	font-feature-settings: 'liga';
+	font-feature-settings: "liga";
 }
 
 section.cloudflare {
