@@ -57,6 +57,14 @@
 									->setTemplate ("cloudflare/firewall.phtml")
 									->toHtml (),
 			))
+			->addTab ( "speed", array (
+				"label"  	=> $this->_createTabIcon ("Speed"),
+				"title"  	=> $this->__("Speed"),
+				"content"   => $this->getLayout ()
+									->createBlock ("adminhtml/widget_form")
+									->setTemplate ("cloudflare/speed.phtml")
+									->toHtml (),
+			))
 			->addTab ( "pagerules", array (
 				"label"  	=> $this->_createTabIcon ("Page Rules"),
 				"title"  	=> $this->__("Page Rules"),
@@ -65,12 +73,12 @@
 									->setTemplate ("cloudflare/page_rules.phtml")
 									->toHtml (),
 			))
-			->addTab ( "speed", array (
-				"label"  	=> $this->_createTabIcon ("Speed"),
-				"title"  	=> $this->__("Speed"),
+			->addTab ( "network", array (
+				"label"  	=> $this->_createTabIcon ("Network"),
+				"title"  	=> $this->__("Network"),
 				"content"   => $this->getLayout ()
 									->createBlock ("adminhtml/widget_form")
-									->setTemplate ("cloudflare/speed.phtml")
+									->setTemplate ("cloudflare/network.phtml")
 									->toHtml (),
 			))
 			->addTab ( "scrapeshield", array (

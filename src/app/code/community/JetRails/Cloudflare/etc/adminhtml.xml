@@ -153,19 +153,9 @@
 											</firewall_events>
 										</children>
 									</firewall>
-									<page_rules translate="title" module="cloudflare" >
-										<title>Page Rules</title>
-										<sort_order>600</sort_order>
-										<children>
-											<page_rules translate="title" module="cloudflare" >
-												<title>Page Rules</title>
-												<sort_order>100</sort_order>
-											</page_rules>
-										</children>
-									</page_rules>
 									<speed translate="title" module="cloudflare" >
 										<title>Speed</title>
-										<sort_order>700</sort_order>
+										<sort_order>600</sort_order>
 										<children>
 											<auto_minify translate="title" module="cloudflare" >
 												<title>Auto Minify</title>
@@ -189,6 +179,16 @@
 											</rocket_loader>
 										</children>
 									</speed>
+									<page_rules translate="title" module="cloudflare" >
+										<title>Page Rules</title>
+										<sort_order>700</sort_order>
+										<children>
+											<page_rules translate="title" module="cloudflare" >
+												<title>Page Rules</title>
+												<sort_order>100</sort_order>
+											</page_rules>
+										</children>
+									</page_rules>
 									<scrape_shield translate="title" module="cloudflare" >
 										<title>Scrape Shield</title>
 										<sort_order>800</sort_order>
@@ -207,6 +207,32 @@
 											</hotlink_protection>
 										</children>
 									</scrape_shield>
+									<network translate="title" module="cloudflare" >
+										<title>Network</title>
+										<sort_order>900</sort_order>
+										<children>
+											<http_2 translate="title" module="cloudflare" >
+												<title>HTTP/2</title>
+												<sort_order>100</sort_order>
+											</http_2>
+											<ipv6_compatibility translate="title" module="cloudflare" >
+												<title>IPv6 Compatibility</title>
+												<sort_order>200</sort_order>
+											</ipv6_compatibility>
+											<websockets translate="title" module="cloudflare" >
+												<title>WebSockets</title>
+												<sort_order>300</sort_order>
+											</websockets>
+											<pseudo_ipv4 translate="title" module="cloudflare" >
+												<title>Pseudo IPv4</title>
+												<sort_order>400</sort_order>
+											</pseudo_ipv4>
+											<ip_geolocation translate="title" module="cloudflare" >
+												<title>IP Geolocation</title>
+												<sort_order>500</sort_order>
+											</ip_geolocation>
+										</children>
+									</network>
 								</children>
 							</cloudflare>
 						</children>
