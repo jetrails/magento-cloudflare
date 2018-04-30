@@ -72,6 +72,14 @@
 									->createBlock ("adminhtml/widget_form")
 									->setTemplate ("cloudflare/speed.phtml")
 									->toHtml (),
+			))
+			->addTab ( "scrapeshield", array (
+				"label"  	=> $this->_createTabIcon ("Scrape Shield"),
+				"title"  	=> $this->__("Scrape Shield"),
+				"content"   => $this->getLayout ()
+									->createBlock ("adminhtml/widget_form")
+									->setTemplate ("cloudflare/scrape_shield.phtml")
+									->toHtml (),
 			));
 			return parent::_beforeToHtml ();
 		}

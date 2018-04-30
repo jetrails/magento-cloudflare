@@ -28,6 +28,9 @@ require ("cloudflare/firewall/access_rules")
 require ("cloudflare/firewall/security_level")
 require ("cloudflare/firewall/challenge_passage")
 require ("cloudflare/page_rules/page_rules")
+require ("cloudflare/scrape_shield/email_address_obfuscation")
+require ("cloudflare/scrape_shield/server_side_excludes")
+require ("cloudflare/scrape_shield/hotlink_protection")
 
 $( window ).on ( "load", function () {
 	cloudflare.loadSections ();

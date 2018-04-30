@@ -189,6 +189,24 @@
 											</rocket_loader>
 										</children>
 									</speed>
+									<scrape_shield translate="title" module="cloudflare" >
+										<title>Scrape Shield</title>
+										<sort_order>800</sort_order>
+										<children>
+											<email_address_obfuscation translate="title" module="cloudflare" >
+												<title>Email Address Obfuscation</title>
+												<sort_order>100</sort_order>
+											</email_address_obfuscation>
+											<server_side_excludes translate="title" module="cloudflare" >
+												<title>Server-side Excludes</title>
+												<sort_order>200</sort_order>
+											</server_side_excludes>
+											<hotlink_protection translate="title" module="cloudflare" >
+												<title>Hotlink Protection</title>
+												<sort_order>300</sort_order>
+											</hotlink_protection>
+										</children>
+									</scrape_shield>
 								</children>
 							</cloudflare>
 						</children>
