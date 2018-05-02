@@ -17,17 +17,22 @@
 			&:hover {
 				color: $color-orange;
 			}
+			&.disabled {
+				color: #A1A1A1;
+				&:hover {
+					color: #A1A1A1;
+				}
+			}
 		}
 		&.page {
-			color: #A1A1A1;
+			color: $color-blue;
 			cursor: pointer;
-			&:hover {
+			&:not(.current):hover {
 				color: $color-orange;
 			}
 		}
 		&.current {
-			color: $color-blue;
-			font-weight: 700;
+			color: #A1A1A1;
 		}
 		&.showing {
 			color: #818181;

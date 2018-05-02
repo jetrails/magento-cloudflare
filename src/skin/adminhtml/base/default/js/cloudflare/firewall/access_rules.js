@@ -4,81 +4,141 @@ const common = require ("cloudflare/common")
 const notification = require ("cloudflare/core/notification")
 const modal = require ("cloudflare/core/modal")
 
-function populateResult ( table, results ) {
-	results.map ( entry => {
-		$(table).append ( $(`<tr>`)
-			.append ( $(`<td>`)
-				.text ( entry.configuration.value )
-				.append ( $(`<span>`).text ( entry.notes ) )
-				.css ({ width: "100%" })
+function populateResult ( section, results ) {
+	let table = $(section).find ("table > tbody")
+	$(section).data ( "item-count", results.length )
+	let itemCount = $(section).data ("item-count")
+	let page = $(section).data ("page")
+	let pageSize = $(section).data ("page-size")
+	let pageCount = Math.ceil ( itemCount / pageSize )
+	let from = pageSize * ( page - 1 ) + 1
+	if ( itemCount == 0 ) from = 0
+	let to = Math.min ( pageSize * page, itemCount )
+	$(section).find (".pagination_container .pages").html ("")
+	$(section).find (".pagination_container .showing").html (`${from} - ${to} of ${itemCount} rules`)
+
+	let pages = $(section).find (".pagination_container .pages")
+	let createPage = ( number ) => {
+		return $(`<span class="page" >`)
+			.addClass ( number == page ? "" : "trigger" )
+			.addClass ( number == page ? "current" : "" )
+			.data ( "target", "page" )
+			.data ( "page", number )
+			.text ( number )
+	}
+	if ( pageCount > 7 ) {
+		$(pages).append ( createPage ( 1 ) )
+		if ( pageCount > 7 && page > 4 ) {
+			$(pages).append ( $(`<span>`).text ("...") )
+		}
+		let start = Math.max ( 2, page - 3 )
+		let end = Math.min ( pageCount - 1, page + 3 )
+		if ( page - 4 < 0 ) end += Math.abs ( page - 4 )
+		if ( page + 3 > pageCount ) start -= page + 3 - pageCount
+		if ( pageCount <= 7 && page < 4 ) end -= 1
+		if ( pageCount <= 7 && page > 4 ) start += 1
+		for ( let i = start; i <= end; i++ ) {
+			$(pages).append ( createPage ( i ) )
+		}
+		if ( pageCount > 7 && page < pageCount - 3 ) {
+			$(pages).append ( $(`<span>`).text ("...") )
+		}
+		$(pages).append ( createPage ( pageCount ) )
+	}
+	else {
+		for ( let i = 1; i <= pageCount; i++ ) {
+			$(pages).append ( createPage ( i ) )
+		}
+	}
+	if ( page == 1 ) {
+		$(section).find (".previous").addClass ("disabled")
+	}
+	else {
+		$(section).find (".previous").removeClass ("disabled")
+	}
+	if ( page == pageCount ) {
+		$(section).find (".next").addClass ("disabled")
+	}
+	else {
+		$(section).find (".next").removeClass ("disabled")
+	}
+	$(table).html ("")
+	let appended = 0
+	for ( let i = 0; i < results.length; i++ ) {
+		if ( i >= ( page - 1 ) * pageSize && i < page * pageSize ) {
+			let entry = results [ i ]
+			$(table).append ( $(`<tr>`)
+				.append ( $(`<td>`)
+					.text ( entry.configuration.value )
+					.append ( $(`<span>`).text ( entry.notes ) )
+					.css ({ width: "100%" })
+				)
+				.append ( $(`<td>`).text ("This website") )
+				.append ( $(`<td>`).css ( "display", "flex" )
+					.html ( modal.createSelect ( "mode", [
+							{ "label": "Block", "value": "block", selected: entry.mode == "block" },
+							{ "label": "Challenge", "value": "challenge", selected: entry.mode == "challenge" },
+							{ "label": "Whitelist", "value": "whitelist", selected: entry.mode == "whitelist" },
+							{ "label": "JavaScript Challenge", "value": "js_challenge", selected: entry.mode == "js_challenge" }
+						])
+						.css ({ minWidth: "200px" })
+						.addClass ("trigger-select")
+						.data ( "target", "mode" )
+						.data ( "id", entry.id )
+					)
+					.append ( modal.createIconButton ( "trigger edit", "&#xF013;" )
+						.data ( "id", entry.id )
+						.data ( "note", entry.notes )
+						.data ( "target", "edit" )
+					)
+					.append ( modal.createIconButton ( "trigger delete", "&#xF01A;" )
+						.data ( "id", entry.id )
+						.data ( "target", "delete" )
+					)
+				)
 			)
-			.append ( $(`<td>`).text ("This website") )
-			.append ( $(`<td>`).css ( "display", "flex" )
-				.html ( modal.createSelect ( "mode", [
-						{ "label": "Block", "value": "block", selected: entry.mode == "block" },
-						{ "label": "Challenge", "value": "challenge", selected: entry.mode == "challenge" },
-						{ "label": "Whitelist", "value": "whitelist", selected: entry.mode == "whitelist" },
-						{ "label": "JavaScript Challenge", "value": "js_challenge", selected: entry.mode == "js_challenge" }
-					])
-					.css ({ minWidth: "200px" })
-					.addClass ("trigger-select")
-					.data ( "target", "mode" )
-					.data ( "id", entry.id )
-				)
-				.append ( modal.createIconButton ( "trigger edit", "&#xF013;" )
-					.data ( "id", entry.id )
-					.data ( "note", entry.notes )
-					.data ( "target", "edit" )
-				)
-				.append ( modal.createIconButton ( "trigger delete", "&#xF01A;" )
-					.data ( "id", entry.id )
-					.data ( "target", "delete" )
-				)
-			)
-		)
-	})
+		}
+	}
 	if ( results.length == 0 ) {
 		$(table).append ( $("<tr>").append ( $("<td colspan='6' >").text ("No access rules found.") ) );
 	}
 }
 
 $( document ).on ( "cloudflare.firewall.access_rules.initialize", function ( event, data ) {
-	let section = $(data.section)
-	let table = $(data.section).find ("table > tbody")
-	let currentPage = data.response.result_info.page
-	$(section).data ( "count", data.response.result_info.count )
-	$(section).data ( "count_total", data.response.result_info.total_count )
-	$(section).data ( "page", data.response.result_info.page )
-	$(section).data ( "page-count", data.response.result_info.total_pages )
-	$(section).data ( "page-size", data.response.result_info.per_page )
-	$(section).find (".pagination_container .pages").html ("")
-	$(section).find (".pagination_container .showing").html (
-		`${data.response.result_info.per_page * ( data.response.result_info.page - 1 )} - ${ Math.min ( data.response.result_info.per_page * data.response.result_info.page, data.response.result_info.total_count )} of ${data.response.result_info.total_count} rules`
-	)
-	for ( let i = 1; i <= data.response.result_info.total_pages; i++ ) {
-		$(section).find (".pagination_container .pages").append (
-			$(`<span class="trigger page" >`)
-				.addClass ( i == currentPage ? "current" : "" )
-				.data ( "target", "page" )
-				.data ( "page", i )
-				.text ( i )
-		)
-	}
-	$(table).html ("")
 	$(data.section).data ( "result", data.response.result )
-	populateResult ( table, data.response.result )
+	populateResult ( data.section, data.response.result )
 	$(data.section).removeClass ("loading")
 })
 
+$( document ).on ( "cloudflare.firewall.access_rules.sort", function ( event, data ) {
+	$(data.section).data ( "sort", $(data.trigger).data ("sort") )
+	if ( $(data.trigger).hasClass ("sort-asc") ) {
+		$(data.trigger).siblings ().removeClass ("sort-asc").removeClass ("sort-desc")
+		$(data.trigger).removeClass ("sort-asc").addClass ("sort-desc")
+		$(data.section).data ( "direction", "desc" )
+	}
+	else if ( $(data.trigger).hasClass ("sort-desc") ) {
+		$(data.trigger).siblings ().removeClass ("sort-asc").removeClass ("sort-desc")
+		$(data.trigger).removeClass ("sort-asc").removeClass ("sort-desc")
+		$(data.section).data ( "direction", "" )
+	}
+	else {
+		$(data.trigger).siblings ().removeClass ("sort-asc").removeClass ("sort-desc")
+		$(data.trigger).addClass ("sort-asc")
+		$(data.section).data ( "direction", "asc" )
+	}
+})
+
 $( document ).on ( "cloudflare.firewall.access_rules.search", function ( event, data ) {
+	$(data.section).data ( "page", 1 )
 	let table = $(data.section).find ("table > tbody")
-	let searchTerm = $(data.trigger).val ().toLowerCase ().trim ()
+	let searchTerm = ($(data.trigger).val () + "" ).toLowerCase ().trim ()
 	var results = $(data.section).data ("result").filter ( entry => {
-		return entry.notes.toLowerCase ().indexOf ( searchTerm ) > -1
-			|| entry.configuration.value.toLowerCase ().indexOf ( searchTerm ) > -1
+		return ( entry.notes + "" ).toLowerCase ().indexOf ( searchTerm ) > -1
+			|| ( entry.configuration.value + "" ).toLowerCase ().indexOf ( searchTerm ) > -1
 	})
 	$(table).children ().remove ()
-	populateResult ( table, results )
+	populateResult ( data.section, results )
 })
 
 $( document ).on ( "cloudflare.firewall.access_rules.add", function ( event, data ) {
@@ -181,23 +241,30 @@ $( document ).on ( "cloudflare.firewall.access_rules.edit", function ( event, da
 })
 
 $( document ).on ( "cloudflare.firewall.access_rules.page", function ( event, data ) {
-	$(data.section).addClass ("loading")
 	$(data.section).data ( "page", $(data.trigger).data ("page") )
-	common.loadSections (".access_rules")
+
+	// data.trigger = $(data.section).find (".search")
+	// data.target.action = "search"
+	// data.target.name = data.target.name.replace ("next_page","search")
+	// data.form.endpoint = data.form.endpoint.replace ("next_page","search")
+	//
+	// $.event.trigger ( "cloudflare.firewall.access_rules.search", data )
+
+	// common.loadSections (".access_rules")
+
+	populateResult ( data.section, $(data.section).data ("result") )
 })
 
 $( document ).on ( "cloudflare.firewall.access_rules.next_page", function ( event, data ) {
-	if ( $(data.section).data ("page") + 1 <= $(data.section).data ("page-count") ) {
-		$(data.section).addClass ("loading")
+	if ( $(data.section).data ("page") + 1 <= Math.ceil ( $(data.section).data ("item-count") / $(data.section).data ("page-size") ) ) {
 		$(data.section).data ( "page", $(data.section).data ("page") + 1 )
-		common.loadSections (".access_rules")
+		populateResult ( data.section, $(data.section).data ("result") )
 	}
 })
 
 $( document ).on ( "cloudflare.firewall.access_rules.previous_page", function ( event, data ) {
 	if ( $(data.section).data ("page") - 1 > 0 ) {
-		$(data.section).addClass ("loading")
 		$(data.section).data ( "page", $(data.section).data ("page") - 1 )
-		common.loadSections (".access_rules")
+		populateResult ( data.section, $(data.section).data ("result") )
 	}
 })

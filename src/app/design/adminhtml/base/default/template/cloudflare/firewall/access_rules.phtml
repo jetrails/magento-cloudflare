@@ -4,11 +4,11 @@
 	data-form-key="<?php echo $this->getFormKey () ?>"
 	data-tab-name="firewall"
 	data-section-name="access_rules"
-	data-count="0"
-	data-count-total="0"
+	data-item-count="0"
 	data-page="1"
-	data-page-count="1"
-	data-page-size="20" >
+	data-page-size="15"
+	data-sort=""
+	data-sort-order="" >
 	<div class="row" >
 		<div class="wrapper_left no_padding_bottom" >
 			<span class="section_title" >Access Rules</span>
@@ -38,9 +38,9 @@
 		<table cellspacing="0" cellpadding="0" >
 			<thead>
 				<tr>
-					<th>Value</th>
-					<th>Applies to</th>
-					<th>Action</th>
+					<th class="trigger" data-target="sort" data-sort="mode" >Value</th>
+					<th class="trigger" data-target="sort" data-sort="configuration.target" >Applies to</th>
+					<th class="trigger" data-target="sort" data-sort="configuration.value" >Action</th>
 				</tr>
 			</thead>
 			<tbody>
@@ -55,11 +55,9 @@
 		<div class="wrapper_bottom" >
 			<div class="pagination_container" >
 				<span class="previous trigger" data-target="previous_page" >&#xF002;</span>
-				<div class="pages" >
-					<span class="trigger page current" data-target="page" data-page="1" >1</span>
-				</div>
+				<div class="pages" ></div>
 				<span class="next trigger" data-target="next_page" >&#xF003;</span>
-				<span class="showing" >0 - 0 rules</span>
+				<span class="showing" >0 - 0 of 0 rules</span>
 			</div>
 			<a data-tab="help" >Help</a>
 		</div>

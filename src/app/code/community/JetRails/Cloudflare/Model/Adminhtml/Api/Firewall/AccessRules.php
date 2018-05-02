@@ -2,14 +2,23 @@
 
 	class JetRails_Cloudflare_Model_Adminhtml_Api_Firewall_AccessRules extends Mage_Core_Model_Abstract {
 
-		public function load ( $page, $perPage ) {
+		public function load ( $page = 1, $previous = [] ) {
 			$zoneId = Mage::getModel ("cloudflare/api_overview_configuration")->getZoneId ();
 			$endpoint = sprintf ( "zones/%s/firewall/access_rules/rules", $zoneId );
 			$api = Mage::getModel ("cloudflare/api_request");
 			$api->setType ( $api::REQUEST_GET );
 			$api->setQuery ( "page", intval ( $page ) );
-			$api->setQuery ( "per_page", intval ( $perPage ) );
-			return $api->resolve ( $endpoint );
+			$result = $api->resolve ( $endpoint );
+			if ( property_exists ( $result, "result_info" ) && property_exists ( $result->result_info, "total_pages" ) ) {
+				if ( $page < $result->result_info->total_pages ) {
+					$previous = array_merge ( $previous, $result->result );
+					return $this->load ( $page + 1, $previous );
+				}
+				else {
+					$result->result = array_merge ( $previous, $result->result );
+				}
+			}
+			return $result;
 		}
 
 		public function delete ( $id ) {
