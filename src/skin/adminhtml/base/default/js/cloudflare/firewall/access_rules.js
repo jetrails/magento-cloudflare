@@ -4,7 +4,13 @@ const common = require ("cloudflare/common")
 const notification = require ("cloudflare/core/notification")
 const modal = require ("cloudflare/core/modal")
 
-function populateResult ( section, results ) {
+function populateResult ( section ) {
+	let results = $(section).data ("result") || []
+	let searchTerm = ( $(section).find (".search").val () + "" ).toLowerCase ().trim ()
+	results = results.filter ( entry => {
+		return ( entry.notes + "" ).toLowerCase ().indexOf ( searchTerm ) > -1
+			|| ( entry.configuration.value + "" ).toLowerCase ().indexOf ( searchTerm ) > -1
+	})
 	let table = $(section).find ("table > tbody")
 	$(section).data ( "item-count", results.length )
 	let itemCount = $(section).data ("item-count")
@@ -16,7 +22,6 @@ function populateResult ( section, results ) {
 	let to = Math.min ( pageSize * page, itemCount )
 	$(section).find (".pagination_container .pages").html ("")
 	$(section).find (".pagination_container .showing").html (`${from} - ${to} of ${itemCount} rules`)
-
 	let pages = $(section).find (".pagination_container .pages")
 	let createPage = ( number ) => {
 		return $(`<span class="page" >`)
@@ -106,7 +111,7 @@ function populateResult ( section, results ) {
 
 $( document ).on ( "cloudflare.firewall.access_rules.initialize", function ( event, data ) {
 	$(data.section).data ( "result", data.response.result )
-	populateResult ( data.section, data.response.result )
+	populateResult ( data.section )
 	$(data.section).removeClass ("loading")
 })
 
@@ -132,13 +137,8 @@ $( document ).on ( "cloudflare.firewall.access_rules.sort", function ( event, da
 $( document ).on ( "cloudflare.firewall.access_rules.search", function ( event, data ) {
 	$(data.section).data ( "page", 1 )
 	let table = $(data.section).find ("table > tbody")
-	let searchTerm = ($(data.trigger).val () + "" ).toLowerCase ().trim ()
-	var results = $(data.section).data ("result").filter ( entry => {
-		return ( entry.notes + "" ).toLowerCase ().indexOf ( searchTerm ) > -1
-			|| ( entry.configuration.value + "" ).toLowerCase ().indexOf ( searchTerm ) > -1
-	})
 	$(table).children ().remove ()
-	populateResult ( data.section, results )
+	populateResult ( data.section )
 })
 
 $( document ).on ( "cloudflare.firewall.access_rules.add", function ( event, data ) {
@@ -242,16 +242,6 @@ $( document ).on ( "cloudflare.firewall.access_rules.edit", function ( event, da
 
 $( document ).on ( "cloudflare.firewall.access_rules.page", function ( event, data ) {
 	$(data.section).data ( "page", $(data.trigger).data ("page") )
-
-	// data.trigger = $(data.section).find (".search")
-	// data.target.action = "search"
-	// data.target.name = data.target.name.replace ("next_page","search")
-	// data.form.endpoint = data.form.endpoint.replace ("next_page","search")
-	//
-	// $.event.trigger ( "cloudflare.firewall.access_rules.search", data )
-
-	// common.loadSections (".access_rules")
-
 	populateResult ( data.section, $(data.section).data ("result") )
 })
 
