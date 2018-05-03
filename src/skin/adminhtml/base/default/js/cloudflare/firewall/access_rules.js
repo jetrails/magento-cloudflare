@@ -13,6 +13,32 @@ function filterResults ( term, results ) {
 }
 
 function sortResults ( section, results ) {
+	let pivot = $(section).find (".sort-asc, .sort-desc")
+	if ( pivot.length > 0 ) {
+		let access = ( obj, path ) => {
+			return path.reduce ( ( o, i ) => o [ i ], obj )
+		}
+		let attribute = $(pivot).data ("sort").split (".")
+		let isAsc = $(pivot).hasClass ("sort-asc") === true
+		results = results.sort ( ( a, b ) => {
+			let aValue = (access ( a, attribute ) + "").toLowerCase ()
+			let bValue = (access ( b, attribute ) + "").toLowerCase ()
+			if ( isAsc ) {
+				if ( aValue < bValue ) return -1
+				if ( aValue > bValue ) return 1
+				return 0;
+			}
+			else {
+				if ( aValue > bValue ) return -1
+				if ( aValue < bValue ) return 1
+				return 0;
+			}
+		})
+	}
+	return results
+}
+
+function sortResults ( section, results ) {
 	let pivot = $(section).find (".sort-asc, sort-desc")
 	if ( pivot.length > 0 ) {
 		let access = ( obj, path ) => {
@@ -146,6 +172,7 @@ $( document ).on ( "cloudflare.firewall.access_rules.initialize", function ( eve
 })
 
 $( document ).on ( "cloudflare.firewall.access_rules.sort", function ( event, data ) {
+	$(data.section).data ( "page", 1 )
 	$(data.section).data ( "sort", $(data.trigger).data ("sort") )
 	if ( $(data.trigger).hasClass ("sort-asc") ) {
 		$(data.trigger).siblings ().removeClass ("sort-asc").removeClass ("sort-desc")
@@ -273,19 +300,19 @@ $( document ).on ( "cloudflare.firewall.access_rules.edit", function ( event, da
 
 $( document ).on ( "cloudflare.firewall.access_rules.page", function ( event, data ) {
 	$(data.section).data ( "page", $(data.trigger).data ("page") )
-	populateResult ( data.section, $(data.section).data ("result") )
+	populateResult ( data.section )
 })
 
 $( document ).on ( "cloudflare.firewall.access_rules.next_page", function ( event, data ) {
 	if ( $(data.section).data ("page") + 1 <= Math.ceil ( $(data.section).data ("item-count") / $(data.section).data ("page-size") ) ) {
 		$(data.section).data ( "page", $(data.section).data ("page") + 1 )
-		populateResult ( data.section, $(data.section).data ("result") )
+		populateResult ( data.section )
 	}
 })
 
 $( document ).on ( "cloudflare.firewall.access_rules.previous_page", function ( event, data ) {
 	if ( $(data.section).data ("page") - 1 > 0 ) {
 		$(data.section).data ( "page", $(data.section).data ("page") - 1 )
-		populateResult ( data.section, $(data.section).data ("result") )
+		populateResult ( data.section )
 	}
 })

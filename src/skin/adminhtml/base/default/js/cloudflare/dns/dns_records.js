@@ -15,42 +15,139 @@ function secondsToAppropriate ( seconds ) {
 	return seconds / 216000 + " days";
 }
 
-function populateResult ( table, results ) {
+function filterResults ( term, results ) {
+	let searchTerm = ( term + "" ).toLowerCase ().trim ()
+	return results.filter ( entry => {
+		return ( entry.name + "" ).toLowerCase ().indexOf ( searchTerm ) > -1 ||
+			   ( entry.content + "" ).toLowerCase ().indexOf ( searchTerm ) > -1
+	})
+}
+
+function sortResults ( section, results ) {
+	let pivot = $(section).find (".sort-asc, .sort-desc")
+	if ( pivot.length > 0 ) {
+		let access = ( obj, path ) => {
+			return path.reduce ( ( o, i ) => o [ i ], obj )
+		}
+		let attribute = $(pivot).data ("sort").split (".")
+		let isAsc = $(pivot).hasClass ("sort-asc") === true
+		results = results.sort ( ( a, b ) => {
+			let aValue = (access ( a, attribute ) + "").toLowerCase ()
+			let bValue = (access ( b, attribute ) + "").toLowerCase ()
+			if ( isAsc ) {
+				if ( aValue < bValue ) return -1
+				if ( aValue > bValue ) return 1
+				return 0;
+			}
+			else {
+				if ( aValue > bValue ) return -1
+				if ( aValue < bValue ) return 1
+				return 0;
+			}
+		})
+	}
+	return results
+}
+
+function populateResult ( section ) {
+	let results = $(section).data ("result")
+	results = filterResults ( $(section).find (".search").val (), results )
+	results = sortResults ( section, results )
+	let table = $(section).find ("table > tbody")
+	$(table).children ().remove ()
+	$(section).data ( "item-count", results.length )
+	let itemCount = $(section).data ("item-count")
+	let page = $(section).data ("page")
+	let pageSize = $(section).data ("page-size")
+	let pageCount = Math.ceil ( itemCount / pageSize )
+	let from = pageSize * ( page - 1 ) + 1
+	if ( itemCount == 0 ) from = 0
+	let to = Math.min ( pageSize * page, itemCount )
+	$(section).find (".pagination_container .pages").html ("")
+	$(section).find (".pagination_container .showing").html (`${from} - ${to} of ${itemCount} records`)
+	let pages = $(section).find (".pagination_container .pages")
+	let createPage = ( number ) => {
+		return $(`<span class="page" >`)
+			.addClass ( number == page ? "" : "trigger" )
+			.addClass ( number == page ? "current" : "" )
+			.data ( "target", "page" )
+			.data ( "page", number )
+			.text ( number )
+	}
+	if ( pageCount > 7 ) {
+		$(pages).append ( createPage ( 1 ) )
+		if ( pageCount > 7 && page > 4 ) {
+			$(pages).append ( $(`<span>`).text ("...") )
+		}
+		let start = Math.max ( 2, page - 3 )
+		let end = Math.min ( pageCount - 1, page + 3 )
+		if ( page - 4 < 0 ) end += Math.abs ( page - 4 )
+		if ( page + 3 > pageCount ) start -= page + 3 - pageCount
+		if ( pageCount <= 7 && page < 4 ) end -= 1
+		if ( pageCount <= 7 && page > 4 ) start += 1
+		for ( let i = start; i <= end; i++ ) {
+			$(pages).append ( createPage ( i ) )
+		}
+		if ( pageCount > 7 && page < pageCount - 3 ) {
+			$(pages).append ( $(`<span>`).text ("...") )
+		}
+		$(pages).append ( createPage ( pageCount ) )
+	}
+	else {
+		for ( let i = 1; i <= pageCount; i++ ) {
+			$(pages).append ( createPage ( i ) )
+		}
+	}
+	if ( page == 1 ) {
+		$(section).find (".previous").addClass ("disabled")
+	}
+	else {
+		$(section).find (".previous").removeClass ("disabled")
+	}
+	if ( page == pageCount ) {
+		$(section).find (".next").addClass ("disabled")
+	}
+	else {
+		$(section).find (".next").removeClass ("disabled")
+	}
 	const imageBase = $(table).parent ().data ("image-base");
-	results.map ( ( entry, index ) => {
-		var row = $("<tr>");
-		$( row ).append ( $("<td>")
-			.attr ( "class", "type type_" + entry.type.toLowerCase () )
-			.text ( entry.type )
-		)
-		$( row ).append ( $("<td>")
-			.attr ( "class", "name" )
-			.text ( [ "CAA", "SRV" ].indexOf ( entry.type ) > -1 ? entry.name : entry.name.replace ( /\.[^.]+\.[^.]+$/, "" ) )
-		)
-		$( row ).append ( $("<td>")
-			.attr ( "class", "value" )
-			.text ( entry.content )
-			.append ( entry.type == "MX" ? `<div class="priority" >${entry.priority}</div>` : "" )
-		)
-		$( row ).append ( $("<td>")
-			.attr ( "class", "ttl" )
-			.text ( secondsToAppropriate ( entry.ttl ) )
-		)
-		$( row ).append ( $("<td>")
-			.attr ( "class", "status" )
-			.html ( entry.proxiable ? entry.proxied ? "<img src='" + imageBase + "/proxied_on.png' />" : "<img src='" + imageBase + "/proxied_off.png' />" : "" )
-		)
-		$( row ).append ( $("<td>").attr ( "class", "delete" )
-			.html ( $("<div class='trigger delete_entry cloudflare-font' >")
-				.data ( "target", "delete" )
-				.data ( "id", entry.id )
-				.data ( "type", entry.type )
-				.data ( "name", entry.name )
-				.html ("&#xF01A;")
+	for ( let i = 0; i < results.length; i++ ) {
+		if ( i >= ( page - 1 ) * pageSize && i < page * pageSize ) {
+			let entry = results [ i ]
+			var row = $("<tr>");
+			$( row ).append ( $("<td>")
+				.attr ( "class", "type type_" + entry.type.toLowerCase () )
+				.text ( entry.type )
 			)
-		)
-		row.appendTo ( table );
-	});
+			$( row ).append ( $("<td>")
+				.attr ( "class", "name" )
+				.text ( [ "CAA", "SRV" ].indexOf ( entry.type ) > -1 ? entry.name : entry.name.replace ( /\.[^.]+\.[^.]+$/, "" ) )
+			)
+			$( row ).append ( $("<td>")
+				.attr ( "class", "value" )
+				.text ( entry.content )
+				.append ( entry.type == "MX" ? `<div class="priority" >${entry.priority}</div>` : "" )
+			)
+			$( row ).append ( $("<td>")
+				.attr ( "class", "ttl" )
+				.text ( secondsToAppropriate ( entry.ttl ) )
+			)
+			$( row ).append ( $("<td>")
+				.attr ( "class", "status" )
+				.html ( entry.proxiable ? entry.proxied ? "<img src='" + imageBase + "/proxied_on.png' />" : "<img src='" + imageBase + "/proxied_off.png' />" : "" )
+			)
+			$( row ).append ( $("<td>").attr ( "class", "delete" )
+				.html ( $("<div class='trigger delete_entry cloudflare-font' >")
+					.data ( "target", "delete" )
+					.data ( "id", entry.id )
+					.data ( "type", entry.type )
+					.data ( "name", entry.name )
+					.html ("&#xF01A;")
+				)
+			)
+			row.appendTo ( table );
+		}
+	}
 	if ( results.length == 0 ) {
 		$(table).append ( $("<tr>").append ( $("<td colspan='6' >").text ("No DNS records found.") ) );
 	}
@@ -58,9 +155,7 @@ function populateResult ( table, results ) {
 
 $( document ).on ( "cloudflare.dns.dns_records.initialize", function ( event, data ) {
 	$(data.section).data ( "result", data.response.payload )
-	let table = $(data.section).find ("table > tbody")
-	$(table).children ().remove ()
-	populateResult ( table, data.response.payload )
+	populateResult ( data.section )
 });
 
 $( document ).on ( "cloudflare.dns.dns_records.delete", function ( event, data ) {
@@ -88,7 +183,7 @@ $( document ).on ( "cloudflare.dns.dns_records.delete", function ( event, data )
 });
 
 $( document ).on ( "cloudflare.dns.dns_records.create", function ( event, data ) {
-	cloudflare.setMessages ( data.section, "loading", [""] );
+	$(data.section).addClass ("loading")
 	$.ajax ({
 		url: data.form.endpoint,
 		type: "POST",
@@ -102,9 +197,10 @@ $( document ).on ( "cloudflare.dns.dns_records.create", function ( event, data )
 			"priority": $( data.section ).find (".priority.add").val ()
 		},
 		success: function ( response ) {
+			$(data.section).removeClass ("loading")
 			if ( response.state == "response_success" ) {
 				$( data.section ).find ("[name='name'],[name='content']").val ("")
-				$( data.section ).find (".search").trigger ("keyup");
+				cloudflare.loadSections (".dns.dns_records")
 			}
 			else {
 				cloudflare.setMessages ( data.section, response.state, response.messages );
@@ -115,14 +211,8 @@ $( document ).on ( "cloudflare.dns.dns_records.create", function ( event, data )
 });
 
 $( document ).on ( "cloudflare.dns.dns_records.search", function ( event, data ) {
-	let table = $(data.section).find ("table > tbody")
-	let searchTerm = $(data.trigger).val ().toLowerCase ().trim ()
-	var results = $(data.section).data ("result").filter ( entry => {
-		return entry.name.toLowerCase ().indexOf ( searchTerm ) > -1 ||
-			   entry.content.toLowerCase ().indexOf ( searchTerm ) > -1
-	})
-	$(table).children ().remove ()
-	populateResult ( table, results )
+	$(data.section).data ( "page", 1 )
+	populateResult ( data.section )
 });
 
 $(document).on ( "focus", ".show-form-mx", function () {
@@ -324,4 +414,44 @@ $(document).on ( "focus", ".show-form-caa", function () {
 		confirm.close ()
 	}})
 	confirm.show ()
+})
+
+$( document ).on ( "cloudflare.dns.dns_records.page", function ( event, data ) {
+	$(data.section).data ( "page", $(data.trigger).data ("page") )
+	populateResult ( data.section )
+})
+
+$( document ).on ( "cloudflare.dns.dns_records.next_page", function ( event, data ) {
+	if ( $(data.section).data ("page") + 1 <= Math.ceil ( $(data.section).data ("item-count") / $(data.section).data ("page-size") ) ) {
+		$(data.section).data ( "page", $(data.section).data ("page") + 1 )
+		populateResult ( data.section )
+	}
+})
+
+$( document ).on ( "cloudflare.dns.dns_records.previous_page", function ( event, data ) {
+	if ( $(data.section).data ("page") - 1 > 0 ) {
+		$(data.section).data ( "page", $(data.section).data ("page") - 1 )
+		populateResult ( data.section )
+	}
+})
+
+$( document ).on ( "cloudflare.dns.dns_records.sort", function ( event, data ) {
+	$(data.section).data ( "page", 1 )
+	$(data.section).data ( "sort", $(data.trigger).data ("sort") )
+	if ( $(data.trigger).hasClass ("sort-asc") ) {
+		$(data.trigger).siblings ().removeClass ("sort-asc").removeClass ("sort-desc")
+		$(data.trigger).removeClass ("sort-asc").addClass ("sort-desc")
+		$(data.section).data ( "direction", "desc" )
+	}
+	else if ( $(data.trigger).hasClass ("sort-desc") ) {
+		$(data.trigger).siblings ().removeClass ("sort-asc").removeClass ("sort-desc")
+		$(data.trigger).removeClass ("sort-asc").removeClass ("sort-desc")
+		$(data.section).data ( "direction", "" )
+	}
+	else {
+		$(data.trigger).siblings ().removeClass ("sort-asc").removeClass ("sort-desc")
+		$(data.trigger).addClass ("sort-asc")
+		$(data.section).data ( "direction", "asc" )
+	}
+	populateResult ( data.section )
 })

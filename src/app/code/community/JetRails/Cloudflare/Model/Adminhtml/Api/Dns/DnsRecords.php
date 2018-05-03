@@ -2,12 +2,23 @@
 
 	class JetRails_Cloudflare_Model_Adminhtml_Api_Dns_DnsRecords extends Mage_Core_Model_Abstract {
 
-		public function listRecords () {
+		public function listRecords ( $page = 1, $previous = [] ) {
 			$zoneId = Mage::getModel ("cloudflare/api_overview_configuration")->getZoneId ();
 			$endpoint = sprintf ( "zones/%s/dns_records", $zoneId );
 			$api = Mage::getModel ("cloudflare/api_request");
 			$api->setType ( $api::REQUEST_GET );
-			return $api->resolve ( $endpoint );
+			$api->setQuery ( "page", intval ( $page ) );
+			$result = $api->resolve ( $endpoint );
+			if ( property_exists ( $result, "result_info" ) && property_exists ( $result->result_info, "per_page" ) && property_exists ( $result->result_info, "total_count" ) ) {
+				if ( $page < ceil ( $result->result_info->total_count / $result->result_info->per_page ) ) {
+					$previous = array_merge ( $previous, $result->result );
+					return $this->listRecords ( $page + 1, $previous );
+				}
+				else {
+					$result->result = array_merge ( $previous, $result->result );
+				}
+			}
+			return $result;
 		}
 
 		public function deleteRecord ( $id ) {
@@ -86,22 +97,6 @@
 			$api = Mage::getModel ("cloudflare/api_request");
 			$api->setType ( $api::REQUEST_POST );
 			$api->setData ( $data );
-			return $api->resolve ( $endpoint );
-		}
-
-		public function searchRecords ( $query ) {
-			$original = $query;
-			$domain = Mage::helper ("cloudflare/data")->getDomainName ();
-			if ( !preg_match ( "/" . preg_quote ( $domain ) . "$/i", $query ) && !empty ( $query ) ) $query .= ".$domain";
-			$zoneId = Mage::getModel ("cloudflare/api_overview_configuration")->getZoneId ();
-			$endpoint = sprintf ( "zones/%s/dns_records", $zoneId );
-			$api = Mage::getModel ("cloudflare/api_request");
-			$api->setType ( $api::REQUEST_GET );
-			if ( !empty ( $query ) ) {
-				$api->setQuery ( "name", "$query" );
-				$api->setQuery ( "content", "$original" );
-				$api->setQuery ( "match", "any" );
-			}
 			return $api->resolve ( $endpoint );
 		}
 
