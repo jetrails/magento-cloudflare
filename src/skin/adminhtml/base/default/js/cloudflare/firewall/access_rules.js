@@ -4,13 +4,43 @@ const common = require ("cloudflare/common")
 const notification = require ("cloudflare/core/notification")
 const modal = require ("cloudflare/core/modal")
 
-function populateResult ( section ) {
-	let results = $(section).data ("result") || []
-	let searchTerm = ( $(section).find (".search").val () + "" ).toLowerCase ().trim ()
-	results = results.filter ( entry => {
+function filterResults ( term, results ) {
+	let searchTerm = ( term + "" ).toLowerCase ().trim ()
+	return results.filter ( entry => {
 		return ( entry.notes + "" ).toLowerCase ().indexOf ( searchTerm ) > -1
 			|| ( entry.configuration.value + "" ).toLowerCase ().indexOf ( searchTerm ) > -1
 	})
+}
+
+function sortResults ( section, results ) {
+	let pivot = $(section).find (".sort-asc, sort-desc")
+	if ( pivot.length > 0 ) {
+		let access = ( obj, path ) => {
+			return path.reduce ( ( o, i ) => o [ i ], obj )
+		}
+		let attribute = $(pivot).data ("sort").split (".")
+		results = results.sort ( ( a, b ) => {
+			let aValue = (access ( a, attribute ) + "").toLowerCase ()
+			let bValue = (access ( b, attribute ) + "").toLowerCase ()
+			if ( $(pivot).hasClass ("sort-desc") ) {
+				if ( aValue > bValue ) return -1
+				if ( aValue < bValue ) return 1
+				return 0;
+			}
+			else {
+				if ( aValue < bValue ) return -1
+				if ( aValue > bValue ) return 1
+				return 0;
+			}
+		})
+	}
+	return results
+}
+
+function populateResult ( section ) {
+	let results = $(section).data ("result") || []
+	results = filterResults ( $(section).find (".search").val (), results )
+	results = sortResults ( section, results )
 	let table = $(section).find ("table > tbody")
 	$(section).data ( "item-count", results.length )
 	let itemCount = $(section).data ("item-count")
@@ -132,6 +162,7 @@ $( document ).on ( "cloudflare.firewall.access_rules.sort", function ( event, da
 		$(data.trigger).addClass ("sort-asc")
 		$(data.section).data ( "direction", "asc" )
 	}
+	populateResult ( data.section )
 })
 
 $( document ).on ( "cloudflare.firewall.access_rules.search", function ( event, data ) {

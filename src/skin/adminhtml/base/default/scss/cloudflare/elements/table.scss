@@ -18,7 +18,6 @@ section.cloudflare {
 				padding: 13px 10px;
 				color: #333;
 				font-weight: 600;
-				cursor: pointer;
 				&.sort-asc:after {
 				    font-family: "cloudflare-font";
 				    content: "\F000";
@@ -26,7 +25,7 @@ section.cloudflare {
 				}
 				&.sort-desc:after {
 					font-family: "cloudflare-font";
-					content: "\F003";
+					content: "\F001";
 					margin-left: 5px;
 				}
 			}
@@ -119,12 +118,16 @@ section.cloudflare {
 					line-height: 1.7em;
 				}
 			}
-			th:hover {
+			th[data-target="sort"]:hover {
 				background: #CECECE;
 				transition: all 200ms;
+				cursor: pointer;
 			}
 		}
 		&.rules {
+			td:nth-child( 2 ) {
+				min-width: 150px;
+			}
 			td:nth-child( 5 ) {
 				padding: 0;
 			}

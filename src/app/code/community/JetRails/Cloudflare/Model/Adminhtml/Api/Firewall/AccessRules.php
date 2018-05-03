@@ -9,8 +9,8 @@
 			$api->setType ( $api::REQUEST_GET );
 			$api->setQuery ( "page", intval ( $page ) );
 			$result = $api->resolve ( $endpoint );
-			if ( property_exists ( $result, "result_info" ) && property_exists ( $result->result_info, "total_pages" ) ) {
-				if ( $page < $result->result_info->total_pages ) {
+			if ( property_exists ( $result, "result_info" ) && property_exists ( $result->result_info, "per_page" ) && property_exists ( $result->result_info, "total_count" ) ) {
+				if ( $page < ceil ( $result->result_info->total_count / $result->result_info->per_page ) ) {
 					$previous = array_merge ( $previous, $result->result );
 					return $this->load ( $page + 1, $previous );
 				}
