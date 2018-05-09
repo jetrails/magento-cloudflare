@@ -39,7 +39,7 @@ require ("cloudflare/scrape_shield/server_side_excludes")
 require ("cloudflare/scrape_shield/hotlink_protection")
 
 $( window ).on ( "load", function () {
-	cloudflare.loadSections ();
+	cloudflare.loadSections (".dns.dns_records");
 	cloudflare.rotateMessages ();
 
 	$( ".proxied" ).each ( function ( index ) {

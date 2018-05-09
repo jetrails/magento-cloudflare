@@ -43,4 +43,16 @@
 			return $this->_sendRaw ( $api->export () );
 		}
 
+		public function uploadAction () {
+			$api = Mage::getModel ("cloudflare/api_dns_dnsRecords");
+			$file = $_FILES ["file"] ["tmp_name"];
+			if ( file_exists ( $file ) ) {
+				$response = $api->import ( $_FILES ["file"] );
+				return $this->_sendResponse ( $response, false );
+			}
+			else {
+				return $this->_sendResponse ( array ( "success" => false ) );
+			}
+		}
+
 	}
