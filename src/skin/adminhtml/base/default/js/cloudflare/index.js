@@ -1,6 +1,7 @@
 const $ = require ("jquery")
 const notification = require ("cloudflare/core/notification")
 const cloudflare = require ("cloudflare/common")
+const global = require ("cloudflare/global")
 
 require ("cloudflare/overview/status")
 require ("cloudflare/caching/purge_cache")

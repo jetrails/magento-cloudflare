@@ -1,3 +1,13 @@
+<?php
+	$domainName = Mage::helper ("cloudflare/data")->getDomainName ();
+	$skinBase = Mage::getBaseUrl ( Mage_Core_Model_Store::URL_TYPE_SKIN );
+?>
+<script>
+	window.domain = "<?php echo $domainName ?>";
+	window.skin_base = "<?php echo $skinBase ?>";
+</script>
+
+
 <h1 class="tab-content" >Overview</h1>
 <?php
 
