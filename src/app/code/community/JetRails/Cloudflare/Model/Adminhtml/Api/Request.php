@@ -76,6 +76,7 @@
 			$handle = curl_init ();
 			curl_setopt ( $handle, CURLOPT_URL, $this->_getEndpoint ( $endpoint ) );
 			curl_setopt ( $handle, CURLOPT_RETURNTRANSFER, true );
+			curl_setopt ( $handle, CURLOPT_SAFE_UPLOAD, true );
 			curl_setopt ( $handle, CURLOPT_CUSTOMREQUEST, $this->_type );
 			if ( $this->_headers !== false ) {
 				$headers = array ();
@@ -85,7 +86,11 @@
 				curl_setopt ( $handle, CURLOPT_HTTPHEADER, $headers );
 			}
 			if ( $this->_data !== false ) {
-				curl_setopt ( $handle, CURLOPT_POSTFIELDS, json_encode ( $this->_data ) );
+				$post_data = $this->_data;
+				if ( $this->_headers ["Content-Type"] == "application/json" ) {
+					$post_data = json_encode ( $this->_data );
+				}
+				curl_setopt ( $handle, CURLOPT_POSTFIELDS, $post_data );
 			}
 			$result = curl_exec ( $handle );
 			curl_close ( $handle );

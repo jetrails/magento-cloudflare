@@ -108,4 +108,20 @@
 			return $api->resolve ( $endpoint, false );
 		}
 
+		public function import ( $file ) {
+			$zoneId = Mage::getModel ("cloudflare/api_overview_configuration")->getZoneId ();
+			$endpoint = sprintf ( "zones/%s/dns_records/import", $zoneId );
+			$api = Mage::getModel ("cloudflare/api_request");
+			$api->setHeader ( "Content-Type", "multipart/form-data" );
+			$api->setType ( $api::REQUEST_POST );
+			$api->setData ( array (
+				"file" => new CurlFile (
+					$file ["tmp_name"],
+					"text/plain",
+					$file ["name"]
+				)
+			));
+			return $api->resolve ( $endpoint, false );
+		}
+
 	}

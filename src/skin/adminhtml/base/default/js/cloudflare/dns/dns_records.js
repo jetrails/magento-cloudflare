@@ -477,3 +477,84 @@ $( document ).on ( "cloudflare.dns.dns_records.export", function ( event, data )
 		}
 	});
 })
+
+$( document ).on ( "cloudflare.dns.dns_records.upload", function ( event, data ) {
+	let prompt = new modal.Modal ()
+	let form = $(`<form method="POST" enctype="multipart/form-data" >`)
+		.css ( "display", "none" )
+	let fileInput = $("<input id='file_select' >")
+		.prop ( "type", "file" )
+		.prop ( "name", "file" )
+	let submitInput = $("<input>")
+		.prop ( "type", "submit" )
+		.prop ( "name", "submit" )
+		.css ({ "display": "none" })
+	let fileButton = modal.createInput ( "button", "select", "", "Select a file" )
+		.on ( "click", () => $(fileInput).trigger ("click") )
+	let fileName = modal.createInput ( "text", "filename", "", "" )
+		.prop ( "disabled", true )
+		.css ( "margin-left", "10px" )
+		.on ( "click", () => $(fileInput).trigger ("click") )
+	$(fileInput).on ( "change", () => {
+		let newVal = $(fileInput).val ().split ("\\").pop ()
+		$(fileName).val ( newVal == null ? "" : newVal )
+	})
+	let messagesContainer = $("<div>").addClass ("message_container")
+	$(form).append ( fileInput ).append ( submitInput )
+		.on ( "submit", ( event ) => {
+			event.preventDefault ()
+			$(prompt.components.modal).addClass ("loading")
+			let formData = new FormData ( form )
+			formData.set ( "form_key", data.form.key )
+			formData.set ( "file", ($(fileInput)) [ 0 ].files [ 0 ] )
+			$.ajax ({
+				url: data.form.endpoint,
+				type: "POST",
+				data: formData,
+				cache: false,
+				contentType: false,
+				processData: false,
+				success: ( response ) => {
+					if ( response.success && response.result.recs_added == response.result.total_records_parsed ) {
+						prompt.close ()
+						$(data.section).addClass ("loading")
+						cloudflare.loadSections (".dns.dns_records")
+					}
+					else if ( response.success ) {
+						$(prompt.components.modal).removeClass ("loading")
+						$(messagesContainer).html ( $("<div>")
+							.text (`${response.result.recs_added} record(s) added`)
+							.addClass ("status")
+						)
+						response.messages.map ( message => {
+							$(messagesContainer).append ( $("<div>").text ( message.message ) )
+						})
+						if ( response.result.recs_added > 0 ) {
+							cloudflare.loadSections (".dns.dns_records")
+						}
+					}
+					else {
+						$(prompt.components.modal).removeClass ("loading")
+						prompt.close ()
+					}
+				}
+			});
+		})
+	prompt.addTitle ("Upload DNS File")
+	prompt.addElement ( $("<p>").text ("If you have a DNS file that is in the BIND format, you can upload it here and we will do our best to parse it so you don't have to retype it.") )
+	prompt.addElement ( form )
+	prompt.addElement ( $("<div>")
+		.append ( fileButton )
+		.append ( fileName )
+		.css ({
+			display: "flex",
+			padding: "22.5px",
+			background: "#F5F5F5",
+			border: "solid 1px #DEDEDE"
+		})
+	)
+	prompt.addElement ( messagesContainer )
+	prompt.addButton ({ label: "Cancel", class: "gray", callback: prompt.close })
+	prompt.addButton ({ label: "Upload", callback: () => $(form).trigger ("submit") })
+	prompt.show ()
+})

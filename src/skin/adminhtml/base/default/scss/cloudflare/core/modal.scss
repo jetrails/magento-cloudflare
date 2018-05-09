@@ -60,6 +60,20 @@
 			background: $color-white;
 			color: $color-text_gray_dark;
 		}
+		.message_container {
+			max-height: 300px;
+		    overflow-y: scroll;
+			-webkit-font-smoothing: subpixel-antialiased;
+			div {
+				padding: 0 22.5px;
+				font-size: 1.1em;
+				&.status {
+					margin-top: 22.5px;
+					margin-bottom: 15px;
+					font-weight: 600;
+				}
+			}
+		}
 		.row {
 			padding: 15px 22.5px;
 			border-bottom: solid 1px $color-border_gray;

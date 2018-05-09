@@ -13,12 +13,12 @@
 			return $session->isAllowed ("jetrails/cloudflare");
 		}
 
-		protected function _sendResponse ( $response ) {
+		protected function _sendResponse ( $response, $encode = true ) {
 			$this->getResponse ()
 				->clearHeaders ()
 				->setHeader ( "content-type", "application/json" );
 			$this->getResponse ()
-				->setBody ( Mage::helper ("core")->jsonEncode ( $response ) );
+				->setBody ( $encode ? Mage::helper ("core")->jsonEncode ( $response ) : $response );
 		}
 
 		protected function _sendRaw ( $response ) {
