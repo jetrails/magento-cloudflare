@@ -563,3 +563,22 @@ p[class^="option_"] {
     margin-bottom: 0 !important;
     color: #7d7d7d;
 }
+
+
+section.cloudflare {
+	[data-tab-content] {
+		display: flex;
+		flex-wrap: wrap;
+		align-items: center;
+		> *:nth-child( n + 3 ) {
+		    margin-top: 20px;
+		}
+		.wrapper_left {
+			width: 70%;
+		}
+		.wrapper_right {
+			width: 30%;
+			text-align: center;
+		}
+	}
+}

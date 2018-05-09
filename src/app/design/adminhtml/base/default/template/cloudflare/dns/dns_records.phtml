@@ -118,8 +118,20 @@
 			<a data-tab="help" >Help</a>
 		</div>
 		<div data-tab-content="advanced" >
-			<h3>Upload DNS File</h3>
-			<p>If you have a DNS file that is in the BIND format, you can upload it here and we will do our best to parse it so you don't have to retype it.</p>
+			<div class="wrapper_left" >
+				<h3>Upload DNS File</h3>
+				<p>If you have a DNS file that is in the BIND format, you can upload it here and we will do our best to parse it so you don't have to retype it.</p>
+			</div>
+			<div class="wrapper_right" >
+				<input class="trigger" data-target="upload" type="button" value="Upload" />
+			</div>
+			<div class="wrapper_left" >
+				<h3>Export DNS File</h3>
+				<p>If you want to keep a backup of your zone file or export it to use with another DNS provider, click the button on the right. The exported file will be in BIND format.</p>
+			</div>
+			<div class="wrapper_right" >
+				<input class="trigger" data-target="export" type="button" value="Export" />
+			</div>
 		</div>
 		<div data-tab-content="help" >
 			<h4>What is DNS?</h4>

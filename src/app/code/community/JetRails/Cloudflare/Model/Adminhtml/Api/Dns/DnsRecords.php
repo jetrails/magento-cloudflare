@@ -100,4 +100,12 @@
 			return $api->resolve ( $endpoint );
 		}
 
+		public function export () {
+			$zoneId = Mage::getModel ("cloudflare/api_overview_configuration")->getZoneId ();
+			$endpoint = sprintf ( "zones/%s/dns_records/export", $zoneId );
+			$api = Mage::getModel ("cloudflare/api_request");
+			$api->setType ( $api::REQUEST_GET );
+			return $api->resolve ( $endpoint, false );
+		}
+
 	}
