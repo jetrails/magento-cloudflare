@@ -3,6 +3,7 @@ const cloudflare = require ("cloudflare/common");
 const common = require ("cloudflare/common");
 const notification = require ("cloudflare/core/notification")
 const modal = require ("cloudflare/core/modal")
+const global = require ("cloudflare/global")
 
 function secondsToAppropriate ( seconds ) {
 	if ( seconds == 1 ) return "Automatic";
@@ -454,4 +455,25 @@ $( document ).on ( "cloudflare.dns.dns_records.sort", function ( event, data ) {
 		$(data.section).data ( "direction", "asc" )
 	}
 	populateResult ( data.section )
+})
+
+$( document ).on ( "cloudflare.dns.dns_records.export", function ( event, data ) {
+	$(data.section).addClass ("loading")
+	$.ajax ({
+		url: data.form.endpoint,
+		type: "POST",
+		data: { "form_key": data.form.key },
+		success: function ( response ) {
+			let blob = new Blob ( [ response ], { type: "octet/stream" } )
+			let url = window.URL.createObjectURL ( blob )
+		    let a = document.createElement ("a")
+		    document.body.appendChild ( a )
+		    a.style = "display: none"
+	        a.href = url
+	        a.download = global.getDomainName () + ".txt"
+	        a.click ()
+	        window.URL.revokeObjectURL ( url )
+			$(data.section).removeClass ("loading")
+		}
+	});
 })

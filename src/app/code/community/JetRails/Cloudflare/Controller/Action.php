@@ -21,6 +21,14 @@
 				->setBody ( Mage::helper ("core")->jsonEncode ( $response ) );
 		}
 
+		protected function _sendRaw ( $response ) {
+			$this->getResponse ()
+				->clearHeaders ()
+				->setHeader ( "content-type", "application/octet-stream" );
+			$this->getResponse ()
+				->setBody ( $response );
+		}
+
 		protected function _format ( $response ) {
 			$formatted = array ();
 			$formatted [ "state" ] = $response->success ? "response_success" : "response_warning";

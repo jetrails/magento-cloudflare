@@ -38,4 +38,9 @@
 			return $this->_formatAndSend ( $response );
 		}
 
+		public function exportAction () {
+			$api = Mage::getModel ("cloudflare/api_dns_dnsRecords");
+			return $this->_sendRaw ( $api->export () );
+		}
+
 	}

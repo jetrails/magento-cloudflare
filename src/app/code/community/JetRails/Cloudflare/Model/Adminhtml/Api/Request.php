@@ -72,7 +72,7 @@
 			$this->_query [ strval ( $key ) ] = strval ( $value );
 		}
 
-		public function resolve ( $endpoint ) {
+		public function resolve ( $endpoint, $decode = true ) {
 			$handle = curl_init ();
 			curl_setopt ( $handle, CURLOPT_URL, $this->_getEndpoint ( $endpoint ) );
 			curl_setopt ( $handle, CURLOPT_RETURNTRANSFER, true );
@@ -89,7 +89,7 @@
 			}
 			$result = curl_exec ( $handle );
 			curl_close ( $handle );
-			return json_decode ( $result );
+			return $decode === true ? json_decode ( $result ) : $result;
 		}
 
 	}
