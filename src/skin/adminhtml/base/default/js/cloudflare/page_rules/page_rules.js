@@ -4,6 +4,7 @@ import "jquery-ui/ui/widgets/sortable"
 const notification = require ("cloudflare/core/notification")
 const modal = require ("cloudflare/core/modal")
 const common = require ("cloudflare/common")
+const global = require ("cloudflare/global")
 
 function upperCaseFirst ( target ) {
 	target = target + ""
@@ -325,7 +326,7 @@ $( document ).on ( "cloudflare.page_rules.page_rules.create", function ( event, 
 	var that = this
 	var confirm = new modal.Modal ( 800 )
 	var collections = $(`<div class="collections" >`)
-	confirm.addTitle ( "Create a Page Rule for %s", $(this).val () )
+	confirm.addTitle ( "Create a Page Rule for " + global.getDomainName (), $(this).val () )
 	confirm.addRow (
 		$(`<p>`)
 			.append ( $(`<strong>`).text ("If the URL matches: ") )
