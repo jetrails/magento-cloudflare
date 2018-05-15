@@ -60,7 +60,9 @@
 			else {
 				$formatted = $this->_format ( $response );
 			}
-			$this->_sendResponse ( $formatted );
+			$formatted = (array) $formatted;
+			$formatted ["entitlements"] = $response->entitlements;
+			$this->_sendResponse ( (object) $formatted );
 		}
 
 		public function indexAction () {

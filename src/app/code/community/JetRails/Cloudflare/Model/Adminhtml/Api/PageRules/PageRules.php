@@ -7,7 +7,9 @@
 			$endpoint = sprintf ( "zones/%s/pagerules", $zoneId );
 			$api = Mage::getModel ("cloudflare/api_request");
 			$api->setType ( $api::REQUEST_GET );
-			return $api->resolve ( $endpoint );
+			$result = (array) $api->resolve ( $endpoint );
+			$result ["entitlements"] = $this->getEntitlements ();
+			return (object) $result;
 		}
 
 		public function create ( $target, $actions, $status = true ) {
@@ -54,6 +56,15 @@
 			$api = Mage::getModel ("cloudflare/api_request");
 			$api->setType ( $api::REQUEST_DELETE );
 			return $api->resolve ( $endpoint );
+		}
+
+		public function getEntitlements () {
+			$zoneId = Mage::getModel ("cloudflare/api_overview_configuration")->getZoneId ();
+			$endpoint = sprintf ( "zones/%s/entitlements", $zoneId );
+			$api = Mage::getModel ("cloudflare/api_request");
+			$api->setType ( $api::REQUEST_GET );
+			$result = $api->resolve ( $endpoint );
+			return array_filter ( $result->result, function ( $i ) { return $i->id == "page_rules"; }) [0];
 		}
 
 	}

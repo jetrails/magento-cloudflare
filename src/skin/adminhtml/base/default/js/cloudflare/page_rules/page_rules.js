@@ -207,13 +207,33 @@ function createRow ( previousExists = false ) {
 }
 
 $( document ).on ( "cloudflare.page_rules.page_rules.initialize", function ( event, data ) {
+	let rulesUsed = data.response.payload.length
+	let rulesAllowed = data.response.entitlements.allocation.value
+	if ( rulesUsed < rulesAllowed ) {
+		$(data.section).find ("#rules_left").text ( rulesAllowed - rulesUsed )
+		$(data.section).find ("#action")
+			.addClass ("trigger")
+			.val ("Create Page Rule")
+			.off ( "click" )
+	}
+	else {
+		$(data.section).find ("#rules_left").text ("0")
+		$(data.section).find ("#action")
+			.removeClass ("trigger")
+			.val ("Buy More Page Rules")
+			.on ( "click", () => {
+				window.open ( "https://support.cloudflare.com/hc/en-us/articles/225894428-How-To-Buy-Additional-Page-Rules", "_blank" );
+			})
+	}
+
+
 	var table = $(data.section).find ("table.rules")
 	$(table).find ("tbody > tr").remove ()
 	if ( data.response.payload.length > 0 ) {
 		data.response.payload.map ( ( rule, index ) => {
 			$(table).find ("tbody").append ( $("<tr>")
 				.append ( $("<td class='handle' >").html ("&#xF000; &#xF001;") )
-				.append ( $("<td>").text ( index + 1 ) )
+				.append ( $("<td>").text ( index + 1 ).css ( "min-width", "initial" ) )
 				.append (
 					$("<td class='no_white_space' >")
 						.text ( rule.targets [ 0 ].constraint.value )
