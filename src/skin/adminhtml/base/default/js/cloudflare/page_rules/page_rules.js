@@ -225,8 +225,6 @@ $( document ).on ( "cloudflare.page_rules.page_rules.initialize", function ( eve
 				window.open ( "https://support.cloudflare.com/hc/en-us/articles/225894428-How-To-Buy-Additional-Page-Rules", "_blank" );
 			})
 	}
-
-
 	var table = $(data.section).find ("table.rules")
 	$(table).find ("tbody > tr").remove ()
 	if ( data.response.payload.length > 0 ) {
@@ -281,8 +279,8 @@ $( document ).on ( "cloudflare.page_rules.page_rules.initialize", function ( eve
 		$(table).find ("tbody").sortable ({
 			handle: ".handle",
 			helper: ( e, ui ) => {
-			    ui.children().each(function() {
-			        $(this).width($(this).width());
+			    ui.children ().each ( () => {
+			        $(this).width ( $(this).width () )
 			    });
 			    return ui;
 			},
