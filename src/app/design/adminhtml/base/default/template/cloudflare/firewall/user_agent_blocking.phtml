@@ -1,17 +1,24 @@
 <section
-	class="cloudflare firewall user_agent_blocking"
+	class="cloudflare firewall user_agent_blocking initialize loading"
 	data-endpoint="<?php echo $this->getApiEndpoint () ?>"
 	data-form-key="<?php echo $this->getFormKey () ?>"
 	data-tab-name="firewall"
-	data-section-name="user_agent_blocking" >
+	data-section-name="user_agent_blocking"
+	data-item-count="0"
+	data-page="1"
+	data-page-size="15" >
 	<div class="row" >
 		<div class="wrapper_left" >
 			<span class="section_title" >User Agent Blocking</span>
-			<p>Create a rule to block or challenge a specific User Agent from accessing your zone.</p>
+			<p>
+				Create a rule to block or challenge a specific User Agent from accessing your zone.
+				</br></br>
+				<strong>You have 1 of 10 User Agent Blocking rule active</strong>
+			</p>
 		</div>
 		<div class="wrapper_right" >
 			<div>
-				Here
+				<input type="button" class="trigger" data-target="create" value="Create Blocking Rule" />
 			</div>
 			<div class="lightbox" style="background-image: url(<?php echo $this->getSkinUrl ('images/cloudflare/loading.svg') ?>)" ></div>
 		</div>
@@ -30,9 +37,16 @@
 				</tr>
 			</tbody>
 		</table>
+		<div class="lightbox" style="background-image: url(<?php echo $this->getSkinUrl ('images/cloudflare/loading.svg') ?>)" ></div>
 	</div>
 	<div class="row collapsable" >
 		<div class="wrapper_bottom" >
+			<div class="pagination_container" >
+				<span class="previous trigger" data-target="previous_page" >&#xF002;</span>
+				<div class="pages" ></div>
+				<span class="next trigger" data-target="next_page" >&#xF003;</span>
+				<span class="showing" >0 - 0 of 0 records</span>
+			</div>
 			<a data-tab="help" >Help</a>
 		</div>
 		<div data-tab-content="help" >
