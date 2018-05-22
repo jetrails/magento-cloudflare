@@ -19,18 +19,12 @@ section.cloudflare, .cloudflare_modal {
 		}
 		&:hover {
 			background: #215685;
-			&.green {
-				background: $color-green_dark;
-			}
 			&.gray {
 				background: #CCC;
 			}
 			&.red {
 				background: #9E2022;
 			}
-		}
-		&.green {
-			background: $color-green;
 		}
 		&.red {
 			background: #BD2527;

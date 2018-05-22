@@ -223,7 +223,7 @@ $(document).on ( "focus", ".show-form-mx", function () {
 	confirm.addRow ( "Priority", $("<input type='text' placeholder='1' name='priority' >").val ( $(document).find (".priority.add").val () ) )
 	confirm.addButton ({ label: "Cancel", class: "gray", callback: confirm.close })
 	var that = this;
-	confirm.addButton ({ label: "Save", class: "green", callback: ( components ) => {
+	confirm.addButton ({ label: "Save", callback: ( components ) => {
 		$(that).val ( $( components.container ).find ("input[name='server']").val () )
 		var priority = $( components.container ).find ("input[name='priority']").val ()
 		if ( priority.trim () === "" ) priority = "1"
@@ -282,7 +282,7 @@ $(document).on ( "focus", ".show-form-loc", function () {
 	confirm.addRow ( "Size (in meters)", size, true )
 	confirm.addRow ( "Percision (in meters)", percision, true )
 	confirm.addButton ({ label: "Cancel", class: "gray", callback: confirm.close })
-	confirm.addButton ({ label: "Save", class: "green", callback: ( components ) => {
+	confirm.addButton ({ label: "Save", callback: ( components ) => {
 		var latDegrees = $( components.container ).find ("[name='lat-degrees']").val ().trim ()
 		var latMinutes = $( components.container ).find ("[name='lat-minutes']").val ().trim ()
 		var latSeconds = $( components.container ).find ("[name='lat-seconds']").val ().trim ()
@@ -318,7 +318,7 @@ $(document).on ( "focus", ".show-form-srv-name", function () {
 	confirm.addRow ( "Protocol", protocol )
 	confirm.addRow ( "Name", name )
 	confirm.addButton ({ label: "Cancel", class: "gray", callback: confirm.close })
-	confirm.addButton ({ label: "Save", class: "green", callback: ( components ) => {
+	confirm.addButton ({ label: "Save", callback: ( components ) => {
 		var service = $( components.container ).find ("input[name='service']").val ().trim () || "_sip"
 		var protocol = $( components.container ).find ("select[name='protocol']").val ().trim ()
 		var name = $( components.container ).find ("input[name='name']").val ().trim () || "@"
@@ -348,7 +348,7 @@ $(document).on ( "focus", ".show-form-srv", function () {
 	confirm.addRow ( "Port", port )
 	confirm.addRow ( "Target", target )
 	confirm.addButton ({ label: "Cancel", class: "gray", callback: confirm.close })
-	confirm.addButton ({ label: "Save", class: "green", callback: ( components ) => {
+	confirm.addButton ({ label: "Save", callback: ( components ) => {
 		var priority = $( components.container ).find ("input[name='priority']").val ().trim () || "1"
 		var weight = $( components.container ).find ("input[name='weight']").val ().trim () || "1"
 		var port = $( components.container ).find ("input[name='port']").val ().trim () || "1"
@@ -367,7 +367,7 @@ $(document).on ( "focus", ".show-form-spf", function () {
 	confirm.addTitle ( "Add Record: SPF content", $(this).val () )
 	confirm.addRow ( "Content", policy, true )
 	confirm.addButton ({ label: "Cancel", class: "gray", callback: confirm.close })
-	confirm.addButton ({ label: "Save", class: "green", callback: ( components ) => {
+	confirm.addButton ({ label: "Save", callback: ( components ) => {
 		var policy = $( components.container ).find ("[name='policy']").val ()
 		$(that).val ( policy )
 		confirm.close ()
@@ -382,7 +382,7 @@ $(document).on ( "focus", ".show-form-txt", function () {
 	confirm.addTitle ( "Add Record: TXT content", $(this).val () )
 	confirm.addRow ( "Content", text, true )
 	confirm.addButton ({ label: "Cancel", class: "gray", callback: confirm.close })
-	confirm.addButton ({ label: "Save", class: "green", callback: ( components ) => {
+	confirm.addButton ({ label: "Save", callback: ( components ) => {
 		var text = $( components.container ).find ("[name='text']").val ()
 		$(that).val ( text )
 		confirm.close ()
@@ -408,7 +408,7 @@ $(document).on ( "focus", ".show-form-caa", function () {
 	confirm.addRow ( "Tag", tag )
 	confirm.addRow ( "Value", value )
 	confirm.addButton ({ label: "Cancel", class: "gray", callback: confirm.close })
-	confirm.addButton ({ label: "Save", class: "green", callback: ( components ) => {
+	confirm.addButton ({ label: "Save", callback: ( components ) => {
 		var tag = $( components.container ).find ("[name='tag']").val ().trim ()
 		var value = $( components.container ).find ("[name='value']").val ().trim ()
 		$(that).val (`0 ${tag} "${value}"`)

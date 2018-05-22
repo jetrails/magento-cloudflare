@@ -1,6 +1,6 @@
 .switch {
     background-color: #FFF;
-    border: 1px solid #bcbcbc;
+    border: 1px solid rgba( 0, 0, 0, 0.4 );
     color: #FFF;
     cursor: pointer;
     font-size: 0;
@@ -36,7 +36,7 @@
 		}
 	}
 	&.switch:after, &.switch:before {
-	    background-color: #9bca3e;
+	    background-color: #79C798;
 	    color: #FFF;
 	    content: 'On';
 	    font-size: 0.86667rem;
@@ -51,7 +51,7 @@
 	    -webkit-text-stroke: initial;
 	}
 	&.switch:before {
-	    background-color: #7C7C7C;
+	    background-color: #71777A;
 	    content: 'Off';
 	    left: auto;
 	    right: 0;
@@ -59,7 +59,7 @@
 	}
 	.knob {
 	    background: #f7f7f7;
-	    border: 1px solid #bcbcbc;
+	    border: 1px solid rgba( 0, 0, 0, 0.4 );
 	    border-bottom: none;
 	    border-top: none;
 	    display: block;
