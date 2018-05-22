@@ -480,6 +480,14 @@ section.cloudflare.empty {
 			margin-right: 0 !important;
 		}
 	}
+	&.wrappable {
+		flex-wrap: wrap;
+		height: auto;
+		padding-top: 0;
+		> * {
+			margin-top: 10px !important;
+		}
+	}
 }
 
 
