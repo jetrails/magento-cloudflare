@@ -135,12 +135,20 @@ function createModal ( name = false, action = false, agent = false ) {
 }
 
 $(document).on ( "cloudflare.firewall.user_agent_blocking.initialize", function ( event, data ) {
+	let used = data.response.usage.used
+	let available = data.response.usage.max
+	let message = `You have ${used} of ${available} User Agent Blocking rules active`
+	$(data.section).find (".usage").text ( message )
 	$(data.section).data ( "result", data.response.result )
+	$(data.section).data ( "used", used )
+	$(data.section).data ( "available", available )
 	populateResult ( data.section )
 	$(data.section).removeClass ("loading")
 })
 
 $(document).on ( "cloudflare.firewall.user_agent_blocking.create", function ( event, data ) {
+	let used = (data.section).data ("used")
+	let available = (data.section).data ("available")
 	let prompt = createModal ()
 	let create = ( paused ) => {
 		let description = $(prompt.components.container).find ("[name='name']").val ()
@@ -171,7 +179,9 @@ $(document).on ( "cloudflare.firewall.user_agent_blocking.create", function ( ev
 		})
 	}
 	prompt.addButton ({ label: "Save as Draft", class: "gray", callback: () => create ( true ) })
-	prompt.addButton ({ label: "Save and Deploy", callback: () => create ( false ) })
+	if ( used < available ) {
+		prompt.addButton ({ label: "Save and Deploy", callback: () => create ( false ) })
+	}
 })
 
 $(document).on ( "cloudflare.firewall.user_agent_blocking.edit", function ( event, data ) {

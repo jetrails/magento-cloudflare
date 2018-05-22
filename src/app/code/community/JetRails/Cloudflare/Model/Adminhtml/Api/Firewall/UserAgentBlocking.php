@@ -18,6 +18,7 @@
 					$result->result = array_merge ( $previous, $result->result );
 				}
 			}
+			$result->usage = $this->usage ();
 			return $result;
 		}
 
@@ -62,6 +63,18 @@
 				"description" => $description
 			));
 			return $api->resolve ( $endpoint );
+		}
+
+		public function usage () {
+			$zoneId = Mage::getModel ("cloudflare/api_overview_configuration")->getZoneId ();
+			$endpoint = sprintf ( "zones/%s/firewall/ua_rules/usage", $zoneId );
+			$api = Mage::getModel ("cloudflare/api_request");
+			$api->setType ( $api::REQUEST_GET );
+			$result = $api->resolve ( $endpoint );
+			$result = array_filter ( $result->result, function ( $i ) {
+				return $i->scope === "zone";
+			});
+			return $result [ 0 ];
 		}
 
 	}
