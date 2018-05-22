@@ -75,6 +75,12 @@ function populateResult ( section ) {
 }
 
 function createRow ( entry ) {
+	let switchElement = modal.createSwitch ( "state", !entry.paused )
+		.css ( "margin", "auto 15px auto 22px" )
+	$(switchElement).find ("input")
+		.addClass ("trigger")
+		.data ( "target", "toggle" )
+		.data ( "entry", entry )
 	return $("<tr>")
 		.append ( $("<td>")
 			.append ( $("<b>").text ( entry.description ).css ({ "text-overflow": "ellipsis", "overflow": "hidden" }) )
@@ -92,12 +98,7 @@ function createRow ( entry ) {
 				.data ( "target", "mode" )
 				.data ( "entry", entry )
 			)
-			.append ( modal.createSwitch ( "state", !entry.paused )
-				.addClass ("trigger")
-				.data ( "target", "toggle" )
-				.data ( "entry", entry )
-				.css ( "margin", "auto 15px auto 22px" )
-			)
+			.append ( switchElement )
 			.append ( modal.createIconButton ( "trigger edit", "&#xF019;" )
 				.css ( "display", "inline-block" )
 				.addClass ("trigger")
@@ -256,6 +257,7 @@ $(document).on ( "cloudflare.firewall.user_agent_blocking.toggle", function ( ev
 	let target = $(data.trigger)
 	let entry = $(target).data ("entry")
 	$(data.section).addClass ("loading")
+	console.log ($(target).prop ("checked"))
 	$.ajax ({
 		url: data.form.endpoint,
 		type: "POST",
@@ -263,12 +265,11 @@ $(document).on ( "cloudflare.firewall.user_agent_blocking.toggle", function ( ev
 			"form_key": data.form.key,
 			"id": entry.id,
 			"mode": entry.mode,
-			"paused": target.val (),
+			"paused": !$(target).prop ("checked"),
 			"value": entry.configuration.value,
 			"description": entry.description
 		},
 		success: function ( response ) {
-			console.log ( event )
 			if ( !response.success ) {
 				notification.addMessages ( "response_error", response.errors )
 			}

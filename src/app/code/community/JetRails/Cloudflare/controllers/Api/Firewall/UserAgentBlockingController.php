@@ -40,15 +40,15 @@
 		}
 
 		public function modeAction () {
-			return $this->modeAction ();
+			return $this->editAction ();
 		}
 
 		public function toggleAction () {
-			return $this->modeAction ();
+			return $this->editAction ();
 		}
 
 		public function pauseAction () {
-			return $this->modeAction ();
+			return $this->editAction ();
 		}
 
 	}
