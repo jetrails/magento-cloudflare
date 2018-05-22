@@ -179,21 +179,17 @@ $(document).on ( "cloudflare.firewall.user_agent_blocking.edit", function ( even
 	prompt.addButton ({ label: "Save", callback: () => {
 		$(data.section).addClass ("loading")
 		$(prompt.components.modal).addClass ("loading")
-
-		console.log ( $(prompt.components.modal).find ("[name='mode']") )
-		console.log ("AFTER")
-
 		let modal = $(prompt.components.modal)
-
 		$.ajax ({
 			url: data.form.endpoint,
 			type: "POST",
 			data: {
 				"form_key": data.form.key,
-				"mode": $(modal).find ("[name='mode']"),
+				"id": entry.id,
+				"mode": $(modal).find ("[name='mode']").val (),
 				"paused": entry.paused,
-				"description": $(modal).find ("[name='name']"),
-				"value": $(modal).find ("[name='agent']")
+				"description": $(modal).find ("[name='name']").val (),
+				"value": $(modal).find ("[name='agent']").val ()
 			},
 			success: ( response ) => {
 				if ( !response.success ) {
@@ -206,7 +202,6 @@ $(document).on ( "cloudflare.firewall.user_agent_blocking.edit", function ( even
 				common.loadSections (".firewall.user_agent_blocking")
 			}
 		})
-
 	}})
 })
 
