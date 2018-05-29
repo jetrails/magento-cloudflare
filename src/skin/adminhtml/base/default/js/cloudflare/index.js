@@ -28,6 +28,7 @@ require ("cloudflare/dns/cloudflare_nameservers")
 require ("cloudflare/firewall/access_rules")
 require ("cloudflare/firewall/security_level")
 require ("cloudflare/firewall/challenge_passage")
+require ("cloudflare/firewall/user_agent_blocking")
 require ("cloudflare/page_rules/page_rules")
 require ("cloudflare/network/http_2")
 require ("cloudflare/network/ipv6_compatibility")
@@ -39,7 +40,7 @@ require ("cloudflare/scrape_shield/server_side_excludes")
 require ("cloudflare/scrape_shield/hotlink_protection")
 
 $( window ).on ( "load", function () {
-	cloudflare.loadSections (".dns.dns_records");
+	cloudflare.loadSections ();
 	cloudflare.rotateMessages ();
 
 	$( ".proxied" ).each ( function ( index ) {
@@ -187,4 +188,5 @@ $(document).on ( "click", ".proxied", function () {
 		$(this).data ( "value", true )
 	}
 	$(this).attr ( "src", source )
+	if ( $(this).hasClass ("change") ) $(this).trigger ("change")
 })
