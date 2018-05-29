@@ -5,6 +5,23 @@ const notification = require ("cloudflare/core/notification")
 const modal = require ("cloudflare/core/modal")
 const global = require ("cloudflare/global")
 
+function createTtlSelect ( selected = "1" ) {
+	let select = modal.createSelect ( "ttl_value", [
+		{ label: secondsToAppropriate ( 1 ), value: 1 },
+		{ label: secondsToAppropriate ( 120 ), value: 120 },
+		{ label: secondsToAppropriate ( 300 ), value: 300 },
+		{ label: secondsToAppropriate ( 600 ), value: 600 },
+		{ label: secondsToAppropriate ( 900 ), value: 900 },
+		{ label: secondsToAppropriate ( 1800 ), value: 1800 },
+		{ label: secondsToAppropriate ( 3600 ), value: 3600 },
+		{ label: secondsToAppropriate ( 7200 ), value: 7200 },
+		{ label: secondsToAppropriate ( 18000 ), value: 18000 },
+		{ label: secondsToAppropriate ( 43200 ), value: 43200 },
+		{ label: secondsToAppropriate ( 86400 ), value: 86400 }
+	])
+	return select.val ( selected )
+}
+
 function secondsToAppropriate ( seconds ) {
 	if ( seconds == 1 ) return "Automatic";
 	if ( seconds < 60 ) return seconds + " seconds";
@@ -33,8 +50,8 @@ function sortResults ( section, results ) {
 		let attribute = $(pivot).data ("sort").split (".")
 		let isAsc = $(pivot).hasClass ("sort-asc") === true
 		results = results.sort ( ( a, b ) => {
-			let aValue = (access ( a, attribute ) + "").toLowerCase ()
-			let bValue = (access ( b, attribute ) + "").toLowerCase ()
+			let aValue = ( access ( a, attribute ) + "").toLowerCase ()
+			let bValue = ( access ( b, attribute ) + "").toLowerCase ()
 			if ( isAsc ) {
 				if ( aValue < bValue ) return -1
 				if ( aValue > bValue ) return 1
@@ -115,27 +132,51 @@ function populateResult ( section ) {
 	for ( let i = 0; i < results.length; i++ ) {
 		if ( i >= ( page - 1 ) * pageSize && i < page * pageSize ) {
 			let entry = results [ i ]
-			var row = $("<tr>");
+			let formattedName = [ "CAA", "SRV" ].indexOf ( entry.type ) > -1 ? entry.name : entry.name.replace ( /\.[^.]+\.[^.]+$/, "" )
+			var formattedContent = entry.content
+			if ( entry.type == "SRV" ) {
+				formattedName = formattedName.replace ( /\.$/, "" ) + "."
+				formattedContent = `SRV ${entry.data.priority} ${entry.data.weight} ${entry.data.port} ${entry.data.target}.`
+			}
+			else if ( entry.type == "LOC" ) {
+				formattedContent = "IN LOC " + entry.content.replace ( /(\d\.[0-9]*[1-9])0*|(\d)\.0+/g, "$1$2" )
+			}
+			var row = $("<tr>")
+			$(row).data ( "entry", entry )
 			$( row ).append ( $("<td>")
 				.attr ( "class", "type type_" + entry.type.toLowerCase () )
 				.text ( entry.type )
 			)
 			$( row ).append ( $("<td>")
 				.attr ( "class", "name" )
-				.text ( [ "CAA", "SRV" ].indexOf ( entry.type ) > -1 ? entry.name : entry.name.replace ( /\.[^.]+\.[^.]+$/, "" ) )
+				.html ( $("<div class='editable' contenteditable='true' >")
+					.text ( formattedName )
+					.attr ( "name", "content" )
+					.addClass ( "show-form-" + entry.type.toLowerCase () + "-name" )
+					.data ( "old", formattedName )
+					.val ( formattedName )
+				)
 			)
 			$( row ).append ( $("<td>")
 				.attr ( "class", "value" )
-				.text ( entry.content )
+				.html ( $("<div class='editable' contenteditable='true' >")
+					.text ( formattedContent )
+					.addClass ( "type_" + entry.type.toLowerCase () )
+					.attr ( "name", "content" )
+					.addClass ( "show-form-" + entry.type.toLowerCase () )
+					.data ( "old", formattedContent )
+					.val ( formattedContent )
+				)
 				.append ( entry.type == "MX" ? `<div class="priority" >${entry.priority}</div>` : "" )
 			)
 			$( row ).append ( $("<td>")
 				.attr ( "class", "ttl" )
 				.text ( secondsToAppropriate ( entry.ttl ) )
+				.data ( "ttl", entry.ttl )
 			)
 			$( row ).append ( $("<td>")
 				.attr ( "class", "status" )
-				.html ( entry.proxiable ? entry.proxied ? "<img src='" + imageBase + "/proxied_on.png' />" : "<img src='" + imageBase + "/proxied_off.png' />" : "" )
+				.html ( entry.proxiable ? entry.proxied ? "<img class='proxied change' src='" + imageBase + "/proxied_on.png' />" : "<img class='proxied change' src='" + imageBase + "/proxied_off.png' />" : "" )
 			)
 			$( row ).append ( $("<td>").attr ( "class", "delete" )
 				.html ( $("<div class='trigger delete_entry cloudflare-font' >")
@@ -201,6 +242,7 @@ $( document ).on ( "cloudflare.dns.dns_records.create", function ( event, data )
 			$(data.section).removeClass ("loading")
 			if ( response.state == "response_success" ) {
 				$( data.section ).find ("[name='name'],[name='content']").val ("")
+				$(data.section).addClass ("loading")
 				cloudflare.loadSections (".dns.dns_records")
 			}
 			else {
@@ -218,16 +260,28 @@ $( document ).on ( "cloudflare.dns.dns_records.search", function ( event, data )
 
 $(document).on ( "focus", ".show-form-mx", function () {
 	var confirm = new modal.Modal ()
+	let oldPriority = parseInt ( $(document).find (".priority.add").val () ) || 1
+	let oldValue = $(this).val ()
+	if ( $(this).hasClass ("editable") ) {
+		oldPriority = $(this).parent ().find (".priority").text ()
+	}
 	confirm.addTitle ( "Add Record: MX content", $(this).val () )
-	confirm.addRow ( "Server", $("<input type='text' placeholder='Mail server' name='server' >").val ( $(this).val () ) )
-	confirm.addRow ( "Priority", $("<input type='text' placeholder='1' name='priority' >").val ( $(document).find (".priority.add").val () ) )
+	confirm.addRow ( "Server", $("<input type='text' placeholder='Mail server' name='server' >").val ( oldValue ) )
+	confirm.addRow ( "Priority", $("<input type='text' placeholder='1' name='priority' >").val ( oldPriority ) )
 	confirm.addButton ({ label: "Cancel", class: "gray", callback: confirm.close })
 	var that = this;
 	confirm.addButton ({ label: "Save", callback: ( components ) => {
-		$(that).val ( $( components.container ).find ("input[name='server']").val () )
 		var priority = $( components.container ).find ("input[name='priority']").val ()
+		let newValue = $( components.container ).find ("input[name='server']").val ()
 		if ( priority.trim () === "" ) priority = "1"
 		$(document).find (".priority.add").val ( priority )
+		$(that).data ( "priority", parseInt ( priority ) )
+		$(that).parent ().find (".priority").text ( parseInt ( priority ) )
+		$(that).val ( newValue ).text ( newValue )
+		if ( $(this).hasClass ("editable") && ( oldPriority != parseInt ( priority ) ) || newValue != oldValue ) {
+			let tempVal = $(that).val () + " "
+			$(that).val ( tempVal ).text ( tempVal ).trigger ("change")
+		}
 		confirm.close ()
 	}})
 	confirm.show ()
@@ -286,16 +340,18 @@ $(document).on ( "focus", ".show-form-loc", function () {
 		var latDegrees = $( components.container ).find ("[name='lat-degrees']").val ().trim ()
 		var latMinutes = $( components.container ).find ("[name='lat-minutes']").val ().trim ()
 		var latSeconds = $( components.container ).find ("[name='lat-seconds']").val ().trim ()
-		var latDirection = $( components.container ).find ("[name='lat-direction']").val ().trim ()
+		var latDirection = $( components.container ).find ("[name='lat-direction']").val ()
 		var lonDegrees = $( components.container ).find ("[name='lon-degrees']").val ().trim ()
 		var lonMinutes = $( components.container ).find ("[name='lon-minutes']").val ().trim ()
 		var lonSeconds = $( components.container ).find ("[name='lon-seconds']").val ().trim ()
-		var lonDirection = $( components.container ).find ("[name='lon-direction']").val ().trim ()
+		var lonDirection = $( components.container ).find ("[name='lon-direction']").val ()
 		var altitude = $( components.container ).find ("[name='altitude']").val ().trim ()
 		var size = $( components.container ).find ("[name='size']").val ().trim ()
 		var preHorizontal = $( components.container ).find ("[name='pre-horizontal']").val ().trim ()
 		var preVertical = $( components.container ).find ("[name='pre-vertical']").val ().trim ()
-		$(that).val (`IN LOC ${latDegrees} ${latMinutes} ${latSeconds} ${latDirection} ${lonDegrees} ${lonMinutes} ${lonSeconds} ${lonDirection} ${altitude}m ${size}m ${preHorizontal}m ${preVertical}m`)
+		let newValue = `IN LOC ${latDegrees} ${latMinutes} ${latSeconds} ${latDirection} ${lonDegrees} ${lonMinutes} ${lonSeconds} ${lonDirection} ${altitude}m ${size}m ${preHorizontal}m ${preVertical}m`
+			.replace ( /(\d\.[0-9]*[1-9])0*|(\d)\.0+/g, "$1$2" )
+		$(that).val ( newValue ).text ( newValue ).trigger ("change")
 		confirm.close ()
 	}})
 	confirm.show ()
@@ -306,8 +362,12 @@ $(document).on ( "focus", ".show-form-srv-name", function () {
 	var confirm = new modal.Modal ()
 	var service = modal.createInput ( "text", "service", "_sip" )
 	var protocol = $("<select name='protocol' ><option value='_udp' >UDP</option><option value='_tcp' >TCP</option><option value='_tls' selected >TLS</option><select/>")
-	var name = modal.createInput ( "text", "name", "@" )
-	var matches = $(this).val ().match (/^([^ ]+)\.([^ ]+)\.(.+)\.$/)
+	var name = modal.createInput ( "text", "name", global.getDomainName (), global.getDomainName () )
+	let oldValue = `${service.val ()}.${protocol.val ()}.${name.val ()}.`
+	if ( $(that).hasClass ("editable") ) {
+		oldValue = $(that).text ()
+	}
+	var matches = $(this).val ().match (/^([^.]+)\.([^.]+)\.(.+)\.$/)
 	if ( matches ) {
 		$(service).val ( matches [ 1 ] )
 		$(protocol).val ( matches [ 2 ] )
@@ -321,8 +381,12 @@ $(document).on ( "focus", ".show-form-srv-name", function () {
 	confirm.addButton ({ label: "Save", callback: ( components ) => {
 		var service = $( components.container ).find ("input[name='service']").val ().trim () || "_sip"
 		var protocol = $( components.container ).find ("select[name='protocol']").val ().trim ()
-		var name = $( components.container ).find ("input[name='name']").val ().trim () || "@"
-		$(that).val (`${service}.${protocol}.${name}.`)
+		var name = $( components.container ).find ("input[name='name']").val ().trim () || global.getDomainName ()
+		let newValue = `${service}.${protocol}.${name}.`
+		$(that).val ( newValue ).text ( newValue )
+		if ( $(that).hasClass ("editable") && oldValue != newValue ) {
+			$(that).trigger ("change")
+		}
 		confirm.close ()
 	}})
 	confirm.show ()
@@ -334,13 +398,17 @@ $(document).on ( "focus", ".show-form-srv", function () {
 	var priority = modal.createInput ( "text", "priority", "1", "1" )
 	var weight = modal.createInput ( "text", "weight", "10", "1" )
 	var port = modal.createInput ( "text", "port", "8444", "1" )
-	var target = modal.createInput ( "text", "target", "example.com", "@" )
-	var matches = $(this).val ().match (/^SRV ([^ ]+) ([^ ]+) ([^ ]+) (.+)$/)
+	var target = modal.createInput ( "text", "target", "example.com", global.getDomainName () )
+	var matches = $(this).val ().match (/^SRV ([^ ]+) ([^ ]+) ([^ ]+) (.+)\.$/)
 	if ( matches ) {
 		$(priority).val ( matches [ 1 ] )
 		$(weight).val ( matches [ 2 ] )
 		$(port).val ( matches [ 3 ] )
 		$(target).val ( matches [ 4 ] )
+	}
+	let oldValue = $(that).val ()
+	if ( $(that).hasClass ("editable") ) {
+		oldValue = $(that).text ()
 	}
 	confirm.addTitle ( "Add Record: SRV content", $(this).val () )
 	confirm.addRow ( "Priority", priority )
@@ -352,9 +420,15 @@ $(document).on ( "focus", ".show-form-srv", function () {
 		var priority = $( components.container ).find ("input[name='priority']").val ().trim () || "1"
 		var weight = $( components.container ).find ("input[name='weight']").val ().trim () || "1"
 		var port = $( components.container ).find ("input[name='port']").val ().trim () || "1"
-		var target = $( components.container ).find ("input[name='target']").val ().trim () || "@"
-		$(that).val (`SRV ${priority} ${weight} ${port} ${target}`)
-		$(document).find (".priority.add").val ( priority )
+		var target = $( components.container ).find ("input[name='target']").val ().trim () || global.getDomainName ()
+		let newValue = `SRV ${priority} ${weight} ${port} ${target}.`
+		$(that).val ( newValue ).text ( newValue )
+		if ( $(that).hasClass ("editable") && oldValue != newValue ) {
+			$(that).trigger ("change")
+		}
+		else {
+			$(document).find (".priority.add").val ( priority )
+		}
 		confirm.close ()
 	}})
 	confirm.show ()
@@ -369,7 +443,7 @@ $(document).on ( "focus", ".show-form-spf", function () {
 	confirm.addButton ({ label: "Cancel", class: "gray", callback: confirm.close })
 	confirm.addButton ({ label: "Save", callback: ( components ) => {
 		var policy = $( components.container ).find ("[name='policy']").val ()
-		$(that).val ( policy )
+		$(that).val ( policy ).text ( policy ).trigger ("change")
 		confirm.close ()
 	}})
 	confirm.show ()
@@ -384,7 +458,7 @@ $(document).on ( "focus", ".show-form-txt", function () {
 	confirm.addButton ({ label: "Cancel", class: "gray", callback: confirm.close })
 	confirm.addButton ({ label: "Save", callback: ( components ) => {
 		var text = $( components.container ).find ("[name='text']").val ()
-		$(that).val ( text )
+		$(that).val ( text ).text ( text ).trigger ("change")
 		confirm.close ()
 	}})
 	confirm.show ()
@@ -399,7 +473,8 @@ $(document).on ( "focus", ".show-form-caa", function () {
 		{ label: "Send violation reports to URL (http:, https:, or mailto:)", value: "iodef" }
 	])
 	var value = modal.createInput ( "text", "value", "Certificate authority (CA) domain name" )
-	var matches = $(this).val ().match (/0 ((?:issue|issuewild|iodef)) \"(.+)\"/)
+	let oldValue = $(that).hasClass (".editable") ? $(this).text () : $(this).val ()
+	var matches = oldValue.match (/0 ((?:issue|issuewild|iodef)) \"(.+)\"/)
 	if ( matches ) {
 		$(tag).val ( matches [ 1 ] )
 		$(value).val ( matches [ 2 ] )
@@ -411,7 +486,8 @@ $(document).on ( "focus", ".show-form-caa", function () {
 	confirm.addButton ({ label: "Save", callback: ( components ) => {
 		var tag = $( components.container ).find ("[name='tag']").val ().trim ()
 		var value = $( components.container ).find ("[name='value']").val ().trim ()
-		$(that).val (`0 ${tag} "${value}"`)
+		let newValue = `0 ${tag} "${value}"`
+		$(that).val ( newValue ).text ( newValue ).trigger ("change")
 		confirm.close ()
 	}})
 	confirm.show ()
@@ -557,4 +633,73 @@ $( document ).on ( "cloudflare.dns.dns_records.upload", function ( event, data )
 	prompt.addButton ({ label: "Cancel", class: "gray", callback: prompt.close })
 	prompt.addButton ({ label: "Upload", callback: () => $(form).trigger ("submit") })
 	prompt.show ()
+})
+
+$(document).on ( "blur", ".editable", ( event ) => {
+	let target = event.target
+	let oldValue = $(target).data ("old")
+	let newValue = $(target).text ()
+	if ( oldValue !== newValue ) {
+		$(target).trigger ( "change", { target } )
+	}
+})
+
+$(document).on ( "change", ".editable, .proxied, .ttl", ( event ) => {
+	let target = event.target
+	let oldValue = $(target).data ("old")
+	let newValue = $(target).text ()
+	if ( oldValue !== newValue || $(target).hasClass ("proxied") ) {
+		$(target).data ( "old", newValue )
+		let entry = $(event.target).closest ("tr")
+		let id = $(entry).data ("entry").id
+		let type = $(entry).data ("entry").type
+		let name = $(entry).find ("td.name").text ()
+		let content = $(entry).find ("td.value > .editable").text ()
+		let ttl = $(entry).find (".ttl").data ("ttl")
+		let proxied = $(entry).find (".proxied").length > 0 &&
+					  $(entry).find (".proxied").prop ("src").indexOf ("proxied_on") >= 0
+		let priority = $(entry).find (".value .priority").text () || 0
+		let section = $(entry).closest ("section")
+		let endpoint = $(section).data ("endpoint") + "edit"
+		let formKey = $(section).data ("form-key")
+		$(section).addClass ("loading")
+		$(section).find ("[contenteditable]").prop ( "contenteditable", false )
+		$.ajax ({
+			url: endpoint,
+			type: "POST",
+			data: {
+				"form_key": formKey,
+				"id": id,
+				"type": type,
+				"name": name,
+				"content": content,
+				"ttl": ttl,
+				"proxied": proxied,
+				"priority": priority == "" ? 0 : priority
+			},
+			success: ( response ) => {
+				$(section).find ("[contenteditable]").prop ( "contenteditable", true )
+				common.loadSections (".dns.dns_records")
+			}
+		})
+	}
+})
+
+$(document).on ( "click", ".cloudflare .ttl", ( event ) => {
+	if ( $(event.target).hasClass ("ttl") ) {
+		let target = $(event.target)
+		let entry = $(target).closest ("tr")
+		let proxied = $(entry).find (".proxied")
+		if ( proxied.length == 0 || $(proxied).eq ( 0 ).prop ("src").indexOf ("proxied_off") > -1 ) {
+			let select = createTtlSelect ( $(target).data ("ttl") )
+			$(select).on ( "change", () => {
+				let value = $(select).val ()
+				$(select).trigger ("blur")
+				$(target).data ( "ttl", value )
+				$(target).html ( secondsToAppropriate ( value ) )
+				$(target).trigger ("change")
+			})
+			$(target).html ( select.focus () )
+		}
+	}
 })

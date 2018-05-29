@@ -46,7 +46,7 @@
 			}
 			$formatted ["messages"] = $messages;
 
-			if ( count ( $response->messages ) == 0 && $response->success ) $formatted [ "messages" ] = [ "Success" ];
+			if ( count ( $response->messages ) == 0 && $response->success ) $formatted [ "messages" ] = [];
 			$formatted [ "payload" ] = $response->result;
 			return $formatted;
 		}

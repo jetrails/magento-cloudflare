@@ -29,6 +29,78 @@
 			return $api->resolve ( $endpoint );
 		}
 
+		public function editRecord ( $id, $type, $name, $content, $ttl, $proxied = null, $priority = 1 ) {
+			if ( $name == "@" ) {
+				$name = Mage::helper ("cloudflare/data")->getDomainName ();
+			}
+			$data = array (
+				"type" => $type,
+				"name" => $name,
+				"content" => $content,
+				"ttl" => $ttl,
+				"priority" => $priority,
+				"proxied" => $proxied
+			);
+			if ( in_array ( $type, array ( "A", "AAAA", "CNAME" ) ) ) {
+				$data ["proxied"] = $proxied;
+			}
+			else if ( $type == "MX" ) {
+				$data ["priority"] = $priority;
+			}
+			else if ( $type == "LOC" && preg_match ( "/^IN LOC ([^ ]+) ([^ ]+) ([^ ]+) ([NS]) ([^ ]+) ([^ ]+) ([^ ]+) ([WE]) ([^ ]+)m ([^ ]+)m ([^ ]+)m ([^ ]+)m$/", $content, $matches ) ) {
+				$data ["data"] = array (
+					"lat_degrees" => intval ( $matches [ 1 ] ),
+					"lat_minutes" => intval ( $matches [ 2 ] ),
+					"lat_seconds" => floatval ( $matches [ 3 ] ),
+					"lat_direction" => $matches [ 4 ],
+					"long_degrees" => intval ( $matches [ 5 ] ),
+					"long_minutes" => intval ( $matches [ 6 ] ),
+					"long_seconds" => floatval ( $matches [ 7 ] ),
+					"long_direction" => $matches [ 8 ],
+					"altitude" => intval ( $matches [ 9 ] ),
+					"size" => intval ( $matches [ 10 ] ),
+					"precision_horz" => intval ( $matches [ 11 ] ),
+					"precision_vert" => intval ( $matches [ 12 ] )
+				);
+				$data ["priority"] = 1;
+				$data ["proxied"] = false;
+			}
+			else if ( $type == "SRV" && preg_match ( "/^([^.]+)\.([^.]+)\.(.+)\.$/", $name, $matchesName ) && preg_match ( "/^SRV ([^ ]+) ([^ ]+) ([^ ]+) (.+)\.$/", $content, $matchesContent ) ) {
+				if ( $matchesName [ 3 ] == "@" ) {
+					$matchesName [ 3 ] = Mage::helper ("cloudflare/data")->getDomainName ();
+				}
+				if ( $matchesContent [ 4 ] == "@" ) {
+					$matchesContent [ 4 ] = Mage::helper ("cloudflare/data")->getDomainName ();
+				}
+				$data ["data"] = array (
+					"name" => $matchesName [ 3 ],
+					"priority" => $matchesContent [ 1 ],
+					"proto" => $matchesName [ 2 ],
+					"weight" => $matchesContent [ 2 ],
+					"port" => $matchesContent [ 3 ],
+					"target" => $matchesContent [ 4 ],
+					"service" => $matchesName [ 1 ]
+				);
+				$data ["priority"] = 1;
+				$data ["proxied"] = false;
+			}
+			else if ( $type == "CAA" && preg_match ( "/^0 ((?:issue|issuewild|iodef)) \"(.+)\"$/", $content, $matches ) ) {
+				$data ["data"] = array (
+					"tag" => $matches [ 1 ],
+					"value" => $matches [ 2 ],
+					"flags" => 0
+				);
+				$data ["priority"] = 1;
+				$data ["proxied"] = false;
+			}
+			$zoneId = Mage::getModel ("cloudflare/api_overview_configuration")->getZoneId ();
+			$endpoint = sprintf ( "zones/%s/dns_records/%s", $zoneId, $id );
+			$api = Mage::getModel ("cloudflare/api_request");
+			$api->setType ( $api::REQUEST_PUT );
+			$api->setData ( $data );
+			return $api->resolve ( $endpoint );
+		}
+
 		public function createRecord ( $type, $name, $content, $ttl, $proxied = null, $priority = 1 ) {
 			if ( $name == "@" ) {
 				$name = Mage::helper ("cloudflare/data")->getDomainName ();
@@ -64,7 +136,7 @@
 				$data ["priority"] = 1;
 				$data ["proxied"] = false;
 			}
-			else if ( $type == "SRV" && preg_match ( "/^([^ ]+)\.([^ ]+)\.(.+)\.$/", $name, $matchesName ) && preg_match ( "/^SRV ([^ ]+) ([^ ]+) ([^ ]+) (.+)$/", $content, $matchesContent ) ) {
+			else if ( $type == "SRV" && preg_match ( "/^([^.]+)\.([^.]+)\.(.+)\.$/", $name, $matchesName ) && preg_match ( "/^SRV ([^ ]+) ([^ ]+) ([^ ]+) (.+)\.$/", $content, $matchesContent ) ) {
 				if ( $matchesName [ 3 ] == "@" ) {
 					$matchesName [ 3 ] = Mage::helper ("cloudflare/data")->getDomainName ();
 				}

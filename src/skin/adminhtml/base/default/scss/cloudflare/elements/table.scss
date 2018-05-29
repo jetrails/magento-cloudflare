@@ -1,5 +1,6 @@
 section.cloudflare {
 	table {
+		// table-layout: fixed;
 		width: 100%;
 		tr {
 			transition: background 500ms;
@@ -16,6 +17,7 @@ section.cloudflare {
 				vertical-align: middle;
 				background: #DEDEDE;
 				padding: 13px 10px;
+				padding-left: 14px;
 				color: #333;
 				font-weight: 600;
 				&.sort-asc:after {
@@ -30,12 +32,6 @@ section.cloudflare {
 				}
 			}
 			td {
-				&.type { width: 75px }
-				&.name { max-width: 230px }
-				&.value { max-width: 200px }
-				&.ttl { max-width: 200px }
-				&.status { max-width: 200px }
-				&.delete { max-width: 37px }
 				position: relative;
 				font-family: "Open Sans";
 				text-align: left;
@@ -130,6 +126,60 @@ section.cloudflare {
 			}
 			td:nth-child( 5 ) {
 				padding: 0;
+			}
+		}
+		&.dns_records {
+			tr {
+				td  {
+					&[colspan] {
+						padding-top: 13px;
+						padding-bottom: 13px;
+					}
+					padding-top: 0px;
+					padding-bottom: 0px;
+					.editable {
+						margin: 4px 0;
+						padding: 14px 5px;
+						background-color: transparent;
+						border-style: none;
+						transition: none;
+						font-size: 1em;
+						border-width: 1px;
+						border-spacing: 1px;
+						overflow: hidden;
+						&:before {
+							color: #7C7C7C;
+						}
+						&.type_a:before { content: "points to " }
+						&.type_aaaa:before { content: "points to " }
+						&.type_cname:before { content: "is an alias of " }
+						&.type_mx:before { content: "mail handeled by " }
+						&.type_ns:before { content: "managed by " }
+						&:hover {
+							border-color: #BCBCBC;
+							border-style: dashed;
+							padding: 13px 4px;
+						}
+						&:focus {
+							border-color: #BCBCBC;
+							border-style: solid;
+							padding: 13px 4px;
+							&:before {
+								content: "";
+							}
+						}
+					}
+					&.status {
+						cursor: pointer;
+					}
+
+					// &.type { width: 75px }
+					// &.name { max-width: 230px }
+					// &.value { max-width: 200px }
+					// &.ttl { max-width: 200px }
+					// &.status { max-width: 200px }
+					// &.delete { max-width: 37px }
+				}
 			}
 		}
 	}

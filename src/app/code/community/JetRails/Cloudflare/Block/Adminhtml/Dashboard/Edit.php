@@ -1,6 +1,7 @@
 <?php
 
-	class JetRails_Cloudflare_Block_Adminhtml_Dashboard_Edit extends Mage_Adminhtml_Block_Widget_Form_Container {
+	class JetRails_Cloudflare_Block_Adminhtml_Dashboard_Edit
+	extends Mage_Adminhtml_Block_Widget_Form_Container {
 
 		/**
 		 * This constructor is important because it defines what controller and block group this
