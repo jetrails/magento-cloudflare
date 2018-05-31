@@ -39,6 +39,33 @@
 			return $api->resolve ( $endpoint );
 		}
 
+		public function edit ( $id, $target, $actions, $status = true ) {
+			foreach ( $actions as $index => $action ) {
+				if ( $action ["id"] == "browser_cache_ttl" ) $actions [ $index ] ["value"] = intval ( $action ["value"] );
+				if ( $action ["id"] == "edge_cache_ttl" ) $actions [ $index ] ["value"] = intval ( $action ["value"] );
+				if ( $action ["id"] == "forwarding_url" ) $actions [ $index ] ["value"] ["status_code"] = intval ( $action ["value"] ["status_code"] );
+			}
+			$zoneId = Mage::getModel ("cloudflare/api_overview_configuration")->getZoneId ();
+			$endpoint = sprintf ( "zones/%s/pagerules/%s", $zoneId, $id );
+			$api = Mage::getModel ("cloudflare/api_request");
+			$api->setType ( $api::REQUEST_PUT );
+			$api->setData ( array (
+				"targets" => array (
+					array (
+						"target" => "url",
+						"constraint" => array (
+							"operator" => "matches",
+							"value" => $target
+						)
+					)
+				),
+				"actions" => $actions,
+				"priority" => 1,
+				"status" => $status === true ? "active" : "disabled"
+			));
+			return $api->resolve ( $endpoint );
+		}
+
 		public function toggle ( $id, $state ) {
 			$zoneId = Mage::getModel ("cloudflare/api_overview_configuration")->getZoneId ();
 			$endpoint = sprintf ( "zones/%s/pagerules/%s", $zoneId, $id );

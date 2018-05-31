@@ -43,9 +43,9 @@ function valueToLabel ( value ) {
 	return "Undefined"
 }
 
-function createRow ( previousExists = false ) {
+function createRow ( previousExists = false, values = [] ) {
 	var close = $("<div class='cloudflare-font delete' >").html ("&#xF01A;")
-	return $("<div class='dynamic_wrapper collection' >")
+	var row = $("<div class='dynamic_wrapper collection' >")
 		.append ( modal.createSelect ( "setting", [
 			{ label: "Pick a Setting", value: "pick_a_setting", disabled: true, selected: true },
 			{ label: "Always Online", value: "always_online" },
@@ -68,7 +68,7 @@ function createRow ( previousExists = false ) {
 			{ label: "Security Level", value: "security_level" },
 			{ label: "Server Side Excludes", value: "server_side_exclude" },
 			{ label: "SSL", value: "ssl" },
-		]).addClass ("dynamic-trigger") )
+		]).addClass ("dynamic-trigger").val ( values.length > 0 ? values [ 0 ] : "pick_a_setting" ) )
 		.append (
 			$(`<div data-dynamic-wrapper="always_online" >`).append ( modal.createSwitch ("value") )
 		)
@@ -204,6 +204,24 @@ function createRow ( previousExists = false ) {
 			]))
 		)
 		.append ( close.click ( () => { $(close).parent ().remove () } ) )
+	if ( values.length > 0 ) {
+		$(row).find (`[data-dynamic-wrapper="${values[0]}"]`).addClass ("active")
+		if ( values.length > 1 ) {
+			let target = $(row).find (`[data-dynamic-wrapper="${values[0]}"]`).find ("input,[name='value']")
+			let value = values [1]
+			if ( values [0] == "forwarding_url" ) {
+				$(row).find (`[data-dynamic-wrapper="${values[0]}"]`).find ("[name='status_code']").val ( values [ 1 ] )
+				$(row).find (`[data-dynamic-wrapper="${values[0]}"]`).find ("[name='url']").val ( values [ 2 ] )
+			}
+			else if ( ( value == "on" || value == "off" ) && values[0] != "ssl" && values[0] != "rocket_loader" ) {
+				$(target).prop ( "checked", value == "on" )
+			}
+			else {
+				$(target).val ( value )
+			}
+		}
+	}
+	return row
 }
 
 $( document ).on ( "cloudflare.page_rules.page_rules.initialize", function ( event, data ) {
@@ -265,7 +283,13 @@ $( document ).on ( "cloudflare.page_rules.page_rules.initialize", function ( eve
 							.data ( "id", rule.id )
 						return element
 					}) () )
-					.append ( modal.createIconButton ( "edit", "&#xF019;" ).css ( "display", "inline-block" ) )
+					.append (
+						modal.createIconButton ( "edit", "&#xF019;" )
+							.addClass ("trigger")
+							.data ( "target", "edit" )
+							.data ( "data", rule )
+							.css ( "display", "inline-block" )
+					)
 					.append (
 						modal.createIconButton ( "delete", "&#xF01A;" )
 							.addClass ("trigger")
@@ -337,7 +361,80 @@ $( document ).on ( "cloudflare.page_rules.page_rules.delete", function ( event, 
 });
 
 $( document ).on ( "cloudflare.page_rules.page_rules.edit", function ( event, data ) {
-	console.log ( data )
+	var response = $(data.trigger).data ("data")
+	var that = this
+	var confirm = new modal.Modal ( 800 )
+	var collections = $(`<div class="collections" >`)
+	confirm.addTitle ( "Edit Page Rule for " + global.getDomainName (), $(this).val () )
+	confirm.addRow (
+		$(`<p>`)
+			.append ( $(`<strong>`).text ("If the URL matches: ") )
+			.append ( "By using the asterisk (*) character, you can create dynamic patterns that can match many URLs, rather than just one. " )
+			.append ( $(`<a href="https://support.cloudflare.com/hc/en-us/articles/218411427" target="_blank" >`).text ("Learn more here") ),
+		modal.createInput ( "text", "target", "Example: www.example.com/*" ).val ( response.targets [0].constraint.value ),
+		true
+	)
+	response.actions.map ( action => {
+		var values = [ action.value ]
+		if ( action.id == "forwarding_url" ) {
+			values = [ action.value.status_code, action.value.url ]
+		}
+		collections.append ( createRow ( false, [ action.id ].concat ( values ) ) )
+	})
+	confirm.addRow (
+		$(`<p>`).append ( $(`<strong>`).text ("Then the settings are:") ),
+		[
+			collections,
+			$(`<a class="dashed" >`).text ("+ Add a Setting").click ( () => {
+				var previousExists = $(collections).find (".collection").length > 0;
+				$(collections).append ( createRow ( previousExists ) )
+			})
+		],
+		true
+	)
+	var saveCallback = ( components, status ) => {
+		var target = $(components.container).find ("[name='target']").val ()
+		var actions = $.makeArray ( $( components.container )
+			.find (".collections > .collection")
+			.map ( ( i, e ) => {
+				var id = $(e).find ("[name='setting']").val ()
+				var value = $(components.container).find ("[data-dynamic-wrapper='" + id + "']").find ("[name='value']").eq ( 0 )
+				value = $(value).is (":checkbox") ? ( $(value).is (":checked") ? "on" : "off" ) : $(value).val ()
+				if ( id == "forwarding_url" ) value = {
+					url: $(components.container).find ("[data-dynamic-wrapper='" + id + "']").find ("[name='url']").eq ( 0 ).val (),
+					status_code: $(components.container).find ("[data-dynamic-wrapper='" + id + "']").find ("[name='status_code']").eq ( 0 ).val ()
+				}
+				return { id, value }
+			}));
+		$(components.modal).addClass ("loading")
+		$.ajax ({
+			url: data.form.endpoint,
+			type: "POST",
+			data: {
+				"form_key": data.form.key,
+				"target": target,
+				"actions": actions,
+				"status": status,
+				"id": response.id
+			},
+			success: function ( response ) {
+				if ( response.state == "response_success" ) {
+					confirm.close ()
+					$(components.modal).removeClass ("loading")
+					$(data.section).addClass ("loading")
+					common.loadSections (".page_rules")
+				}
+				else {
+					$(components.modal).removeClass ("loading")
+					notification.addMessages ( response.state, response.messages );
+				}
+			}
+		});
+	}
+	confirm.addButton ({ label: "Cancel", class: "gray", callback: confirm.close })
+	confirm.addButton ({ label: "Save as Draft", class: "gray", callback: ( components ) => { saveCallback ( components, false ) } })
+	confirm.addButton ({ label: "Save and Deploy", callback: ( components ) => { saveCallback ( components, true ) } })
+	confirm.show ()
 });
 
 $( document ).on ( "cloudflare.page_rules.page_rules.create", function ( event, data ) {

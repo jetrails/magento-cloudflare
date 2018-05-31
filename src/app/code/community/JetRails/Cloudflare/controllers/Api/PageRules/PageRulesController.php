@@ -23,6 +23,17 @@
 			return $this->_formatAndSend ( $response );
 		}
 
+		public function editAction () {
+			$api = Mage::getModel ("cloudflare/api_pageRules_pageRules");
+			$response = $api->edit (
+				$this->_request->getParam ("id"),
+				$this->_request->getParam ("target"),
+				$this->_request->getParam ("actions"),
+				$this->_request->getParam ("status") == "true"
+			);
+			return $this->_formatAndSend ( $response );
+		}
+
 		public function toggleAction () {
 			$api = Mage::getModel ("cloudflare/api_pageRules_pageRules");
 			$response = $api->toggle (
