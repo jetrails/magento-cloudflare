@@ -3,7 +3,13 @@ const modal = require ("cloudflare/core/modal")
 const notification = require ("cloudflare/core/notification")
 
 $( document ).on ( "cloudflare.caching.purge_cache.individual", function ( event, data ) {
-	let textarea = modal.createTextarea ( "files", "http://example.com/images/example.jpg" ).css ( "font-size", "1.2em" )
+	let textarea = modal
+		.createTextarea ( "files", "http://example.com/images/example.jpg" )
+		.css ({
+			"width": "calc(100% - 45px)",
+			"margin": "auto 22.5px",
+			"fontSize": "1.2em"
+		})
 	let prompt = new modal.Modal ( 800 )
 	prompt.addTitle ( "Purge Individual Files", "You can purge up to 30 files at a time." )
 	prompt.addElement ( $("<p>")
