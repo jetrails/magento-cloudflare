@@ -574,7 +574,7 @@ p[class^="option_"] {
 
 
 section.cloudflare {
-	[data-tab-content] {
+	[data-tab-content="advanced"] {
 		display: flex;
 		flex-wrap: wrap;
 		align-items: center;
