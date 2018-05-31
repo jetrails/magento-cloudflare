@@ -42,12 +42,6 @@
 					->createBlock ("cloudflare/dashboard_section")
 					->setTemplate ("cloudflare/firewall/user_agent_blocking.phtml")->toHtml ();
 			}
-			if ( Mage::getSingleton ("admin/session")->isAllowed ("jetrails/cloudflare/firewall/zone_lockdown") ) {
-				$counter++;
-				echo $this->getLayout ()
-					->createBlock ("cloudflare/dashboard_section")
-					->setTemplate ("cloudflare/firewall/zone_lockdown.phtml")->toHtml ();
-			}
 			if ( Mage::getSingleton ("admin/session")->isAllowed ("jetrails/cloudflare/firewall/unmetered_ddos_mitigation") ) {
 				$counter++;
 				echo $this->getLayout ()
@@ -57,13 +51,6 @@
 			echo "</div>";
 		}
 		echo "</section>";
-
-		if ( Mage::getSingleton ("admin/session")->isAllowed ("jetrails/cloudflare/firewall/firewall_events") ) {
-			$counter++;
-			echo $this->getLayout ()
-				->createBlock ("cloudflare/dashboard_section")
-				->setTemplate ("cloudflare/firewall/firewall_events.phtml")->toHtml ();
-		}
 
 		if ( $counter === 0 ) {
 			echo $this->getLayout ()

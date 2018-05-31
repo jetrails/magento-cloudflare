@@ -75,10 +75,6 @@
 												<title>SSL</title>
 												<sort_order>100</sort_order>
 											</ssl>
-											<origin_certificates translate="title" module="cloudflare" >
-												<title>Origin Certificates</title>
-												<sort_order>200</sort_order>
-											</origin_certificates>
 											<always_use_https translate="title" module="cloudflare" >
 												<title>Always Use HTTPS</title>
 												<sort_order>300</sort_order>
@@ -137,20 +133,12 @@
 														<title>User Agent Blocking</title>
 														<sort_order>200</sort_order>
 													</user_agent_blocking>
-													<zone_lockdown translate="title" module="cloudflare" >
-														<title>Zone Lockdown</title>
-														<sort_order>300</sort_order>
-													</zone_lockdown>
 													<unmetered_ddos_mitigation translate="title" module="cloudflare" >
 														<title>Unmetered DDoS Mitigation</title>
 														<sort_order>300</sort_order>
 													</unmetered_ddos_mitigation>
 												</children>
 											</ip_firewall>
-											<firewall_events translate="title" module="cloudflare" >
-												<title>Firewall Events</title>
-												<sort_order>400</sort_order>
-											</firewall_events>
 										</children>
 									</firewall>
 									<speed translate="title" module="cloudflare" >

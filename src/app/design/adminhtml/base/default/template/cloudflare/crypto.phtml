@@ -13,13 +13,6 @@
 				->setTemplate ("cloudflare/crypto/ssl.phtml")->toHtml ();
 		}
 
-		if ( Mage::getSingleton ("admin/session")->isAllowed ("jetrails/cloudflare/crypto/origin_certificates") ) {
-			$counter++;
-			echo $this->getLayout ()
-				->createBlock ("cloudflare/dashboard_section")
-				->setTemplate ("cloudflare/crypto/origin_certificates.phtml")->toHtml ();
-		}
-
 		if ( Mage::getSingleton ("admin/session")->isAllowed ("jetrails/cloudflare/crypto/always_use_https") ) {
 			$counter++;
 			echo $this->getLayout ()
