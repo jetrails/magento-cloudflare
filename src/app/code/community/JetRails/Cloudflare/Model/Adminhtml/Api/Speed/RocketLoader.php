@@ -10,12 +10,12 @@
 			return $api->resolve ( $endpoint );
 		}
 
-		public function change ( $value ) {
+		public function toggle ( $state ) {
 			$zoneId = Mage::getModel ("cloudflare/api_overview_configuration")->getZoneId ();
 			$endpoint = sprintf ( "zones/%s/settings/rocket_loader", $zoneId );
 			$api = Mage::getModel ("cloudflare/api_request");
 			$api->setType ( $api::REQUEST_PATCH );
-			$api->setData ( array ( "value" => $value ) );
+			$api->setData ( array ( "value" => $state ? "on" : "off" ) );
 			return $api->resolve ( $endpoint );
 		}
 

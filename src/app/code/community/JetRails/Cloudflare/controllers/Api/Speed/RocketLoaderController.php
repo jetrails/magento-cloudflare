@@ -13,9 +13,11 @@
 			return $this->_formatAndSend ( $response );
 		}
 
-		public function changeAction () {
+		public function toggleAction () {
 			$api = Mage::getModel ("cloudflare/api_speed_rocketLoader");
-			$response = $api->change ( $this->_request->getParam ("value") );
+			$response = $api->toggle (
+				$this->_request->getParam ("state") === "true"
+			);
 			return $this->_formatAndSend ( $response );
 		}
 
