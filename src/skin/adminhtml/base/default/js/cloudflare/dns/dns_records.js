@@ -644,7 +644,7 @@ $(document).on ( "blur", ".editable", ( event ) => {
 	}
 })
 
-$(document).on ( "change", ".editable, .proxied, .ttl", ( event ) => {
+$(document).on ( "change", ".editable, .proxied, td.ttl", ( event ) => {
 	let target = event.target
 	let oldValue = $(target).data ("old")
 	let newValue = $(target).text ()
@@ -685,7 +685,7 @@ $(document).on ( "change", ".editable, .proxied, .ttl", ( event ) => {
 	}
 })
 
-$(document).on ( "click", ".cloudflare .ttl", ( event ) => {
+$(document).on ( "click", ".cloudflare td.ttl", ( event ) => {
 	if ( $(event.target).hasClass ("ttl") ) {
 		let target = $(event.target)
 		let entry = $(target).closest ("tr")
