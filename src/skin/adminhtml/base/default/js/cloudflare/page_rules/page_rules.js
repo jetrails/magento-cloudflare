@@ -174,12 +174,7 @@ function createRow ( previousExists = false, values = [] ) {
 			$(`<div data-dynamic-wrapper="explicit_cache_control" >`).append ( modal.createSwitch ("value") )
 		)
 		.append (
-			$(`<div data-dynamic-wrapper="rocket_loader" >`).html ( modal.createSelect ( "value", [
-				{ label: "Select Value", value: "", disabled: true, selected: true },
-				{ label: "Off", value: "off" },
-				{ label: "Manual", value: "manual" },
-				{ label: "Automatic", value: "automatic" }
-			]))
+			$(`<div data-dynamic-wrapper="rocket_loader" >`).html ( modal.createSwitch ("value") )
 		)
 		.append (
 			$(`<div data-dynamic-wrapper="security_level" >`).html ( modal.createSelect ( "value", [
