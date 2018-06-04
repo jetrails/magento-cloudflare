@@ -7,8 +7,7 @@
 	        parent::__construct ();
 	        $this->setId ("cloudflare_dashboard");
 	        $this->setDestElementId ("edit_form");
-	        $this->setTitle ("<img class='cloudflare_logo'  src='" . $this->getSkinUrl ('images/cloudflare/cloudflare.svg') . "' /><div class='made-with-love' />");
-			// $this->setTitle ("<img class='cloudflare_logo'  src='" . $this->getSkinUrl ('images/cloudflare/cloudflare.svg') . "' /><img class='made-with-love'  src='" . $this->getSkinUrl ('images/cloudflare/jetrails.svg') . "' />");
+	        $this->setTitle ("<img class='cloudflare_logo'  src='" . $this->getSkinUrl ('images/cloudflare/cloudflare.svg') . "' />");
 	    }
 
 		protected function _createTabIcon ( $type ) {

@@ -32,7 +32,10 @@
 			// Simply return the header text for the form
 			$data = Mage::helper ("cloudflare/data");
 			$domain = $data->getDomainName ();
-			return $domain;
+			return $domain . "<div class='made_with_love' >
+				<p>made with <font>&#10084;</font> by</p>
+				<img src='" . $this->getSkinUrl ('images/cloudflare/jetrails.svg') . "' />
+			</div>";
 		}
 
 	}
