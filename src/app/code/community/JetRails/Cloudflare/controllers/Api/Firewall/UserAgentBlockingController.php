@@ -2,6 +2,11 @@
 
 	class JetRails_Cloudflare_Api_Firewall_UserAgentBlockingController extends JetRails_Cloudflare_Controller_Action {
 
+		protected function _isAllowed () {
+			$session = Mage::getSingleton ("admin/session");
+			return $session->isAllowed ("jetrails/cloudflare/firewall/user_agent_blocking");
+		}
+
 		public function indexAction () {
 			$api = Mage::getModel ("cloudflare/api_firewall_userAgentBlocking");
 			$response = $api->load ();
