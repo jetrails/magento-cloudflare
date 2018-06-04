@@ -33,7 +33,7 @@
 					)
 				),
 				"actions" => $actions,
-				"priority" => 1,
+				// "priority" => 1,
 				"status" => $status === true ? "active" : "disabled"
 			));
 			return $api->resolve ( $endpoint );
@@ -48,7 +48,7 @@
 			$zoneId = Mage::getModel ("cloudflare/api_overview_configuration")->getZoneId ();
 			$endpoint = sprintf ( "zones/%s/pagerules/%s", $zoneId, $id );
 			$api = Mage::getModel ("cloudflare/api_request");
-			$api->setType ( $api::REQUEST_PUT );
+			$api->setType ( $api::REQUEST_PATCH );
 			$api->setData ( array (
 				"targets" => array (
 					array (
@@ -60,7 +60,7 @@
 					)
 				),
 				"actions" => $actions,
-				"priority" => 1,
+				// "priority" => 1,
 				"status" => $status === true ? "active" : "disabled"
 			));
 			return $api->resolve ( $endpoint );

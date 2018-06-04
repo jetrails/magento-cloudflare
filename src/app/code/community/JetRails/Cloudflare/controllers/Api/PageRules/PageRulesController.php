@@ -31,7 +31,7 @@
 				$this->_request->getParam ("actions"),
 				$this->_request->getParam ("status") == "true"
 			);
-			return $this->_formatAndSend ( $response );
+			return $this->_sendResponse ( $response );
 		}
 
 		public function toggleAction () {

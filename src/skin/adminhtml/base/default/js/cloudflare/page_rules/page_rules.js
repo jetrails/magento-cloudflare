@@ -15,7 +15,6 @@ function valueToLabel ( value ) {
 	let lookup = {
 		"pick_a_setting": "Pick a Setting",
 		"always_online": "Always Online",
-		"always_use_https": "Always Use HTTPS",
 		"browser_cache_ttl": "Browser Cache TTL",
 		"browser_check": "Browser Integrity Check",
 		"cache_deception_armor": "Cache Deception Armor",
@@ -26,9 +25,7 @@ function valueToLabel ( value ) {
 		"edge_cache_ttl": "Edge Cache TTL",
 		"email_obfuscation": "Email Obfuscation",
 		"forwarding_url": "Forward URL",
-		"automatic_https_rewrites": "Automatic HTTPS Rewrites",
 		"ip_geolocation": "IP Geolocation Header",
-		"opportunistic_encryption": "Opportunistic Encryption",
 		"explicit_cache_control": "Origin Cache Control",
 		"rocket_loader": "Rocket Loader",
 		"security_level": "Security Level",
@@ -49,7 +46,6 @@ function createRow ( previousExists = false, values = [] ) {
 		.append ( modal.createSelect ( "setting", [
 			{ label: "Pick a Setting", value: "pick_a_setting", disabled: true, selected: true },
 			{ label: "Always Online", value: "always_online" },
-			{ label: "Always Use HTTPS", value: "always_use_https", disabled: previousExists },
 			{ label: "Browser Cache TTL", value: "browser_cache_ttl" },
 			{ label: "Browser Integrity Check", value: "browser_check" },
 			{ label: "Cache Deception Armor", value: "cache_deception_armor" },
@@ -60,9 +56,7 @@ function createRow ( previousExists = false, values = [] ) {
 			{ label: "Edge Cache TTL", value: "edge_cache_ttl" },
 			{ label: "Email Obfuscation", value: "email_obfuscation" },
 			{ label: "Forward URL", value: "forwarding_url", disabled: previousExists },
-			{ label: "Automatic HTTPS Rewrites", value: "automatic_https_rewrites" },
 			{ label: "IP Geolocation Header", value: "ip_geolocation" },
-			{ label: "Opportunistic Encryption", value: "opportunistic_encryption" },
 			{ label: "Origin Cache Control", value: "explicit_cache_control" },
 			{ label: "Rocket Loader", value: "rocket_loader" },
 			{ label: "Security Level", value: "security_level" },
@@ -71,9 +65,6 @@ function createRow ( previousExists = false, values = [] ) {
 		]).addClass ("dynamic-trigger").val ( values.length > 0 ? values [ 0 ] : "pick_a_setting" ) )
 		.append (
 			$(`<div data-dynamic-wrapper="always_online" >`).append ( modal.createSwitch ("value") )
-		)
-		.append (
-			$(`<div data-dynamic-wrapper="always_use_https" >`).html ("<p>Enforce HTTPS for this URL</p>")
 		)
 		.append (
 			$(`<div data-dynamic-wrapper="browser_cache_ttl" >`).html ( modal.createSelect ( "value", [
@@ -110,7 +101,7 @@ function createRow ( previousExists = false, values = [] ) {
 		)
 		.append (
 			$(`<div data-dynamic-wrapper="cache_level" >`).append ( modal.createSelect ( "value", [
-				{ label: "Select Cache Level", value: "" },
+				{ label: "Select Cache Level", value: "", disabled: true, selected: true },
 				{ label: "Bypass", value: "bypass" },
 				{ label: "No Query String", value: "basic" },
 				{ label: "Ignore Query String", value: "simplified" },
@@ -155,26 +146,24 @@ function createRow ( previousExists = false, values = [] ) {
 		.append (
 			$(`<div data-dynamic-wrapper="forwarding_url" >`)
 				.html ( modal.createSelect ( "status_code", [
-					{ label: "Select Status Code", value: "" },
+					{ label: "Select Status Code", value: "", disabled: true, selected: true },
 					{ label: "301 - Permanent Redirect", value: 301 },
 					{ label: "302 - Temporary Redirect", value: 302 }
 				]))
 				.append ( modal.createInput ( "text", "url", "Enter destination URL" ) )
 		)
 		.append (
-			$(`<div data-dynamic-wrapper="automatic_https_rewrites" >`).append ( modal.createSwitch ("value") )
-		)
-		.append (
 			$(`<div data-dynamic-wrapper="ip_geolocation" >`).append ( modal.createSwitch ("value") )
-		)
-		.append (
-			$(`<div data-dynamic-wrapper="opportunistic_encryption" >`).append ( modal.createSwitch ("value") )
 		)
 		.append (
 			$(`<div data-dynamic-wrapper="explicit_cache_control" >`).append ( modal.createSwitch ("value") )
 		)
 		.append (
-			$(`<div data-dynamic-wrapper="rocket_loader" >`).html ( modal.createSwitch ("value") )
+			$(`<div data-dynamic-wrapper="rocket_loader" >`).html ( modal.createSelect ( "value", [
+				{ label: "Select Value", value: "", disabled: true, selected: true },
+				{ label: "Off", value: "off" },
+				{ label: "Automatic", value: "automatic" }
+			]))
 		)
 		.append (
 			$(`<div data-dynamic-wrapper="security_level" >`).html ( modal.createSelect ( "value", [
@@ -191,7 +180,7 @@ function createRow ( previousExists = false, values = [] ) {
 		)
 		.append (
 			$(`<div data-dynamic-wrapper="ssl" >`).html ( modal.createSelect ( "value", [
-				{ label: "Select SSL Setting", value: "" },
+				{ label: "Select SSL Setting", value: "", disabled: true, selected: true },
 				{ label: "Off", value: "off" },
 				{ label: "Flexible", value: "flexible" },
 				{ label: "Full", value: "full" },
@@ -419,11 +408,13 @@ $( document ).on ( "cloudflare.page_rules.page_rules.edit", function ( event, da
 			.find (".collections > .collection")
 			.map ( ( i, e ) => {
 				var id = $(e).find ("[name='setting']").val ()
-				var value = $(components.container).find ("[data-dynamic-wrapper='" + id + "']").find ("[name='value']").eq ( 0 )
+				var value = $(e).find ("[data-dynamic-wrapper='" + id + "']").find ("[name='value']").eq ( 0 )
 				value = $(value).is (":checkbox") ? ( $(value).is (":checked") ? "on" : "off" ) : $(value).val ()
+				console.log ( id )
+				console.log ( value )
 				if ( id == "forwarding_url" ) value = {
-					url: $(components.container).find ("[data-dynamic-wrapper='" + id + "']").find ("[name='url']").eq ( 0 ).val (),
-					status_code: $(components.container).find ("[data-dynamic-wrapper='" + id + "']").find ("[name='status_code']").eq ( 0 ).val ()
+					url: $(e).find ("[data-dynamic-wrapper='" + id + "']").find ("[name='url']").eq ( 0 ).val (),
+					status_code: $(e).find ("[data-dynamic-wrapper='" + id + "']").find ("[name='status_code']").eq ( 0 ).val ()
 				}
 				return { id, value }
 			}));
@@ -527,7 +518,7 @@ $( document ).on ( "cloudflare.page_rules.page_rules.create", function ( event, 
 });
 
 $(document).on ( "change", ".cloudflare_modal .collection [name='setting']", function () {
-	if ( $(this).val () == "forwarding_url" || $(this).val () == "always_use_https" ) {
+	if ( $(this).val () == "forwarding_url" ) {
 		$(".cloudflare_modal a.dashed").hide ();
 	}
 	else {
