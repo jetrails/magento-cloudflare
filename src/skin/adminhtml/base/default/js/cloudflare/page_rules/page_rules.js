@@ -241,8 +241,13 @@ $( document ).on ( "cloudflare.page_rules.page_rules.initialize", function ( eve
 	var table = $(data.section).find ("table.rules")
 	$(table).find ("tbody > tr").remove ()
 	if ( data.response.payload.length > 0 ) {
-		data.response.payload.map ( ( rule, index ) => {
+		data.response.payload
+		.sort ( ( a, b ) => {
+			return a.priority - b.priority
+		})
+		.map ( ( rule, index ) => {
 			$(table).find ("tbody").append ( $("<tr>")
+				.data ( "rule", rule )
 				.append ( $("<td class='handle' >").html ("&#xF000; &#xF001;") )
 				.append ( $("<td>").text ( index + 1 ).css ( "min-width", "initial" ) )
 				.append (
@@ -307,6 +312,27 @@ $( document ).on ( "cloudflare.page_rules.page_rules.initialize", function ( eve
 				ui.item.parent ().find ("tr").each ( ( i, e ) => {
 					$( e ).find ("td").eq ( 1 ).text ( i + 1 );
 				})
+				var priorities = $(table)
+					.find ("tbody > tr")
+					.toArray ()
+					.map ( ( rule, index ) => {
+						let data = $(rule).data ("rule")
+						return {
+							id: data.id,
+							priority: index + 1
+						}
+					})
+				$.ajax ({
+					url: $(data.section).data ("endpoint") + "priority",
+					type: "POST",
+					data: {
+						"form_key": $(data.section).data ("form-key"),
+						"priorities": priorities
+					},
+					success: function ( response ) {
+						notification.addMessages ( response.state, response.messages );
+					}
+				});
 		    }
 		})
 	}

@@ -85,6 +85,15 @@
 			return $api->resolve ( $endpoint );
 		}
 
+		public function priority ( $priorites ) {
+			$zoneId = Mage::getModel ("cloudflare/api_overview_configuration")->getZoneId ();
+			$endpoint = sprintf ( "zones/%s/pagerules/priorities", $zoneId, $id );
+			$api = Mage::getModel ("cloudflare/api_request");
+			$api->setType ( $api::REQUEST_PUT );
+			$api->setData ( $priorites );
+			return $api->resolve ( $endpoint );
+		}
+
 		public function getEntitlements () {
 			$zoneId = Mage::getModel ("cloudflare/api_overview_configuration")->getZoneId ();
 			$endpoint = sprintf ( "zones/%s/entitlements", $zoneId );

@@ -49,4 +49,12 @@
 			return $this->_formatAndSend ( $response );
 		}
 
+		public function priorityAction () {
+			$api = Mage::getModel ("cloudflare/api_pageRules_pageRules");
+			$response = $api->priority (
+				$this->_request->getParam ("priorities")
+			);
+			return $this->_formatAndSend ( $response );
+		}
+
 	}
