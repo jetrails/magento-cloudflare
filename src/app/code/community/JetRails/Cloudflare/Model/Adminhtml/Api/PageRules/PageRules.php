@@ -12,7 +12,7 @@
 			return (object) $result;
 		}
 
-		public function create ( $target, $actions, $status = true ) {
+		public function create ( $target, $actions, $status = true, $priority = 1 ) {
 			foreach ( $actions as $index => $action ) {
 				if ( $action ["id"] == "browser_cache_ttl" ) $actions [ $index ] ["value"] = intval ( $action ["value"] );
 				if ( $action ["id"] == "edge_cache_ttl" ) $actions [ $index ] ["value"] = intval ( $action ["value"] );
@@ -33,7 +33,7 @@
 					)
 				),
 				"actions" => $actions,
-				// "priority" => 1,
+				"priority" => $priority,
 				"status" => $status === true ? "active" : "disabled"
 			));
 			return $api->resolve ( $endpoint );
@@ -60,7 +60,6 @@
 					)
 				),
 				"actions" => $actions,
-				// "priority" => 1,
 				"status" => $status === true ? "active" : "disabled"
 			));
 			return $api->resolve ( $endpoint );

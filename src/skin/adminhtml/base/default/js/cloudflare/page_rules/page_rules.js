@@ -229,10 +229,11 @@ $( document ).on ( "cloudflare.page_rules.page_rules.initialize", function ( eve
 	}
 	var table = $(data.section).find ("table.rules")
 	$(table).find ("tbody > tr").remove ()
+	$(data.section).data ( "rules", data.response.payload )
 	if ( data.response.payload.length > 0 ) {
 		data.response.payload
 		.sort ( ( a, b ) => {
-			return a.priority - b.priority
+			return b.priority - a.priority
 		})
 		.map ( ( rule, index ) => {
 			$(table).find ("tbody").append ( $("<tr>")
@@ -410,8 +411,6 @@ $( document ).on ( "cloudflare.page_rules.page_rules.edit", function ( event, da
 				var id = $(e).find ("[name='setting']").val ()
 				var value = $(e).find ("[data-dynamic-wrapper='" + id + "']").find ("[name='value']").eq ( 0 )
 				value = $(value).is (":checkbox") ? ( $(value).is (":checked") ? "on" : "off" ) : $(value).val ()
-				console.log ( id )
-				console.log ( value )
 				if ( id == "forwarding_url" ) value = {
 					url: $(e).find ("[data-dynamic-wrapper='" + id + "']").find ("[name='url']").eq ( 0 ).val (),
 					status_code: $(e).find ("[data-dynamic-wrapper='" + id + "']").find ("[name='status_code']").eq ( 0 ).val ()
@@ -450,6 +449,7 @@ $( document ).on ( "cloudflare.page_rules.page_rules.edit", function ( event, da
 });
 
 $( document ).on ( "cloudflare.page_rules.page_rules.create", function ( event, data ) {
+	var section = data.section
 	var that = this
 	var confirm = new modal.Modal ( 800 )
 	var collections = $(`<div class="collections" >`)
@@ -473,6 +473,38 @@ $( document ).on ( "cloudflare.page_rules.page_rules.create", function ( event, 
 		],
 		true
 	)
+	if ( $(section).data ("rules").length > 0 ) {
+		var customOptions = $(section).data ("rules")
+			.sort ( ( a, b ) => { return b.priority - a.priority } )
+			.map ( rule => {
+				return {
+					label: rule.targets [ 0 ].constraint.value,
+					value: rule.priority
+				}
+			})
+		customOptions = [{ label: "Select which Page Rule this will fire after", value: 1, selected: true, disabled: true }].concat ( customOptions )
+		confirm.addRow (
+			$(`<p>`)
+				.append ( $(`<strong>`).text ("Order: ") )
+				.append ("This is the order in which your Page Rules will be triggered. Only one Page Rule will trigger per URL, so put your most specific Page Rules at the top."),
+			[
+				modal.createSelect ( "order", [
+					{ label: "First", value: "first", selected: true },
+					{ label: "Last", value: "last" },
+					{ label: "Custom", value: "custom" }
+				]).on ( "change", ( event ) => {
+					if ( $(event.target).val () === "custom" ) {
+						$(event.target).next ().show ()
+					}
+					else {
+						$(event.target).next ().hide ()
+					}
+				}),
+				modal.createSelect ( "custom", customOptions ).hide ()
+			],
+			true
+		)
+	}
 	var saveCallback = ( components, status ) => {
 		var target = $(components.container).find ("[name='target']").val ()
 		var actions = $.makeArray ( $( components.container )
@@ -488,6 +520,19 @@ $( document ).on ( "cloudflare.page_rules.page_rules.create", function ( event, 
 				return { id, value }
 			}));
 		$(components.modal).addClass ("loading")
+		let getPriority = () => {
+			var priority = 1
+			if ( $(section).data ("rules").length > 0 ) {
+				let order = $(components.container).find ("[name='order']").val ()
+				if ( order === "custom" ) {
+					priority = $(components.container).find ("[name='custom']").val ()
+				}
+				else if ( order == "last" ) {
+					priority = $(section).data ("rules").length + 1
+				}
+			}
+			return priority
+		}
 		$.ajax ({
 			url: data.form.endpoint,
 			type: "POST",
@@ -495,7 +540,8 @@ $( document ).on ( "cloudflare.page_rules.page_rules.create", function ( event, 
 				"form_key": data.form.key,
 				"target": target,
 				"actions": actions,
-				"status": status
+				"status": status,
+				"priority": getPriority ()
 			},
 			success: function ( response ) {
 				if ( response.state == "response_success" ) {

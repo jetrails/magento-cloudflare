@@ -18,7 +18,8 @@
 			$response = $api->create (
 				$this->_request->getParam ("target"),
 				$this->_request->getParam ("actions"),
-				$this->_request->getParam ("status") == "true"
+				$this->_request->getParam ("status") == "true",
+				intval ( $this->_request->getParam ("priority") )
 			);
 			return $this->_formatAndSend ( $response );
 		}
@@ -31,7 +32,7 @@
 				$this->_request->getParam ("actions"),
 				$this->_request->getParam ("status") == "true"
 			);
-			return $this->_sendResponse ( $response );
+			return $this->_formatAndSend ( $response );
 		}
 
 		public function toggleAction () {

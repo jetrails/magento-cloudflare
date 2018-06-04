@@ -40,15 +40,15 @@ require ("cloudflare/scrape_shield/server_side_excludes")
 require ("cloudflare/scrape_shield/hotlink_protection")
 
 $( window ).on ( "load", function () {
-	cloudflare.loadSections ();
-	cloudflare.rotateMessages ();
+	cloudflare.loadSections ()
+	cloudflare.rotateMessages ()
 
 	$( ".proxied" ).each ( function ( index ) {
 		$(this).data ( "value", /proxied_on/.test ( $(this).attr ("src") ) )
 	})
 
 	$( document ).on ( "click", ".trigger", function () {
-		var section = $( this ).closest ("section");
+		var section = $( this ).closest ("section")
 		var event = {
 			"target": {
 				"tab": $( section ).data ("tab-name"),
@@ -61,15 +61,15 @@ $( window ).on ( "load", function () {
 			},
 			"section": section,
 			"trigger": $( this )
-		};
-		event.target.name = event.target.tab + "." + event.target.section + "." + event.target.action;
-		event.target.name = "cloudflare." + event.target.name;
- 		$.event.trigger ( event.target.name, event );
+		}
+		event.target.name = event.target.tab + "." + event.target.section + "." + event.target.action
+		event.target.name = "cloudflare." + event.target.name
+ 		$.event.trigger ( event.target.name, event )
 		console.log ( "Triggered: " + event.target.name )
-	});
+	})
 
 	$( document ).on ( "change", ".trigger-select", function () {
-		var section = $( this ).closest ("section");
+		var section = $( this ).closest ("section")
 		var event = {
 			"target": {
 				"tab": $( section ).data ("tab-name"),
@@ -82,15 +82,15 @@ $( window ).on ( "load", function () {
 			},
 			"section": section,
 			"trigger": $( this )
-		};
-		event.target.name = event.target.tab + "." + event.target.section + "." + event.target.action;
-		event.target.name = "cloudflare." + event.target.name;
- 		$.event.trigger ( event.target.name, event );
+		}
+		event.target.name = event.target.tab + "." + event.target.section + "." + event.target.action
+		event.target.name = "cloudflare." + event.target.name
+ 		$.event.trigger ( event.target.name, event )
 		console.log ( "Triggered: " + event.target.name )
-	});
+	})
 
 	$( document ).on ( "change", ".trigger-radio", function () {
-		var section = $( this ).closest ("section");
+		var section = $( this ).closest ("section")
 		var event = {
 			"target": {
 				"tab": $( section ).data ("tab-name"),
@@ -103,15 +103,15 @@ $( window ).on ( "load", function () {
 			},
 			"section": section,
 			"trigger": $( this )
-		};
-		event.target.name = event.target.tab + "." + event.target.section + "." + event.target.action;
-		event.target.name = "cloudflare." + event.target.name;
- 		$.event.trigger ( event.target.name, event );
+		}
+		event.target.name = event.target.tab + "." + event.target.section + "." + event.target.action
+		event.target.name = "cloudflare." + event.target.name
+ 		$.event.trigger ( event.target.name, event )
 		console.log ( "Triggered: " + event.target.name )
-	});
+	})
 
 	$( document ).on ( "keyup", ".trigger-change", function () {
-		var section = $( this ).closest ("section");
+		var section = $( this ).closest ("section")
 		var event = {
 			"target": {
 				"tab": $( section ).data ("tab-name"),
@@ -124,58 +124,58 @@ $( window ).on ( "load", function () {
 			},
 			"section": section,
 			"trigger": $( this )
-		};
-		event.target.name = event.target.tab + "." + event.target.section + "." + event.target.action;
-		event.target.name = "cloudflare." + event.target.name;
-		$.event.trigger ( event.target.name, event );
+		}
+		event.target.name = event.target.tab + "." + event.target.section + "." + event.target.action
+		event.target.name = "cloudflare." + event.target.name
+		$.event.trigger ( event.target.name, event )
 		console.log ( "Triggered (Change): " + event.target.name )
-	});
+	})
 
-});
+})
 
 $(document).on ( "click", "[data-tab]", function () {
-	var section = $(this).closest ("section");
+	var section = $(this).closest ("section")
 	if ( $(this).hasClass ("active") && !$(section).hasClass ("at_least_one") ) {
-		$(section).find ("[data-tab-content]").removeClass ("active");
-		$(section).find ("[data-tab]").removeClass ("active");
+		$(section).find ("[data-tab-content]").removeClass ("active")
+		$(section).find ("[data-tab]").removeClass ("active")
 	}
 	else {
-		$(section).find ("[data-tab-content]").removeClass ("active");
-		$(section).find ("[data-tab]").removeClass ("active");
-		$(this).addClass ("active");
-		$(section).find ("[data-tab-content='" + $(this).data ("tab") + "']").addClass ("active");
+		$(section).find ("[data-tab-content]").removeClass ("active")
+		$(section).find ("[data-tab]").removeClass ("active")
+		$(this).addClass ("active")
+		$(section).find ("[data-tab-content='" + $(this).data ("tab") + "']").addClass ("active")
 	}
-});
+})
 
 $(document).on ( "change", ".dynamic-trigger", function () {
-	const target = $(this).val ();
-	$(this).parent ().find ("div[data-dynamic-wrapper]").removeClass ("active");
-	$(this).parent ().find ("div[data-dynamic-wrapper='" + target + "']").addClass ("active");
+	const target = $(this).val ()
+	$(this).parent ().find ("div[data-dynamic-wrapper]").removeClass ("active")
+	$(this).parent ().find ("div[data-dynamic-wrapper='" + target + "']").addClass ("active")
 	$(this).parent ().find ("[data-dynamic-show]").each ( function () {
 		if ( $(this).data ("dynamic-show").includes ( target.toLowerCase () ) ) {
-			$(this).show ();
+			$(this).show ()
 		}
 		else {
-			$(this).hide ();
+			$(this).hide ()
 		}
 	})
-});
+})
 
 $(document).on ( "click", ".dynamic-trigger", function () {
-	const target = $(this).data ("tab");
+	const target = $(this).data ("tab")
 	if ( target ) {
-		$(this).parent ().find ("div[data-dynamic-wrapper]").removeClass ("active");
-		$(this).parent ().find ("div[data-dynamic-wrapper='" + target + "']").addClass ("active");
+		$(this).parent ().find ("div[data-dynamic-wrapper]").removeClass ("active")
+		$(this).parent ().find ("div[data-dynamic-wrapper='" + target + "']").addClass ("active")
 		$(this).parent ().find ("[data-dynamic-show]").each ( function () {
 			if ( $(this).data ("dynamic-show").includes ( target.toLowerCase () ) ) {
-				$(this).show ();
+				$(this).show ()
 			}
 			else {
-				$(this).hide ();
+				$(this).hide ()
 			}
 		})
 	}
-});
+})
 
 $(document).on ( "click", ".proxied", function () {
 	let source = $(this).attr ("src")
