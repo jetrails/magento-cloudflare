@@ -41,10 +41,10 @@
 			<p>Cloudflare supports the “includeSubDomains” parameter in HSTS headers. This parameter applies the HSTS policy from a parent domain (such as example.com) to subdomains (such as www.development.example.com or api.example.com). Caution is encouraged with this header, as if any subdomains do not work with HTTPS they will become inaccessible.</p>
 			<h4>HSTS Preload</h4>
 			<p>Cloudflare supports HSTS preload. This flag signals to web browsers that a website’s HSTS configuration is eligible for preloading, that is, inclusion into the browser’s core configuration. Without preload, HSTS is only set after an initial successful HTTPS request, and thus if an attacker can intercept and downgrade that first request, HSTS can be bypassed. With preload, this attack is prevented.</p>
-			<p>Once HSTS is configured, you must visit each browser’s preload submission URL manually. For Chrome, Firefox/Mozilla and Safari use the <a href="https://hstspreload.appspot.com/">Chrome preload list</a>. Microsoft IE HSTS support is being updated.</p>
+			<p>Once HSTS is configured, you must visit each browser’s preload submission URL manually. For Chrome, Firefox/Mozilla and Safari use the <a target="blank" href="https://hstspreload.appspot.com/">Chrome preload list</a>. Microsoft IE HSTS support is being updated.</p>
 			<br>
 			<h5>Additional Resources</h5>
-			<p><a href="https://support.cloudflare.com/hc/en-us/articles/204183088-Does-Cloudflare-offer-HSTS-HTTP-Strict-Transport-Security-">Does Cloudflare offer HSTS (HTTP Strict Transport Security)?</a></p>
+			<p><a target="blank" href="https://support.cloudflare.com/hc/en-us/articles/204183088-Does-Cloudflare-offer-HSTS-HTTP-Strict-Transport-Security-">Does Cloudflare offer HSTS (HTTP Strict Transport Security)?</a></p>
 		</div>
 	</div>
 </section>

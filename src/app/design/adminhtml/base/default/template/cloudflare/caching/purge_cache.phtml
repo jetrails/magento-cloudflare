@@ -25,12 +25,12 @@
 		<div data-tab-content="help" >
 			<h4>What does Purge Individual Files do?</h4>
 			<p>An individual purge removes a single file from Cloudflare’s cache, leaving the rest of your files in place. This option is recommended to prevent Cloudflare pulling all your content from your origin server every time you perform a purge.</p>
-			<p>To learn more about purging individual files see <a href="https://support.cloudflare.com/hc/en-us/articles/200169246-How-do-I-purge-my-cache">here</a>.</p>
+			<p>To learn more about purging individual files see <a target="blank" href="https://support.cloudflare.com/hc/en-us/articles/200169246-How-do-I-purge-my-cache">here</a>.</p>
 			<p><strong>Note:</strong> Wildcards are not supported with single file purge at this time. You will need to specify the full path to the file.</p>
 			<h4>What does Purge Everything do?</h4>
 			<p>Purging the entire cache means requests will be sent to your origin web server(s) so they can be cached again. If you have many assets and lots of traffic, the increase in requests to your origin server will increase your bandwidth and CPU usage.</p>
 			<p>A full cache purge may sometimes be appropriate and will immediately purge all cached resources for your website. This will force Cloudflare to expire all static files cached prior your action and fetch a new version when requested by visitors.</p>
-			<p>To learn more about Purge Everything see <a href="https://support.cloudflare.com/hc/en-us/articles/200169246-How-do-I-purge-my-cache">here</a>.</p>
+			<p>To learn more about Purge Everything see <a target="blank" href="https://support.cloudflare.com/hc/en-us/articles/200169246-How-do-I-purge-my-cache">here</a>.</p>
 			<p><strong>Note:</strong> We recommend using the Purge Individual Files option instead of Purge Everything in most situations because purging everything will increase requests to your origin server temporarily raising your bandwidth and CPU usage.</p>
 			<h4>What does Purge by Tag do?</h4>
 			<p>Purge by Tag allows Cloudflare Enterprise customers to assign Cache-Tags to cached content and to later purge all content from cache with a specific Cache-Tag. Cache-Tags are added in a response header, formatted like this:</p>
