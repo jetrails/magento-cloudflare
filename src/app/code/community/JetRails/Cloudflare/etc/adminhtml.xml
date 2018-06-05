@@ -95,17 +95,21 @@
 												<title>Opportunistic Encryption</title>
 												<sort_order>700</sort_order>
 											</opportunistic_encryption>
+											<minimum_tls_version translate="title" module="cloudflare" >
+												<title>Minimum TLS Version</title>
+												<sort_order>800</sort_order>
+											</minimum_tls_version>
 											<tls_13 translate="title" module="cloudflare" >
 												<title>TLS 1.3</title>
-												<sort_order>800</sort_order>
+												<sort_order>900</sort_order>
 											</tls_13>
 											<automatic_https_rewrites translate="title" module="cloudflare" >
 												<title>Automatic HTTPS Rewrites</title>
-												<sort_order>900</sort_order>
+												<sort_order>1000</sort_order>
 											</automatic_https_rewrites>
 											<disable_universal_ssl translate="title" module="cloudflare" >
 												<title>Disable Universal SSL</title>
-												<sort_order>1000</sort_order>
+												<sort_order>1100</sort_order>
 											</disable_universal_ssl>
 										</children>
 									</crypto>

@@ -48,6 +48,13 @@
 				->setTemplate ("cloudflare/crypto/opportunistic_encryption.phtml")->toHtml ();
 		}
 
+		if ( Mage::getSingleton ("admin/session")->isAllowed ("jetrails/cloudflare/crypto/minimum_tls_version") ) {
+			$counter++;
+			echo $this->getLayout ()
+				->createBlock ("cloudflare/dashboard_section")
+				->setTemplate ("cloudflare/crypto/minimum_tls_version.phtml")->toHtml ();
+		}
+
 		if ( Mage::getSingleton ("admin/session")->isAllowed ("jetrails/cloudflare/crypto/tls_13") ) {
 			$counter++;
 			echo $this->getLayout ()
