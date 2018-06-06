@@ -3,10 +3,18 @@
 	$skinBase = Mage::getBaseUrl ( Mage_Core_Model_Store::URL_TYPE_SKIN );
 ?>
 <script>
-	window.domain = "<?php echo $domainName ?>";
-	window.skin_base = "<?php echo $skinBase ?>";
+	window.domain = "<?php echo $domainName ?>"
+	window.skin_base = "<?php echo $skinBase ?>"
+	window.form_key = "<?php echo $this->getFormKey () ?>"
 </script>
-
+<script>
+	setInterval ( () => {
+		var xhttp = new XMLHttpRequest ()
+		xhttp.open ( "POST", "<?php echo $this->getUrl ('cloudflare/session/index') ?>", true )
+		xhttp.setRequestHeader ( "Content-type", "application/x-www-form-urlencoded" )
+		xhttp.send ("form_key=<?php echo $this->getFormKey () ?>")
+	}, 60000 )
+</script>
 
 <h1 class="tab-content" >Overview</h1>
 <?php
