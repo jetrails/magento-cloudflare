@@ -1,15 +1,21 @@
-const gulp = require ("gulp")
-const path = require ("path")
-const fs = require ("fs")
-const sass = require ("gulp-sass")
 const concat = require ("gulp-concat")
+const fs = require ("fs")
+const gulp = require ("gulp")
+const gzip = require ("gulp-gzip")
+const path = require ("path")
+const config = require ( path.join ( __dirname, "package.json" ) )
+const magepack = require ("gulp-magepack")
 const minify = require ("gulp-minify-css")
 const minifyJs = require ("gulp-minify")
-const config = require ( path.join ( __dirname, "package.json" ) )
+const sass = require ("gulp-sass")
 const uglify = require ("gulp-uglify")
 const webpack = require ("webpack")
 const webpackStream = require ("webpack-stream")
 const webpackConfig = require ( path.join ( __dirname, "webpack.config.js" ) )
+const tar = require ("gulp-tar")
+
+const EXTENSION_NAMESPACE = "JetRails_Cloudflare"
+const EXTENSION_VERSION = config.version
 
 const MODULE_SHORT_NAME = config.name.replace ( /^.*-/, "" )
 const SOURCE_DIR = "src"
@@ -69,4 +75,17 @@ gulp.task ( "watch", [ "deploy-staging" ], () => {
 	gulp.watch ( path.join ( SOURCE_PATH, "**", "*" ), [ "deploy-staging" ] );
 	gulp.watch ( path.join ( SOURCE_PATH, "**", "*.scss" ), [ "deploy-staging" ] );
 	gulp.watch ( path.join ( SOURCE_PATH, "**", "*.js" ), [ "deploy-staging" ] );
+})
+
+gulp.task ( "package", () => {
+	let options = {
+		"template": "package.xml",
+		"output": "package.xml",
+		"version": EXTENSION_VERSION
+	}
+    gulp.src ([ path.join ( SOURCE_PATH, "**", "*" ) ])
+		.pipe ( magepack ( options ) )
+		.pipe ( tar (`${EXTENSION_NAMESPACE}-${EXTENSION_VERSION}`) )
+        .pipe ( gzip ({ extension: "tgz" }) )
+        .pipe ( gulp.dest ("dist") )
 })
