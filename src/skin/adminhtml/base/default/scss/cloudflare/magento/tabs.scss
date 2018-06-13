@@ -27,6 +27,15 @@ ul.tabs {
 		background: #307BC0;
 		border-radius: 3px;
 		height: 50px;
+	    width: 50px;
+	    font-family: "cloudflare-font";
+	    text-align: center;
+	    line-height: 50px;
+	    color: #FFF;
+	    font-size: 30px;
+	    text-rendering: geometricPrecision;
+	    font-weight: 500;
+	    -webkit-font-smoothing: antialiased;
 	}
 	.cloudflare_tab_label {
 		font-family: "Open Sans", Helvetica, Arial, sans-serif;

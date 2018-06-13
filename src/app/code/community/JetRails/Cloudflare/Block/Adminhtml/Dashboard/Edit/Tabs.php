@@ -12,8 +12,23 @@
 
 		protected function _createTabIcon ( $type ) {
 			$label = $type;
-			$icon = strtolower ( str_replace ( " ", "_", $type ) );
-			return "<img class='cloudflare_tab_icon' src='" . $this->getSkinUrl ("images/cloudflare/icons/tab/$icon.svg") . "' /><span class='cloudflare_tab_label' >$label</span>";
+			$key = strtolower ( str_replace ( " ", "_", $type ) );
+			$icon = "&#xE902;";
+			switch ( $key ) {
+				case "overview": 		$icon = "&#xF00A;"; break;
+				case "caching": 		$icon = "&#xF00D;"; break;
+				case "dns": 			$icon = "&#xF00F;"; break;
+				case "crypto": 			$icon = "&#xF011;"; break;
+				case "firewall": 		$icon = "&#xF014;"; break;
+				case "speed": 			$icon = "&#xF00B;"; break;
+				case "page_rules": 		$icon = "&#xF00E;"; break;
+				case "network": 		$icon = "&#xE905;"; break;
+				case "scrape_shield": 	$icon = "&#xF013;"; break;
+			}
+			return "
+				<div class='cloudflare_tab_icon' >$icon</div>
+				<span class='cloudflare_tab_label' >$label</span>
+			";
 		}
 
 		protected function _beforeToHtml () {
