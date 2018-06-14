@@ -26,12 +26,12 @@ function sortResults ( section, results ) {
 			if ( isAsc ) {
 				if ( aValue < bValue ) return -1
 				if ( aValue > bValue ) return 1
-				return 0;
+				return 0
 			}
 			else {
 				if ( aValue > bValue ) return -1
 				if ( aValue < bValue ) return 1
-				return 0;
+				return 0
 			}
 		})
 	}
@@ -51,12 +51,12 @@ function sortResults ( section, results ) {
 			if ( $(pivot).hasClass ("sort-desc") ) {
 				if ( aValue > bValue ) return -1
 				if ( aValue < bValue ) return 1
-				return 0;
+				return 0
 			}
 			else {
 				if ( aValue < bValue ) return -1
 				if ( aValue > bValue ) return 1
-				return 0;
+				return 0
 			}
 		})
 	}
@@ -161,17 +161,17 @@ function populateResult ( section ) {
 		}
 	}
 	if ( results.length == 0 ) {
-		$(table).append ( $("<tr>").append ( $("<td colspan='6' >").text ("No access rules found.") ) );
+		$(table).append ( $("<tr>").append ( $("<td colspan='6' >").text ("No access rules found.") ) )
 	}
 }
 
-$( document ).on ( "cloudflare.firewall.access_rules.initialize", function ( event, data ) {
+$(document).on ( "cloudflare.firewall.access_rules.initialize", function ( event, data ) {
 	$(data.section).data ( "result", data.response.result )
 	populateResult ( data.section )
 	$(data.section).removeClass ("loading")
 })
 
-$( document ).on ( "cloudflare.firewall.access_rules.sort", function ( event, data ) {
+$(document).on ( "cloudflare.firewall.access_rules.sort", function ( event, data ) {
 	$(data.section).data ( "page", 1 )
 	$(data.section).data ( "sort", $(data.trigger).data ("sort") )
 	if ( $(data.trigger).hasClass ("sort-asc") ) {
@@ -192,14 +192,14 @@ $( document ).on ( "cloudflare.firewall.access_rules.sort", function ( event, da
 	populateResult ( data.section )
 })
 
-$( document ).on ( "cloudflare.firewall.access_rules.search", function ( event, data ) {
+$(document).on ( "cloudflare.firewall.access_rules.search", function ( event, data ) {
 	$(data.section).data ( "page", 1 )
 	let table = $(data.section).find ("table > tbody")
 	$(table).children ().remove ()
 	populateResult ( data.section )
 })
 
-$( document ).on ( "cloudflare.firewall.access_rules.add", function ( event, data ) {
+$(document).on ( "cloudflare.firewall.access_rules.add", function ( event, data ) {
 	$(data.section).addClass ("loading")
 	var value = $(data.section).find ("[name='value']").val ()
 	var mode = $(data.section).find ("[name='mode']").val ()
@@ -239,7 +239,7 @@ $( document ).on ( "cloudflare.firewall.access_rules.add", function ( event, dat
 	common.loadSections (".access_rules")
 })
 
-$( document ).on ( "cloudflare.firewall.access_rules.delete", function ( event, data ) {
+$(document).on ( "cloudflare.firewall.access_rules.delete", function ( event, data ) {
 	var confirm = new modal.Modal ()
 	confirm.addTitle ("Confirm")
 	confirm.addElement ( $("<p>").text (`Are you sure you want to delete this rule?`) )
@@ -260,7 +260,7 @@ $( document ).on ( "cloudflare.firewall.access_rules.delete", function ( event, 
 	confirm.show ()
 })
 
-$( document ).on ( "cloudflare.firewall.access_rules.mode", function ( event, data ) {
+$(document).on ( "cloudflare.firewall.access_rules.mode", function ( event, data ) {
 	$(data.section).addClass ("loading")
 	var id = $(data.trigger).data ("id")
 	var mode = $(data.trigger).val ()
@@ -274,7 +274,7 @@ $( document ).on ( "cloudflare.firewall.access_rules.mode", function ( event, da
 	})
 })
 
-$( document ).on ( "cloudflare.firewall.access_rules.edit", function ( event, data ) {
+$(document).on ( "cloudflare.firewall.access_rules.edit", function ( event, data ) {
 	let notes = modal.createTextarea ( "notes", "", $(data.trigger).data ("note") ).css ({
 		marginTop: "22.5px",
 		fontSize: "1.1em"
@@ -298,19 +298,19 @@ $( document ).on ( "cloudflare.firewall.access_rules.edit", function ( event, da
 	edit.show ()
 })
 
-$( document ).on ( "cloudflare.firewall.access_rules.page", function ( event, data ) {
+$(document).on ( "cloudflare.firewall.access_rules.page", function ( event, data ) {
 	$(data.section).data ( "page", $(data.trigger).data ("page") )
 	populateResult ( data.section )
 })
 
-$( document ).on ( "cloudflare.firewall.access_rules.next_page", function ( event, data ) {
+$(document).on ( "cloudflare.firewall.access_rules.next_page", function ( event, data ) {
 	if ( $(data.section).data ("page") + 1 <= Math.ceil ( $(data.section).data ("item-count") / $(data.section).data ("page-size") ) ) {
 		$(data.section).data ( "page", $(data.section).data ("page") + 1 )
 		populateResult ( data.section )
 	}
 })
 
-$( document ).on ( "cloudflare.firewall.access_rules.previous_page", function ( event, data ) {
+$(document).on ( "cloudflare.firewall.access_rules.previous_page", function ( event, data ) {
 	if ( $(data.section).data ("page") - 1 > 0 ) {
 		$(data.section).data ( "page", $(data.section).data ("page") - 1 )
 		populateResult ( data.section )

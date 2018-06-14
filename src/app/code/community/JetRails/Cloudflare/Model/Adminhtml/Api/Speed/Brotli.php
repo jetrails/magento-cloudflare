@@ -1,22 +1,9 @@
 <?php
 
-	class JetRails_Cloudflare_Model_Adminhtml_Api_Speed_Brotli extends Mage_Core_Model_Abstract {
+	class JetRails_Cloudflare_Model_Adminhtml_Api_Speed_Brotli
+	extends JetRails_Cloudflare_Model_Adminhtml_Api_Generic_Setting {
 
-		public function getValue () {
-			$zoneId = Mage::getModel ("cloudflare/api_overview_configuration")->getZoneId ();
-			$endpoint = sprintf ( "zones/%s/settings/brotli", $zoneId );
-			$api = Mage::getModel ("cloudflare/api_request");
-			$api->setType ( $api::REQUEST_GET );
-			return $api->resolve ( $endpoint );
-		}
-
-		public function toggle ( $state ) {
-			$zoneId = Mage::getModel ("cloudflare/api_overview_configuration")->getZoneId ();
-			$endpoint = sprintf ( "zones/%s/settings/brotli", $zoneId );
-			$api = Mage::getModel ("cloudflare/api_request");
-			$api->setType ( $api::REQUEST_PATCH );
-			$api->setData ( array ( "value" => $state ? "on" : "off" ) );
-			return $api->resolve ( $endpoint );
-		}
+		protected $_endpointPostfix = "brotli";
+		protected $_settingType = self::TYPE_BOOLEAN;
 
 	}

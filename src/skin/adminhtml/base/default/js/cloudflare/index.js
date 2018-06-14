@@ -42,26 +42,25 @@ require ("cloudflare/scrape_shield/hotlink_protection")
 
 $( window ).on ( "load", function () {
 	cloudflare.loadSections ()
-	cloudflare.rotateMessages ()
 
-	$( ".proxied" ).each ( function ( index ) {
+	$(".proxied").each ( function ( index ) {
 		$(this).data ( "value", /proxied_on/.test ( $(this).attr ("src") ) )
 	})
 
-	$( document ).on ( "click", ".trigger", function () {
-		var section = $( this ).closest ("section")
+	$(document).on ( "click", ".trigger", function () {
+		var section = $(this).closest ("section")
 		var event = {
 			"target": {
 				"tab": $( section ).data ("tab-name"),
 				"section": $( section ).data ("section-name"),
-				"action": $( this ).data ("target")
+				"action": $(this).data ("target")
 			},
 			"form": {
-				"endpoint": $( this ).closest ("section").data ("endpoint") + $( this ).data ("target"),
-				"key": $( this ).closest ("section").data ("form-key")
+				"endpoint": $(this).closest ("section").data ("endpoint") + $(this).data ("target"),
+				"key": $(this).closest ("section").data ("form-key")
 			},
 			"section": section,
-			"trigger": $( this )
+			"trigger": $(this)
 		}
 		event.target.name = event.target.tab + "." + event.target.section + "." + event.target.action
 		event.target.name = "cloudflare." + event.target.name
@@ -69,20 +68,20 @@ $( window ).on ( "load", function () {
 		console.log ( "Triggered: " + event.target.name )
 	})
 
-	$( document ).on ( "change", ".trigger-select", function () {
-		var section = $( this ).closest ("section")
+	$(document).on ( "change", ".trigger-select", function () {
+		var section = $(this).closest ("section")
 		var event = {
 			"target": {
 				"tab": $( section ).data ("tab-name"),
 				"section": $( section ).data ("section-name"),
-				"action": $( this ).data ("target")
+				"action": $(this).data ("target")
 			},
 			"form": {
-				"endpoint": $( this ).closest ("section").data ("endpoint") + $( this ).data ("target"),
-				"key": $( this ).closest ("section").data ("form-key")
+				"endpoint": $(this).closest ("section").data ("endpoint") + $(this).data ("target"),
+				"key": $(this).closest ("section").data ("form-key")
 			},
 			"section": section,
-			"trigger": $( this )
+			"trigger": $(this)
 		}
 		event.target.name = event.target.tab + "." + event.target.section + "." + event.target.action
 		event.target.name = "cloudflare." + event.target.name
@@ -90,20 +89,20 @@ $( window ).on ( "load", function () {
 		console.log ( "Triggered: " + event.target.name )
 	})
 
-	$( document ).on ( "change", ".trigger-radio", function () {
-		var section = $( this ).closest ("section")
+	$(document).on ( "change", ".trigger-radio", function () {
+		var section = $(this).closest ("section")
 		var event = {
 			"target": {
 				"tab": $( section ).data ("tab-name"),
 				"section": $( section ).data ("section-name"),
-				"action": $( this ).data ("target")
+				"action": $(this).data ("target")
 			},
 			"form": {
-				"endpoint": $( this ).closest ("section").data ("endpoint") + $( this ).data ("target"),
-				"key": $( this ).closest ("section").data ("form-key")
+				"endpoint": $(this).closest ("section").data ("endpoint") + $(this).data ("target"),
+				"key": $(this).closest ("section").data ("form-key")
 			},
 			"section": section,
-			"trigger": $( this )
+			"trigger": $(this)
 		}
 		event.target.name = event.target.tab + "." + event.target.section + "." + event.target.action
 		event.target.name = "cloudflare." + event.target.name
@@ -111,20 +110,20 @@ $( window ).on ( "load", function () {
 		console.log ( "Triggered: " + event.target.name )
 	})
 
-	$( document ).on ( "keyup", ".trigger-change", function () {
-		var section = $( this ).closest ("section")
+	$(document).on ( "keyup", ".trigger-change", function () {
+		var section = $(this).closest ("section")
 		var event = {
 			"target": {
 				"tab": $( section ).data ("tab-name"),
 				"section": $( section ).data ("section-name"),
-				"action": $( this ).data ("target")
+				"action": $(this).data ("target")
 			},
 			"form": {
-				"endpoint": $( this ).closest ("section").data ("endpoint") + $( this ).data ("target"),
-				"key": $( this ).closest ("section").data ("form-key")
+				"endpoint": $(this).closest ("section").data ("endpoint") + $(this).data ("target"),
+				"key": $(this).closest ("section").data ("form-key")
 			},
 			"section": section,
-			"trigger": $( this )
+			"trigger": $(this)
 		}
 		event.target.name = event.target.tab + "." + event.target.section + "." + event.target.action
 		event.target.name = "cloudflare." + event.target.name

@@ -14,8 +14,8 @@ function maxAgeLabel ( value ) {
 	return "0 (Disable)"
 }
 
-$( document ).on ( "cloudflare.crypto.http_strict_transport_security.initialize", function ( event, data ) {
-	let options = data.response.payload.value.strict_transport_security
+$(document).on ( "cloudflare.crypto.http_strict_transport_security.initialize", function ( event, data ) {
+	let options = data.response.result.value.strict_transport_security
 	$(data.section).data ( "options", options )
 	if ( options.enabled ) {
 		$(data.section).find ("[name='button']").val ("Change HSTS Settings")
@@ -33,7 +33,7 @@ $( document ).on ( "cloudflare.crypto.http_strict_transport_security.initialize"
 		$(data.section).find (".option_preload").hide ()
 		$(data.section).find (".option_no_sniff").hide ()
 	}
-});
+})
 
 function createAcknowledgement ( options, callback ) {
 	let acknowledgement = new modal.Modal ( 600 )
@@ -141,7 +141,7 @@ function createConfigure ( options, callback ) {
 	configure.show ()
 }
 
-$( document ).on ( "cloudflare.crypto.http_strict_transport_security.configure", function ( event, data ) {
+$(document).on ( "cloudflare.crypto.http_strict_transport_security.configure", function ( event, data ) {
 	createAcknowledgement ( $(data.section).data ("options"), ( configure, config ) => {
 		$(data.section).addClass ("loading")
 		$(configure.components.modal).addClass ("loading")
@@ -153,6 +153,6 @@ $( document ).on ( "cloudflare.crypto.http_strict_transport_security.configure",
 				configure.close ()
 				common.loadSections (".crypto.http_strict_transport_security")
 			}
-		});
+		})
 	})
-});
+})

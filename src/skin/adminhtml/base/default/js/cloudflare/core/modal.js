@@ -1,4 +1,4 @@
-const $ = require ("jquery");
+const $ = require ("jquery")
 
 function createComponents ( large ) {
 	let container = $("<div class='container' >")
@@ -11,15 +11,15 @@ function createComponents ( large ) {
 	return {
 		modal: $("<div class='cloudflare_modal' >"),
 		container: container,
-		close: $("<div class='close cloudflare-font' >").html ("&#xF01A;")
+		close: $("<div class='close cloudflare-font' >").html ("&#xF01A")
 	}
 }
 
 function bindComponents ( components ) {
 	$( components.close ).on ( "click", function () {
-		$( components.modal ).removeClass ("active");
-		setTimeout ( function () { $( components.modal ).remove () }, 1000 );
-	});
+		$( components.modal ).removeClass ("active")
+		setTimeout ( function () { $( components.modal ).remove () }, 1000 )
+	})
 }
 
 function render ( components ) {
@@ -27,12 +27,12 @@ function render ( components ) {
 		components.modal.append (
 			components.container.append ( components.close )
 		)
-	);
+	)
 }
 
 function Modal ( large = false ) {
-	const components = createComponents ( large );
-	bindComponents ( components );
+	const components = createComponents ( large )
+	bindComponents ( components )
 
 	return {
 		components: components,
@@ -52,7 +52,7 @@ function Modal ( large = false ) {
 		},
 		addButton: ( options ) => {
 			if ( !( "buttonsContainer" in components ) ) {
-				components.buttonsContainer = $("<div class='buttons' >");
+				components.buttonsContainer = $("<div class='buttons' >")
 				$(components.container).append ( components.buttonsContainer )
 			}
 			var button = $(`<input type="button" class="${options.class}" value="${options.label}" />`)
@@ -63,30 +63,30 @@ function Modal ( large = false ) {
 			$(components.container).append ( element )
 		},
 		close: () => {
-			$(".cloudflare_modal").removeClass ("active");
-			setTimeout ( function () { $( components.modal ).remove () }, 1000 );
+			$(".cloudflare_modal").removeClass ("active")
+			setTimeout ( function () { $( components.modal ).remove () }, 1000 )
 		},
 		show: () => {
-			$("*").blur ();
-			render ( components );
+			$("*").blur ()
+			render ( components )
 			setTimeout ( function () {
 				$( components.modal ).addClass ("active")
 				$( components.modal ).find ("input,textarea,select").first ().focus ()
-			}, 200 );
+			}, 200 )
 		}
 	}
 }
 
 function confirm () {
-	var modal = $("<div class='cloudflare_modal' >");
-	var container = $("<div class='container' >");
-	var close = $("<div class='close' >");
+	var modal = $("<div class='cloudflare_modal' >")
+	var container = $("<div class='container' >")
+	var close = $("<div class='close' >")
 	$( close ).on ( "click", function () {
-		$(".cloudflare_modal").removeClass ("active");
-		setTimeout ( function () { $( modal ).remove () }, 1000 );
-	});
-	$("body").append ( modal.append ( container.append ( close ) ) );
-	setTimeout ( function () { $( modal ).addClass ("active") }, 200 );
+		$(".cloudflare_modal").removeClass ("active")
+		setTimeout ( function () { $( modal ).remove () }, 1000 )
+	})
+	$("body").append ( modal.append ( container.append ( close ) ) )
+	setTimeout ( function () { $( modal ).addClass ("active") }, 200 )
 }
 
 function createInput ( type = "text", name, placeholder = "", value = "" ) {

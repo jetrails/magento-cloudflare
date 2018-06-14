@@ -50,8 +50,12 @@ gulp.task ( "build-styles", [ "init" ], ( callback ) => {
 gulp.task ( "build-scripts", [ "init" ], ( callback ) => {
 	gulp.src ( path.join ( SOURCE_PATH, MAGENTO_SKIN_JS, MODULE_SHORT_NAME, "index.js" ) )
 	    .pipe ( webpackStream ( webpackConfig ), webpack )
+		.pipe ( minifyJs ({ ext: { min: ".min.js" } }) )
 	    .pipe ( gulp.dest ( path.join ( BUILD_PATH, MAGENTO_SKIN_JS, MODULE_SHORT_NAME ) ) )
-		.on ( "end", callback )
+		.on ( "end", () => {
+			// fs.unlinkSync ( path.join ( BUILD_PATH, MAGENTO_SKIN_JS, MODULE_SHORT_NAME, "bundle.js" ) )
+			callback ()
+		})
 })
 
 gulp.task ( "deploy-source", [ "build-styles", "build-scripts" ], function ( callback ) {
@@ -83,7 +87,7 @@ gulp.task ( "package", () => {
 		"output": "package.xml",
 		"version": EXTENSION_VERSION
 	}
-    gulp.src ([ path.join ( SOURCE_PATH, "**", "*" ) ])
+    gulp.src ([ path.join ( BUILD_PATH, "**", "*" ) ])
 		.pipe ( magepack ( options ) )
 		.pipe ( tar (`${EXTENSION_NAMESPACE}-${EXTENSION_VERSION}`) )
         .pipe ( gzip ({ extension: "tgz" }) )

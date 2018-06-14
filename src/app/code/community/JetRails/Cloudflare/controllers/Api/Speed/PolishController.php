@@ -1,19 +1,15 @@
 <?php
 
-	class JetRails_Cloudflare_Api_Speed_PolishController extends JetRails_Cloudflare_Controller_Action {
-
-		protected function _isAllowed () {
-			$session = Mage::getSingleton ("admin/session");
-			return $session->isAllowed ("jetrails/cloudflare/speed/polish");
-		}
+	class JetRails_Cloudflare_Api_Speed_PolishController
+	extends JetRails_Cloudflare_Controller_Action {
 
 		public function indexAction () {
 			$api = Mage::getModel ("cloudflare/api_speed_polish");
 			$responseValue = $api->getValue ();
 			$responseWebP = $api->getWebP ();
 			return $this->_sendResponse ( array (
-				"state" => $this->_format ( $responseValue ),
-				"webp" => $this->_format ( $responseWebP )
+				"state" => $responseValue,
+				"webp" => $responseWebP
 			));
 		}
 
@@ -23,7 +19,7 @@
 				$this->_request->getParam ("value"),
 				$this->_request->getParam ("webp") === "true"
 			);
-			return $this->_formatAndSend ( $response );
+			return $this->_sendResponse ( $response );
 		}
 
 	}

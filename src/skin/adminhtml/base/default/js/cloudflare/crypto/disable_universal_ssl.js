@@ -3,8 +3,8 @@ const notification = require ("cloudflare/core/notification")
 const modal = require ("cloudflare/core/modal")
 const common = require ("cloudflare/common")
 
-$( document ).on ( "cloudflare.crypto.disable_universal_ssl.initialize", function ( event, data ) {
-	if ( !data.response.payload.enabled ) {
+$(document).on ( "cloudflare.crypto.disable_universal_ssl.initialize", function ( event, data ) {
+	if ( !data.response.result.enabled ) {
 		$(data.section).find ("[name='button']").val ("Enable Universal SSL")
 		$(data.section).find ("[name='button']").data ( "action", "enable" )
 	}
@@ -12,11 +12,11 @@ $( document ).on ( "cloudflare.crypto.disable_universal_ssl.initialize", functio
 		$(data.section).find ("[name='button']").val ("Disable Universal SSL")
 		$(data.section).find ("[name='button']").data ( "action", "disable" )
 	}
-});
+})
 
 function triggerChange ( data ) {
 	let value = $(data.trigger).data ("action") == "enable"
-	$( data.section ).addClass ("loading")
+	$(data.section).addClass ("loading")
 	$.ajax ({
 		url: data.form.endpoint,
 		type: "POST",
@@ -26,10 +26,10 @@ function triggerChange ( data ) {
 			common.loadSections (".crypto.ssl")
 			common.loadSections (".crypto.disable_universal_ssl")
 		}
-	});
+	})
 }
 
-$( document ).on ( "cloudflare.crypto.disable_universal_ssl.change", function ( event, data ) {
+$(document).on ( "cloudflare.crypto.disable_universal_ssl.change", function ( event, data ) {
 	if ( $(data.trigger).data ("action") == "disable" ) {
 		let agreement = new modal.Modal ( 800 )
 		agreement.addTitle ("Acknowledgement")
@@ -52,4 +52,4 @@ $( document ).on ( "cloudflare.crypto.disable_universal_ssl.change", function ( 
 	else {
 		triggerChange ( data )
 	}
-});
+})

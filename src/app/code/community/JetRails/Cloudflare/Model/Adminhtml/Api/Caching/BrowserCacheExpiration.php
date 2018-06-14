@@ -1,24 +1,9 @@
 <?php
 
-	class JetRails_Cloudflare_Model_Adminhtml_Api_Caching_BrowserCacheExpiration extends Mage_Core_Model_Abstract {
+	class JetRails_Cloudflare_Model_Adminhtml_Api_Caching_BrowserCacheExpiration
+	extends JetRails_Cloudflare_Model_Adminhtml_Api_Generic_Setting {
 
-		public function getValue () {
-			$zoneId = Mage::getModel ("cloudflare/api_overview_configuration")->getZoneId ();
-			$endpoint = sprintf ( "zones/%s/settings/browser_cache_ttl", $zoneId );
-			$api = Mage::getModel ("cloudflare/api_request");
-			$api->setType ( $api::REQUEST_GET );
-			return $api->resolve ( $endpoint );
-		}
-
-		public function setValue ( $value ) {
-			$zoneId = Mage::getModel ("cloudflare/api_overview_configuration")->getZoneId ();
-			$endpoint = sprintf ( "zones/%s/settings/browser_cache_ttl", $zoneId );
-			$api = Mage::getModel ("cloudflare/api_request");
-			$api->setType ( $api::REQUEST_PATCH );
-			$api->setData ( array (
-				"value" => intval ( $value )
-			));
-			return $api->resolve ( $endpoint );
-		}
+		protected $_endpointPostfix = "browser_cache_ttl";
+		protected $_settingType = self::TYPE_INTEGER;
 
 	}

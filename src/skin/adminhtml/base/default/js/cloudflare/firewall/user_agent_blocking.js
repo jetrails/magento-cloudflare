@@ -1,5 +1,5 @@
 const $ = require ("jquery")
-const common = require ("cloudflare/common");
+const common = require ("cloudflare/common")
 const notification = require ("cloudflare/core/notification")
 const modal = require ("cloudflare/core/modal")
 
@@ -70,7 +70,7 @@ function populateResult ( section ) {
 		}
 	}
 	if ( results.length == 0 ) {
-		$(table).append ( $("<tr>").append ( $("<td colspan='2' >").text ("You currently have no User Agent Blocking rules. Please click on 'Create Blocking Rule' to get started.") ) );
+		$(table).append ( $("<tr>").append ( $("<td colspan='2' >").text ("You currently have no User Agent Blocking rules. Please click on 'Create Blocking Rule' to get started.") ) )
 	}
 }
 
@@ -167,13 +167,11 @@ $(document).on ( "cloudflare.firewall.user_agent_blocking.create", function ( ev
 				"value": agent
 			},
 			success: function ( response ) {
-				if ( !response.success ) {
-					notification.addMessages ( "response_error", response.errors )
-				}
-				else {
+				if ( response.success ) {
 					$(prompt.components.modal).removeClass ("loading")
 					prompt.close ()
 				}
+				notification.showMessages ( response )
 				common.loadSections (".firewall.user_agent_blocking")
 			}
 		})
@@ -203,13 +201,11 @@ $(document).on ( "cloudflare.firewall.user_agent_blocking.edit", function ( even
 				"value": $(modal).find ("[name='agent']").val ()
 			},
 			success: ( response ) => {
-				if ( !response.success ) {
-					notification.addMessages ( "response_error", response.errors )
-				}
-				else {
+				if ( response.success ) {
 					$(modal).removeClass ("loading")
 					prompt.close ()
 				}
+				notification.showMessages ( response )
 				common.loadSections (".firewall.user_agent_blocking")
 			}
 		})
@@ -229,9 +225,7 @@ $(document).on ( "cloudflare.firewall.user_agent_blocking.delete", function ( ev
 			type: "POST",
 			data: { "form_key": data.form.key, "id": entry.id },
 			success: function ( response ) {
-				if ( !response.success ) {
-					notification.addMessages ( "response_error", response.errors )
-				}
+				notification.showMessages ( response )
 				common.loadSections (".firewall.user_agent_blocking")
 			}
 		})
@@ -255,9 +249,7 @@ $(document).on ( "cloudflare.firewall.user_agent_blocking.mode", function ( even
 			"description": entry.description
 		},
 		success: function ( response ) {
-			if ( !response.success ) {
-				notification.addMessages ( "response_error", response.errors )
-			}
+			notification.showMessages ( response )
 			common.loadSections (".firewall.user_agent_blocking")
 		}
 	})
@@ -267,7 +259,6 @@ $(document).on ( "cloudflare.firewall.user_agent_blocking.toggle", function ( ev
 	let target = $(data.trigger)
 	let entry = $(target).data ("entry")
 	$(data.section).addClass ("loading")
-	console.log ($(target).prop ("checked"))
 	$.ajax ({
 		url: data.form.endpoint,
 		type: "POST",
@@ -280,9 +271,7 @@ $(document).on ( "cloudflare.firewall.user_agent_blocking.toggle", function ( ev
 			"description": entry.description
 		},
 		success: function ( response ) {
-			if ( !response.success ) {
-				notification.addMessages ( "response_error", response.errors )
-			}
+			notification.showMessages ( response )
 			common.loadSections (".firewall.user_agent_blocking")
 		}
 	})

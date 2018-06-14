@@ -208,8 +208,8 @@ function createRow ( previousExists = false, values = [] ) {
 	return row
 }
 
-$( document ).on ( "cloudflare.page_rules.page_rules.initialize", function ( event, data ) {
-	let rulesUsed = data.response.payload.length
+$(document).on ( "cloudflare.page_rules.page_rules.initialize", function ( event, data ) {
+	let rulesUsed = data.response.result.length
 	let rulesAllowed = data.response.entitlements.allocation.value
 	if ( rulesUsed < rulesAllowed ) {
 		$(data.section).find ("#rules_left").text ( rulesAllowed - rulesUsed )
@@ -224,14 +224,14 @@ $( document ).on ( "cloudflare.page_rules.page_rules.initialize", function ( eve
 			.removeClass ("trigger")
 			.val ("Buy More Page Rules")
 			.on ( "click", () => {
-				window.open ( "https://support.cloudflare.com/hc/en-us/articles/225894428-How-To-Buy-Additional-Page-Rules", "_blank" );
+				window.open ( "https://support.cloudflare.com/hc/en-us/articles/225894428-How-To-Buy-Additional-Page-Rules", "_blank" )
 			})
 	}
 	var table = $(data.section).find ("table.rules")
 	$(table).find ("tbody > tr").remove ()
-	$(data.section).data ( "rules", data.response.payload )
-	if ( data.response.payload.length > 0 ) {
-		data.response.payload
+	$(data.section).data ( "rules", data.response.result )
+	if ( data.response.result.length > 0 ) {
+		data.response.result
 		.sort ( ( a, b ) => {
 			return b.priority - a.priority
 		})
@@ -295,12 +295,12 @@ $( document ).on ( "cloudflare.page_rules.page_rules.initialize", function ( eve
 			helper: ( e, ui ) => {
 			    ui.children ().each ( () => {
 			        $(this).width ( $(this).width () )
-			    });
-			    return ui;
+			    })
+			    return ui
 			},
 			stop: ( e, ui ) => {
 				ui.item.parent ().find ("tr").each ( ( i, e ) => {
-					$( e ).find ("td").eq ( 1 ).text ( i + 1 );
+					$( e ).find ("td").eq ( 1 ).text ( i + 1 )
 				})
 				var priorities = $(table)
 					.find ("tbody > tr")
@@ -320,9 +320,9 @@ $( document ).on ( "cloudflare.page_rules.page_rules.initialize", function ( eve
 						"priorities": priorities
 					},
 					success: function ( response ) {
-						notification.addMessages ( response.state, response.messages );
+						notification.showMessages ( response )
 					}
-				});
+				})
 		    }
 		})
 	}
@@ -335,7 +335,7 @@ $( document ).on ( "cloudflare.page_rules.page_rules.initialize", function ( eve
 	}
 })
 
-$( document ).on ( "cloudflare.page_rules.page_rules.toggle", function ( event, data ) {
+$(document).on ( "cloudflare.page_rules.page_rules.toggle", function ( event, data ) {
 	var id = data.trigger.data ("id")
 	var state = $(data.trigger).is (":checked")
 	$(data.section).addClass ("loading")
@@ -345,12 +345,12 @@ $( document ).on ( "cloudflare.page_rules.page_rules.toggle", function ( event, 
 		data: { "form_key": data.form.key, "state": state, "id": id },
 		success: function ( response ) {
 			$(data.section).removeClass ("loading")
-			notification.addMessages ( response.state, response.messages );
+			notification.showMessages ( response )
 		}
-	});
-});
+	})
+})
 
-$( document ).on ( "cloudflare.page_rules.page_rules.delete", function ( event, data ) {
+$(document).on ( "cloudflare.page_rules.page_rules.delete", function ( event, data ) {
 	var confirm = new modal.Modal ()
 	confirm.addTitle ("Confirm")
 	confirm.addElement ( $("<p>").text ("Are you sure you want to delete this page rule?") )
@@ -365,13 +365,13 @@ $( document ).on ( "cloudflare.page_rules.page_rules.delete", function ( event, 
 			success: function ( response ) {
 				common.loadSections (".page_rules")
 			}
-		});
+		})
 	}})
 	confirm.addButton ({ label: "Cancel", class: "gray", callback: confirm.close })
 	confirm.show ()
-});
+})
 
-$( document ).on ( "cloudflare.page_rules.page_rules.edit", function ( event, data ) {
+$(document).on ( "cloudflare.page_rules.page_rules.edit", function ( event, data ) {
 	var response = $(data.trigger).data ("data")
 	var that = this
 	var confirm = new modal.Modal ( 800 )
@@ -397,7 +397,7 @@ $( document ).on ( "cloudflare.page_rules.page_rules.edit", function ( event, da
 		[
 			collections,
 			$(`<a class="dashed" >`).text ("+ Add a Setting").click ( () => {
-				var previousExists = $(collections).find (".collection").length > 0;
+				var previousExists = $(collections).find (".collection").length > 0
 				$(collections).append ( createRow ( previousExists ) )
 			})
 		],
@@ -416,7 +416,7 @@ $( document ).on ( "cloudflare.page_rules.page_rules.edit", function ( event, da
 					status_code: $(e).find ("[data-dynamic-wrapper='" + id + "']").find ("[name='status_code']").eq ( 0 ).val ()
 				}
 				return { id, value }
-			}));
+			}))
 		$(components.modal).addClass ("loading")
 		$.ajax ({
 			url: data.form.endpoint,
@@ -429,7 +429,7 @@ $( document ).on ( "cloudflare.page_rules.page_rules.edit", function ( event, da
 				"id": response.id
 			},
 			success: function ( response ) {
-				if ( response.state == "response_success" ) {
+				if ( response.success ) {
 					confirm.close ()
 					$(components.modal).removeClass ("loading")
 					$(data.section).addClass ("loading")
@@ -437,18 +437,18 @@ $( document ).on ( "cloudflare.page_rules.page_rules.edit", function ( event, da
 				}
 				else {
 					$(components.modal).removeClass ("loading")
-					notification.addMessages ( response.state, response.messages );
+					notification.showMessages ( response )
 				}
 			}
-		});
+		})
 	}
 	confirm.addButton ({ label: "Cancel", class: "gray", callback: confirm.close })
 	confirm.addButton ({ label: "Save as Draft", class: "gray", callback: ( components ) => { saveCallback ( components, false ) } })
 	confirm.addButton ({ label: "Save and Deploy", callback: ( components ) => { saveCallback ( components, true ) } })
 	confirm.show ()
-});
+})
 
-$( document ).on ( "cloudflare.page_rules.page_rules.create", function ( event, data ) {
+$(document).on ( "cloudflare.page_rules.page_rules.create", function ( event, data ) {
 	var section = data.section
 	var that = this
 	var confirm = new modal.Modal ( 800 )
@@ -467,7 +467,7 @@ $( document ).on ( "cloudflare.page_rules.page_rules.create", function ( event, 
 		[
 			collections.append ( createRow () ),
 			$(`<a class="dashed" >`).text ("+ Add a Setting").click ( () => {
-				var previousExists = $(collections).find (".collection").length > 0;
+				var previousExists = $(collections).find (".collection").length > 0
 				$(collections).append ( createRow ( previousExists ) )
 			})
 		],
@@ -518,7 +518,7 @@ $( document ).on ( "cloudflare.page_rules.page_rules.create", function ( event, 
 					status_code: $(components.container).find ("[data-dynamic-wrapper='" + id + "']").find ("[name='status_code']").eq ( 0 ).val ()
 				}
 				return { id, value }
-			}));
+			}))
 		$(components.modal).addClass ("loading")
 		let getPriority = () => {
 			var priority = 1
@@ -544,7 +544,7 @@ $( document ).on ( "cloudflare.page_rules.page_rules.create", function ( event, 
 				"priority": getPriority ()
 			},
 			success: function ( response ) {
-				if ( response.state == "response_success" ) {
+				if ( response.success ) {
 					confirm.close ()
 					$(components.modal).removeClass ("loading")
 					$(data.section).addClass ("loading")
@@ -552,22 +552,22 @@ $( document ).on ( "cloudflare.page_rules.page_rules.create", function ( event, 
 				}
 				else {
 					$(components.modal).removeClass ("loading")
-					notification.addMessages ( response.state, response.messages );
+					notification.showMessages ( response )
 				}
 			}
-		});
+		})
 	}
 	confirm.addButton ({ label: "Cancel", class: "gray", callback: confirm.close })
 	confirm.addButton ({ label: "Save as Draft", class: "gray", callback: ( components ) => { saveCallback ( components, false ) } })
 	confirm.addButton ({ label: "Save and Deploy", callback: ( components ) => { saveCallback ( components, true ) } })
 	confirm.show ()
-});
+})
 
 $(document).on ( "change", ".cloudflare_modal .collection [name='setting']", function () {
 	if ( $(this).val () == "forwarding_url" ) {
-		$(".cloudflare_modal a.dashed").hide ();
+		$(".cloudflare_modal a.dashed").hide ()
 	}
 	else {
-		$(".cloudflare_modal a.dashed").show ();
+		$(".cloudflare_modal a.dashed").show ()
 	}
-});
+})

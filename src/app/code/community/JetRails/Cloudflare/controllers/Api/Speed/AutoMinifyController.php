@@ -1,16 +1,12 @@
 <?php
 
-	class JetRails_Cloudflare_Api_Speed_AutoMinifyController extends JetRails_Cloudflare_Controller_Action {
-
-		protected function _isAllowed () {
-			$session = Mage::getSingleton ("admin/session");
-			return $session->isAllowed ("jetrails/cloudflare/speed/auto_minify");
-		}
+	class JetRails_Cloudflare_Api_Speed_AutoMinifyController
+	extends JetRails_Cloudflare_Controller_Action {
 
 		public function indexAction () {
 			$api = Mage::getModel ("cloudflare/api_speed_autoMinify");
 			$response = $api->getValue ();
-			return $this->_formatAndSend ( $response );
+			return $this->_sendResponse ( $response );
 		}
 
 		public function changeAction () {
@@ -20,7 +16,7 @@
 				$this->_request->getParam ("css"),
 				$this->_request->getParam ("html")
 			);
-			return $this->_formatAndSend ( $response );
+			return $this->_sendResponse ( $response );
 		}
 
 	}

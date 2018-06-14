@@ -1,6 +1,6 @@
 const $ = require ("jquery")
-const cloudflare = require ("cloudflare/common");
-const common = require ("cloudflare/common");
+const cloudflare = require ("cloudflare/common")
+const common = require ("cloudflare/common")
 const notification = require ("cloudflare/core/notification")
 const modal = require ("cloudflare/core/modal")
 const global = require ("cloudflare/global")
@@ -23,14 +23,14 @@ function createTtlSelect ( selected = "1" ) {
 }
 
 function secondsToAppropriate ( seconds ) {
-	if ( seconds == 1 ) return "Automatic";
-	if ( seconds < 60 ) return seconds + " seconds";
-	if ( seconds == 60 ) return "1 minute";
-	if ( seconds < 3600 ) return seconds / 60 + " minutes";
-	if ( seconds == 3600 ) return "1 hour";
-	if ( seconds < 216000 ) return seconds / 3600 + " hours";
-	if ( seconds = 216000 ) return "1 day";
-	return seconds / 216000 + " days";
+	if ( seconds == 1 ) return "Automatic"
+	if ( seconds < 60 ) return seconds + " seconds"
+	if ( seconds == 60 ) return "1 minute"
+	if ( seconds < 3600 ) return seconds / 60 + " minutes"
+	if ( seconds == 3600 ) return "1 hour"
+	if ( seconds < 216000 ) return seconds / 3600 + " hours"
+	if ( seconds = 216000 ) return "1 day"
+	return seconds / 216000 + " days"
 }
 
 function filterResults ( term, results ) {
@@ -55,12 +55,12 @@ function sortResults ( section, results ) {
 			if ( isAsc ) {
 				if ( aValue < bValue ) return -1
 				if ( aValue > bValue ) return 1
-				return 0;
+				return 0
 			}
 			else {
 				if ( aValue > bValue ) return -1
 				if ( aValue < bValue ) return 1
-				return 0;
+				return 0
 			}
 		})
 	}
@@ -128,7 +128,7 @@ function populateResult ( section ) {
 	else {
 		$(section).find (".next").removeClass ("disabled")
 	}
-	const imageBase = $(table).parent ().data ("image-base");
+	const imageBase = $(table).parent ().data ("image-base")
 	for ( let i = 0; i < results.length; i++ ) {
 		if ( i >= ( page - 1 ) * pageSize && i < page * pageSize ) {
 			let entry = results [ i ]
@@ -187,23 +187,23 @@ function populateResult ( section ) {
 					.html ("&#xF01A;")
 				)
 			)
-			row.appendTo ( table );
+			row.appendTo ( table )
 		}
 	}
 	if ( results.length == 0 ) {
-		$(table).append ( $("<tr>").append ( $("<td colspan='6' >").text ("No DNS records found.") ) );
+		$(table).append ( $("<tr>").append ( $("<td colspan='6' >").text ("No DNS records found.") ) )
 	}
 }
 
-$( document ).on ( "cloudflare.dns.dns_records.initialize", function ( event, data ) {
-	$(data.section).data ( "result", data.response.payload )
+$(document).on ( "cloudflare.dns.dns_records.initialize", function ( event, data ) {
+	$(data.section).data ( "result", data.response.result )
 	populateResult ( data.section )
-});
+})
 
-$( document ).on ( "cloudflare.dns.dns_records.delete", function ( event, data ) {
-	var id = $( data.trigger ).data ("id")
-	var type = $( data.trigger ).data ("type").toUpperCase ()
-	var name = $( data.trigger ).data ("name")
+$(document).on ( "cloudflare.dns.dns_records.delete", function ( event, data ) {
+	var id = $(data.trigger).data ("id")
+	var type = $(data.trigger).data ("type").toUpperCase ()
+	var name = $(data.trigger).data ("name")
 	var confirm = new modal.Modal ()
 	confirm.addTitle ("Confirm")
 	confirm.addElement ( $("<p>").text (`Are you sure you want to delete the ${type} Record?`) )
@@ -218,45 +218,42 @@ $( document ).on ( "cloudflare.dns.dns_records.delete", function ( event, data )
 			success: function ( response ) {
 				common.loadSections (".dns_records")
 			}
-		});
+		})
 	}})
 	confirm.addButton ({ label: "Cancel", class: "gray", callback: confirm.close })
 	confirm.show ()
-});
+})
 
-$( document ).on ( "cloudflare.dns.dns_records.create", function ( event, data ) {
+$(document).on ( "cloudflare.dns.dns_records.create", function ( event, data ) {
 	$(data.section).addClass ("loading")
 	$.ajax ({
 		url: data.form.endpoint,
 		type: "POST",
 		data: {
 			"form_key": data.form.key,
-			"type": $( data.section ).find ("select.type").val (),
-			"name": $( data.section ).find ("div.active > input[name='name']").val (),
-			"content": $( data.section ).find ("div.active > input[name='content']").val (),
-			"ttl": $( data.section ).find ("select.ttl").val (),
-			"proxied": $( data.section ).find (".proxied.add").data ("value"),
-			"priority": $( data.section ).find (".priority.add").val ()
+			"type": $(data.section).find ("select.type").val (),
+			"name": $(data.section).find ("div.active > input[name='name']").val (),
+			"content": $(data.section).find ("div.active > input[name='content']").val (),
+			"ttl": $(data.section).find ("select.ttl").val (),
+			"proxied": $(data.section).find (".proxied.add").data ("value"),
+			"priority": $(data.section).find (".priority.add").val ()
 		},
 		success: function ( response ) {
 			$(data.section).removeClass ("loading")
-			if ( response.state == "response_success" ) {
-				$( data.section ).find ("[name='name'],[name='content']").val ("")
+			notification.showMessages ( response )
+			if ( response.success ) {
+				$(data.section).find ("[name='name'],[name='content']").val ("")
 				$(data.section).addClass ("loading")
 				cloudflare.loadSections (".dns.dns_records")
 			}
-			else {
-				cloudflare.setMessages ( data.section, response.state, response.messages );
-				notification.addMessages ( response.state, response.messages );
-			}
 		}
-	});
-});
+	})
+})
 
-$( document ).on ( "cloudflare.dns.dns_records.search", function ( event, data ) {
+$(document).on ( "cloudflare.dns.dns_records.search", function ( event, data ) {
 	$(data.section).data ( "page", 1 )
 	populateResult ( data.section )
-});
+})
 
 $(document).on ( "focus", ".show-form-mx", function () {
 	var confirm = new modal.Modal ()
@@ -269,7 +266,7 @@ $(document).on ( "focus", ".show-form-mx", function () {
 	confirm.addRow ( "Server", $("<input type='text' placeholder='Mail server' name='server' >").val ( oldValue ) )
 	confirm.addRow ( "Priority", $("<input type='text' placeholder='1' name='priority' >").val ( oldPriority ) )
 	confirm.addButton ({ label: "Cancel", class: "gray", callback: confirm.close })
-	var that = this;
+	var that = this
 	confirm.addButton ({ label: "Save", callback: ( components ) => {
 		var priority = $( components.container ).find ("input[name='priority']").val ()
 		let newValue = $( components.container ).find ("input[name='server']").val ()
@@ -358,7 +355,7 @@ $(document).on ( "focus", ".show-form-loc", function () {
 })
 
 $(document).on ( "focus", ".show-form-srv-name", function () {
-	var that = this;
+	var that = this
 	var confirm = new modal.Modal ()
 	var service = modal.createInput ( "text", "service", "_sip" )
 	var protocol = $("<select name='protocol' ><option value='_udp' >UDP</option><option value='_tcp' >TCP</option><option value='_tls' selected >TLS</option><select/>")
@@ -393,7 +390,7 @@ $(document).on ( "focus", ".show-form-srv-name", function () {
 })
 
 $(document).on ( "focus", ".show-form-srv", function () {
-	var that = this;
+	var that = this
 	var confirm = new modal.Modal ()
 	var priority = modal.createInput ( "text", "priority", "1", "1" )
 	var weight = modal.createInput ( "text", "weight", "10", "1" )
@@ -493,26 +490,26 @@ $(document).on ( "focus", ".show-form-caa", function () {
 	confirm.show ()
 })
 
-$( document ).on ( "cloudflare.dns.dns_records.page", function ( event, data ) {
+$(document).on ( "cloudflare.dns.dns_records.page", function ( event, data ) {
 	$(data.section).data ( "page", $(data.trigger).data ("page") )
 	populateResult ( data.section )
 })
 
-$( document ).on ( "cloudflare.dns.dns_records.next_page", function ( event, data ) {
+$(document).on ( "cloudflare.dns.dns_records.next_page", function ( event, data ) {
 	if ( $(data.section).data ("page") + 1 <= Math.ceil ( $(data.section).data ("item-count") / $(data.section).data ("page-size") ) ) {
 		$(data.section).data ( "page", $(data.section).data ("page") + 1 )
 		populateResult ( data.section )
 	}
 })
 
-$( document ).on ( "cloudflare.dns.dns_records.previous_page", function ( event, data ) {
+$(document).on ( "cloudflare.dns.dns_records.previous_page", function ( event, data ) {
 	if ( $(data.section).data ("page") - 1 > 0 ) {
 		$(data.section).data ( "page", $(data.section).data ("page") - 1 )
 		populateResult ( data.section )
 	}
 })
 
-$( document ).on ( "cloudflare.dns.dns_records.sort", function ( event, data ) {
+$(document).on ( "cloudflare.dns.dns_records.sort", function ( event, data ) {
 	$(data.section).data ( "page", 1 )
 	$(data.section).data ( "sort", $(data.trigger).data ("sort") )
 	if ( $(data.trigger).hasClass ("sort-asc") ) {
@@ -533,7 +530,7 @@ $( document ).on ( "cloudflare.dns.dns_records.sort", function ( event, data ) {
 	populateResult ( data.section )
 })
 
-$( document ).on ( "cloudflare.dns.dns_records.export", function ( event, data ) {
+$(document).on ( "cloudflare.dns.dns_records.export", function ( event, data ) {
 	$(data.section).addClass ("loading")
 	$.ajax ({
 		url: data.form.endpoint,
@@ -551,10 +548,10 @@ $( document ).on ( "cloudflare.dns.dns_records.export", function ( event, data )
 	        window.URL.revokeObjectURL ( url )
 			$(data.section).removeClass ("loading")
 		}
-	});
+	})
 })
 
-$( document ).on ( "cloudflare.dns.dns_records.upload", function ( event, data ) {
+$(document).on ( "cloudflare.dns.dns_records.upload", function ( event, data ) {
 	let prompt = new modal.Modal ()
 	let form = $(`<form method="POST" enctype="multipart/form-data" >`)
 		.css ( "display", "none" )
@@ -614,7 +611,7 @@ $( document ).on ( "cloudflare.dns.dns_records.upload", function ( event, data )
 						prompt.close ()
 					}
 				}
-			});
+			})
 		})
 	prompt.addTitle ("Upload DNS File")
 	prompt.addElement ( $("<p>").text ("If you have a DNS file that is in the BIND format, you can upload it here and we will do our best to parse it so you don't have to retype it.") )

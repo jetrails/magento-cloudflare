@@ -8,6 +8,7 @@
 			</action>
 			<action method="addItem" >
 				<type>skin_js</type>
+				<!-- <name>js/cloudflare/bundle.min.js</name> -->
 				<name>js/cloudflare/bundle.js</name>
 			</action>
 	    </reference>
