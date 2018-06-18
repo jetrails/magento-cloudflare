@@ -1,9 +1,10 @@
 <?php
 
-	class JetRails_Cloudflare_Model_Adminhtml_Api_Firewall_UserAgentBlocking extends Mage_Core_Model_Abstract {
+	class JetRails_Cloudflare_Model_Adminhtml_Api_Firewall_UserAgentBlocking
+	extends Mage_Core_Model_Abstract {
 
 		public function load ( $page = 1, $previous = [] ) {
-			$zoneId = Mage::getModel ("cloudflare/api_overview_configuration")->getZoneId ();
+			$zoneId = Mage::getSingleton ("cloudflare/api_overview_configuration")->getZoneId ();
 			$endpoint = sprintf ( "zones/%s/firewall/ua_rules", $zoneId );
 			$api = Mage::getModel ("cloudflare/api_request");
 			$api->setType ( $api::REQUEST_GET );
@@ -23,7 +24,7 @@
 		}
 
 		public function delete ( $id ) {
-			$zoneId = Mage::getModel ("cloudflare/api_overview_configuration")->getZoneId ();
+			$zoneId = Mage::getSingleton ("cloudflare/api_overview_configuration")->getZoneId ();
 			$endpoint = sprintf ( "zones/%s/firewall/ua_rules/%s", $zoneId, $id );
 			$api = Mage::getModel ("cloudflare/api_request");
 			$api->setType ( $api::REQUEST_DELETE );
@@ -31,7 +32,7 @@
 		}
 
 		public function update ( $id, $mode, $paused, $value, $description ) {
-			$zoneId = Mage::getModel ("cloudflare/api_overview_configuration")->getZoneId ();
+			$zoneId = Mage::getSingleton ("cloudflare/api_overview_configuration")->getZoneId ();
 			$endpoint = sprintf ( "zones/%s/firewall/ua_rules/%s", $zoneId, $id );
 			$api = Mage::getModel ("cloudflare/api_request");
 			$api->setType ( $api::REQUEST_PUT );
@@ -49,7 +50,7 @@
 		}
 
 		public function create ( $mode, $paused, $value, $description ) {
-			$zoneId = Mage::getModel ("cloudflare/api_overview_configuration")->getZoneId ();
+			$zoneId = Mage::getSingleton ("cloudflare/api_overview_configuration")->getZoneId ();
 			$endpoint = sprintf ( "zones/%s/firewall/ua_rules", $zoneId );
 			$api = Mage::getModel ("cloudflare/api_request");
 			$api->setType ( $api::REQUEST_POST );
@@ -66,7 +67,7 @@
 		}
 
 		public function usage () {
-			$zoneId = Mage::getModel ("cloudflare/api_overview_configuration")->getZoneId ();
+			$zoneId = Mage::getSingleton ("cloudflare/api_overview_configuration")->getZoneId ();
 			$endpoint = sprintf ( "zones/%s/firewall/ua_rules/usage", $zoneId );
 			$api = Mage::getModel ("cloudflare/api_request");
 			$api->setType ( $api::REQUEST_GET );

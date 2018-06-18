@@ -190,3 +190,12 @@ $(document).on ( "click", ".proxied", function () {
 	$(this).attr ( "src", source )
 	if ( $(this).hasClass ("change") ) $(this).trigger ("change")
 })
+
+
+$(document).on ( "click", ".cloudflare-dashboard ul.tabs li", function () {
+	let target = $(this).data ("tab")
+	$(".cloudflare-dashboard .content").removeClass ("selected")
+	$(".cloudflare-dashboard .tabs li").removeClass ("selected")
+	$(`.cloudflare-dashboard .content[data-target='${target}']`).addClass ("selected")
+	$(this).addClass ("selected")
+})

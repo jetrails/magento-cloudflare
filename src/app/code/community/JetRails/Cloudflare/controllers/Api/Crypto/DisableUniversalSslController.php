@@ -9,10 +9,11 @@
 			return $this->_sendResponse ( $response );
 		}
 
-		public function changeAction () {
+		public function toggleAction () {
 			$api = Mage::getModel ("cloudflare/api_crypto_disableUniversalSsl");
-			$response = $api->change (
-				$this->_request->getParam ("value") == "true"
+			$response = $api->setValue (
+				$this->_request->getParam ("value")
+				// $this->_request->getParam ("value") == "true"
 			);
 			return $this->_sendResponse ( $response );
 		}

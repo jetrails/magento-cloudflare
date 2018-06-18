@@ -1,6 +1,7 @@
 <?php
 
-	class JetRails_Cloudflare_Model_Adminhtml_Api_Overview_Configuration extends Mage_Core_Model_Abstract {
+	class JetRails_Cloudflare_Model_Adminhtml_Api_Overview_Configuration
+	extends Mage_Core_Model_Abstract {
 
 		public function validateAuth ( $email = null, $token = null ) {
 			$api = Mage::getModel ("cloudflare/api_request");
@@ -13,6 +14,10 @@
 		}
 
 		public function getZoneId () {
+			$session = Mage::getSingleton ("core/session");
+			if ( $session->getZoneIdCached () ) {
+				return $session->getZoneIdCached ();
+			}
 			$data = Mage::helper ("cloudflare/data");
 			$domain = $data->getDomainName ();
 			$api = Mage::getModel ("cloudflare/api_request");
@@ -20,11 +25,10 @@
 			$api->setQuery ( "name", $domain );
 			$response = $api->resolve ("zones");
  			if ( $response->success && count ( $response->result ) > 0 ) {
+				// $session->setZoneIdCached ( $response->result [ 0 ]->id );
 				return $response->result [ 0 ]->id;
 			}
 			return null;
 		}
-
-
 
 	}

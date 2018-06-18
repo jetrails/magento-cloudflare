@@ -1,9 +1,10 @@
 <?php
 
-	class JetRails_Cloudflare_Model_Adminhtml_Api_Dns_DnsRecords extends Mage_Core_Model_Abstract {
+	class JetRails_Cloudflare_Model_Adminhtml_Api_Dns_DnsRecords
+	extends Mage_Core_Model_Abstract {
 
 		public function listRecords ( $page = 1, $previous = [] ) {
-			$zoneId = Mage::getModel ("cloudflare/api_overview_configuration")->getZoneId ();
+			$zoneId = Mage::getSingleton ("cloudflare/api_overview_configuration")->getZoneId ();
 			$endpoint = sprintf ( "zones/%s/dns_records", $zoneId );
 			$api = Mage::getModel ("cloudflare/api_request");
 			$api->setType ( $api::REQUEST_GET );
@@ -22,7 +23,7 @@
 		}
 
 		public function deleteRecord ( $id ) {
-			$zoneId = Mage::getModel ("cloudflare/api_overview_configuration")->getZoneId ();
+			$zoneId = Mage::getSingleton ("cloudflare/api_overview_configuration")->getZoneId ();
 			$endpoint = sprintf ( "zones/%s/dns_records/%s", $zoneId, $id );
 			$api = Mage::getModel ("cloudflare/api_request");
 			$api->setType ( $api::REQUEST_DELETE );
@@ -93,7 +94,7 @@
 				$data ["priority"] = 1;
 				$data ["proxied"] = false;
 			}
-			$zoneId = Mage::getModel ("cloudflare/api_overview_configuration")->getZoneId ();
+			$zoneId = Mage::getSingleton ("cloudflare/api_overview_configuration")->getZoneId ();
 			$endpoint = sprintf ( "zones/%s/dns_records/%s", $zoneId, $id );
 			$api = Mage::getModel ("cloudflare/api_request");
 			$api->setType ( $api::REQUEST_PUT );
@@ -164,7 +165,7 @@
 				$data ["priority"] = 1;
 				$data ["proxied"] = false;
 			}
-			$zoneId = Mage::getModel ("cloudflare/api_overview_configuration")->getZoneId ();
+			$zoneId = Mage::getSingleton ("cloudflare/api_overview_configuration")->getZoneId ();
 			$endpoint = sprintf ( "zones/%s/dns_records", $zoneId );
 			$api = Mage::getModel ("cloudflare/api_request");
 			$api->setType ( $api::REQUEST_POST );
@@ -173,7 +174,7 @@
 		}
 
 		public function export () {
-			$zoneId = Mage::getModel ("cloudflare/api_overview_configuration")->getZoneId ();
+			$zoneId = Mage::getSingleton ("cloudflare/api_overview_configuration")->getZoneId ();
 			$endpoint = sprintf ( "zones/%s/dns_records/export", $zoneId );
 			$api = Mage::getModel ("cloudflare/api_request");
 			$api->setType ( $api::REQUEST_GET );
@@ -181,7 +182,7 @@
 		}
 
 		public function import ( $file ) {
-			$zoneId = Mage::getModel ("cloudflare/api_overview_configuration")->getZoneId ();
+			$zoneId = Mage::getSingleton ("cloudflare/api_overview_configuration")->getZoneId ();
 			$endpoint = sprintf ( "zones/%s/dns_records/import", $zoneId );
 			$api = Mage::getModel ("cloudflare/api_request");
 			$api->setHeader ( "Content-Type", "multipart/form-data" );

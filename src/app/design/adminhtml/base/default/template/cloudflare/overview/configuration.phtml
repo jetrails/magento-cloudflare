@@ -1,10 +1,31 @@
+<?php
+
+	function getAuthEmail () {
+		$email = Mage::helper ("cloudflare/data")->getAuthEmail ();
+		return empty ( $email ) ? "" : $email;
+	}
+
+	function getValidationState () {
+		$data = Mage::helper ("cloudflare/data");
+		$api = Mage::getSingleton ("cloudflare/api_overview_configuration");
+		$email = $data->getAuthEmail ();
+		$token = $data->getAuthToken ();
+		return $api->validateAuth ( $email, $token ) ? "Valid" : "Invalid";
+	}
+
+	function getZoneId () {
+		$api = Mage::getSingleton ("cloudflare/api_overview_configuration");
+		$response = $api->getZoneId ();
+		return $response === false ? "N/A" : $response;
+	}
+
+?>
 <section
 	class="cloudflare overview configuration <?php echo $this->state ?>"
 	data-endpoint="<?php echo $this->getApiEndpoint () ?>"
 	data-form-key="<?php echo $this->getFormKey () ?>"
 	data-tab-name="overview"
-	data-section-name="configuration"
-	<?php echo empty ( $this->getZoneId () ) ? "style='margin-top:140px'" : "" ?> >
+	data-section-name="configuration" >
 	<div class="row" >
 		<div class="wrapper_left" >
 			<span class="section_title" >Configuration</span>
@@ -12,21 +33,21 @@
 			<div class="status_pair" >
 				<i class="material-icons" >vpn_key</i>
 				<label>Credential Validation:</label>
-				<p><?php echo $this->getValidationState () ?></p>
+				<p><?php echo getValidationState () ?></p>
 			</div>
 			<div class="status_pair" >
 				<i class="material-icons" >code</i>
 				<label>Zone ID:</label>
-				<p><?php echo empty ( $this->getZoneId () ) ? "Unrecognized Site" : $this->getZoneId () ?></p>
+				<p><?php echo empty ( getZoneId () ) ? "Unrecognized Site" : getZoneId () ?></p>
 			</div>
 		</div>
 		<div class="wrapper_right" >
 			<div>
-				<form method="POST" action="<?php echo $this->getSaveEndpoint () ?>" >
+				<form method="POST" action="<?php echo Mage::getUrl ("cloudflare/dashboard/save") ?>" >
 					<input name="form_key" type="hidden" value="<?php echo $this->getFormKey () ?>" />
-					<input name="email" type="email" placeholder="Email Address" value="<?php echo $this->getAuthEmail () ?>" />
+					<input name="email" type="email" placeholder="Email Address" value="<?php echo getAuthEmail () ?>" />
 					<input name="token" type="password" placeholder="API Token" autocomplete="nope" autofill="off" />
-					<input class="full" type="submit" value="Save Credentials" onmouseup="submitForm ('overview-configuration')" />
+					<input class="full" type="submit" value="Save Credentials" />
 				</form>
 			</div>
 		</div>

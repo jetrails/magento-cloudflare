@@ -2,10 +2,6 @@
 
 	class JetRails_Cloudflare_Helper_Data extends Mage_Core_Helper_Abstract {
 
-		/**
-		 * These constants are used to define the XPATH in the XML config file. These values define
-		 * the custom configuration that this plugin has.
-		 */
 		const XPATH_SCOPE = "default";
 		const XPATH_AUTH_EMAIL = "cloudflare/configuration/auth_email";
 		const XPATH_AUTH_TOKEN = "cloudflare/configuration/auth_token";

@@ -1,0 +1,119 @@
+.middle {
+	padding: 0;
+	div.cloudflare-dashboard {
+	    font-size: 14px;
+	    font-family: "Open Sans";
+		display: flex;
+		flex-wrap: wrap;
+		.dashboard-header {
+			width: 100%;
+			display: flex;
+			.logo {
+				float: none;
+				margin: 0;
+				height: initial;
+				background: #FFF;
+				width: 220px;
+				height: 85px;
+				padding: 20px;
+				box-sizing: border-box;
+				border-bottom: solid 1px #DEDEDE;
+			}
+			.domain {
+				background: #FFF;
+				height: 85px;
+				box-sizing: border-box;
+				border-bottom: solid 1px #DEDEDE;
+				border-right: solid 1px #DEDEDE;
+				border-left: solid 1px #DEDEDE;
+				color: #333;
+				font-size: 1.3em;
+				line-height: 45px;
+				padding: 20px;
+				box-sizing: border-box;
+			}
+			.attribution {
+				box-sizing: border-box;
+				background: #FFF;
+				height: 85px;
+				border-bottom: solid 1px #DEDEDE;
+				width: 100%;
+				img {
+					height: 20px;
+					float: right;
+					margin-right: 30px;
+					margin-top: 32.5px;
+				}
+				p {
+					line-height: 85px;
+					float: right;
+					margin: 0;
+					margin-right: 10px;
+					span {
+						color: red;
+					}
+				}
+			}
+		}
+		.dashboard-main {
+			width: 100%;
+			display: flex;
+			ul.tabs {
+				background: #FFFFFF;
+				width: 220px;
+				border: none;
+				li {
+				    height: 65px;
+					display: flex;
+					cursor: pointer;
+					background: #FFF;
+					transition: all 200ms;
+					span:nth-child( 1 ) {
+						font-family: "cloudflare-font", sans-serif;
+					    font-style: normal;
+					    font-weight: 500;
+						-webkit-font-smoothing: antialiased;
+						text-rendering: geometricPrecision;
+					    margin: 7.5px 20px;
+					    padding: 0;
+					    height: 50px;
+					    width: 50px;
+					    background: #2968A2;
+					    border-radius: 3px;
+					    line-height: 50px;
+						color: #FFF;
+						text-align: center;
+						font-size: 30px;
+					}
+					span:nth-child( 2 ) {
+						background: transparent;
+						line-height: 65px;
+						padding: 0;
+						margin: 0;
+					}
+					&.selected {
+						background: #E6E6E6;
+						span:nth-child( 1 ) {
+							background: #1F4E78;
+						}
+					}
+				}
+			}
+			.content-wrapper {
+				width: calc( 100% - 220px );
+				box-sizing: border-box;
+				padding: 0 30px 30px 30px;
+				flex-grow: 1;
+				display: flex;
+				background: #E6E6E6;
+				.content {
+					display: none;
+					width: 100%;
+					&.selected {
+						display: block;
+					}
+				}
+			}
+		}
+	}
+}

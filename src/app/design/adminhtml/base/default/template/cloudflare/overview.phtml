@@ -1,55 +1,16 @@
-<?php
-	$domainName = Mage::helper ("cloudflare/data")->getDomainName ();
-	$skinBase = Mage::getBaseUrl ( Mage_Core_Model_Store::URL_TYPE_SKIN );
-?>
-<script>
-	window.domain = "<?php echo $domainName ?>"
-	window.skin_base = "<?php echo $skinBase ?>"
-	window.form_key = "<?php echo $this->getFormKey () ?>"
-</script>
-<script>
-	setInterval ( () => {
-		var xhttp = new XMLHttpRequest ()
-		xhttp.open ( "POST", "<?php echo $this->getUrl ('cloudflare/session/index') ?>", true )
-		xhttp.setRequestHeader ( "Content-type", "application/x-www-form-urlencoded" )
-		xhttp.send ("form_key=<?php echo $this->getFormKey () ?>")
-	}, 60000 )
-</script>
-
 <h1 class="tab-content" >Overview</h1>
 <?php
 
-	if ( Mage::getSingleton ("admin/session")->isAllowed ("jetrails/cloudflare/overview") ) {
-
-		$counter = 0;
-
-		if ( Mage::getSingleton ("admin/session")->isAllowed ("jetrails/cloudflare/overview/configuration") ) {
-			$counter++;
-			echo $this->getLayout ()
-				->createBlock ("cloudflare/dashboard_section_overview_configuration")
-				->setTemplate ("cloudflare/overview/configuration.phtml")->toHtml ();
-		}
-
-		if ( Mage::getSingleton ("admin/session")->isAllowed ("jetrails/cloudflare/overview/status") ) {
-			$counter++;
-			echo $this->getLayout ()
-				->createBlock ("cloudflare/dashboard_section")
-				->setTemplate ("cloudflare/overview/status.phtml")->toHtml ();
-		}
-
-		if ( $counter === 0 ) {
-			echo $this->getLayout ()
-				->createBlock ("cloudflare/dashboard_section")
-				->setTemplate ("cloudflare/core/empty.phtml")->toHtml ();
-		}
-
+	if ( $this->isValidAuth () && $this->isValidZone () ) {
+		$this->renderSections ( "overview", array (
+			"configuration",
+			"status"
+		));
 	}
 	else {
-
-		echo $this->getLayout ()
-			->createBlock ("cloudflare/dashboard_section")
-			->setTemplate ("cloudflare/core/restricted.phtml")->toHtml ();
-
+		$this->renderSections ( "overview", array (
+			"configuration"
+		));
 	}
 
 ?>

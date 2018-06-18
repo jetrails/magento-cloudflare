@@ -1,9 +1,10 @@
 <?php
 
-	class JetRails_Cloudflare_Model_Adminhtml_Api_Speed_AutoMinify extends Mage_Core_Model_Abstract {
+	class JetRails_Cloudflare_Model_Adminhtml_Api_Speed_AutoMinify
+	extends Mage_Core_Model_Abstract {
 
 		public function getValue () {
-			$zoneId = Mage::getModel ("cloudflare/api_overview_configuration")->getZoneId ();
+			$zoneId = Mage::getSingleton ("cloudflare/api_overview_configuration")->getZoneId ();
 			$endpoint = sprintf ( "zones/%s/settings/minify", $zoneId );
 			$api = Mage::getModel ("cloudflare/api_request");
 			$api->setType ( $api::REQUEST_GET );
@@ -11,7 +12,7 @@
 		}
 
 		public function change ( $js, $css, $html ) {
-			$zoneId = Mage::getModel ("cloudflare/api_overview_configuration")->getZoneId ();
+			$zoneId = Mage::getSingleton ("cloudflare/api_overview_configuration")->getZoneId ();
 			$endpoint = sprintf ( "zones/%s/settings/minify", $zoneId );
 			$api = Mage::getModel ("cloudflare/api_request");
 			$api->setType ( $api::REQUEST_PATCH );

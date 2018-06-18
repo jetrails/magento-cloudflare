@@ -29,7 +29,7 @@ function triggerChange ( data ) {
 	})
 }
 
-$(document).on ( "cloudflare.crypto.disable_universal_ssl.change", function ( event, data ) {
+$(document).on ( "cloudflare.crypto.disable_universal_ssl.toggle", function ( event, data ) {
 	if ( $(data.trigger).data ("action") == "disable" ) {
 		let agreement = new modal.Modal ( 800 )
 		agreement.addTitle ("Acknowledgement")

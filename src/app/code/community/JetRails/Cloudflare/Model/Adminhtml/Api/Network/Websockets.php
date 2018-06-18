@@ -1,9 +1,10 @@
 <?php
 
 	class JetRails_Cloudflare_Model_Adminhtml_Api_Network_Websockets
-	extends JetRails_Cloudflare_Model_Adminhtml_Api_Generic_Setting {
+	extends JetRails_Cloudflare_Model_Adminhtml_Api_Generic_Simple {
 
-		protected $_endpointPostfix = "websockets";
-		protected $_settingType = self::TYPE_BOOLEAN;
+		protected $_endpoint = "settings/websockets";
+		protected $_dataKey = "value";
+		protected $_settingType = self::TYPE_SWITCH;
 
 	}

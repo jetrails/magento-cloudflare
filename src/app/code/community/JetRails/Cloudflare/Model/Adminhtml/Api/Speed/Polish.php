@@ -1,9 +1,10 @@
 <?php
 
-	class JetRails_Cloudflare_Model_Adminhtml_Api_Speed_Polish extends Mage_Core_Model_Abstract {
+	class JetRails_Cloudflare_Model_Adminhtml_Api_Speed_Polish
+	extends Mage_Core_Model_Abstract {
 
 		public function getValue () {
-			$zoneId = Mage::getModel ("cloudflare/api_overview_configuration")->getZoneId ();
+			$zoneId = Mage::getSingleton ("cloudflare/api_overview_configuration")->getZoneId ();
 			$endpoint = sprintf ( "zones/%s/settings/polish", $zoneId );
 			$api = Mage::getModel ("cloudflare/api_request");
 			$api->setType ( $api::REQUEST_GET );
@@ -11,7 +12,7 @@
 		}
 
 		public function getWebP () {
-			$zoneId = Mage::getModel ("cloudflare/api_overview_configuration")->getZoneId ();
+			$zoneId = Mage::getSingleton ("cloudflare/api_overview_configuration")->getZoneId ();
 			$endpoint = sprintf ( "zones/%s/settings/webp", $zoneId );
 			$api = Mage::getModel ("cloudflare/api_request");
 			$api->setType ( $api::REQUEST_GET );
@@ -19,7 +20,7 @@
 		}
 
 		public function change ( $value, $webp ) {
-			$zoneId = Mage::getModel ("cloudflare/api_overview_configuration")->getZoneId ();
+			$zoneId = Mage::getSingleton ("cloudflare/api_overview_configuration")->getZoneId ();
 			$endpoint = sprintf ( "zones/%s/settings/polish", $zoneId );
 			$api = Mage::getModel ("cloudflare/api_request");
 			$api->setType ( $api::REQUEST_PATCH );

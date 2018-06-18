@@ -2,45 +2,10 @@
 <h2 class="tab-content" >Protect content on your site</h2>
 <?php
 
-	if ( Mage::getSingleton ("admin/session")->isAllowed ("jetrails/cloudflare/scrape_shield") ) {
-
-		$counter = 0;
-
-		if ( Mage::getSingleton ("admin/session")->isAllowed ("jetrails/cloudflare/scrape_shield/email_address_obfuscation") ) {
-			$counter++;
-			echo $this->getLayout ()
-				->createBlock ("cloudflare/dashboard_section")
-				->setTemplate ("cloudflare/scrape_shield/email_address_obfuscation.phtml")->toHtml ();
-		}
-
-		if ( Mage::getSingleton ("admin/session")->isAllowed ("jetrails/cloudflare/scrape_shield/server_side_excludes") ) {
-			$counter++;
-			echo $this->getLayout ()
-				->createBlock ("cloudflare/dashboard_section")
-				->setTemplate ("cloudflare/scrape_shield/server_side_excludes.phtml")->toHtml ();
-		}
-
-		if ( Mage::getSingleton ("admin/session")->isAllowed ("jetrails/cloudflare/scrape_shield/hotlink_protection") ) {
-			$counter++;
-			echo $this->getLayout ()
-				->createBlock ("cloudflare/dashboard_section")
-				->setTemplate ("cloudflare/scrape_shield/hotlink_protection.phtml")->toHtml ();
-		}
-
-		if ( $counter === 0 ) {
-			echo $this->getLayout ()
-				->createBlock ("cloudflare/dashboard_section")
-				->setTemplate ("cloudflare/core/empty.phtml")->toHtml ();
-		}
-
-	}
-	else {
-
-		echo $this->getLayout ()
-			->createBlock ("cloudflare/dashboard_section")
-			->setTemplate ("cloudflare/core/restricted.phtml")->toHtml ();
-
-	}
-
+	$this->renderSections ( "scrape_shield", array (
+		"email_address_obfuscation",
+		"server_side_excludes",
+		"hotlink_protection"
+	));
 
 ?>

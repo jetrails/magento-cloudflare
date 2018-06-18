@@ -1,0 +1,81 @@
+<script>
+	window.domain = "<?php echo $this->getDomainName () ?>"
+	window.skin_base = "<?php echo Mage::getBaseUrl ( Mage_Core_Model_Store::URL_TYPE_SKIN ) ?>"
+	window.form_key = "<?php echo $this->getFormKey () ?>"
+</script>
+
+<div class="cloudflare-dashboard" >
+	<div class="dashboard-header" >
+		<img class="logo" src="<?php echo $this->getSkinUrl ('images/cloudflare/cloudflare.svg') ?>" />
+		<div class="domain" ><?php echo $this->getDomainName () ?></div>
+		<div class="attribution" >
+			<img src="<?php echo $this->getSkinUrl ('images/cloudflare/jetrails.svg') ?>" />
+			<p>made with <span>&#10084;</span> by</p>
+		</div>
+	</div>
+	<div class="dashboard-main" >
+		<ul class="tabs" >
+			<li data-tab="overview" class="selected" >
+				<span>&#xF00A;</span>
+				<span>Overview</span>
+			</li>
+			<?php if ( $this->isValidAuth () && $this->isValidZone () ): ?>
+				<li data-tab="caching" >
+					<span>&#xF00D;</span><span>Caching</span>
+				</li>
+				<li data-tab="dns" >
+					<span>&#xF00F;</span><span>DNS</span>
+				</li>
+				<li data-tab="crypto" >
+					<span>&#xF011;</span><span>Crypto</span>
+				</li>
+				<li data-tab="firewall" >
+					<span>&#xF014;</span><span>Firewall</span>
+				</li>
+				<li data-tab="speed" >
+					<span>&#xF00B;</span><span>Speed</span>
+				</li>
+				<li data-tab="page_rules" >
+					<span>&#xF00E;</span><span>Page Rules</span>
+				</li>
+				<li data-tab="network" >
+					<span>&#xE905;</span><span>Network</span>
+				</li>
+				<li data-tab="scrape_shield" >
+					<span>&#xF013;</span><span>Scrape Shield</span>
+				</li>
+			<?php endif ?>
+		</ul>
+		<div class="content-wrapper" >
+			<div class="content selected" data-target="overview" >
+				<?php echo $this->getTabContent ("overview") ?>
+			</div>
+			<?php if ( $this->isValidAuth () && $this->isValidZone () ): ?>
+				<div class="content" data-target="caching" >
+					<?php echo $this->getTabContent ("caching") ?>
+				</div>
+				<div class="content" data-target="dns" >
+					<?php echo $this->getTabContent ("dns") ?>
+				</div>
+				<div class="content" data-target="crypto" >
+					<?php echo $this->getTabContent ("crypto") ?>
+				</div>
+				<div class="content" data-target="firewall" >
+					<?php echo $this->getTabContent ("firewall") ?>
+				</div>
+				<div class="content" data-target="speed" >
+					<?php echo $this->getTabContent ("speed") ?>
+				</div>
+				<div class="content" data-target="page_rules" >
+					<?php echo $this->getTabContent ("page_rules") ?>
+				</div>
+				<div class="content" data-target="network" >
+					<?php echo $this->getTabContent ("network") ?>
+				</div>
+				<div class="content" data-target="scrape_shield" >
+					<?php echo $this->getTabContent ("scrape_shield") ?>
+				</div>
+			<?php endif ?>
+		</div>
+	</div>
+</div>

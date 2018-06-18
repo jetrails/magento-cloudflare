@@ -8,15 +8,9 @@
 @import "cloudflare/variables.scss";
 @import "cloudflare/common.scss";
 
-
-
+@import "cloudflare/core/dashboard.scss";
 @import "cloudflare/core/notification.scss";
 @import "cloudflare/core/modal.scss";
-
-@import "cloudflare/magento/content.scss";
-@import "cloudflare/magento/header.scss";
-@import "cloudflare/magento/logo.scss";
-@import "cloudflare/magento/tabs.scss";
 
 @import "cloudflare/elements/switch.scss";
 @import "cloudflare/elements/checkbox.scss";
