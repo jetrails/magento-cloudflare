@@ -5,19 +5,19 @@
 
 		public function indexAction () {
 			$api = Mage::getModel ("cloudflare/api_overview_status");
-			$response = $api->getStatus ();
+			$response = $api->getValue ();
 			return $this->_sendResponse ( $response );
 		}
 
 		public function pauseAction () {
 			$api = Mage::getModel ("cloudflare/api_overview_status");
-			$response = $api->setPaused ( true );
+			$response = $api->setValue ( true );
 			return $this->_sendResponse ( $response );
 		}
 
 		public function resumeAction () {
 			$api = Mage::getModel ("cloudflare/api_overview_status");
-			$response = $api->setPaused ( false );
+			$response = $api->setValue ( false );
 			return $this->_sendResponse ( $response );
 		}
 

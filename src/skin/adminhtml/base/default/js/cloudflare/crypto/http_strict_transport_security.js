@@ -141,14 +141,14 @@ function createConfigure ( options, callback ) {
 	configure.show ()
 }
 
-$(document).on ( "cloudflare.crypto.http_strict_transport_security.configure", function ( event, data ) {
+$(document).on ( "cloudflare.crypto.http_strict_transport_security.update", function ( event, data ) {
 	createAcknowledgement ( $(data.section).data ("options"), ( configure, config ) => {
 		$(data.section).addClass ("loading")
 		$(configure.components.modal).addClass ("loading")
 		$.ajax ({
 			url: data.form.endpoint,
 			type: "POST",
-			data: { "form_key": data.form.key, "strict_transport_security": config },
+			data: { "form_key": data.form.key, "value": config },
 			success: function ( response ) {
 				configure.close ()
 				common.loadSections (".crypto.http_strict_transport_security")

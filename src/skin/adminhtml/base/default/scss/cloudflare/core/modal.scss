@@ -2,7 +2,7 @@
 	font-family: "Open Sans", sans-serif;
     font-weight: 100;
 	font-size: 12px;
-	color: #333;
+	color: $color-text_gray_dark;
 	position: fixed;
     align-items: center;
 	justify-content: center;
@@ -39,7 +39,7 @@
 			cursor: pointer;
 			text-align: center;
 			&:hover {
-				color: #333;
+				color: $color-text_gray_dark;
 			}
 		}
 		.title {
@@ -92,7 +92,7 @@
 				flex-grow: 1;
 				font-size: 14px;
 				flex-wrap: wrap;
-				color: #333;
+				color: $color-text_gray_dark;
 			}
 			&.tight {
 				flex-wrap: wrap;
@@ -116,7 +116,7 @@
 						.label {
 							width: 100%;
 							text-align: left;
-							color: #7C7C7C;
+							color: $color-text_gray_light;
 							font-size: 0.9em;
 							line-height: 1.3em;
 							margin-top: 7px;
@@ -175,7 +175,7 @@
 				padding-left: 0;
 	    		padding-right: 0;
 				.delete {
-					background: #DEDEDE;
+					background: $color-border_gray;
 					border-radius: 2px;
 					border-bottom: solid 1px #BABABA;
 					height: 30px;

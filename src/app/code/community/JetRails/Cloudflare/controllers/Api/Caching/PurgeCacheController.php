@@ -8,7 +8,10 @@
 			$response = $api->purgeEverything ();
 			if ( $response->success ) {
 				$response->messages = array_merge (
-					["Successfully purged all assets. Please allow up to 30 seconds for changes to take effect."],
+					[
+						"Successfully purged all assets. Please allow up to " .
+						"30 seconds for changes to take effect."
+					],
 					$response->messages
 				);
 			}
@@ -17,10 +20,14 @@
 
 		public function individualAction () {
 			$api = Mage::getModel ("cloudflare/api_caching_purgeCache");
-			$response = $api->purgeIndividual ( $this->_request->getParam ("files") );
+			$files = $this->_request->getParam ("files");
+			$response = $api->purgeIndividual ( $files );
 			if ( $response->success ) {
 				$response->messages = array_merge (
-					["Successfully purged assets. Please allow up to 30 seconds for changes to take effect."],
+					[
+						"Successfully purged assets. Please allow up to 30 " .
+						"seconds for changes to take effect."
+					],
 					$response->messages
 				);
 			}

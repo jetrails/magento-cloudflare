@@ -1,7 +1,7 @@
 <?php
 
 	class JetRails_Cloudflare_Model_Adminhtml_Api_ScrapeShield_HotlinkProtection
-	extends JetRails_Cloudflare_Model_Adminhtml_Api_Generic_Simple {
+	extends JetRails_Cloudflare_Model_Adminhtml_Api_Setter {
 
 		protected $_endpoint = "settings/hotlink_protection";
 		protected $_dataKey = "value";

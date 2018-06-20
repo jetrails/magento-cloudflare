@@ -1,7 +1,7 @@
 const $ = require ("jquery")
 const notification = require ("cloudflare/core/notification")
 
-$(document).on ( "cloudflare.speed.polish.initialize", function ( event, data ) {
+$(document).on ( "cloudflare.speed.polish.initialize", ( event, data ) => {
 	var value = data.response.state.result.value
 	var webp = data.response.webp.result.value == "on"
 	$(data.section).find ("[name='value']").val ( value )
@@ -12,7 +12,7 @@ $(document).on ( "cloudflare.speed.polish.initialize", function ( event, data ) 
 	}
 })
 
-$(document).on ( "cloudflare.speed.polish.change", function ( event, data ) {
+$(document).on ( "cloudflare.speed.polish.change", ( event, data ) => {
 	let value = $(data.section).find ("[name='value']").val ()
 	let webp = $(data.section).find ("[name='webp']").prop ("checked")
 	$(data.section).addClass ("loading")

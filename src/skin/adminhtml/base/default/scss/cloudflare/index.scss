@@ -1,4 +1,3 @@
-@import "//fonts.googleapis.com/icon?family=Material+Icons";
 @import "//fonts.googleapis.com/css?family=Open+Sans";
 @font-face {
 	font-family: "cloudflare-font";
@@ -7,11 +6,10 @@
 
 @import "cloudflare/variables.scss";
 @import "cloudflare/common.scss";
-
 @import "cloudflare/core/dashboard.scss";
 @import "cloudflare/core/notification.scss";
 @import "cloudflare/core/modal.scss";
-
+@import "cloudflare/core/section.scss";
 @import "cloudflare/elements/switch.scss";
 @import "cloudflare/elements/checkbox.scss";
 @import "cloudflare/elements/radio.scss";
@@ -21,5 +19,3 @@
 @import "cloudflare/elements/textarea.scss";
 @import "cloudflare/elements/table.scss";
 @import "cloudflare/elements/pagination.scss";
-
-@import "cloudflare/core/section.scss";

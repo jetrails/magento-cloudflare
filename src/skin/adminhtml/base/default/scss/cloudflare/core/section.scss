@@ -23,9 +23,9 @@ section.cloudflare {
 	font-family: "Open Sans", Helvetica, Arial, sans-serif;
 	font-size: 15px;
 	background: #FFF;
-	color: #333;
+	color: $color-text_gray_dark;
 	margin: 15px auto;
-	border: 1px solid #DEDEDE;
+	border: 1px solid $color-border_gray;
 	border-bottom: 0;
 	border-radius: 2px;
 	box-sizing: border-box;
@@ -76,7 +76,7 @@ section.cloudflare > div.row > div.wrapper_bottom {
 	width: 100%;
 	box-sizing: border-box;
 	height: 50px;
-	border-top: 1px solid #DEDEDE;
+	border-top: 1px solid $color-border_gray;
 	padding: 5px;
 	transition: all 200ms;
 	overflow: hidden;
@@ -114,7 +114,7 @@ section.cloudflare > div.row > div.wrapper_left {
 section.cloudflare > div.row > div.wrapper_right {
 	background: #F0F0F0;
 	width: 600px;
-	border-left: 1px solid #DEDEDE;
+	border-left: 1px solid $color-border_gray;
 	align-self: stretch;
 	display: flex;
 	align-items: center;
@@ -142,7 +142,7 @@ section.cloudflare, .cloudflare_modal {
 		padding: 10px;
 	    font-size: 0.9em;
 	    font-weight: 100;
-		color: #333;
+		color: $color-text_gray_dark;
 		border: solid 1px $color-border_gray;
 		border-radius: 2px;
 		margin: 5px 0;
@@ -234,7 +234,7 @@ section.cloudflare.loading label.switch .slider {
 	section.cloudflare > div.row > div.wrapper_right {
 		width: 100%;
 		border-left: 0;
-		border-top: 1px solid #DEDEDE;
+		border-top: 1px solid $color-border_gray;
 	}
 
 }
@@ -258,27 +258,6 @@ section.cloudflare .group_wrapper label {
 section.cloudflare .group_wrapper + input[type="button"],
 section.cloudflare .group_wrapper + input[type="submit"] {
 	margin-top: 25px;
-}
-
-.material-icons {
-	display: inline;
-	float: left;
-	font-family: 'Material Icons';
-	font-weight: normal;
-	font-style: normal !important;
-	font-size: 24px;
-	display: inline-block;
-	text-transform: none;
-	letter-spacing: normal;
-	word-wrap: normal;
-	white-space: nowrap;
-	direction: ltr;
-	color: #2F7BBF;
-	padding-right: 15px;
-	-webkit-font-smoothing: antialiased;
-	text-rendering: optimizeLegibility;
-	-moz-osx-font-smoothing: grayscale;
-	font-feature-settings: "liga";
 }
 
 section.cloudflare {
@@ -493,7 +472,7 @@ section.cloudflare.empty {
 
 section.cloudflare {
 	.icon-button {
-		background-color: #DEDEDE;
+		background-color: $color-border_gray;
 	    height: 35px;
 	    width: 35px;
 	    min-width: 35px;
@@ -501,7 +480,7 @@ section.cloudflare {
 	    text-align: center;
 	    font-size: 1em;
 	    line-height: 35px;
-	    color: #333;
+	    color: $color-text_gray_dark;
 	    border-radius: 2px;
 	    border-bottom: 1px solid #CCC;
 		transition: all 200ms;

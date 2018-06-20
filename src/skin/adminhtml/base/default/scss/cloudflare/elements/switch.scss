@@ -36,7 +36,7 @@
 		}
 	}
 	&.switch:after, &.switch:before {
-	    background-color: #79C798;
+	    background-color: $color-green;
 	    color: #FFF;
 	    content: 'On';
 	    font-size: 0.86667rem;

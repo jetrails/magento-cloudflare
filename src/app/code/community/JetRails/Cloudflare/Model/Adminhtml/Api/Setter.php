@@ -1,14 +1,13 @@
 <?php
 
-	class JetRails_Cloudflare_Model_Adminhtml_Api_Generic_Simple
-	extends Mage_Core_Model_Abstract {
+	class JetRails_Cloudflare_Model_Adminhtml_Api_Setter
+	extends JetRails_Cloudflare_Model_Adminhtml_Api_Getter {
 
 		const TYPE_BOOLEAN = 0;
 		const TYPE_SWITCH  = 1;
 		const TYPE_INTEGER = 2;
 		const TYPE_STRING  = 3;
 
-		protected $_endpoint = "settings";
 		protected $_dataKey = "value";
 		protected $_settingType = self::TYPE_STRING;
 
@@ -20,14 +19,6 @@
 				case self::TYPE_STRING:  return "$value";
 				default: 				 return "";
 			}
-		}
-
-		public function getValue () {
-			$zoneId = Mage::getSingleton ("cloudflare/api_overview_configuration")->getZoneId ();
-			$endpoint = sprintf ( "zones/%s/%s", $zoneId, $this->_endpoint );
-			$api = Mage::getModel ("cloudflare/api_request");
-			$api->setType ( $api::REQUEST_GET );
-			return $api->resolve ( $endpoint );
 		}
 
 		public function setValue ( $value ) {

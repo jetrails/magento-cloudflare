@@ -20,10 +20,9 @@ function triggerChange ( data ) {
 	$.ajax ({
 		url: data.form.endpoint,
 		type: "POST",
-		data: { "form_key": data.form.key, "value": value },
+		data: { "form_key": data.form.key, "state": value },
 		success: function ( response ) {
 			$("section.cloudflare.crypto.ssl").addClass ("loading")
-			common.loadSections (".crypto.ssl")
 			common.loadSections (".crypto.disable_universal_ssl")
 		}
 	})

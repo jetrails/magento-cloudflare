@@ -1,6 +1,6 @@
 <?php
 
-	class JetRails_Cloudflare_Controller_Switch
+	class JetRails_Cloudflare_Controller_Update
 	extends JetRails_Cloudflare_Controller_Action {
 
 		public function indexAction () {
@@ -10,11 +10,11 @@
 			return $this->_sendResponse ( $response );
 		}
 
-		public function toggleAction () {
+		public function updateAction () {
 			$resource = Mage::app ()->getRequest ()->getControllerName ();
 			$api = Mage::getModel ("cloudflare/$resource");
-			$state = $this->_request->getParam ("state");
-			$response = $api->setValue ( $state === "true" );
+			$value = $this->_request->getParam ("value");
+			$response = $api->setValue ( $value );
 			return $this->_sendResponse ( $response );
 		}
 

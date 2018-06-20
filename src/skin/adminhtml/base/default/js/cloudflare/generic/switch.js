@@ -13,7 +13,7 @@ function toggle ( event, data ) {
 		url: data.form.endpoint,
 		type: "POST",
 		data: { "form_key": data.form.key, "state": state },
-		success: function ( response ) {
+		success: ( response ) => {
 			if ( !response.success ) {
 				$(data.section)
 					.find ("[name='mode']")

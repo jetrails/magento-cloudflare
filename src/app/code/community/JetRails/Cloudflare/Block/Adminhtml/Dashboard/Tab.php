@@ -35,13 +35,11 @@
 		}
 
 		public function isValidAuth () {
-			$data = Mage::helper ("cloudflare/data");
 			$api = Mage::getSingleton ("cloudflare/api_overview_configuration");
 			return $api->validateAuth ();
 		}
 
 		public function isValidZone () {
-			$data = Mage::helper ("cloudflare/data");
 			$api = Mage::getSingleton ("cloudflare/api_overview_configuration");
 			return $this->isValidAuth () && !empty ( $api->getZoneId () );
 		}

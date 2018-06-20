@@ -2,7 +2,7 @@ const $ = require ("jquery")
 const cloudflare = require ("cloudflare/common")
 const notification = require ("cloudflare/core/notification")
 
-$(document).on ( "cloudflare.speed.auto_minify.initialize", function ( event, data ) {
+$(document).on ( "cloudflare.speed.auto_minify.initialize", ( event, data ) => {
 	var jsState = data.response.result.value.js === "on"
 	var cssState = data.response.result.value.css === "on"
 	var htmlState = data.response.result.value.html === "on"
@@ -11,7 +11,7 @@ $(document).on ( "cloudflare.speed.auto_minify.initialize", function ( event, da
 	$(data.section).find ("input[value='html']").prop ( "checked", htmlState )
 })
 
-$(document).on ( "cloudflare.speed.auto_minify.change", function ( event, data ) {
+$(document).on ( "cloudflare.speed.auto_minify.change", ( event, data ) => {
 	var jsVal = $(data.section).find ("input[value='javascript']").prop ("checked")
 	var cssVal = $(data.section).find ("input[value='css']").prop ("checked")
 	var htmlVal = $(data.section).find ("input[value='html']").prop ("checked")
@@ -20,7 +20,7 @@ $(document).on ( "cloudflare.speed.auto_minify.change", function ( event, data )
 		url: data.form.endpoint,
 		type: "POST",
 		data: { "form_key": data.form.key, "js": jsVal, "css": cssVal, "html": htmlVal },
-		success: function ( response ) {
+		success: ( response ) => {
 			$(data.section).removeClass ("loading")
 			notification.showMessages ( response )
 		}

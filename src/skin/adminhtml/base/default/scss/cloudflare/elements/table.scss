@@ -6,7 +6,7 @@ section.cloudflare {
 			transition: background 500ms;
 			background: #FAFAFA;
 			&:nth-child(even) {
-				background: #FFFFFF;
+				background: $color-white;
 			}
 			&:hover {
 				background: #F0F0F0;
@@ -15,10 +15,10 @@ section.cloudflare {
 				font-family: "Open Sans";
 				text-align: left;
 				vertical-align: middle;
-				background: #DEDEDE;
+				background: $color-border_gray;
 				padding: 13px 10px;
 				padding-left: 14px;
-				color: #333;
+				color: $color-text_gray_dark;
 				font-weight: 600;
 				&.sort-asc:after {
 				    font-family: "cloudflare-font";
@@ -39,27 +39,27 @@ section.cloudflare {
 			    padding: 13px 10px;
     			box-sizing: border-box;
 				overflow: hidden;
-				color: #333;
+				color: $color-text_gray_dark;
 				font-weight: 100;
 				border-bottom: solid 1px $color-border_gray;
 				white-space: nowrap;
 				text-overflow: ellipsis;
-				&.type_cfns { border-left: solid 2px #307BC0; color: #333333; }
-				&.type_a { border-left: solid 2px #333333; color: #333333; }
-				&.type_aaaa { border-left: solid 2px #7C7C7C; color: #7C7C7C; }
+				&.type_cfns { border-left: solid 2px $color-blue; color: $color-text_gray_dark; }
+				&.type_a { border-left: solid 2px $color-text_gray_dark; color: $color-text_gray_dark; }
+				&.type_aaaa { border-left: solid 2px $color-text_gray_light; color: $color-text_gray_light; }
 				&.type_cname { border-left: solid 2px #FF7900; color: #FF7900; }
 				&.type_mx { border-left: solid 2px #D91698; color: #D91698; }
 				&.type_loc { border-left: solid 2px #62A1D8; color: #62A1D8; }
 				&.type_srv { border-left: solid 2px #BD2527; color: #BD2527; }
-				&.type_spf { border-left: solid 2px #333333; color: #333333; }
-				&.type_txt { border-left: solid 2px #79C798; color: #79C798; }
+				&.type_spf { border-left: solid 2px $color-text_gray_dark; color: $color-text_gray_dark; }
+				&.type_txt { border-left: solid 2px $color-green; color: $color-green; }
 				&.type_ns { border-left: solid 2px #9545E5; color: #9545E5; }
 				&.type_caa { border-left: solid 2px #BD2527; color: #BD2527; }
 				&.value {
 					padding: 10px 40px 10px 10px;
 				}
 				.delete_entry {
-				    background: #DEDEDE;
+				    background: $color-border_gray;
 				    border-radius: 2px;
 					border-bottom: solid 1px #BABABA;
 				    height: 30px;
@@ -92,7 +92,7 @@ section.cloudflare {
 					width: 100%;
 					span {
 						display: block;
-						color: #7C7C7C;
+						color: $color-text_gray_light;
 						line-height: 1.4em;
 					}
 				}
@@ -148,7 +148,7 @@ section.cloudflare {
 						border-spacing: 1px;
 						overflow: hidden;
 						&:before {
-							color: #7C7C7C;
+							color: $color-text_gray_light;
 						}
 						&.type_a:before { content: "points to " }
 						&.type_aaaa:before { content: "points to " }

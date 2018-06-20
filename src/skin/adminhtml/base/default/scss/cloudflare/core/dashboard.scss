@@ -17,16 +17,16 @@
 				height: 85px;
 				padding: 20px;
 				box-sizing: border-box;
-				border-bottom: solid 1px #DEDEDE;
+				border-bottom: solid 1px $color-border_gray;
 			}
 			.domain {
 				background: #FFF;
 				height: 85px;
 				box-sizing: border-box;
-				border-bottom: solid 1px #DEDEDE;
-				border-right: solid 1px #DEDEDE;
-				border-left: solid 1px #DEDEDE;
-				color: #333;
+				border-bottom: solid 1px $color-border_gray;
+				border-right: solid 1px $color-border_gray;
+				border-left: solid 1px $color-border_gray;
+				color: $color-text_gray_dark;
 				font-size: 1.3em;
 				line-height: 45px;
 				padding: 20px;
@@ -36,7 +36,7 @@
 				box-sizing: border-box;
 				background: #FFF;
 				height: 85px;
-				border-bottom: solid 1px #DEDEDE;
+				border-bottom: solid 1px $color-border_gray;
 				width: 100%;
 				img {
 					height: 20px;
@@ -59,7 +59,7 @@
 			width: 100%;
 			display: flex;
 			ul.tabs {
-				background: #FFFFFF;
+				background: $color-white;
 				width: 220px;
 				border: none;
 				li {
@@ -92,7 +92,7 @@
 						margin: 0;
 					}
 					&.selected {
-						background: #E6E6E6;
+						background: $color-fill_gray_dark;
 						span:nth-child( 1 ) {
 							background: #1F4E78;
 						}
@@ -105,7 +105,7 @@
 				padding: 0 30px 30px 30px;
 				flex-grow: 1;
 				display: flex;
-				background: #E6E6E6;
+				background: $color-fill_gray_dark;
 				.content {
 					display: none;
 					width: 100%;

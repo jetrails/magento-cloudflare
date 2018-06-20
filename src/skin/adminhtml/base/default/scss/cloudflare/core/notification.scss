@@ -2,7 +2,7 @@
 	font-family: "Open Sans", sans-serif;
 	font-size: 15px;
     font-weight: 100;
-	color: #FFFFFF;
+	color: $color-white;
 	position: fixed;
     bottom: 0;
     left: 0;
@@ -19,7 +19,7 @@
 		background: #87B331;
 	}
 	.response_error {
-		background: #C01E1A;
+		background: $color-red;
 	}
 	span.message {
 	    position: unset;
@@ -70,6 +70,6 @@
 	    position: absolute;
 	    vertical-align: middle;
 	    padding-left: 7px;
-		color: #FFFFFF;
+		color: $color-white;
 	}
 }

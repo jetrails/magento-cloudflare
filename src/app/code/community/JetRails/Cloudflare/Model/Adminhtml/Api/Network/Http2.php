@@ -1,7 +1,7 @@
 <?php
 
 	class JetRails_Cloudflare_Model_Adminhtml_Api_Network_Http2
-	extends JetRails_Cloudflare_Model_Adminhtml_Api_Generic_Simple {
+	extends JetRails_Cloudflare_Model_Adminhtml_Api_Setter {
 
 		protected $_endpoint = "settings/http2";
 		protected $_dataKey = "value";
