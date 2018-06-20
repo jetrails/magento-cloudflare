@@ -53,7 +53,7 @@ gulp.task ( "build-scripts", [ "init" ], ( callback ) => {
 		.pipe ( minifyJs ({ ext: { min: ".min.js" } }) )
 	    .pipe ( gulp.dest ( path.join ( BUILD_PATH, MAGENTO_SKIN_JS, MODULE_SHORT_NAME ) ) )
 		.on ( "end", () => {
-			// fs.unlinkSync ( path.join ( BUILD_PATH, MAGENTO_SKIN_JS, MODULE_SHORT_NAME, "bundle.js" ) )
+			fs.unlinkSync ( path.join ( BUILD_PATH, MAGENTO_SKIN_JS, MODULE_SHORT_NAME, "bundle.js" ) )
 			callback ()
 		})
 })
@@ -62,9 +62,10 @@ gulp.task ( "deploy-source", [ "build-styles", "build-scripts" ], function ( cal
 	var sourceFiles = path.join ( SOURCE_PATH, "**", "*" )
 	var notStyle = "!" + path.join ( SOURCE_PATH, "**", "js", "**/" )
 	var notScript = "!" + path.join ( SOURCE_PATH, "**", "scss", "**/" )
+	var notScriptFolder = "!" + path.join ( SOURCE_PATH, "**", "scss" )
 	gulp.src ([ path.join ( SOURCE_PATH, MAGENTO_SKIN_SCSS, MODULE_SHORT_NAME, "fonts", "**", "*" ) ])
 		.pipe ( gulp.dest ( path.join ( BUILD_PATH, MAGENTO_SKIN_CSS, MODULE_SHORT_NAME, "fonts" ) ) )
-	gulp.src ([ sourceFiles, notStyle, notScript ])
+	gulp.src ([ sourceFiles, notStyle, notScript, notScriptFolder ])
 		.pipe ( gulp.dest ( path.join ( BUILD_PATH ) ) )
 		.on ( "end", callback )
 });
