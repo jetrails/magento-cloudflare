@@ -6,13 +6,13 @@
 		protected $_endpoint = "settings/security_header";
 
 		public function setValue ( $conf ) {
-			$conf = [
+			$conf = array (
 				"enabled" => $conf ["enabled"] === "true",
 				"max_age" => intval ( $conf ["max_age"] ),
 				"include_subdomains" => $conf ["include_subdomains"] === "true",
 				"preload" => $conf ["preload"] === "true",
 				"nosniff" => $conf ["nosniff"] === "true"
-			];
+			);
 			$endpoint = $this->getEndpoint ();
 			$api = Mage::getModel ("cloudflare/api_request");
 			$api->setType ( $api::REQUEST_PATCH );

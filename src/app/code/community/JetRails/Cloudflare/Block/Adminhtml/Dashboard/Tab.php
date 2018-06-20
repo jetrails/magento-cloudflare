@@ -18,19 +18,23 @@
 
 		public function renderSections ( $name, $sections ) {
 			if ( $this->isAllowed ("$name") ) {
+				$html = "";
 				$counter = 0;
 				foreach ( $sections as $section ) {
 					if ( $this->isAllowed ("$name/$section") ) {
-						echo $this->loadSection ( $name, $section );
+						$html .= $this->loadSection ( $name, $section );
 						$counter++;
 					}
 				}
 				if ( $counter === 0 ) {
-					echo $this->loadSection ( "core", "empty" );
+					return $this->loadSection ( "core", "empty" );
+				}
+				else {
+					return $html;
 				}
 			}
 			else {
-				echo $this->loadSection ( "core", "restricted" );
+				return $this->loadSection ( "core", "restricted" );
 			}
 		}
 

@@ -2,13 +2,13 @@
 <?php
 
 	if ( $this->isValidAuth () && $this->isValidZone () ) {
-		$this->renderSections ( "overview", array (
+		echo $this->renderSections ( "overview", array (
 			"configuration",
 			"status"
 		));
 	}
 	else {
-		$this->renderSections ( "overview", array (
+		echo $this->renderSections ( "overview", array (
 			"configuration"
 		));
 	}

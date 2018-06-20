@@ -3,7 +3,7 @@
 	class JetRails_Cloudflare_Model_Adminhtml_Api_Firewall_AccessRules
 	extends Mage_Core_Model_Abstract {
 
-		public function load ( $page = 1, $previous = [] ) {
+		public function load ( $page = 1, $previous = array () ) {
 			$zoneId = Mage::getSingleton ("cloudflare/api_overview_configuration")->getZoneId ();
 			$endpoint = sprintf ( "zones/%s/firewall/access_rules/rules", $zoneId );
 			$api = Mage::getModel ("cloudflare/api_request");

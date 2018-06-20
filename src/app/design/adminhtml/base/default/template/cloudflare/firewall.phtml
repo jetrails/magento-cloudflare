@@ -2,7 +2,7 @@
 <h2 class="tab-content" >Manage access by IP, country, or query rules</h2>
 <?php
 
-	$this->renderSections ( "firewall", array (
+	echo $this->renderSections ( "firewall", array (
 		"security_level",
 		"challenge_passage"
 	));
@@ -14,7 +14,7 @@
 	<div data-tab-content='ip_firewall' class='active' >
 		<?php
 
-			$this->renderSections ( "firewall/ip_firewall", array (
+			echo $this->renderSections ( "firewall/ip_firewall", array (
 				"access_rules",
 				"user_agent_blocking",
 				"unmetered_ddos_mitigation"
