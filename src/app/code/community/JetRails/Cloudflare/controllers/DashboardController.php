@@ -71,8 +71,8 @@
 		 */
 		public function domainAction () {
 			$data = Mage::helper ("cloudflare/data");
-			$session = Mage::getSingleton ("admin/session");
-			$selected = $this->getRequest ()->getParam ("domain");
+			$session = Mage::getSingleton ("core/session");
+			$selected = $this->getRequest ()->getParam ("name");
 			$domains = $data->getDomainNames ();
 			$domains = array_filter ( $domains, function ( $domain ) use ( $selected ) {
 				return $domain ["name"] == $selected;
@@ -80,7 +80,7 @@
 			if ( count ( $domains ) === 1 ) {
 				$session->setCloudflareSelectedDomain ( $selected );
 			}
-			$this->_redirect ("cloudflare/dashboard/index");
+			$this->_redirect ("*/*/index");
 		}
 
 	}

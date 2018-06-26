@@ -11,11 +11,19 @@
 			<div class="selected" ><?php echo $this->getDomainName () ?></div>
 			<div class="options" >
 				<?php foreach ( $this->getDomainNames () as $domain ): ?>
-					<a href="<?php echo $domain ["action"] ?>" >
-						<div class="option <?php echo ( $domain ["active"] ? "active" : "" ) ?>" >
-							<?php echo $domain ["name"] ?>
-						</div>
-					</a>
+					<?php if ( $domain ["active"] ): ?>
+						<a>
+							<div class="option active" >
+								<?php echo $domain ["name"] ?>
+							</div>
+						</a>
+					<?php else: ?>
+						<a href="<?php echo $domain ["action"] ?>" >
+							<div class="option" >
+								<?php echo $domain ["name"] ?>
+							</div>
+						</a>
+					<?php endif ?>
 				<?php endforeach ?>
 			</div>
 		</div>

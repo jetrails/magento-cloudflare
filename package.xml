@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <package>
 	<date>2018-06-26</date>
-	<time>15:00:09</time>
+	<time>17:03:30</time>
 	<version>1.0.0</version>
 	<contents>
 		<target name="magecommunity">
@@ -14,10 +14,10 @@
 						<dir name="Update.php" hash="dc6dbaa6bedfe9593ac798162f5ed69c"/>
 					</dir>
 					<dir name="Helper">
-						<dir name="Data.php" hash="0a5d7883a17689ad654e22e15ef49d5c"/>
+						<dir name="Data.php" hash="761982895ed6d3f543859ca0ada345e5"/>
 					</dir>
 					<dir name="controllers">
-						<dir name="DashboardController.php" hash="72846776532163523a572c9fa996a999"/>
+						<dir name="DashboardController.php" hash="56fbc8c9da29c274db2e8b14d04b968b"/>
 						<dir name="Api">
 							<dir name="Caching">
 								<dir name="AlwaysOnlineController.php" hash="8e6e9965523a72759839f8e99ba922a4"/>
@@ -167,7 +167,7 @@
 							<dir name="cloudflare">
 								<dir name="caching.phtml" hash="7dd0831ca909e3fadcec8ae427473680"/>
 								<dir name="crypto.phtml" hash="e3afc1cf173f14932b607411063fb94d"/>
-								<dir name="dashboard.phtml" hash="2fba597281057016ec3611e4b3c548c2"/>
+								<dir name="dashboard.phtml" hash="8065c4cef19b2ec7ae5f813f35e48c51"/>
 								<dir name="dns.phtml" hash="3369b5720ca55d4b2991d75fd2cefc43"/>
 								<dir name="firewall.phtml" hash="d345b98404957069969c7f91e436ae5b"/>
 								<dir name="network.phtml" hash="176ef617f02870ea2b1e4eaeba4fcc54"/>
@@ -203,19 +203,19 @@
 									<dir name="cloudflare_nameservers.phtml" hash="535d4680fb467dff4f9e1aa99c664324"/>
 									<dir name="dns_records.phtml" hash="fc6802e50e399baa59a1d115991d3ed3"/>
 								</dir>
-								<dir name="firewall">
-									<dir name="access_rules.phtml" hash="9cddb7da06c8e13426c8b2c8a09e37e3"/>
-									<dir name="challenge_passage.phtml" hash="341d7684966a0cb9fc4877ae3641e46f"/>
-									<dir name="security_level.phtml" hash="05690ce5fd462f6fe087877d33c39f03"/>
-									<dir name="unmetered_ddos_mitigation.phtml" hash="6d99ade15e13f3313895727a92990766"/>
-									<dir name="user_agent_blocking.phtml" hash="6b3ba0e45372ad6fcd1e86a9bd5bed20"/>
-								</dir>
 								<dir name="network">
 									<dir name="http_2.phtml" hash="5f272ae4b07271133cfcdc0ef76b5646"/>
 									<dir name="ip_geolocation.phtml" hash="146be9115a765350e8cf1f6354439fc9"/>
 									<dir name="ipv6_compatibility.phtml" hash="21b53264707f65dccdaaaae52a46c206"/>
 									<dir name="pseudo_ipv4.phtml" hash="6df6335992a7dea7ad4c3f219d6b9bfc"/>
 									<dir name="websockets.phtml" hash="fc21aa4fd5199dbd8c5c6bc8b29fead0"/>
+								</dir>
+								<dir name="firewall">
+									<dir name="access_rules.phtml" hash="9cddb7da06c8e13426c8b2c8a09e37e3"/>
+									<dir name="challenge_passage.phtml" hash="341d7684966a0cb9fc4877ae3641e46f"/>
+									<dir name="security_level.phtml" hash="05690ce5fd462f6fe087877d33c39f03"/>
+									<dir name="unmetered_ddos_mitigation.phtml" hash="6d99ade15e13f3313895727a92990766"/>
+									<dir name="user_agent_blocking.phtml" hash="6b3ba0e45372ad6fcd1e86a9bd5bed20"/>
 								</dir>
 								<dir name="overview">
 									<dir name="configuration.phtml" hash="81ede666fa4600f423cd22c83e34d8c6"/>
@@ -251,14 +251,6 @@
 			<dir name="adminhtml">
 				<dir name="base">
 					<dir name="default">
-						<dir name="css">
-							<dir name="cloudflare">
-								<dir name="bundle.min.css" hash="3d67efee0e869b2ba462292a9a573e7f"/>
-								<dir name="fonts">
-									<dir name="cloudflare-font.woff" hash="23613915553427be651a4781521f0ec9"/>
-								</dir>
-							</dir>
-						</dir>
 						<dir name="images">
 							<dir name="cloudflare">
 								<dir name="cloudflare.svg" hash="e7bcf4c627debf23d51cf96418cdf130"/>
@@ -267,6 +259,14 @@
 								<dir name="proxied_off.png" hash="e7123b4a8a90e5b358b49ce06f0d1879"/>
 								<dir name="proxied_on.png" hash="df56f6f998f645a4089ead6813b08e57"/>
 								<dir name="search.svg" hash="b83bec273c1f0f3e5b009d8bdf733fac"/>
+							</dir>
+						</dir>
+						<dir name="css">
+							<dir name="cloudflare">
+								<dir name="bundle.min.css" hash="3d67efee0e869b2ba462292a9a573e7f"/>
+								<dir name="fonts">
+									<dir name="cloudflare-font.woff" hash="23613915553427be651a4781521f0ec9"/>
+								</dir>
 							</dir>
 						</dir>
 						<dir name="js">

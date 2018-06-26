@@ -57,7 +57,7 @@
 		 * @return  string                            Currently selected domain
 		 */
 		public function getDomainName () {
-			$session = Mage::getSingleton ("admin/session");
+			$session = Mage::getSingleton ("core/session");
 			if ( !empty ( $session->getCloudflareSelectedDomain () ) ) {
 				return $session->getCloudflareSelectedDomain ();
 			}
@@ -92,11 +92,9 @@
 				return array (
 					"name" => $domain,
 					"active" => $domain == $selection,
-					"action" => Mage::getUrl (
+					"action" => Mage::helper ("adminhtml")->getUrl (
 						"*/*/domain",
-						array (
-							"_query" => array ( "domain" => $domain )
-						)
+						array ( "name" => $domain )
 					)
 				);
 			}, $domains );
