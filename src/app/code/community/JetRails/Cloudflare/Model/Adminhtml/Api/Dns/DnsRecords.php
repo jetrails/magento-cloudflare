@@ -1,36 +1,94 @@
 <?php
 
+	/**
+	 * This class inherits from the PageGetter class, so loading of the initial
+	 * values gets processed through the parent class.
+	 * @version     1.0.0
+	 * @package     JetRails® Cloudflare
+	 * @author      Rafael Grigorian <development@jetrails.com>
+	 * @copyright   © 2018 JETRAILS, All rights reserved
+	 */
 	class JetRails_Cloudflare_Model_Adminhtml_Api_Dns_DnsRecords
-	extends Mage_Core_Model_Abstract {
+	extends JetRails_Cloudflare_Model_Adminhtml_Api_PageGetter {
 
-		public function listRecords ( $page = 1, $previous = array () ) {
-			$zoneId = Mage::getSingleton ("cloudflare/api_overview_configuration")->getZoneId ();
-			$endpoint = sprintf ( "zones/%s/dns_records", $zoneId );
+		/**
+		 * @var     string       _endpoint            Postfixed to zone endpoint
+		 */
+		protected $_endpoint = "dns_records";
+
+		/**
+		 * This method asks the Cloudflare to export all DNS records and return
+		 * a BIND configuration file.
+		 * @return  stdClass                         CF response to request
+		 */
+		public function export () {
+			$endpoint = $this->getEndpoint ("dns_records/export");
 			$api = Mage::getModel ("cloudflare/api_request");
 			$api->setType ( $api::REQUEST_GET );
-			$api->setQuery ( "page", intval ( $page ) );
-			$result = $api->resolve ( $endpoint );
-			if ( property_exists ( $result, "result_info" ) && property_exists ( $result->result_info, "per_page" ) && property_exists ( $result->result_info, "total_count" ) ) {
-				if ( $page < ceil ( $result->result_info->total_count / $result->result_info->per_page ) ) {
-					$previous = array_merge ( $previous, $result->result );
-					return $this->listRecords ( $page + 1, $previous );
-				}
-				else {
-					$result->result = array_merge ( $previous, $result->result );
-				}
-			}
-			return $result;
+			return $api->resolve ( $endpoint, false );
 		}
 
+		/**
+		 * This method takes in a file object that is uploaded to the server and
+		 * it sends it to the Cloudflare API. This configuration file is used to
+		 * import all the DNS records that are contained within it.
+		 * @param   array        file                Uploaded file assoc array
+		 * @return  stdClass                         CF response to request
+		 */
+		public function import ( $file ) {
+			$endpoint = $this->getEndpoint ("dns_records/import");
+			$api = Mage::getModel ("cloudflare/api_request");
+			$api->setHeader ( "Content-Type", "multipart/form-data" );
+			$api->setType ( $api::REQUEST_POST );
+			$api->setData ( array (
+				"file" => new CurlFile (
+					$file ["tmp_name"],
+					"text/plain",
+					$file ["name"]
+				)
+			));
+			return $api->resolve ( $endpoint, false );
+		}
+
+		/**
+		 * This method takes in a DNS record id and asks the Cloudflare API to
+		 * delete said record with the corresponding id.
+		 * @param   string       id                  The DNS record ID
+		 * @return  stdClass                         CF response to request
+		 */
 		public function deleteRecord ( $id ) {
-			$zoneId = Mage::getSingleton ("cloudflare/api_overview_configuration")->getZoneId ();
-			$endpoint = sprintf ( "zones/%s/dns_records/%s", $zoneId, $id );
+			$endpoint = $this->getEndpoint ("dns_records/$id");
 			$api = Mage::getModel ("cloudflare/api_request");
 			$api->setType ( $api::REQUEST_DELETE );
 			return $api->resolve ( $endpoint );
 		}
 
-		public function editRecord ( $id, $type, $name, $content, $ttl, $proxied = null, $priority = 1 ) {
+		/**
+		 * This method takes in all values that are necessary to edit a DNS
+		 * record. It then sends the request to the Cloudflare API.
+		 * @param   string       id                  DNS record id
+		 * @param   string       type                The type of DNS record
+		 * @param   string       name                The name value for record
+		 * @param   string       content             The content for record
+		 * @param   integer      ttl                 The TTL value in seconds
+		 * @param   boolean      proxied             Is the record proxied?
+		 * @param   integer      priority            What is the priority value
+		 * @return  stdClass                         CF response to request
+		 */
+		public function editRecord (
+			$id,
+			$type,
+			$name,
+			$content,
+			$ttl,
+			$proxied = null,
+			$priority = 1
+		) {
+			$reSRVName = "/^([^.]+)\.([^.]+)\.(.+)\.$/";
+			$reSRVValue = "/^SRV ([^ ]+) ([^ ]+) ([^ ]+) (.+)\.$/";
+			$reCAA = "/^0 ((?:issue|issuewild|iodef)) \"(.+)\"$/";
+			$reLOC = "/^IN LOC ([^ ]+) ([^ ]+) ([^ ]+) ([NS]) ([^ ]+) ([^ ]+)" .
+			" ([^ ]+) ([WE]) ([^ ]+)m ([^ ]+)m ([^ ]+)m ([^ ]+)m$/";
 			if ( $name == "@" ) {
 				$name = Mage::helper ("cloudflare/data")->getDomainName ();
 			}
@@ -48,7 +106,7 @@
 			else if ( $type == "MX" ) {
 				$data ["priority"] = $priority;
 			}
-			else if ( $type == "LOC" && preg_match ( "/^IN LOC ([^ ]+) ([^ ]+) ([^ ]+) ([NS]) ([^ ]+) ([^ ]+) ([^ ]+) ([WE]) ([^ ]+)m ([^ ]+)m ([^ ]+)m ([^ ]+)m$/", $content, $matches ) ) {
+			else if ( $type == "LOC" && preg_match($reLOC,$content,$matches) ) {
 				$data ["data"] = array (
 					"lat_degrees" => intval ( $matches [ 1 ] ),
 					"lat_minutes" => intval ( $matches [ 2 ] ),
@@ -66,12 +124,15 @@
 				$data ["priority"] = 1;
 				$data ["proxied"] = false;
 			}
-			else if ( $type == "SRV" && preg_match ( "/^([^.]+)\.([^.]+)\.(.+)\.$/", $name, $matchesName ) && preg_match ( "/^SRV ([^ ]+) ([^ ]+) ([^ ]+) (.+)\.$/", $content, $matchesContent ) ) {
+			else if ( $type == "SRV" &&
+					  preg_match ( $reSRVName, $name, $matchesName ) &&
+					  preg_match ( $reSRVValue, $content, $matchesContent ) ) {
+				$domain = Mage::helper ("cloudflare/data")->getDomainName ();
 				if ( $matchesName [ 3 ] == "@" ) {
-					$matchesName [ 3 ] = Mage::helper ("cloudflare/data")->getDomainName ();
+					$matchesName [ 3 ] = $domain;
 				}
 				if ( $matchesContent [ 4 ] == "@" ) {
-					$matchesContent [ 4 ] = Mage::helper ("cloudflare/data")->getDomainName ();
+					$matchesContent [ 4 ] = $domain;
 				}
 				$data ["data"] = array (
 					"name" => $matchesName [ 3 ],
@@ -85,7 +146,7 @@
 				$data ["priority"] = 1;
 				$data ["proxied"] = false;
 			}
-			else if ( $type == "CAA" && preg_match ( "/^0 ((?:issue|issuewild|iodef)) \"(.+)\"$/", $content, $matches ) ) {
+			else if ( $type == "CAA" && preg_match($reCAA,$content,$matches) ) {
 				$data ["data"] = array (
 					"tag" => $matches [ 1 ],
 					"value" => $matches [ 2 ],
@@ -94,15 +155,37 @@
 				$data ["priority"] = 1;
 				$data ["proxied"] = false;
 			}
-			$zoneId = Mage::getSingleton ("cloudflare/api_overview_configuration")->getZoneId ();
-			$endpoint = sprintf ( "zones/%s/dns_records/%s", $zoneId, $id );
+			$endpoint = $this->getEndpoint ("dns_records/$id");
 			$api = Mage::getModel ("cloudflare/api_request");
 			$api->setType ( $api::REQUEST_PUT );
 			$api->setData ( $data );
 			return $api->resolve ( $endpoint );
 		}
 
-		public function createRecord ( $type, $name, $content, $ttl, $proxied = null, $priority = 1 ) {
+		/**
+		 * This method takes in all values that are necessary to create a DNS
+		 * record. It then sends the request to the Cloudflare API.
+		 * @param   string       type                The type of DNS record
+		 * @param   string       name                The name value for record
+		 * @param   string       content             The content for record
+		 * @param   integer      ttl                 The TTL value in seconds
+		 * @param   boolean      proxied             Is the record proxied?
+		 * @param   integer      priority            What is the priority value
+		 * @return  stdClass                         CF response to request
+		 */
+		public function createRecord (
+			$type,
+			$name,
+			$content,
+			$ttl,
+			$proxied = null,
+			$priority = 1
+		) {
+			$reSRVName = "/^([^.]+)\.([^.]+)\.(.+)\.$/";
+			$reSRVValue = "/^SRV ([^ ]+) ([^ ]+) ([^ ]+) (.+)\.$/";
+			$reCAA = "/^0 ((?:issue|issuewild|iodef)) \"(.+)\"$/";
+			$reLOC = "/^IN LOC ([^ ]+) ([^ ]+) ([^ ]+) ([NS]) ([^ ]+) ([^ ]+)" .
+					 " ([^ ]+) ([WE]) ([^ ]+)m ([^ ]+)m ([^ ]+)m ([^ ]+)m$/";
 			if ( $name == "@" ) {
 				$name = Mage::helper ("cloudflare/data")->getDomainName ();
 			}
@@ -119,7 +202,7 @@
 			else if ( $type == "MX" ) {
 				$data ["priority"] = $priority;
 			}
-			else if ( $type == "LOC" && preg_match ( "/^IN LOC ([^ ]+) ([^ ]+) ([^ ]+) ([NS]) ([^ ]+) ([^ ]+) ([^ ]+) ([WE]) ([^ ]+)m ([^ ]+)m ([^ ]+)m ([^ ]+)m$/", $content, $matches ) ) {
+			else if ( $type == "LOC" && preg_match($reLOC,$content,$matches) ) {
 				$data ["data"] = array (
 					"lat_degrees" => intval ( $matches [ 1 ] ),
 					"lat_minutes" => intval ( $matches [ 2 ] ),
@@ -137,12 +220,15 @@
 				$data ["priority"] = 1;
 				$data ["proxied"] = false;
 			}
-			else if ( $type == "SRV" && preg_match ( "/^([^.]+)\.([^.]+)\.(.+)\.$/", $name, $matchesName ) && preg_match ( "/^SRV ([^ ]+) ([^ ]+) ([^ ]+) (.+)\.$/", $content, $matchesContent ) ) {
+			else if ( $type == "SRV" &&
+					  preg_match ( $reSRVName, $name, $matchesName ) &&
+					  preg_match ( $reSRVValue, $content, $matchesContent ) ) {
+				$domain = Mage::helper ("cloudflare/data")->getDomainName ();
 				if ( $matchesName [ 3 ] == "@" ) {
-					$matchesName [ 3 ] = Mage::helper ("cloudflare/data")->getDomainName ();
+					$matchesName [ 3 ] = $domain;
 				}
 				if ( $matchesContent [ 4 ] == "@" ) {
-					$matchesContent [ 4 ] = Mage::helper ("cloudflare/data")->getDomainName ();
+					$matchesContent [ 4 ] = $domain;
 				}
 				$data ["data"] = array (
 					"name" => $matchesName [ 3 ],
@@ -156,7 +242,7 @@
 				$data ["priority"] = 1;
 				$data ["proxied"] = false;
 			}
-			else if ( $type == "CAA" && preg_match ( "/^0 ((?:issue|issuewild|iodef)) \"(.+)\"$/", $content, $matches ) ) {
+			else if ( $type == "CAA" && preg_match($reCAA,$content,$matches) ) {
 				$data ["data"] = array (
 					"tag" => $matches [ 1 ],
 					"value" => $matches [ 2 ],
@@ -165,36 +251,11 @@
 				$data ["priority"] = 1;
 				$data ["proxied"] = false;
 			}
-			$zoneId = Mage::getSingleton ("cloudflare/api_overview_configuration")->getZoneId ();
-			$endpoint = sprintf ( "zones/%s/dns_records", $zoneId );
+			$endpoint = $this->getEndpoint ();
 			$api = Mage::getModel ("cloudflare/api_request");
 			$api->setType ( $api::REQUEST_POST );
 			$api->setData ( $data );
 			return $api->resolve ( $endpoint );
-		}
-
-		public function export () {
-			$zoneId = Mage::getSingleton ("cloudflare/api_overview_configuration")->getZoneId ();
-			$endpoint = sprintf ( "zones/%s/dns_records/export", $zoneId );
-			$api = Mage::getModel ("cloudflare/api_request");
-			$api->setType ( $api::REQUEST_GET );
-			return $api->resolve ( $endpoint, false );
-		}
-
-		public function import ( $file ) {
-			$zoneId = Mage::getSingleton ("cloudflare/api_overview_configuration")->getZoneId ();
-			$endpoint = sprintf ( "zones/%s/dns_records/import", $zoneId );
-			$api = Mage::getModel ("cloudflare/api_request");
-			$api->setHeader ( "Content-Type", "multipart/form-data" );
-			$api->setType ( $api::REQUEST_POST );
-			$api->setData ( array (
-				"file" => new CurlFile (
-					$file ["tmp_name"],
-					"text/plain",
-					$file ["name"]
-				)
-			));
-			return $api->resolve ( $endpoint, false );
 		}
 
 	}

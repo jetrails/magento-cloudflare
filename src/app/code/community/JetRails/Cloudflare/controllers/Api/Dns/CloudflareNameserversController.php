@@ -1,12 +1,13 @@
 <?php
 
+	/**
+	 * This controller inherits from a generic controller that implements the
+	 * base functionality for interfacing with a getter model. This section
+	 * simply loads the initial value through the Cloudflare API.
+	 * @version     1.0.0
+	 * @package     JetRails® Cloudflare
+	 * @author      Rafael Grigorian <development@jetrails.com>
+	 * @copyright   © 2018 JETRAILS, All rights reserved
+	 */
 	class JetRails_Cloudflare_Api_Dns_CloudflareNameserversController
-	extends JetRails_Cloudflare_Controller_Action {
-
-		public function indexAction () {
-			$api = Mage::getModel ("cloudflare/api_dns_cloudflareNameservers");
-			$response = $api->getNameservers ();
-			return $this->_sendResponse ( $response );
-		}
-
-	}
+	extends JetRails_Cloudflare_Controller_Getter {}

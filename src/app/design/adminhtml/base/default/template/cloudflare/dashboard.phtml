@@ -7,7 +7,18 @@
 <div class="cloudflare-dashboard" >
 	<div class="dashboard-header" >
 		<img class="logo" src="<?php echo $this->getSkinUrl ('images/cloudflare/cloudflare.svg') ?>" />
-		<div class="domain" ><?php echo $this->getDomainName () ?></div>
+		<div class="domain_wrapper" >
+			<div class="selected" ><?php echo $this->getDomainName () ?></div>
+			<div class="options" >
+				<?php foreach ( $this->getDomainNames () as $domain ): ?>
+					<a href="<?php echo $domain ["action"] ?>" >
+						<div class="option <?php echo ( $domain ["active"] ? "active" : "" ) ?>" >
+							<?php echo $domain ["name"] ?>
+						</div>
+					</a>
+				<?php endforeach ?>
+			</div>
+		</div>
 		<div class="attribution" >
 			<img src="<?php echo $this->getSkinUrl ('images/cloudflare/jetrails.svg') ?>" />
 			<p>made with <span>&#10084;</span> by</p>
@@ -78,4 +89,5 @@
 			<?php endif ?>
 		</div>
 	</div>
+	<div class="overlay" ></div>
 </div>

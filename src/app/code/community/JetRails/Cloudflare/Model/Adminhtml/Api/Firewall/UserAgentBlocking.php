@@ -1,39 +1,59 @@
 <?php
 
+	/**
+	 * This class inherits from the PageGetter class, so loading of the initial
+	 * values gets processed through the parent class.
+	 * @version     1.0.0
+	 * @package     JetRails® Cloudflare
+	 * @author      Rafael Grigorian <development@jetrails.com>
+	 * @copyright   © 2018 JETRAILS, All rights reserved
+	 */
 	class JetRails_Cloudflare_Model_Adminhtml_Api_Firewall_UserAgentBlocking
-	extends Mage_Core_Model_Abstract {
+	extends JetRails_Cloudflare_Model_Adminhtml_Api_PageGetter {
 
-		public function load ( $page = 1, $previous = array () ) {
-			$zoneId = Mage::getSingleton ("cloudflare/api_overview_configuration")->getZoneId ();
-			$endpoint = sprintf ( "zones/%s/firewall/ua_rules", $zoneId );
-			$api = Mage::getModel ("cloudflare/api_request");
-			$api->setType ( $api::REQUEST_GET );
-			$api->setQuery ( "page", intval ( $page ) );
-			$result = $api->resolve ( $endpoint );
-			if ( property_exists ( $result, "result_info" ) && property_exists ( $result->result_info, "per_page" ) && property_exists ( $result->result_info, "total_count" ) ) {
-				if ( $page < ceil ( $result->result_info->total_count / $result->result_info->per_page ) ) {
-					$previous = array_merge ( $previous, $result->result );
-					return $this->load ( $page + 1, $previous );
-				}
-				else {
-					$result->result = array_merge ( $previous, $result->result );
-				}
-			}
+		/**
+		 * @var     string       _endpoint            Postfixed to zone endpoint
+		 */
+		protected $_endpoint = "firewall/ua_rules";
+
+		/**
+		 * This method wraps the PageGetter class and adds the results of the
+		 * usage endpoint.
+		 * @param   integer      page                Current page number to get
+		 * @param   array        previous            Collection of prev results
+		 * @return  stdClass                         CF response to request
+		 */
+		public function getValue ( $page = 1, $previous = array () ) {
+			$result = parent::getValue ( $page, $previous );
 			$result->usage = $this->usage ();
 			return $result;
 		}
 
+		/**
+		 * This method takes in a user agent blocking id and attempts to delete
+		 * it using the Cloudflare API.
+		 * @param   string       id                  User agent blocking id
+		 * @return  stdClass                         CF response to request
+		 */
 		public function delete ( $id ) {
-			$zoneId = Mage::getSingleton ("cloudflare/api_overview_configuration")->getZoneId ();
-			$endpoint = sprintf ( "zones/%s/firewall/ua_rules/%s", $zoneId, $id );
+			$endpoint = $this->getEndpoint ("firewall/ua_rules/$id");
 			$api = Mage::getModel ("cloudflare/api_request");
 			$api->setType ( $api::REQUEST_DELETE );
 			return $api->resolve ( $endpoint );
 		}
 
+		/**
+		 * This method takes in all necessary information to update a user agent
+		 * blocking rule and it sends it to the Cloudflare API.
+		 * @param   string       id                  User agent blocking id
+		 * @param   boolean      mode                Which mode does rule use
+		 * @param   boolean      paused              Should the rule be paused?
+		 * @param   string       value               The value of the user agent
+		 * @param   string       description         The description for rule
+		 * @return  stdClass                         CF response to request
+		 */
 		public function update ( $id, $mode, $paused, $value, $description ) {
-			$zoneId = Mage::getSingleton ("cloudflare/api_overview_configuration")->getZoneId ();
-			$endpoint = sprintf ( "zones/%s/firewall/ua_rules/%s", $zoneId, $id );
+			$endpoint = $this->getEndpoint ("firewall/ua_rules/$id");
 			$api = Mage::getModel ("cloudflare/api_request");
 			$api->setType ( $api::REQUEST_PUT );
 			$api->setData ( array (
@@ -49,9 +69,17 @@
 			return $api->resolve ( $endpoint );
 		}
 
+		/**
+		 * This method takes in all necessary information to create a user agent
+		 * blocking rule and it sends it to the Cloudflare API.
+		 * @param   boolean      mode                Which mode does rule use
+		 * @param   boolean      paused              Should the rule be paused?
+		 * @param   string       value               The value of the user agent
+		 * @param   string       description         The description for rule
+		 * @return  stdClass                         CF response to request
+		 */
 		public function create ( $mode, $paused, $value, $description ) {
-			$zoneId = Mage::getSingleton ("cloudflare/api_overview_configuration")->getZoneId ();
-			$endpoint = sprintf ( "zones/%s/firewall/ua_rules", $zoneId );
+			$endpoint = $this->getEndpoint ();
 			$api = Mage::getModel ("cloudflare/api_request");
 			$api->setType ( $api::REQUEST_POST );
 			$api->setData ( array (
@@ -66,9 +94,14 @@
 			return $api->resolve ( $endpoint );
 		}
 
+		/**
+		 * This method asks the Cloudflare API for the usage information as it
+		 * pertains to user agent rules. It then only returns the allocation for
+		 * the zone scope.
+		 * @return  stdClass                         CF response to request
+		 */
 		public function usage () {
-			$zoneId = Mage::getSingleton ("cloudflare/api_overview_configuration")->getZoneId ();
-			$endpoint = sprintf ( "zones/%s/firewall/ua_rules/usage", $zoneId );
+			$endpoint = $this->getEndpoint ("firewall/ua_rules/usage");
 			$api = Mage::getModel ("cloudflare/api_request");
 			$api->setType ( $api::REQUEST_GET );
 			$result = $api->resolve ( $endpoint );

@@ -2,14 +2,14 @@
 
 <layout>
 	<jetrails_cloudflare_dashboard_index>
-	    <reference name="head" >
-	        <action method="addCss" >
+		<reference name="head" >
+			<action method="addCss" >
 				<stylesheet>css/cloudflare/bundle.min.css</stylesheet>
 			</action>
 			<action method="addItem" >
 				<type>skin_js</type>
 				<name>js/cloudflare/bundle.min.js</name>
 			</action>
-	    </reference>
+		</reference>
 	</jetrails_cloudflare_dashboard_index>
 </layout>

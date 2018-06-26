@@ -16,6 +16,29 @@ requireAll ( require.context ("cloudflare/scrape_shield", true, /\.js$/ ) )
 
 $(window).on ( "load", function () {
 
+	// Wrapper on all AJAX calls (detect session expiration)
+	var oldAjax = $.ajax
+	$.ajax = function () {
+		var successCallback = arguments [ 0 ].success
+		arguments [ 0 ].success = function ( response, status, xhr ) {
+			if ( ( xhr.getResponseHeader ("content-type") || "" ).indexOf ("json") < 0 ) {
+				$(".cloudflare-dashboard").addClass ("logged-off")
+				notification.showMessages ({
+					errors: [
+						{
+							code: 42,
+							message: "It appears that you are no longer logged in. Please refresh page and try again."
+						}
+					]
+				})
+			}
+			else {
+				successCallback.apply ( this, arguments )
+			}
+		}
+		oldAjax.apply ( null, arguments )
+	}
+
 	cloudflare.loadSections ()
 
 	$(".proxied").each ( ( index ) => {
@@ -40,7 +63,7 @@ $(window).on ( "load", function () {
 		event.target.name = event.target.tab + "." + event.target.section + "." + event.target.action
 		event.target.name = "cloudflare." + event.target.name
 		$.event.trigger ( event.target.name, event )
-		console.log ( "Triggered: " + event.target.name )
+		// console.log ( "Triggered: " + event.target.name )
 	}
 
 	$(document).on ( "click", ".trigger", triggerEvent )

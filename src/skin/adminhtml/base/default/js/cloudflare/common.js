@@ -28,7 +28,7 @@ function loadSections ( additional = "" ) {
 					event.target.action
 				].join (".")
 				$.event.trigger ( event.target.name, event )
-				console.log ( "Triggered: " + event.target.name )
+				// console.log ( "Triggered: " + event.target.name )
 			}
 		})
 	})
