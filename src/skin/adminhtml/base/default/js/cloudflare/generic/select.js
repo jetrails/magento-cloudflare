@@ -1,4 +1,5 @@
 const $ = require ("jquery")
+const cloudflare = require ("cloudflare/common")
 const notification = require ("cloudflare/core/notification")
 
 function initialize ( event, data ) {
@@ -15,7 +16,13 @@ function update ( event, data ) {
 		data: { "form_key": data.form.key, "value": value },
 		success: ( response ) => {
 			notification.showMessages ( response )
-			$(data.section).removeClass ("loading")
+			if ( response.success ) {
+				$(data.section).removeClass ("loading")
+			}
+			else {
+				let targetSection = `${data.target.tab}.${data.target.section}`
+				cloudflare.loadSections (`.cloudflare.${targetSection}`)
+			}
 		}
 	})
 }
