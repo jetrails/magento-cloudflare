@@ -87,10 +87,6 @@
 												<title>Authenticated Origin Pulls</title>
 												<sort_order>500</sort_order>
 											</authenticated_origin_pulls>
-											<require_modern_tls translate="title" module="cloudflare" >
-												<title>Require Modern TLS</title>
-												<sort_order>600</sort_order>
-											</require_modern_tls>
 											<opportunistic_encryption translate="title" module="cloudflare" >
 												<title>Opportunistic Encryption</title>
 												<sort_order>700</sort_order>

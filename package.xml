@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <package>
 	<date>2018-06-27</date>
-	<time>12:17:08</time>
+	<time>12:20:33</time>
 	<version>1.0.0</version>
 	<contents>
 		<target name="magecommunity">
@@ -76,7 +76,7 @@
 						</dir>
 					</dir>
 					<dir name="etc">
-						<dir name="adminhtml.xml" hash="f5ad2e3d1ed7eff89867312cde386415"/>
+						<dir name="adminhtml.xml" hash="a14aa0448ac903f6c695882a48566f98"/>
 						<dir name="config.xml" hash="ad6467f848768f0b45c8b6185661d75e"/>
 					</dir>
 					<dir name="Block">
@@ -166,7 +166,7 @@
 						<dir name="template">
 							<dir name="cloudflare">
 								<dir name="caching.phtml" hash="7dd0831ca909e3fadcec8ae427473680"/>
-								<dir name="crypto.phtml" hash="e3afc1cf173f14932b607411063fb94d"/>
+								<dir name="crypto.phtml" hash="9f4357ab3fb8c6d014b83a53902f5365"/>
 								<dir name="dashboard.phtml" hash="8065c4cef19b2ec7ae5f813f35e48c51"/>
 								<dir name="dns.phtml" hash="3369b5720ca55d4b2991d75fd2cefc43"/>
 								<dir name="firewall.phtml" hash="d345b98404957069969c7f91e436ae5b"/>
@@ -251,6 +251,14 @@
 			<dir name="adminhtml">
 				<dir name="base">
 					<dir name="default">
+						<dir name="css">
+							<dir name="cloudflare">
+								<dir name="bundle.min.css" hash="ee703b1e1f084cf7fbd92053c9a91337"/>
+								<dir name="fonts">
+									<dir name="cloudflare-font.woff" hash="23613915553427be651a4781521f0ec9"/>
+								</dir>
+							</dir>
+						</dir>
 						<dir name="images">
 							<dir name="cloudflare">
 								<dir name="cloudflare.svg" hash="e7bcf4c627debf23d51cf96418cdf130"/>
@@ -261,17 +269,9 @@
 								<dir name="search.svg" hash="b83bec273c1f0f3e5b009d8bdf733fac"/>
 							</dir>
 						</dir>
-						<dir name="css">
-							<dir name="cloudflare">
-								<dir name="bundle.min.css" hash="ee703b1e1f084cf7fbd92053c9a91337"/>
-								<dir name="fonts">
-									<dir name="cloudflare-font.woff" hash="23613915553427be651a4781521f0ec9"/>
-								</dir>
-							</dir>
-						</dir>
 						<dir name="js">
 							<dir name="cloudflare">
-								<dir name="bundle.min.js" hash="f98b6041daa14c0cac60ad97dad0bf9b"/>
+								<dir name="bundle.min.js" hash="61963a67431324f6ecb8c5a499596b36"/>
 							</dir>
 						</dir>
 					</dir>
