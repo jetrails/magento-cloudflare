@@ -64,7 +64,10 @@ function showMessages ( data ) {
 		addError ( data.errors.map ( i => `${i.code}: ${i.message}` ) )
 	}
 	if ( data.messages ) {
-		addSuccess ( data.messages )
+		addSuccess ( data.messages.map ( i => {
+			if ( typeof i === "string" ) return i
+			return `${i.code}: ${i.message}`
+		}))
 	}
 }
 
