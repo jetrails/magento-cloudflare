@@ -276,7 +276,8 @@ $(document).on ( "cloudflare.firewall.access_rules.mode", function ( event, data
 
 $(document).on ( "cloudflare.firewall.access_rules.edit", function ( event, data ) {
 	let notes = modal.createTextarea ( "notes", "", $(data.trigger).data ("note") ).css ({
-		marginTop: "22.5px",
+		margin: "22.5px 22.5px 0 22.5px",
+		width: "calc(100% - 45px)",
 		fontSize: "1.1em"
 	})
 	let edit = new modal.Modal ( 800 )

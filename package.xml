@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <package>
-	<date>2018-06-26</date>
-	<time>17:03:30</time>
+	<date>2018-06-27</date>
+	<time>12:10:08</time>
 	<version>1.0.0</version>
 	<contents>
 		<target name="magecommunity">
@@ -203,13 +203,6 @@
 									<dir name="cloudflare_nameservers.phtml" hash="535d4680fb467dff4f9e1aa99c664324"/>
 									<dir name="dns_records.phtml" hash="fc6802e50e399baa59a1d115991d3ed3"/>
 								</dir>
-								<dir name="network">
-									<dir name="http_2.phtml" hash="5f272ae4b07271133cfcdc0ef76b5646"/>
-									<dir name="ip_geolocation.phtml" hash="146be9115a765350e8cf1f6354439fc9"/>
-									<dir name="ipv6_compatibility.phtml" hash="21b53264707f65dccdaaaae52a46c206"/>
-									<dir name="pseudo_ipv4.phtml" hash="6df6335992a7dea7ad4c3f219d6b9bfc"/>
-									<dir name="websockets.phtml" hash="fc21aa4fd5199dbd8c5c6bc8b29fead0"/>
-								</dir>
 								<dir name="firewall">
 									<dir name="access_rules.phtml" hash="9cddb7da06c8e13426c8b2c8a09e37e3"/>
 									<dir name="challenge_passage.phtml" hash="341d7684966a0cb9fc4877ae3641e46f"/>
@@ -221,8 +214,15 @@
 									<dir name="configuration.phtml" hash="81ede666fa4600f423cd22c83e34d8c6"/>
 									<dir name="status.phtml" hash="92cc62f829f7c7b40d35f2ff28c3b8c1"/>
 								</dir>
+								<dir name="network">
+									<dir name="http_2.phtml" hash="5f272ae4b07271133cfcdc0ef76b5646"/>
+									<dir name="ip_geolocation.phtml" hash="146be9115a765350e8cf1f6354439fc9"/>
+									<dir name="ipv6_compatibility.phtml" hash="21b53264707f65dccdaaaae52a46c206"/>
+									<dir name="pseudo_ipv4.phtml" hash="6df6335992a7dea7ad4c3f219d6b9bfc"/>
+									<dir name="websockets.phtml" hash="fc21aa4fd5199dbd8c5c6bc8b29fead0"/>
+								</dir>
 								<dir name="page_rules">
-									<dir name="page_rules.phtml" hash="68b3f14e8a6db9d7b6a139fc3f820dac"/>
+									<dir name="page_rules.phtml" hash="f1acf8f423b307480de99b86a1fdc1a7"/>
 								</dir>
 								<dir name="scrape_shield">
 									<dir name="email_address_obfuscation.phtml" hash="c2c2021c7bd38f4bc70005908c59fe42"/>
@@ -251,6 +251,14 @@
 			<dir name="adminhtml">
 				<dir name="base">
 					<dir name="default">
+						<dir name="css">
+							<dir name="cloudflare">
+								<dir name="bundle.min.css" hash="3d67efee0e869b2ba462292a9a573e7f"/>
+								<dir name="fonts">
+									<dir name="cloudflare-font.woff" hash="23613915553427be651a4781521f0ec9"/>
+								</dir>
+							</dir>
+						</dir>
 						<dir name="images">
 							<dir name="cloudflare">
 								<dir name="cloudflare.svg" hash="e7bcf4c627debf23d51cf96418cdf130"/>
@@ -261,17 +269,9 @@
 								<dir name="search.svg" hash="b83bec273c1f0f3e5b009d8bdf733fac"/>
 							</dir>
 						</dir>
-						<dir name="css">
-							<dir name="cloudflare">
-								<dir name="bundle.min.css" hash="3d67efee0e869b2ba462292a9a573e7f"/>
-								<dir name="fonts">
-									<dir name="cloudflare-font.woff" hash="23613915553427be651a4781521f0ec9"/>
-								</dir>
-							</dir>
-						</dir>
 						<dir name="js">
 							<dir name="cloudflare">
-								<dir name="bundle.min.js" hash="33b66374216d5c542ff91639beda0878"/>
+								<dir name="bundle.min.js" hash="f98b6041daa14c0cac60ad97dad0bf9b"/>
 							</dir>
 						</dir>
 					</dir>
