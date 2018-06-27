@@ -28,6 +28,7 @@
 					<option value="txt" >TXT</option>
 					<option value="ns" >NS</option>
 					<option value="caa" >CAA</option>
+					<option value="ptr" >PTR</option>
 				</select>
 				<div class="active" data-dynamic-wrapper="a" >
 					<input type="text" placeholder="Name" name="name" />
@@ -68,6 +69,10 @@
 				<div data-dynamic-wrapper="caa" >
 					<input type="text" placeholder="Name" name="name" />
 					<input type="text" placeholder="Click to configure" name="content" class="show-form-caa" />
+				</div>
+				<div data-dynamic-wrapper="ptr" >
+					<input type="text" placeholder="Name" name="name" />
+					<input type="text" placeholder="Domain Name" name="content" />
 				</div>
 				<select class="ttl" >
 					<option value="1" selected >Automatic TTL</option>

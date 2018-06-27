@@ -539,13 +539,13 @@ $(document).on ( "cloudflare.dns.dns_records.export", function ( event, data ) {
 		success: function ( response ) {
 			let blob = new Blob ( [ response ], { type: "octet/stream" } )
 			let url = window.URL.createObjectURL ( blob )
-		    let a = document.createElement ("a")
-		    document.body.appendChild ( a )
-		    a.style = "display: none"
-	        a.href = url
-	        a.download = global.getDomainName () + ".txt"
-	        a.click ()
-	        window.URL.revokeObjectURL ( url )
+			let a = document.createElement ("a")
+			document.body.appendChild ( a )
+			a.style = "display: none"
+			a.href = url
+			a.download = global.getDomainName () + ".txt"
+			a.click ()
+			window.URL.revokeObjectURL ( url )
 			$(data.section).removeClass ("loading")
 		}
 	})

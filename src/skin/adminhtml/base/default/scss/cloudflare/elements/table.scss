@@ -46,6 +46,7 @@ section.cloudflare {
 				text-overflow: ellipsis;
 				&.type_cfns { border-left: solid 2px $color-blue; color: $color-text_gray_dark; }
 				&.type_a { border-left: solid 2px $color-text_gray_dark; color: $color-text_gray_dark; }
+				&.type_ptr { border-left: solid 2px $color-text_gray_dark; color: $color-text_gray_dark; }
 				&.type_aaaa { border-left: solid 2px $color-text_gray_light; color: $color-text_gray_light; }
 				&.type_cname { border-left: solid 2px #FF7900; color: #FF7900; }
 				&.type_mx { border-left: solid 2px #D91698; color: #D91698; }
@@ -155,6 +156,7 @@ section.cloudflare {
 						&.type_cname:before { content: "is an alias of " }
 						&.type_mx:before { content: "mail handled by " }
 						&.type_ns:before { content: "managed by " }
+						&.type_ptr:before { content: "points to " }
 						&:hover {
 							border-color: #BCBCBC;
 							border-style: dashed;
@@ -172,13 +174,6 @@ section.cloudflare {
 					&.status {
 						cursor: pointer;
 					}
-
-					// &.type { width: 75px }
-					// &.name { max-width: 230px }
-					// &.value { max-width: 200px }
-					// &.ttl { max-width: 200px }
-					// &.status { max-width: 200px }
-					// &.delete { max-width: 37px }
 				}
 			}
 		}
