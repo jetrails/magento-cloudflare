@@ -21,7 +21,7 @@ $(window).on ( "load", function () {
 	$.ajax = function () {
 		var successCallback = arguments [ 0 ].success
 		arguments [ 0 ].success = function ( response, status, xhr ) {
-			if ( ( xhr.getResponseHeader ("content-type") || "" ).indexOf ("json") < 0 ) {
+			if ( ( xhr.getResponseHeader ("content-type") || "" ).indexOf ("html") >= 0 ) {
 				$(".cloudflare-dashboard").addClass ("logged-off")
 				notification.showMessages ({
 					errors: [

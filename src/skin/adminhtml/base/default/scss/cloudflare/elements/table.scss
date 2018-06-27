@@ -21,8 +21,8 @@ section.cloudflare {
 				color: $color-text_gray_dark;
 				font-weight: 600;
 				&.sort-asc:after {
-				    font-family: "cloudflare-font";
-				    content: "\F000";
+					font-family: "cloudflare-font";
+					content: "\F000";
 					margin-left: 5px;
 				}
 				&.sort-desc:after {
@@ -36,8 +36,8 @@ section.cloudflare {
 				font-family: "Open Sans";
 				text-align: left;
 				vertical-align: middle;
-			    padding: 13px 10px;
-    			box-sizing: border-box;
+				padding: 13px 10px;
+				box-sizing: border-box;
 				overflow: hidden;
 				color: $color-text_gray_dark;
 				font-weight: 100;
@@ -59,17 +59,17 @@ section.cloudflare {
 					padding: 10px 40px 10px 10px;
 				}
 				.delete_entry {
-				    background: $color-border_gray;
-				    border-radius: 2px;
+					background: $color-border_gray;
+					border-radius: 2px;
 					border-bottom: solid 1px #BABABA;
-				    height: 30px;
-				    width: 30px;
+					height: 30px;
+					width: 30px;
 					cursor: pointer;
 					transition: all 200ms;
 					text-align: center;
 					font-size: 1em;
-				    padding-top: 7px;
-				    box-sizing: border-box;
+					padding-top: 7px;
+					box-sizing: border-box;
 					&:hover {
 						background: #CCC;
 					}
@@ -105,7 +105,7 @@ section.cloudflare {
 					cursor: ns-resize;
 					padding-top: 17px;
 					max-width: 25px;
-				    text-align: center;
+					text-align: center;
 				}
 				span {
 					display: block;
@@ -153,7 +153,7 @@ section.cloudflare {
 						&.type_a:before { content: "points to " }
 						&.type_aaaa:before { content: "points to " }
 						&.type_cname:before { content: "is an alias of " }
-						&.type_mx:before { content: "mail handeled by " }
+						&.type_mx:before { content: "mail handled by " }
 						&.type_ns:before { content: "managed by " }
 						&:hover {
 							border-color: #BCBCBC;

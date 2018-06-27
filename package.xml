@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <package>
 	<date>2018-06-27</date>
-	<time>12:37:59</time>
+	<time>12:46:01</time>
 	<version>1.0.0</version>
 	<contents>
 		<target name="magecommunity">
@@ -38,15 +38,15 @@
 								<dir name="SslController.php" hash="65ed76a240167c40d809f29ed86ac338"/>
 								<dir name="Tls13Controller.php" hash="704c46bf4db3037e4a81686ef776f94e"/>
 							</dir>
+							<dir name="Dns">
+								<dir name="CloudflareNameserversController.php" hash="de0dbecb4baf89d7c5ce37f0dae8f7ad"/>
+								<dir name="DnsRecordsController.php" hash="966b3a5e42f6b79898edbd183fa32461"/>
+							</dir>
 							<dir name="Firewall">
 								<dir name="AccessRulesController.php" hash="f2454cfe250cacf1a171055a4ad5ad0d"/>
 								<dir name="ChallengePassageController.php" hash="8ed38de3c3b0fad63d7849df32e2249f"/>
 								<dir name="SecurityLevelController.php" hash="a98061a3e73f53ce4f80acf6048c27ac"/>
 								<dir name="UserAgentBlockingController.php" hash="56e88562fddc5e49f68758ea9b7bf4c4"/>
-							</dir>
-							<dir name="Dns">
-								<dir name="CloudflareNameserversController.php" hash="de0dbecb4baf89d7c5ce37f0dae8f7ad"/>
-								<dir name="DnsRecordsController.php" hash="966b3a5e42f6b79898edbd183fa32461"/>
 							</dir>
 							<dir name="Network">
 								<dir name="Http2Controller.php" hash="825798572e555bab0c787e50fecc1e23"/>
@@ -114,15 +114,15 @@
 									<dir name="Ssl.php" hash="3fe60a7b6046edce68a35fcdee460557"/>
 									<dir name="Tls13.php" hash="cfb2536708367ca4abfa4eed2e6a336c"/>
 								</dir>
+								<dir name="Dns">
+									<dir name="CloudflareNameservers.php" hash="c00d418680fae6c13ab9d9716598dbb1"/>
+									<dir name="DnsRecords.php" hash="bede95054d21264ac29df86e0ce7001c"/>
+								</dir>
 								<dir name="Firewall">
 									<dir name="AccessRules.php" hash="2c80be81aaba7cf6dfd3e76a30494aad"/>
 									<dir name="ChallengePassage.php" hash="0b5dbe0180dc1d1c939d634fb8a23489"/>
 									<dir name="SecurityLevel.php" hash="c3fb6cfdc39d5a6b4532b83f96361b26"/>
 									<dir name="UserAgentBlocking.php" hash="19cf8af7fa8e86d4ab2c5d01c8758abb"/>
-								</dir>
-								<dir name="Dns">
-									<dir name="CloudflareNameservers.php" hash="c00d418680fae6c13ab9d9716598dbb1"/>
-									<dir name="DnsRecords.php" hash="bede95054d21264ac29df86e0ce7001c"/>
 								</dir>
 								<dir name="Network">
 									<dir name="Http2.php" hash="587d2f1a8ace15fe27ca819ccefe981e"/>
@@ -210,16 +210,16 @@
 									<dir name="unmetered_ddos_mitigation.phtml" hash="6d99ade15e13f3313895727a92990766"/>
 									<dir name="user_agent_blocking.phtml" hash="6b3ba0e45372ad6fcd1e86a9bd5bed20"/>
 								</dir>
-								<dir name="overview">
-									<dir name="configuration.phtml" hash="81ede666fa4600f423cd22c83e34d8c6"/>
-									<dir name="status.phtml" hash="92cc62f829f7c7b40d35f2ff28c3b8c1"/>
-								</dir>
 								<dir name="network">
 									<dir name="http_2.phtml" hash="5f272ae4b07271133cfcdc0ef76b5646"/>
 									<dir name="ip_geolocation.phtml" hash="146be9115a765350e8cf1f6354439fc9"/>
 									<dir name="ipv6_compatibility.phtml" hash="21b53264707f65dccdaaaae52a46c206"/>
 									<dir name="pseudo_ipv4.phtml" hash="6df6335992a7dea7ad4c3f219d6b9bfc"/>
 									<dir name="websockets.phtml" hash="fc21aa4fd5199dbd8c5c6bc8b29fead0"/>
+								</dir>
+								<dir name="overview">
+									<dir name="configuration.phtml" hash="81ede666fa4600f423cd22c83e34d8c6"/>
+									<dir name="status.phtml" hash="92cc62f829f7c7b40d35f2ff28c3b8c1"/>
 								</dir>
 								<dir name="page_rules">
 									<dir name="page_rules.phtml" hash="f1acf8f423b307480de99b86a1fdc1a7"/>
@@ -253,7 +253,7 @@
 					<dir name="default">
 						<dir name="css">
 							<dir name="cloudflare">
-								<dir name="bundle.min.css" hash="ee703b1e1f084cf7fbd92053c9a91337"/>
+								<dir name="bundle.min.css" hash="4059a49682fcc51f9609fbb8af8b017b"/>
 								<dir name="fonts">
 									<dir name="cloudflare-font.woff" hash="23613915553427be651a4781521f0ec9"/>
 								</dir>
@@ -271,7 +271,7 @@
 						</dir>
 						<dir name="js">
 							<dir name="cloudflare">
-								<dir name="bundle.min.js" hash="88398f72f3b0d8f4e5d5277324636f24"/>
+								<dir name="bundle.min.js" hash="2b593a7e02d39d405200050751db76fe"/>
 							</dir>
 						</dir>
 					</dir>
