@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <package>
-	<date>2018-06-27</date>
-	<time>12:55:53</time>
+	<date>2018-07-02</date>
+	<time>15:06:13</time>
 	<version>1.0.0</version>
 	<contents>
 		<target name="magecommunity">
@@ -38,15 +38,15 @@
 								<dir name="SslController.php" hash="65ed76a240167c40d809f29ed86ac338"/>
 								<dir name="Tls13Controller.php" hash="704c46bf4db3037e4a81686ef776f94e"/>
 							</dir>
+							<dir name="Dns">
+								<dir name="CloudflareNameserversController.php" hash="de0dbecb4baf89d7c5ce37f0dae8f7ad"/>
+								<dir name="DnsRecordsController.php" hash="966b3a5e42f6b79898edbd183fa32461"/>
+							</dir>
 							<dir name="Firewall">
 								<dir name="AccessRulesController.php" hash="f2454cfe250cacf1a171055a4ad5ad0d"/>
 								<dir name="ChallengePassageController.php" hash="8ed38de3c3b0fad63d7849df32e2249f"/>
 								<dir name="SecurityLevelController.php" hash="a98061a3e73f53ce4f80acf6048c27ac"/>
 								<dir name="UserAgentBlockingController.php" hash="56e88562fddc5e49f68758ea9b7bf4c4"/>
-							</dir>
-							<dir name="Dns">
-								<dir name="CloudflareNameserversController.php" hash="de0dbecb4baf89d7c5ce37f0dae8f7ad"/>
-								<dir name="DnsRecordsController.php" hash="966b3a5e42f6b79898edbd183fa32461"/>
 							</dir>
 							<dir name="Network">
 								<dir name="Http2Controller.php" hash="825798572e555bab0c787e50fecc1e23"/>
@@ -95,6 +95,17 @@
 								<dir name="PageGetter.php" hash="6d251bb3712ceff4d1ef1ddeffd178ae"/>
 								<dir name="Request.php" hash="dd4db11fb957d79be6568949c3e67c0e"/>
 								<dir name="Setter.php" hash="2dc6f66fb656b7cb8a7d65b4adc26d33"/>
+								<dir name="Caching">
+									<dir name="AlwaysOnline.php" hash="0204885c4ade41cca61410d9ce82f715"/>
+									<dir name="BrowserCacheExpiration.php" hash="bd41074f07281e9c1562b5583380d981"/>
+									<dir name="CachingLevel.php" hash="d9e0cbe306812a0c82063237b52202d9"/>
+									<dir name="DevelopmentMode.php" hash="c4127f2bff6018154d8d625d28a446ee"/>
+									<dir name="PurgeCache.php" hash="c413c455ed036d6cd1efb335d2c9ffb6"/>
+								</dir>
+								<dir name="Dns">
+									<dir name="CloudflareNameservers.php" hash="c00d418680fae6c13ab9d9716598dbb1"/>
+									<dir name="DnsRecords.php" hash="bede95054d21264ac29df86e0ce7001c"/>
+								</dir>
 								<dir name="Crypto">
 									<dir name="AlwaysUseHttps.php" hash="f5b62f6f627edf83485501b89207f543"/>
 									<dir name="AuthenticatedOriginPulls.php" hash="669b9bbb8e919b07b21bbb727320de94"/>
@@ -106,17 +117,6 @@
 									<dir name="RequireModernTls.php" hash="3f0176f0735cdd290bed53ebb1ba04bf"/>
 									<dir name="Ssl.php" hash="3fe60a7b6046edce68a35fcdee460557"/>
 									<dir name="Tls13.php" hash="cfb2536708367ca4abfa4eed2e6a336c"/>
-								</dir>
-								<dir name="Caching">
-									<dir name="AlwaysOnline.php" hash="0204885c4ade41cca61410d9ce82f715"/>
-									<dir name="BrowserCacheExpiration.php" hash="bd41074f07281e9c1562b5583380d981"/>
-									<dir name="CachingLevel.php" hash="d9e0cbe306812a0c82063237b52202d9"/>
-									<dir name="DevelopmentMode.php" hash="c4127f2bff6018154d8d625d28a446ee"/>
-									<dir name="PurgeCache.php" hash="c413c455ed036d6cd1efb335d2c9ffb6"/>
-								</dir>
-								<dir name="Dns">
-									<dir name="CloudflareNameservers.php" hash="c00d418680fae6c13ab9d9716598dbb1"/>
-									<dir name="DnsRecords.php" hash="bede95054d21264ac29df86e0ce7001c"/>
 								</dir>
 								<dir name="Firewall">
 									<dir name="AccessRules.php" hash="2c80be81aaba7cf6dfd3e76a30494aad"/>
@@ -132,7 +132,7 @@
 									<dir name="Websockets.php" hash="f3879096f241d33e51e82ee134d8c6db"/>
 								</dir>
 								<dir name="Overview">
-									<dir name="Configuration.php" hash="c853ceffd491dcd97aca7628f3521f81"/>
+									<dir name="Configuration.php" hash="65ef2ba5192efc4bff3f3cde6562303c"/>
 									<dir name="Status.php" hash="cee8801bdac5b05ad661d3a27a8cb676"/>
 								</dir>
 								<dir name="PageRules">
@@ -251,6 +251,14 @@
 			<dir name="adminhtml">
 				<dir name="base">
 					<dir name="default">
+						<dir name="css">
+							<dir name="cloudflare">
+								<dir name="bundle.min.css" hash="8a9b5c81c0f4a641bfbc60d26e57f8f9"/>
+								<dir name="fonts">
+									<dir name="cloudflare-font.woff" hash="23613915553427be651a4781521f0ec9"/>
+								</dir>
+							</dir>
+						</dir>
 						<dir name="images">
 							<dir name="cloudflare">
 								<dir name="cloudflare.svg" hash="e7bcf4c627debf23d51cf96418cdf130"/>
@@ -259,14 +267,6 @@
 								<dir name="proxied_off.png" hash="e7123b4a8a90e5b358b49ce06f0d1879"/>
 								<dir name="proxied_on.png" hash="df56f6f998f645a4089ead6813b08e57"/>
 								<dir name="search.svg" hash="b83bec273c1f0f3e5b009d8bdf733fac"/>
-							</dir>
-						</dir>
-						<dir name="css">
-							<dir name="cloudflare">
-								<dir name="bundle.min.css" hash="8a9b5c81c0f4a641bfbc60d26e57f8f9"/>
-								<dir name="fonts">
-									<dir name="cloudflare-font.woff" hash="23613915553427be651a4781521f0ec9"/>
-								</dir>
 							</dir>
 						</dir>
 						<dir name="js">

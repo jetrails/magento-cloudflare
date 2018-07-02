@@ -14,6 +14,7 @@
 		"gulp": "^3.9.1",
 		"gulp-concat": "^2.6.1",
 		"gulp-gzip": "^1.4.2",
+		"gulp-ignore": "^2.0.2",
 		"gulp-magepack": "^1.0.3",
 		"gulp-minify": "^2.1.0",
 		"gulp-minify-css": "^1.2.4",

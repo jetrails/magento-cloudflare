@@ -11,6 +11,7 @@ const sass = require ("gulp-sass")
 const uglify = require ("gulp-uglify")
 const webpack = require ("webpack")
 const webpackStream = require ("webpack-stream")
+const gulpIgnore = require ("gulp-ignore")
 const webpackConfig = require ( path.join ( __dirname, "webpack.config.js" ) )
 const tar = require ("gulp-tar")
 
@@ -49,9 +50,9 @@ gulp.task ( "build-styles", [ "init" ], ( callback ) => {
 
 gulp.task ( "build-scripts", [ "init" ], ( callback ) => {
 	gulp.src ( path.join ( SOURCE_PATH, MAGENTO_SKIN_JS, MODULE_SHORT_NAME, "index.js" ) )
-	    .pipe ( webpackStream ( webpackConfig ), webpack )
+		.pipe ( webpackStream ( webpackConfig ), webpack )
 		.pipe ( minifyJs ({ ext: { min: ".min.js" } }) )
-	    .pipe ( gulp.dest ( path.join ( BUILD_PATH, MAGENTO_SKIN_JS, MODULE_SHORT_NAME ) ) )
+		.pipe ( gulp.dest ( path.join ( BUILD_PATH, MAGENTO_SKIN_JS, MODULE_SHORT_NAME ) ) )
 		.on ( "end", () => {
 			fs.unlinkSync ( path.join ( BUILD_PATH, MAGENTO_SKIN_JS, MODULE_SHORT_NAME, "bundle.js" ) )
 			callback ()
@@ -88,9 +89,10 @@ gulp.task ( "package", () => {
 		"output": "package.xml",
 		"version": EXTENSION_VERSION
 	}
-    gulp.src ([ path.join ( BUILD_PATH, "**", "*" ) ])
+	gulp.src ([ path.join ( BUILD_PATH, "**", "*" ) ])
 		.pipe ( magepack ( options ) )
+		.pipe ( gulpIgnore.exclude ("package.xml") )
 		.pipe ( tar (`${EXTENSION_NAMESPACE}-${EXTENSION_VERSION}`) )
-        .pipe ( gzip ({ extension: "tgz" }) )
-        .pipe ( gulp.dest ("dist") )
+		.pipe ( gzip ({ extension: "tgz" }) )
+		.pipe ( gulp.dest ("dist") )
 })
