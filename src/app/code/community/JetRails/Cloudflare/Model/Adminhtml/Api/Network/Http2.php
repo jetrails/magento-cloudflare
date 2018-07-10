@@ -7,6 +7,7 @@
 	 * @package     JetRails® Cloudflare
 	 * @author      Rafael Grigorian <development@jetrails.com>
 	 * @copyright   © 2018 JETRAILS, All rights reserved
+	 * @license     MIT https://opensource.org/licenses/MIT
 	 */
 	class JetRails_Cloudflare_Model_Adminhtml_Api_Network_Http2
 	extends JetRails_Cloudflare_Model_Adminhtml_Api_Setter {

@@ -1,10 +1,10 @@
 {
 	"version": "1.0.0",
 	"name": "magento-cloudflare",
-	"description": "Cloudflare for Magento 1.x",
+	"description": "Interact with popular Cloudflare features though Magento's backend portal",
 	"author": "Rafael Grigorian",
 	"company": "JetRails®",
-	"license": "UNLICENSED",
+	"license": "MIT",
 	"repository": {
 		"type": "git",
 		"url": "https://github.com/jetrails/magento-cloudflare.git"

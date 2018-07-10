@@ -10,6 +10,7 @@
 	 * @package     JetRails® Cloudflare
 	 * @author      Rafael Grigorian <development@jetrails.com>
 	 * @copyright   © 2018 JETRAILS, All rights reserved
+	 * @license     MIT https://opensource.org/licenses/MIT
 	 */
 	class JetRails_Cloudflare_Api_Firewall_SecurityLevelController
 	extends JetRails_Cloudflare_Controller_Update {}
