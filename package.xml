@@ -1,77 +1,77 @@
 <?xml version="1.0"?>
 <package>
-	<date>2018-07-02</date>
-	<time>15:06:13</time>
-	<version>1.0.0</version>
+	<date>2018-07-13</date>
+	<time>13:49:44</time>
+	<version>1.0.1</version>
 	<contents>
 		<target name="magecommunity">
 			<dir name="JetRails">
 				<dir name="Cloudflare">
 					<dir name="Controller">
-						<dir name="Action.php" hash="c6b506749342d749167cfd42a01353d1"/>
-						<dir name="Getter.php" hash="4fb63922404a6403d244ebea5a4ba927"/>
-						<dir name="Toggle.php" hash="4ef8c328b6d934052b4d1ac1f300836b"/>
-						<dir name="Update.php" hash="dc6dbaa6bedfe9593ac798162f5ed69c"/>
+						<dir name="Action.php" hash="b48a902b4139e3c4931da821eeada3f9"/>
+						<dir name="Getter.php" hash="cb1cee110b99a31846168061b28d7a92"/>
+						<dir name="Toggle.php" hash="73b278f88b7c29e2c938f3f65fb913ce"/>
+						<dir name="Update.php" hash="45ed547e7f6db71fd4b65558b9e37080"/>
 					</dir>
 					<dir name="Helper">
-						<dir name="Data.php" hash="761982895ed6d3f543859ca0ada345e5"/>
+						<dir name="Data.php" hash="963b2f83ad8e16f3e9e109ac8c78e30a"/>
 					</dir>
 					<dir name="controllers">
-						<dir name="DashboardController.php" hash="56fbc8c9da29c274db2e8b14d04b968b"/>
+						<dir name="DashboardController.php" hash="78d79028d899e33c56faeb1cda5a5ca9"/>
 						<dir name="Api">
 							<dir name="Caching">
-								<dir name="AlwaysOnlineController.php" hash="8e6e9965523a72759839f8e99ba922a4"/>
-								<dir name="BrowserCacheExpirationController.php" hash="7c572e23b154f1abc189fe6b6bc85dde"/>
-								<dir name="CachingLevelController.php" hash="bba79db96d53b37c6b449e79eaa1a927"/>
-								<dir name="DevelopmentModeController.php" hash="0d0e265cdb08973544dd36565897794a"/>
-								<dir name="PurgeCacheController.php" hash="0e84dcab790f5643e654ebc3da83a4e5"/>
+								<dir name="AlwaysOnlineController.php" hash="3a72396cf6f3229c7790fbe1af4c28a0"/>
+								<dir name="BrowserCacheExpirationController.php" hash="4f5321d6c58886d417abb0247013911e"/>
+								<dir name="CachingLevelController.php" hash="a71aba5dd98fbfa647282fdc01bef033"/>
+								<dir name="DevelopmentModeController.php" hash="668da4bf2565fe0935dd3cce3ee0a572"/>
+								<dir name="PurgeCacheController.php" hash="b63035ffcb6f9e8c42d2ec5f3323e33d"/>
 							</dir>
 							<dir name="Crypto">
-								<dir name="AlwaysUseHttpsController.php" hash="491db4a5a791136b1f0251ad2429585b"/>
-								<dir name="AuthenticatedOriginPullsController.php" hash="19afc26ef3765ec0be0f3ba540878971"/>
-								<dir name="AutomaticHttpsRewritesController.php" hash="76d90be8a79f4f1e120a2a667f7deaa0"/>
-								<dir name="DisableUniversalSslController.php" hash="996d32b71cee3a2e94149a666c428e9d"/>
-								<dir name="HttpStrictTransportSecurityController.php" hash="1396c831e7c37ea5f4b3143e2e4d088e"/>
-								<dir name="MinimumTlsVersionController.php" hash="d5f185aef42a42baef78bc17a748e35a"/>
-								<dir name="OpportunisticEncryptionController.php" hash="bfcce30bb6fd6c4b5b582e59d67d8286"/>
+								<dir name="AlwaysUseHttpsController.php" hash="6daa2afddf4003962e2295e4109f02b1"/>
+								<dir name="AuthenticatedOriginPullsController.php" hash="dbde756c347cba1a21468da0aeef892e"/>
+								<dir name="AutomaticHttpsRewritesController.php" hash="8c256fd93eef2ceb08292e64d2b242d5"/>
+								<dir name="DisableUniversalSslController.php" hash="6ea97fcdb3722e79a3c14c72df80ada0"/>
+								<dir name="HttpStrictTransportSecurityController.php" hash="7537cebf4d2972e1eb73c10441581c5b"/>
+								<dir name="MinimumTlsVersionController.php" hash="116a2062c34185d3ae31b386c39ed79a"/>
+								<dir name="OpportunisticEncryptionController.php" hash="48c523d5298fc4b3635c0a85bd2bb77f"/>
 								<dir name="RequireModernTlsController.php" hash="43abbb262c254b5068fb886827565c83"/>
-								<dir name="SslController.php" hash="65ed76a240167c40d809f29ed86ac338"/>
-								<dir name="Tls13Controller.php" hash="704c46bf4db3037e4a81686ef776f94e"/>
+								<dir name="SslController.php" hash="009626c37e53141b21515dca9ad98cf2"/>
+								<dir name="Tls13Controller.php" hash="db70c228ab4a43d520249139135f2c97"/>
 							</dir>
 							<dir name="Dns">
-								<dir name="CloudflareNameserversController.php" hash="de0dbecb4baf89d7c5ce37f0dae8f7ad"/>
-								<dir name="DnsRecordsController.php" hash="966b3a5e42f6b79898edbd183fa32461"/>
+								<dir name="CloudflareNameserversController.php" hash="fc1d814cbb0c7dc19bec1346070b661c"/>
+								<dir name="DnsRecordsController.php" hash="31f30f4877efafa68fe4e06965d8fd01"/>
 							</dir>
 							<dir name="Firewall">
-								<dir name="AccessRulesController.php" hash="f2454cfe250cacf1a171055a4ad5ad0d"/>
-								<dir name="ChallengePassageController.php" hash="8ed38de3c3b0fad63d7849df32e2249f"/>
-								<dir name="SecurityLevelController.php" hash="a98061a3e73f53ce4f80acf6048c27ac"/>
-								<dir name="UserAgentBlockingController.php" hash="56e88562fddc5e49f68758ea9b7bf4c4"/>
+								<dir name="AccessRulesController.php" hash="2a7b94d880ada386478aaec8230d6255"/>
+								<dir name="ChallengePassageController.php" hash="c2ef413ad0fdbae30f325b64423be0b2"/>
+								<dir name="SecurityLevelController.php" hash="b4ab2bdcdaca074202b8ffb9d37d1db2"/>
+								<dir name="UserAgentBlockingController.php" hash="72f5cac927eb29816e9e402095f84089"/>
 							</dir>
 							<dir name="Network">
-								<dir name="Http2Controller.php" hash="825798572e555bab0c787e50fecc1e23"/>
-								<dir name="IpGeolocationController.php" hash="a9a4e8f065afa5f3e814bf04f03e86a7"/>
-								<dir name="Ipv6CompatibilityController.php" hash="29f113b33970132111c51a10a00f3e7d"/>
-								<dir name="PseudoIpv4Controller.php" hash="ee8eec984b64f82c904cdbf7e0cef325"/>
-								<dir name="WebsocketsController.php" hash="5c7e2be32959b6717081c30c88c266b5"/>
+								<dir name="Http2Controller.php" hash="2ae1d4cd447d540e0a75f4a91b12a7bf"/>
+								<dir name="IpGeolocationController.php" hash="c30c71af866bbf2f02c939e9766d8098"/>
+								<dir name="Ipv6CompatibilityController.php" hash="f47e337da28164fceb01f40ecb12b6f7"/>
+								<dir name="PseudoIpv4Controller.php" hash="89940ed7711211dceccbaa3f3098544e"/>
+								<dir name="WebsocketsController.php" hash="5067b71a0bee985a4ca3f5f4d307ff8a"/>
 							</dir>
 							<dir name="Overview">
-								<dir name="StatusController.php" hash="e5acd1c51f6d8ded23019a19443793cd"/>
+								<dir name="StatusController.php" hash="55a8e58331cc85e008aa7c0f67908841"/>
 							</dir>
 							<dir name="PageRules">
-								<dir name="PageRulesController.php" hash="1660f2150e77d5bc6acc800bbc15fae0"/>
+								<dir name="PageRulesController.php" hash="98518ea5d1c2b94ac282dcca733acabd"/>
 							</dir>
 							<dir name="ScrapeShield">
-								<dir name="EmailAddressObfuscationController.php" hash="8819b6efb3690495e6faab87b7a75b05"/>
-								<dir name="HotlinkProtectionController.php" hash="1b2e39062d078096f93c7006bb71cd03"/>
-								<dir name="ServerSideExcludesController.php" hash="4d435124476dd770d73212a733bbf0ca"/>
+								<dir name="EmailAddressObfuscationController.php" hash="1ec743e504509bfca51f09e0a5d8fcd9"/>
+								<dir name="HotlinkProtectionController.php" hash="ba81d47ca112d0db9c6535317567510b"/>
+								<dir name="ServerSideExcludesController.php" hash="2a223eb9d440041125df7872139fccbf"/>
 							</dir>
 							<dir name="Speed">
-								<dir name="AutoMinifyController.php" hash="2946e4570b5e556b7cbfd6ebb259a590"/>
-								<dir name="BrotliController.php" hash="a817ab1acf9f6457e566dff01fe184c0"/>
-								<dir name="MirageController.php" hash="e4fad45c61332fe19c19a19e7388b111"/>
-								<dir name="PolishController.php" hash="d76b07f2777ced9a3436d292a828ee40"/>
-								<dir name="RocketLoaderController.php" hash="89e5c7f243e5d8398fbb179de760cc01"/>
+								<dir name="AutoMinifyController.php" hash="0c29f78f6789948d61c54d83e4d96e88"/>
+								<dir name="BrotliController.php" hash="aa70a0a7d144d9e9aff264f9367b9e51"/>
+								<dir name="MirageController.php" hash="cbc20e00f7d71f67f3e441e9b3fb44ed"/>
+								<dir name="PolishController.php" hash="ad5d9d287b9017d0d1f2ebca350a1a3c"/>
+								<dir name="RocketLoaderController.php" hash="509a304a80ae3deaf1e0c666b8b29668"/>
 							</dir>
 						</dir>
 					</dir>
@@ -81,74 +81,74 @@
 					</dir>
 					<dir name="Block">
 						<dir name="Adminhtml">
-							<dir name="Dashboard.php" hash="c6482a15ddde564836d5014c00a4435d"/>
+							<dir name="Dashboard.php" hash="b29053b9aeafde22f10a98d81fb68507"/>
 							<dir name="Dashboard">
-								<dir name="Section.php" hash="b17d081e9257c07ebe33e52c58340094"/>
-								<dir name="Tab.php" hash="a4075a98722e61006336ec794cacfe16"/>
+								<dir name="Section.php" hash="9ed09f16d769067bcd5a7c8355cf20b7"/>
+								<dir name="Tab.php" hash="dccfacfb0d1233483ef8d2ed2ff79d9c"/>
 							</dir>
 						</dir>
 					</dir>
 					<dir name="Model">
 						<dir name="Adminhtml">
 							<dir name="Api">
-								<dir name="Getter.php" hash="0b2cf1a6d3773e34338b10cf16765cfb"/>
-								<dir name="PageGetter.php" hash="6d251bb3712ceff4d1ef1ddeffd178ae"/>
-								<dir name="Request.php" hash="dd4db11fb957d79be6568949c3e67c0e"/>
-								<dir name="Setter.php" hash="2dc6f66fb656b7cb8a7d65b4adc26d33"/>
+								<dir name="Getter.php" hash="1770033d6c8dd6fb9f2bade9a37fa30d"/>
+								<dir name="PageGetter.php" hash="53381e8580adaf241b74881e21778ffc"/>
+								<dir name="Request.php" hash="4244163ed17cc811936a62b81c28c85c"/>
+								<dir name="Setter.php" hash="8b234fe4299253c42eb577b9eb3901de"/>
 								<dir name="Caching">
-									<dir name="AlwaysOnline.php" hash="0204885c4ade41cca61410d9ce82f715"/>
-									<dir name="BrowserCacheExpiration.php" hash="bd41074f07281e9c1562b5583380d981"/>
-									<dir name="CachingLevel.php" hash="d9e0cbe306812a0c82063237b52202d9"/>
-									<dir name="DevelopmentMode.php" hash="c4127f2bff6018154d8d625d28a446ee"/>
-									<dir name="PurgeCache.php" hash="c413c455ed036d6cd1efb335d2c9ffb6"/>
+									<dir name="AlwaysOnline.php" hash="cfa3977eed045d514f32a54bca2ee903"/>
+									<dir name="BrowserCacheExpiration.php" hash="d54574f76b3db7d97006229cd76dfc85"/>
+									<dir name="CachingLevel.php" hash="6da334c21b83febc701e5cd05678cd36"/>
+									<dir name="DevelopmentMode.php" hash="506d5dd472468da50234acb8a43f283e"/>
+									<dir name="PurgeCache.php" hash="0a3e4bb9e1239fe33135403da6019ba9"/>
 								</dir>
 								<dir name="Dns">
-									<dir name="CloudflareNameservers.php" hash="c00d418680fae6c13ab9d9716598dbb1"/>
-									<dir name="DnsRecords.php" hash="bede95054d21264ac29df86e0ce7001c"/>
+									<dir name="CloudflareNameservers.php" hash="68c00519fe9ab76afef87f1f2f73c02b"/>
+									<dir name="DnsRecords.php" hash="a9516a2a5c41715a8d10618616473b41"/>
 								</dir>
 								<dir name="Crypto">
-									<dir name="AlwaysUseHttps.php" hash="f5b62f6f627edf83485501b89207f543"/>
-									<dir name="AuthenticatedOriginPulls.php" hash="669b9bbb8e919b07b21bbb727320de94"/>
-									<dir name="AutomaticHttpsRewrites.php" hash="d152c2450ec522eb50754f8c91f55166"/>
-									<dir name="DisableUniversalSsl.php" hash="acf54a9181bb72507ff0b273e8408eb5"/>
-									<dir name="HttpStrictTransportSecurity.php" hash="2e20c42d25e3126441b30b347eeb8851"/>
-									<dir name="MinimumTlsVersion.php" hash="8c4ae799f9e7b8af5ba427485b1088a0"/>
-									<dir name="OpportunisticEncryption.php" hash="170b288dbce32f178e86303a408d81fe"/>
+									<dir name="AlwaysUseHttps.php" hash="c9ef0bf31fb88f852a92db2bf8970acc"/>
+									<dir name="AuthenticatedOriginPulls.php" hash="6c95a4f2f3982a4ef7939ce28e09594b"/>
+									<dir name="AutomaticHttpsRewrites.php" hash="5c94d4ef14667692697ba641d5b0382a"/>
+									<dir name="DisableUniversalSsl.php" hash="b3b1c206ca626a508822c2ed7a7dbe74"/>
+									<dir name="HttpStrictTransportSecurity.php" hash="63ab32193a8346247acedfbe8df9ce98"/>
+									<dir name="MinimumTlsVersion.php" hash="e634427902e8ccd328c7448a25a1d85e"/>
+									<dir name="OpportunisticEncryption.php" hash="f104b47586f9431236b4514148d62e4a"/>
 									<dir name="RequireModernTls.php" hash="3f0176f0735cdd290bed53ebb1ba04bf"/>
-									<dir name="Ssl.php" hash="3fe60a7b6046edce68a35fcdee460557"/>
-									<dir name="Tls13.php" hash="cfb2536708367ca4abfa4eed2e6a336c"/>
+									<dir name="Ssl.php" hash="43fbd4dd237b71c7e50b567449124c94"/>
+									<dir name="Tls13.php" hash="709388c8ed614b7f8bf658d01787aafb"/>
 								</dir>
 								<dir name="Firewall">
-									<dir name="AccessRules.php" hash="2c80be81aaba7cf6dfd3e76a30494aad"/>
-									<dir name="ChallengePassage.php" hash="0b5dbe0180dc1d1c939d634fb8a23489"/>
-									<dir name="SecurityLevel.php" hash="c3fb6cfdc39d5a6b4532b83f96361b26"/>
-									<dir name="UserAgentBlocking.php" hash="19cf8af7fa8e86d4ab2c5d01c8758abb"/>
+									<dir name="AccessRules.php" hash="673963213745d620002630fdf04248d4"/>
+									<dir name="ChallengePassage.php" hash="14e748a8adb2c344824b0567970f3067"/>
+									<dir name="SecurityLevel.php" hash="53e97d8097256379989b1ba5dab40b51"/>
+									<dir name="UserAgentBlocking.php" hash="c13ec821972845f4faa6ccfaeec06e22"/>
 								</dir>
 								<dir name="Network">
-									<dir name="Http2.php" hash="587d2f1a8ace15fe27ca819ccefe981e"/>
-									<dir name="IpGeolocation.php" hash="9a672f24cbc47de0d9744e723440744c"/>
-									<dir name="Ipv6Compatibility.php" hash="7c6a858c5173358893d31365852913fd"/>
-									<dir name="PseudoIpv4.php" hash="bc217b518fe8a95e4096869ad5e14b6a"/>
-									<dir name="Websockets.php" hash="f3879096f241d33e51e82ee134d8c6db"/>
+									<dir name="Http2.php" hash="2dfe36da760f4e5c8bf12fb59393d8a3"/>
+									<dir name="IpGeolocation.php" hash="c4446df1da6e5fd50972767ea2f25e72"/>
+									<dir name="Ipv6Compatibility.php" hash="dc8e53e4ed64ee8f2fab77314a5191aa"/>
+									<dir name="PseudoIpv4.php" hash="98d0faf8ea93dea645d01a10fd91bd65"/>
+									<dir name="Websockets.php" hash="911edc3af79b891c0e1a846a6c294b26"/>
 								</dir>
 								<dir name="Overview">
-									<dir name="Configuration.php" hash="65ef2ba5192efc4bff3f3cde6562303c"/>
-									<dir name="Status.php" hash="cee8801bdac5b05ad661d3a27a8cb676"/>
+									<dir name="Configuration.php" hash="f31c48bdf57f5855486adc42b0ac2c66"/>
+									<dir name="Status.php" hash="e412319f8dd06b9410957c8cbbe770cf"/>
 								</dir>
 								<dir name="PageRules">
-									<dir name="PageRules.php" hash="368a0f47fdb2d700901e5d598251c060"/>
+									<dir name="PageRules.php" hash="57b844cb25bc9af89e8d8ab513e0d9d8"/>
 								</dir>
 								<dir name="ScrapeShield">
-									<dir name="EmailAddressObfuscation.php" hash="23a7d063c0b0ed4103a721e47e00cd85"/>
-									<dir name="HotlinkProtection.php" hash="8806c7a53eecf1b9aab0ea6fa44755d0"/>
-									<dir name="ServerSideExcludes.php" hash="f5f70b127a017fe1075a932a5ec6ec06"/>
+									<dir name="EmailAddressObfuscation.php" hash="a3d6a4c0fec2c32345a70652624054dd"/>
+									<dir name="HotlinkProtection.php" hash="1ee2cf0356f8a2e65b2e557866d0d390"/>
+									<dir name="ServerSideExcludes.php" hash="7e752ea18148133d6aec9bcb9356abb8"/>
 								</dir>
 								<dir name="Speed">
-									<dir name="AutoMinify.php" hash="63dad16229aab085591e89b941f415be"/>
-									<dir name="Brotli.php" hash="4a35fdb4d5b41ba07e2b385d7944a621"/>
-									<dir name="Mirage.php" hash="9b4062f6249bb48df8973596a498606a"/>
-									<dir name="Polish.php" hash="3bf4dad0646158dbbc8964d52bdfe5fa"/>
-									<dir name="RocketLoader.php" hash="1d446a4b2c13fea6e34f96470e1357cd"/>
+									<dir name="AutoMinify.php" hash="d470850c254686fdbc72c25d8c98fa63"/>
+									<dir name="Brotli.php" hash="87f1fbac396c66459533df8fa8d8f815"/>
+									<dir name="Mirage.php" hash="c3a92c9ac2ce335a24a0dd3a725d4d72"/>
+									<dir name="Polish.php" hash="7c7e92d82e2dfc6fbd7635f167928099"/>
+									<dir name="RocketLoader.php" hash="9a6fafd178a831e102943075ac3723d6"/>
 								</dir>
 							</dir>
 						</dir>

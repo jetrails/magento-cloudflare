@@ -64,7 +64,8 @@
 			}
 			$domain = Mage::getBaseUrl ( Mage_Core_Model_Store::URL_TYPE_WEB );
 			$domain = parse_url ( $domain ) ["host"];
-			return $domain;
+			preg_match ( "/\.?([^.]+\.[^.]+)$/i", $domain, $matches );
+			return $matches [ 1 ];
 		}
 
 		/**
@@ -90,6 +91,8 @@
 			$domains = array_unique ( $domains );
 			sort ( $domains );
 			$domains = array_map ( function ( $domain ) use ( $selection ) {
+				preg_match ( "/\.?([^.]+\.[^.]+)$/i", $domain, $matches );
+				$domain = $matches [ 1 ];
 				return array (
 					"name" => $domain,
 					"active" => $domain == $selection,
