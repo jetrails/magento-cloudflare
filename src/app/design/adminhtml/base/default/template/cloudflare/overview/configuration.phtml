@@ -41,7 +41,7 @@
 		</div>
 		<div class="wrapper_right" >
 			<div>
-				<form method="POST" action="<?php echo Mage::getUrl ("cloudflare/dashboard/save") ?>" >
+				<form method="POST" action="<?php echo Mage::getUrl ("adminhtml/cloudflare_dashboard/save") ?>" >
 					<input name="form_key" type="hidden" value="<?php echo $this->getFormKey () ?>" />
 					<input name="email" type="email" placeholder="Email Address" value="<?php echo getAuthEmail () ?>" />
 					<input name="token" type="password" placeholder="API Token" autocomplete="nope" autofill="off" />

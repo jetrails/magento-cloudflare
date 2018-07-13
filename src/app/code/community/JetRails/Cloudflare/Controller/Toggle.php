@@ -23,6 +23,7 @@
 		 */
 		public function toggleAction () {
 			$resource = Mage::app ()->getRequest ()->getControllerName ();
+			$resource = preg_replace ( "/^cloudflare_/", "", $resource );
 			$api = Mage::getModel ("cloudflare/$resource");
 			$state = $this->_request->getParam ("state");
 			$response = $api->setValue ( $state === "true" );

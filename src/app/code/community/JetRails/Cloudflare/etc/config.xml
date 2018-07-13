@@ -8,13 +8,13 @@
 	</modules>
 	<admin>
 		<routers>
-			<jetrails_cloudflare>
-				<use>admin</use>
+			<adminhtml>
 				<args>
-					<module>JetRails_Cloudflare</module>
-					<frontName>cloudflare</frontName>
+					<modules>
+						<JetRails_Cloudflare after="Mage_Adminhtml" >JetRails_Cloudflare</JetRails_Cloudflare>
+					</modules>
 				</args>
-			</jetrails_cloudflare>
+			</adminhtml>
 		</routers>
 	</admin>
 	<global>

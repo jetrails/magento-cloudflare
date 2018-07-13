@@ -23,6 +23,7 @@
 		 */
 		public function indexAction () {
 			$resource = Mage::app ()->getRequest ()->getControllerName ();
+			$resource = preg_replace ( "/^cloudflare_/", "", $resource );
 			$api = Mage::getModel ("cloudflare/$resource");
 			$response = $api->getValue ();
 			return $this->_sendResponse ( $response );

@@ -237,7 +237,7 @@
 				<cloudflare translate="title" module="cloudflare" >
 					<title>Cloudflare</title>
 					<sort_order>10</sort_order>
-					<action>cloudflare/dashboard/index</action>
+					<action>adminhtml/cloudflare_dashboard/index</action>
 				</cloudflare>
 			</children>
 		</jetrails>

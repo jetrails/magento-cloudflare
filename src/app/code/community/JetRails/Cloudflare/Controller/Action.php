@@ -33,6 +33,7 @@
 		 */
 		protected function _getResourceName () {
 			$resource = Mage::app ()->getRequest ()->getControllerName ();
+			$resource = preg_replace ( "/^cloudflare_/", "", $resource );
 			$resource = str_replace ( "api_", "", $resource );
 			$resource = str_replace ( "_", "/", $resource );
 			$resource = preg_replace ( "/([A-Z])/", '_$1', $resource );

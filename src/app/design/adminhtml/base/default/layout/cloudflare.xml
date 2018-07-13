@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 
 <layout>
-	<jetrails_cloudflare_dashboard_index>
+	<adminhtml_cloudflare_dashboard_index>
 		<reference name="head" >
 			<action method="addCss" >
 				<stylesheet>css/cloudflare/bundle.min.css</stylesheet>
@@ -11,5 +11,5 @@
 				<name>js/cloudflare/bundle.min.js</name>
 			</action>
 		</reference>
-	</jetrails_cloudflare_dashboard_index>
+	</adminhtml_cloudflare_dashboard_index>
 </layout>

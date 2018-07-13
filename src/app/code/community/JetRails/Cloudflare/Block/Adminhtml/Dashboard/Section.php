@@ -16,7 +16,7 @@
 
 		/**
 		 * Uses core session model to return a valid form key. This form key is
-		 * used to enable AJAX communitcations.
+		 * used to enable AJAX communications.
 		 * @return  string                      Form key
 		 */
 		public function getFormKey () {
@@ -26,7 +26,7 @@
 		/**
 		 * This method takes the template that is binded to this block and it
 		 * uses the template name to generate a custom endpoint. This endpoint
-		 * is used to enable AJAX communitications with the template's
+		 * is used to enable AJAX communications with the template's
 		 * respective controllers.
 		 * @return  string                      URL to custom endpoint
 		 */
@@ -42,7 +42,7 @@
 				return $i;
 			}, $route );
 			$route = implode ( "_", $route );
-			return Mage::getUrl ("cloudflare/api_$route");
+			return Mage::getUrl ("adminhtml/cloudflare_api_$route");
 		}
 
 	}

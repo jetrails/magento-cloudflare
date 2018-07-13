@@ -21,6 +21,7 @@
 		 */
 		public function updateAction () {
 			$resource = Mage::app ()->getRequest ()->getControllerName ();
+			$resource = preg_replace ( "/^cloudflare_/", "", $resource );
 			$api = Mage::getModel ("cloudflare/$resource");
 			$value = $this->_request->getParam ("value");
 			$response = $api->setValue ( $value );
