@@ -1,6 +1,6 @@
 input[type="checkbox"] {
 	margin-right: 12px;
-	visibility: hidden;
+	visibility: visible;
 	cursor: pointer;
 	&:after {
 	    content: "";

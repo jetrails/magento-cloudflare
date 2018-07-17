@@ -1,7 +1,11 @@
 section.cloudflare, .cloudflare_modal {
+	font-smoothing: antialiased;
 	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
 	select {
+		appearance: none;
 		-webkit-appearance: none;
+		-moz-appearance: none;
 		font-size: 1em;
 		width: 100%;
 		color: $color-text_gray_dark;

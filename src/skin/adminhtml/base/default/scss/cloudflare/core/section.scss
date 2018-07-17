@@ -6,7 +6,9 @@ h1.tab-content {
 	font-size: 28px;
 	max-width: 960px;
 	margin: 30px auto 0;
+	font-smoothing: antialiased;
 	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
 }
 
 h2.tab-content {
@@ -16,7 +18,9 @@ h2.tab-content {
 	font-size: 22px;
 	max-width: 960px;
 	margin: 0 auto 0;
+	font-smoothing: antialiased;
 	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
 }
 
 section.cloudflare {
@@ -513,7 +517,9 @@ section.tabs-wrapper {
 		font-size: 1.3em;
 		transition: all 200ms;
 		font-weight: 100;
+		font-smoothing: antialiased;
 		-webkit-font-smoothing: antialiased;
+		-moz-osx-font-smoothing: grayscale;
 		margin-bottom: 40px;
 		&:before {
 			content: "";

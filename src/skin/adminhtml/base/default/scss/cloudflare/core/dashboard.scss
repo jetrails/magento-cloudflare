@@ -16,6 +16,7 @@
 				height: initial;
 				background: #FFF;
 				width: 221px;
+				min-width: 221px;
 				height: 85px;
 				padding: 20px;
 				box-sizing: border-box;
@@ -126,7 +127,9 @@
 						font-family: "cloudflare-font", sans-serif;
 						font-style: normal;
 						font-weight: 500;
+						font-smoothing: antialiased;
 						-webkit-font-smoothing: antialiased;
+						-moz-osx-font-smoothing: grayscale;
 						text-rendering: geometricPrecision;
 						margin: 7.5px 20px;
 						padding: 0;

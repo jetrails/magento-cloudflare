@@ -62,7 +62,9 @@
 	    font-size: 1.3em;
 	    line-height: 1.2em;
 		font-style: normal;
+		font-smoothing: antialiased;
 		-webkit-font-smoothing: antialiased;
+		-moz-osx-font-smoothing: grayscale;
 	}
 	.status {
 		left: 4px;

@@ -63,7 +63,9 @@
 		.message_container {
 			max-height: 300px;
 		    overflow-y: scroll;
-			-webkit-font-smoothing: subpixel-antialiased;
+			font-smoothing: antialiased;
+			-webkit-font-smoothing: antialiased;
+			-moz-osx-font-smoothing: grayscale;
 			div {
 				padding: 0 22.5px;
 				font-size: 1.1em;
