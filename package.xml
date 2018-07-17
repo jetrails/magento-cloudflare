@@ -1,20 +1,20 @@
 <?xml version="1.0"?>
 <package>
 	<date>2018-07-17</date>
-	<time>11:53:23</time>
-	<version>1.0.1</version>
+	<time>12:42:03</time>
+	<version>1.0.2</version>
 	<contents>
 		<target name="magecommunity">
 			<dir name="JetRails">
 				<dir name="Cloudflare">
+					<dir name="Helper">
+						<dir name="Data.php" hash="963b2f83ad8e16f3e9e109ac8c78e30a"/>
+					</dir>
 					<dir name="Controller">
 						<dir name="Action.php" hash="4b284cd4a141247b070c5f34cfd917e8"/>
 						<dir name="Getter.php" hash="9f3e0739d2d181d70393bf6791995887"/>
 						<dir name="Toggle.php" hash="e7c161a8659be5f736f567c8d4abbe9b"/>
 						<dir name="Update.php" hash="7827704e4589767ecd5de5be443df46c"/>
-					</dir>
-					<dir name="Helper">
-						<dir name="Data.php" hash="963b2f83ad8e16f3e9e109ac8c78e30a"/>
 					</dir>
 					<dir name="etc">
 						<dir name="adminhtml.xml" hash="40fddb62fcacb851210b4ad6ccd105cc"/>
@@ -51,15 +51,15 @@
 									<dir name="SslController.php" hash="e14a88d1628dd7da89de1b224a102145"/>
 									<dir name="Tls13Controller.php" hash="0723ac9194df9b68c2c005f5463e3b57"/>
 								</dir>
+								<dir name="Dns">
+									<dir name="CloudflareNameserversController.php" hash="99bd2889f965e9b12cacde02efe67481"/>
+									<dir name="DnsRecordsController.php" hash="bbbc6d0f9f115588758dc178211410bc"/>
+								</dir>
 								<dir name="Firewall">
 									<dir name="AccessRulesController.php" hash="e09fe1c5b9b2481c30d110e5b0de3962"/>
 									<dir name="ChallengePassageController.php" hash="22cfa477ff57a76e5130d03e8e43fc8b"/>
 									<dir name="SecurityLevelController.php" hash="3aa131edd0565a3a550083f7f190d547"/>
 									<dir name="UserAgentBlockingController.php" hash="d53f5926f9dea30f46cb6fb0a268b015"/>
-								</dir>
-								<dir name="Dns">
-									<dir name="CloudflareNameserversController.php" hash="99bd2889f965e9b12cacde02efe67481"/>
-									<dir name="DnsRecordsController.php" hash="bbbc6d0f9f115588758dc178211410bc"/>
 								</dir>
 								<dir name="Network">
 									<dir name="Http2Controller.php" hash="cec02362712bb3012cfa083dbd8bd4af"/>
@@ -103,10 +103,6 @@
 									<dir name="DevelopmentMode.php" hash="506d5dd472468da50234acb8a43f283e"/>
 									<dir name="PurgeCache.php" hash="0a3e4bb9e1239fe33135403da6019ba9"/>
 								</dir>
-								<dir name="Dns">
-									<dir name="CloudflareNameservers.php" hash="68c00519fe9ab76afef87f1f2f73c02b"/>
-									<dir name="DnsRecords.php" hash="a9516a2a5c41715a8d10618616473b41"/>
-								</dir>
 								<dir name="Crypto">
 									<dir name="AlwaysUseHttps.php" hash="c9ef0bf31fb88f852a92db2bf8970acc"/>
 									<dir name="AuthenticatedOriginPulls.php" hash="6c95a4f2f3982a4ef7939ce28e09594b"/>
@@ -117,6 +113,10 @@
 									<dir name="OpportunisticEncryption.php" hash="f104b47586f9431236b4514148d62e4a"/>
 									<dir name="Ssl.php" hash="43fbd4dd237b71c7e50b567449124c94"/>
 									<dir name="Tls13.php" hash="709388c8ed614b7f8bf658d01787aafb"/>
+								</dir>
+								<dir name="Dns">
+									<dir name="CloudflareNameservers.php" hash="68c00519fe9ab76afef87f1f2f73c02b"/>
+									<dir name="DnsRecords.php" hash="a9516a2a5c41715a8d10618616473b41"/>
 								</dir>
 								<dir name="Firewall">
 									<dir name="AccessRules.php" hash="673963213745d620002630fdf04248d4"/>
