@@ -1,28 +1,30 @@
-# Magento - Cloudflare
+# Magento — Cloudflare
 > Interact with popular Cloudflare features though Magento's backend portal
 
-![MIT License](https://img.shields.io/badge/License-MIT-orange.svg?style=for-the-badge)
-![Version 1.0.2](https://img.shields.io/badge/Version-1.0.2-orange.svg?style=for-the-badge)
-![Stability Beta](https://img.shields.io/badge/Stability-Beta-orange.svg?style=for-the-badge)
-![Magento](https://img.shields.io/badge/Magento-1-orange.svg?style=for-the-badge)
+![](https://img.shields.io/badge/License-MIT-orange.svg?style=for-the-badge)
+![](https://img.shields.io/badge/Version-1.0.2-orange.svg?style=for-the-badge)
+![](https://img.shields.io/badge/Stability-Stable-orange.svg?style=for-the-badge)
+![](https://img.shields.io/badge/Magento-1-orange.svg?style=for-the-badge)
 
 <p align="center" >
 	<img src="docs/images/preview.png" width="100%" />
 </p>
 
 ## Documentation
-
-A user guide can be found in the [docs](docs) folder. The information there goes over all the features that the extension offers. It also takes you through the installation and configuration process of setting this extension up.
+The user guide can be found in the [docs](docs) folder.  The user guide goes through the installation process as well as explains all the features that comes with this plugin. For furthur support, please email [development@jetrails.com](mailto://development@jetrails.com).
 
 ## Build System
+This extension uses __Gulp__ as it's build system.  Gulp is a package that can be easily downloaded using __NPM__ or __Yarn__.  Once this repository is cloned, run `npm install gulp -g` followed by `npm install` or `yarn install` to install Gulp and all Gulp modules used within this build system.  Please refer to the following table for a description of some useful Gulp commands. A typical Gulp command takes the following form: `gulp <command>`.
 
-This extension uses __GULP__ for it's build system.  Gulp is a package that can be easily downloaded using __NPM__.  Once this repository is cloned, run `npm install gulp -g` followed by `npm install` to install Gulp and all Gulp plugins used within this build system.  Please refer to the following table for a description of some useful gulp build commands. A typical gulp command takes the following form: `gulp <task>`.
-
-| Task       | Description                                                                                                                                                                                     |
-|------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| `watch`  | Automatically compiles, combines, and minifies JS and SCSS before deploying the code into the staging environment.                                                                                           |
-| `package`  | Packages extension into _TGZ_ archive inside _dist_ folder. |                                                                                             |
+| Command   | Description                                                                             |
+|-----------|-----------------------------------------------------------------------------------------|
+|   `init`  | Creates build, staging, and distribution directories                                    |
+|  `clean`  | Deletes build and distribution directories                                              |
+|   `bump`  | Bumps version number in source files to reflect version found in package.json           |
+|  `build`  | Builds and copies files from source directory to the build directory                    |
+|  `deploy` | Copies files from build directory to the staging directory                              |
+|  `watch`  | Watches files in source directory and executes `deploy` on file change                  |
+| `package` | Updates package.xml with file hashes and packages extension into distribution directory |
 
 ## Docker Environment
-
-This project comes with a [docker-compose.yml](docker-compose.yml) file, which can be used to spin up a Magento CE 1.x environment. In order to use docker, please make sure you have **Docker** and **Docker Compose** installed. For information about configuring this docker environment, please refer to it's Github repository which can be found [here](https://github.com/jetrails/docker-magento).
+This project comes with a [docker-compose.yml](docker-compose.yml) and a [docker-sync.yml](docker-sync.yml) file, which can be used to spin up a Magento 1 development environment. In order to use docker, please make sure you have **Docker**, **Docker Compose**, and **Docker Sync** installed. For information about configuring this docker environment, please refer to it's Github repository which can be found [here](https://github.com/jetrails/docker-magento-alpine).

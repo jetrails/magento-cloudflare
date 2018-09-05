@@ -1,0 +1,31 @@
+<?xml version="1.0"?>
+<package>
+	<name>JetRails_Cloudflare</name>
+	<version></version>
+	<date></date>
+	<time></time>
+	<stability>stable</stability>
+	<license uri="https://opensource.org/licenses/MIT">MIT License (MIT)</license>
+	<channel>community</channel>
+	<extends/>
+	<summary>Interact with popular Cloudflare features though Magento's backend portal.</summary>
+	<description></description>
+	<notes></notes>
+	<authors>
+		<author>
+			<name>Rafael Grigorian</name>
+			<user>jetrails</user>
+			<email>development@jetrails.com</email>
+		</author>
+	</authors>
+	<compatible/>
+	<dependencies>
+		<required>
+			<php>
+				<min>5.1.0</min>
+				<max>5.6.0</max>
+			</php>
+		</required>
+	</dependencies>
+	<contents></contents>
+</package>

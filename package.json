@@ -5,19 +5,21 @@
 	"author": "Rafael Grigorian",
 	"company": "JetRails®",
 	"license": "MIT",
+	"namespace": "JetRails_Cloudflare",
 	"repository": {
 		"type": "git",
 		"url": "https://github.com/jetrails/magento-cloudflare.git"
 	},
 	"devDependencies": {
 		"extract-text-webpack-plugin": "^3.0.2",
+		"fs-extra": "^7.0.0",
 		"gulp": "^3.9.1",
 		"gulp-concat": "^2.6.1",
 		"gulp-gzip": "^1.4.2",
-		"gulp-ignore": "^2.0.2",
 		"gulp-magepack": "^1.0.3",
 		"gulp-minify": "^2.1.0",
 		"gulp-minify-css": "^1.2.4",
+		"gulp-replace": "^1.0.0",
 		"gulp-sass": "^3.2.1",
 		"gulp-tar": "^2.1.0",
 		"gulp-uglify": "^3.0.0",
@@ -27,8 +29,5 @@
 	"dependencies": {
 		"jquery": "^3.2.1",
 		"jquery-ui": "^1.12.1"
-	},
-	"scripts": {
-		"watch": "node_modules/.bin/gulp watch"
 	}
 }

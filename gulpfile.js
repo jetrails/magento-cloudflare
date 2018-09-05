@@ -1,98 +1,114 @@
-const concat = require ("gulp-concat")
-const fs = require ("fs")
 const gulp = require ("gulp")
+const concat = require ("gulp-concat")
 const gzip = require ("gulp-gzip")
-const path = require ("path")
-const config = require ( path.join ( __dirname, "package.json" ) )
 const magepack = require ("gulp-magepack")
 const minify = require ("gulp-minify-css")
 const minifyJs = require ("gulp-minify")
+const replace = require ("gulp-replace")
 const sass = require ("gulp-sass")
-const uglify = require ("gulp-uglify")
+const tar = require ("gulp-tar")
+const fs = require ("fs")
+const fse = require ("fs-extra")
+const path = require ("path")
 const webpack = require ("webpack")
 const webpackStream = require ("webpack-stream")
-const gulpIgnore = require ("gulp-ignore")
-const webpackConfig = require ( path.join ( __dirname, "webpack.config.js" ) )
-const tar = require ("gulp-tar")
 
-const EXTENSION_NAMESPACE = "JetRails_Cloudflare"
-const EXTENSION_VERSION = config.version
+const PACKAGE_NAMESPACE = require ("./package.json").namespace
+const PACKAGE_VERSION = require ("./package.json").version
+const PACKAGE_SHORTNAME = PACKAGE_NAMESPACE.split ("_") [1].toLowerCase ()
 
-const MODULE_SHORT_NAME = config.name.replace ( /^.*-/, "" )
 const SOURCE_DIR = "src"
 const BUILD_DIR = "build"
 const STAGING_DIR = "public_html"
-const SOURCE_PATH = path.join ( __dirname, SOURCE_DIR )
-const BUILD_PATH = path.join ( __dirname, BUILD_DIR )
-const STAGING_PATH = path.join ( __dirname, STAGING_DIR )
-const MAGENTO_SKIN_CSS = path.join ( "skin", "adminhtml", "base", "default", "css" )
-const MAGENTO_SKIN_SCSS = path.join ( "skin", "adminhtml", "base", "default", "scss" )
-const MAGENTO_SKIN_JS = path.join ( "skin", "adminhtml", "base", "default", "js" )
-
-gulp.task ( "default", [ "build-styles", "build-scripts" ] );
-gulp.task ( "deploy", [ "deploy-staging" ] );
+const PACKAGE_DIR = "dist"
 
 gulp.task ( "init", [], ( callback ) => {
-	if ( !fs.existsSync ( SOURCE_PATH ) ) fs.mkdirSync ( SOURCE_PATH )
-	if ( !fs.existsSync ( BUILD_PATH ) ) fs.mkdirSync ( BUILD_PATH )
-	if ( !fs.existsSync ( STAGING_PATH ) ) fs.mkdirSync ( STAGING_PATH )
+	let mkdirNotExists = ( name ) => {
+		if ( !fs.existsSync ( name ) ) {
+			fs.mkdirSync ( name )
+		}
+	}
+	mkdirNotExists ( BUILD_DIR )
+	mkdirNotExists ( PACKAGE_DIR )
+	mkdirNotExists ( STAGING_DIR )
 	callback ()
 })
 
-gulp.task ( "build-styles", [ "init" ], ( callback ) => {
-	gulp.src ( path.join ( SOURCE_PATH, MAGENTO_SKIN_SCSS, MODULE_SHORT_NAME, "index.scss" ) )
-		.pipe ( sass ({ includePaths: path.join ( SOURCE_PATH, MAGENTO_SKIN_SCSS ) }) )
+gulp.task ( "clean", [], ( callback ) => {
+	let unlinkExists = ( name ) => {
+		if ( fs.existsSync ( name ) ) {
+			fse.removeSync ( name )
+		}
+	}
+	unlinkExists ( BUILD_DIR )
+	unlinkExists ( PACKAGE_DIR )
+	callback ()
+})
+
+gulp.task ( "bump", [], ( callback ) => {
+	return gulp.src (`${SOURCE_DIR}/**/*`)
+		.pipe ( replace ( /(^.*\*\s+@version\s+)(.+$)/gm, "$1" + PACKAGE_VERSION ) )
+		.pipe ( gulp.dest ( SOURCE_DIR ) )
+		.on ( "done", callback )
+})
+
+gulp.task ( "build-styles", ["init"], ( callback ) => {
+	return gulp.src (`${SOURCE_DIR}/skin/adminhtml/base/default/scss/${PACKAGE_SHORTNAME}/index.scss`)
+		.pipe ( sass ({ includePaths: `${SOURCE_DIR}/skin/adminhtml/base/default/scss` }) )
 		.pipe ( minify () )
 		.pipe ( concat ("bundle.min.css") )
-		.pipe ( gulp.dest ( path.join ( BUILD_PATH, MAGENTO_SKIN_CSS, MODULE_SHORT_NAME ) ) )
-		.on ( "end", callback )
+		.pipe ( gulp.dest (`${BUILD_DIR}/skin/adminhtml/base/default/css/${PACKAGE_SHORTNAME}`) )
+		.on ( "done", callback )
 })
 
-gulp.task ( "build-scripts", [ "init" ], ( callback ) => {
-	gulp.src ( path.join ( SOURCE_PATH, MAGENTO_SKIN_JS, MODULE_SHORT_NAME, "index.js" ) )
-		.pipe ( webpackStream ( webpackConfig ), webpack )
+gulp.task ( "build-scripts", ["init"], ( callback ) => {
+	return gulp.src (`${SOURCE_DIR}/skin/adminhtml/base/default/js/${PACKAGE_SHORTNAME}/index.js`)
+		.pipe ( webpackStream ( require ("./webpack.config.js") ), webpack )
 		.pipe ( minifyJs ({ ext: { min: ".min.js" } }) )
-		.pipe ( gulp.dest ( path.join ( BUILD_PATH, MAGENTO_SKIN_JS, MODULE_SHORT_NAME ) ) )
+		.pipe ( gulp.dest (`${BUILD_DIR}/skin/adminhtml/base/default/js/${PACKAGE_SHORTNAME}`) )
+		.on ( "done", callback )
+})
+
+gulp.task ( "build", [ "build-styles", "build-scripts" ], ( callback ) => {
+	let ignoreJs = [
+		`!${SOURCE_DIR}/skin/adminhtml/base/default/js`,
+		`!${SOURCE_DIR}/skin/adminhtml/base/default/js/**/*`
+	]
+	let ignoreCss = [
+		`!${SOURCE_DIR}/skin/adminhtml/base/default/scss`,
+		`!${SOURCE_DIR}/skin/adminhtml/base/default/scss/**/*`,
+		`${SOURCE_DIR}/skin/adminhtml/base/default/scss/${PACKAGE_SHORTNAME}/fonts/**/*`
+	]
+	return gulp.src ( [`${SOURCE_DIR}/**`].concat ( ignoreJs ).concat ( ignoreCss ) )
+		.pipe ( gulp.dest ( BUILD_DIR ) )
 		.on ( "end", () => {
-			fs.unlinkSync ( path.join ( BUILD_PATH, MAGENTO_SKIN_JS, MODULE_SHORT_NAME, "bundle.js" ) )
-			callback ()
+			fse.copySync (
+				`${SOURCE_DIR}/skin/adminhtml/base/default/scss/${PACKAGE_SHORTNAME}/fonts`,
+				`${BUILD_DIR}/skin/adminhtml/base/default/css/${PACKAGE_SHORTNAME}/fonts`
+			)
 		})
+		.on ( "done", callback )
 })
 
-gulp.task ( "deploy-source", [ "build-styles", "build-scripts" ], function ( callback ) {
-	var sourceFiles = path.join ( SOURCE_PATH, "**", "*" )
-	var notStyle = "!" + path.join ( SOURCE_PATH, "**", "js", "**/" )
-	var notScript = "!" + path.join ( SOURCE_PATH, "**", "scss", "**/" )
-	var notScriptFolder = "!" + path.join ( SOURCE_PATH, "**", "scss" )
-	gulp.src ([ path.join ( SOURCE_PATH, MAGENTO_SKIN_SCSS, MODULE_SHORT_NAME, "fonts", "**", "*" ) ])
-		.pipe ( gulp.dest ( path.join ( BUILD_PATH, MAGENTO_SKIN_CSS, MODULE_SHORT_NAME, "fonts" ) ) )
-	gulp.src ([ sourceFiles, notStyle, notScript, notScriptFolder ])
-		.pipe ( gulp.dest ( path.join ( BUILD_PATH ) ) )
-		.on ( "end", callback )
-});
-
-gulp.task ( "deploy-staging", [ "deploy-source", ], function ( callback ) {
-	gulp.src ( path.join ( BUILD_PATH, "**", "*" ) )
-		.pipe ( gulp.dest ( path.join ( STAGING_PATH ) ) )
-		.on ( "end", callback )
-});
-
-gulp.task ( "watch", [ "deploy-staging" ], () => {
-	gulp.watch ( path.join ( SOURCE_PATH, "**", "*" ), [ "deploy-staging" ] );
-	gulp.watch ( path.join ( SOURCE_PATH, "**", "*.scss" ), [ "deploy-staging" ] );
-	gulp.watch ( path.join ( SOURCE_PATH, "**", "*.js" ), [ "deploy-staging" ] );
+gulp.task ( "deploy", ["build"], ( callback ) => {
+	return gulp.src (`${BUILD_DIR}/**/*`)
+		.pipe ( gulp.dest ( STAGING_DIR ) )
+		.on ( "done", callback )
 })
 
-gulp.task ( "package", () => {
+gulp.task ( "watch", ["deploy"], () => {
+	return gulp.watch ( `${SOURCE_DIR}/**/*`, ["deploy"] )
+})
+
+gulp.task ( "package", [ "clean", "bump", "build" ], ( callback ) => {
 	let options = {
-		"template": "package.xml",
-		"output": "package.xml",
-		"version": EXTENSION_VERSION
+		"template": "conf/package.xml",
+		"version": PACKAGE_VERSION
 	}
-	gulp.src ([ path.join ( BUILD_PATH, "**", "*" ) ])
+	gulp.src (`${BUILD_DIR}/**/*`)
 		.pipe ( magepack ( options ) )
-		.pipe ( gulpIgnore.exclude ("package.xml") )
-		.pipe ( tar (`${EXTENSION_NAMESPACE}-${EXTENSION_VERSION}`) )
+		.pipe ( tar (`${PACKAGE_NAMESPACE}-${PACKAGE_VERSION}`) )
 		.pipe ( gzip ({ extension: "tgz" }) )
-		.pipe ( gulp.dest ("dist") )
+		.pipe ( gulp.dest ( PACKAGE_DIR ) )
+		.on ( "done", callback )
 })
