@@ -6,7 +6,9 @@
 
 <div class="cloudflare-dashboard" >
 	<div class="dashboard-header" >
-		<img class="logo" src="<?php echo $this->getSkinUrl ('images/cloudflare/cloudflare.svg') ?>" />
+		<div class="logo" >
+			<img src="<?php echo $this->getSkinUrl ('images/cloudflare/jetrails.svg') ?>" />
+		</div>
 		<div class="domain_wrapper" >
 			<div class="selected" ><?php echo $this->getDomainName () ?></div>
 			<div class="options" >
@@ -27,10 +29,7 @@
 				<?php endforeach ?>
 			</div>
 		</div>
-		<div class="attribution" >
-			<img src="<?php echo $this->getSkinUrl ('images/cloudflare/jetrails.svg') ?>" />
-			<p>made with <span>&#10084;</span> by</p>
-		</div>
+		<div class="attribution" ></div>
 	</div>
 	<div class="dashboard-main" >
 		<ul class="tabs" >

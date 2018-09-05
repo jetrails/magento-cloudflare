@@ -40,7 +40,7 @@
 				<li>Connection multiplexing is on a per-domain basis</li>
 				<li>The connection from Cloudflare to your origin will be made over HTTP 1.x</li>
 			</ul>
-			<p><strong>Note</strong>: Rocket Loader can further improve connection multiplexing in HTTP/2 by allowing resources hosted on different domains to be retrieved in a single network request. Without Rocket Loader, if a website has resources that are hosted on a different domain, separate HTTP/2 connections will need to be made for resources on each domain. While HTTP/2 is not supported between the Cloudflare network and the customer origin, Cloudflare Railgun™ provides similar benefits for connection multiplexing and HTTP header compression on this connection.</p>
+			<p><strong>Note</strong>: Rocket Loader can further improve connection multiplexing in HTTP/2 by allowing resources hosted on different domains to be retrieved in a single network request. Without Rocket Loader, if a website has resources that are hosted on a different domain, separate HTTP/2 connections will need to be made for resources on each domain. While HTTP/2 is not supported between the Cloudflare network and the customer origin, Cloudflare Railgun provides similar benefits for connection multiplexing and HTTP header compression on this connection.</p>
 			<p><a target="blank" href="https://support.cloudflare.com/hc/en-us/articles/200168126-Who-can-use-HTTP-2-and-SPDY" >Does my site support HTTP/2</a></p>
 			<p><a target="blank" href="https://support.cloudflare.com/hc/en-us/articles/200167976-How-can-I-tell-if-HTTP-2-or-SPDY-is-working-for-my-website" >How can I tell HTTP/2 is working on my site.</a></p>
 		</div>

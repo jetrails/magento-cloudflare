@@ -3,7 +3,7 @@
 <config>
 	<modules>
 		<JetRails_Cloudflare>
-			<version>1.0.0</version>
+			<version>1.0.2</version>
 		</JetRails_Cloudflare>
 	</modules>
 	<admin>

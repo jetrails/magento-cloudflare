@@ -11,6 +11,7 @@
 			height: 85px;
 			display: flex;
 			.logo {
+				display: flex;
 				float: none;
 				margin: 0;
 				height: initial;
@@ -22,6 +23,12 @@
 				box-sizing: border-box;
 				border-bottom: solid 1px $color-border_gray;
 				border-right: solid 1px $color-border_gray;
+				align-items: center;
+				justify-content: center;
+				img {
+					height: 30px;
+					width: 150px;
+				}
 			}
 			.domain_wrapper {
 				background: #FFF;
@@ -93,21 +100,6 @@
 				height: 85px;
 				border-bottom: solid 1px $color-border_gray;
 				width: 100%;
-				img {
-					height: 20px;
-					float: right;
-					margin-right: 30px;
-					margin-top: 32.5px;
-				}
-				p {
-					line-height: 85px;
-					float: right;
-					margin: 0;
-					margin-right: 10px;
-					span {
-						color: red;
-					}
-				}
 			}
 		}
 		.dashboard-main {
