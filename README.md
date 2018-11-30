@@ -1,5 +1,5 @@
 # Magento — Cloudflare
-> Interact with popular Cloudflare features though Magento's backend portal
+> Interact with popular Cloudflare features though Magento's backend portal.
 
 ![](https://img.shields.io/badge/License-MIT-orange.svg?style=for-the-badge)
 ![](https://img.shields.io/badge/Version-1.0.3-orange.svg?style=for-the-badge)
@@ -11,9 +11,11 @@
 </p>
 
 ## Documentation
-The user guide can be found in the [docs](docs) folder.  The user guide goes through the installation process as well as explains all the features that comes with this plugin. For furthur support, please email [development@jetrails.com](mailto://development@jetrails.com).
+
+The user manual can be found in [here](https://learn.jetrails.com/article/magento-cloudflare-extension).  The user manual goes through the installation process as well as explains all the features that comes with this plugin. For furthur support, please email [development@jetrails.com](mailto://development@jetrails.com).
 
 ## Build System
+
 This extension uses __Gulp__ as it's build system.  Gulp is a package that can be easily downloaded using __NPM__ or __Yarn__.  Once this repository is cloned, run `npm install gulp -g` followed by `npm install` or `yarn install` to install Gulp and all Gulp modules used within this build system.  Please refer to the following table for a description of some useful Gulp commands. A typical Gulp command takes the following form: `gulp <command>`.
 
 | Command   | Description                                                                             |
@@ -27,4 +29,6 @@ This extension uses __Gulp__ as it's build system.  Gulp is a package that can b
 | `package` | Updates package.xml with file hashes and packages extension into distribution directory |
 
 ## Docker Environment
+
 This project comes with a [docker-compose.yml](docker-compose.yml) and a [docker-sync.yml](docker-sync.yml) file, which can be used to spin up a Magento 1 development environment. In order to use docker, please make sure you have **Docker**, **Docker Compose**, and **Docker Sync** installed. For information about configuring this docker environment, please refer to it's Github repository which can be found [here](https://github.com/jetrails/docker-magento-alpine).
+
