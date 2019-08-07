@@ -51,6 +51,10 @@
 												<title>Development Mode</title>
 												<sort_order>500</sort_order>
 											</development_mode>
+											<enable_query_string_sort translate="title" module="cloudflare" >
+												<title>Enable Query String Sort</title>
+												<sort_order>600</sort_order>
+											</enable_query_string_sort>
 										</children>
 									</caching>
 									<dns translate="title" module="cloudflare" >
@@ -95,6 +99,10 @@
 												<title>Minimum TLS Version</title>
 												<sort_order>800</sort_order>
 											</minimum_tls_version>
+											<onion_routing translate="title" module="cloudflare" >
+												<title>Onion Routing</title>
+												<sort_order>850</sort_order>
+											</onion_routing>
 											<tls_13 translate="title" module="cloudflare" >
 												<title>TLS 1.3</title>
 												<sort_order>900</sort_order>
@@ -121,9 +129,17 @@
 												<title>Challenge Passage</title>
 												<sort_order>200</sort_order>
 											</challenge_passage>
+											<browser_integrity_check translate="title" module="cloudflare" >
+												<title>Browser Integrity Check</title>
+												<sort_order>300</sort_order>
+											</browser_integrity_check>
+											<privacy_pass_support translate="title" module="cloudflare" >
+												<title>Privacy Pass Support</title>
+												<sort_order>400</sort_order>
+											</privacy_pass_support>
 											<ip_firewall translate="title" module="cloudflare" >
 												<title>IP Firewall</title>
-												<sort_order>300</sort_order>
+												<sort_order>500</sort_order>
 												<children>
 													<access_rules translate="title" module="cloudflare" >
 														<title>Access Rules</title>
@@ -145,6 +161,14 @@
 										<title>Speed</title>
 										<sort_order>600</sort_order>
 										<children>
+											<image_resizing translate="title" module="cloudflare" >
+												<title>Image Resizing</title>
+												<sort_order>10</sort_order>
+											</image_resizing>
+											<enhanced_http2_prioritization translate="title" module="cloudflare" >
+												<title>Enhanced HTTP/2 Prioritization</title>
+												<sort_order>20</sort_order>
+											</enhanced_http2_prioritization>
 											<auto_minify translate="title" module="cloudflare" >
 												<title>Auto Minify</title>
 												<sort_order>100</sort_order>
@@ -165,6 +189,10 @@
 												<title>Rocket Loader</title>
 												<sort_order>500</sort_order>
 											</rocket_loader>
+											<prefetching_urls_from_http_headers translate="title" module="cloudflare" >
+												<title>Prefetching URLs From HTTP Headers.</title>
+												<sort_order>600</sort_order>
+											</prefetching_urls_from_http_headers>
 										</children>
 									</speed>
 									<page_rules translate="title" module="cloudflare" >
@@ -219,6 +247,18 @@
 												<title>IP Geolocation</title>
 												<sort_order>500</sort_order>
 											</ip_geolocation>
+											<maximum_upload_size translate="title" module="cloudflare" >
+												<title>Maximum Upload Size</title>
+												<sort_order>600</sort_order>
+											</maximum_upload_size>
+											<response_buffering translate="title" module="cloudflare" >
+												<title>Response Buffering</title>
+												<sort_order>700</sort_order>
+											</response_buffering>
+											<true_client_ip_header translate="title" module="cloudflare" >
+												<title>True-Client-IP Header</title>
+												<sort_order>800</sort_order>
+											</true_client_ip_header>
 										</children>
 									</network>
 								</children>
