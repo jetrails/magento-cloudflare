@@ -6,7 +6,7 @@
 	 * all the data is collected and saved within the instance, this class has
 	 * a method to transform all the collected data into a CURL request and
 	 * executes it.
-	 * @version     1.0.3
+	 * @version     1.1.0
 	 * @package     JetRails® Cloudflare
 	 * @author      Rafael Grigorian <development@jetrails.com>
 	 * @copyright   © 2018 JETRAILS, All rights reserved
@@ -54,8 +54,7 @@
 			$this->_query = false;
 			$data = Mage::helper ("cloudflare/data");
 			$this->setType ( self::REQUEST_GET );
-			$this->setHeader ( "X-Auth-Email", $data->getAuthEmail () );
-			$this->setHeader ( "X-Auth-Key", $data->getAuthToken () );
+			$this->setHeader ( "Authorization", "Bearer " . $data->getAuthToken () );
 			$this->setHeader ( "Content-Type", "application/json" );
 		}
 
@@ -78,13 +77,12 @@
 		 * This Method simply modifies the two header values that the Cloudflare
 		 * API uses for authentication. The two parameters are used as the
 		 * values.
-		 * @param   string       email                CF authentication email
+		 * @param   string       zone                 CF authentication zone
 		 * @param   string       token                CF authentication token
 		 * @return  void
 		 */
-		public function setAuth ( $email, $token ) {
-			$this->setHeader ( "X-Auth-Email", $email );
-			$this->setHeader ( "X-Auth-Key", $token );
+		public function setAuth ( $zone, $token ) {
+			$this->setHeader ( "Authorization", "Bearer $zone" );
 		}
 
 		/**

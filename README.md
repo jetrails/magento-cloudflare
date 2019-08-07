@@ -2,7 +2,7 @@
 > Interact with popular Cloudflare features though Magento's backend portal.
 
 ![](https://img.shields.io/badge/License-MIT-orange.svg?style=for-the-badge)
-![](https://img.shields.io/badge/Version-1.0.3-orange.svg?style=for-the-badge)
+![](https://img.shields.io/badge/Version-1.1.0-orange.svg?style=for-the-badge)
 ![](https://img.shields.io/badge/Stability-Stable-orange.svg?style=for-the-badge)
 ![](https://img.shields.io/badge/Magento-1-orange.svg?style=for-the-badge)
 
@@ -31,4 +31,3 @@ This extension uses __Gulp__ as it's build system.  Gulp is a package that can b
 ## Docker Environment
 
 This project comes with a [docker-compose.yml](docker-compose.yml) and a [docker-sync.yml](docker-sync.yml) file, which can be used to spin up a Magento 1 development environment. In order to use docker, please make sure you have **Docker**, **Docker Compose**, and **Docker Sync** installed. For information about configuring this docker environment, please refer to it's Github repository which can be found [here](https://github.com/jetrails/docker-magento-alpine).
-
