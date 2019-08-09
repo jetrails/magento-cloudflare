@@ -52,10 +52,17 @@
 		public function getAuthToken () {
 			$config = Mage::getConfig ();
 			$prefix = self::XPATH_SCOPE . "/";
-			$token = strval ( $config->getNode (
+			$tokens = strval ( $config->getNode (
 				$prefix . self::XPATH_AUTH_TOKEN
 			));
-			return Mage::getSingleton ("core/encryption")->decrypt ( $token );
+			if ( $tokens ) {
+				$tokens = Mage::getSingleton ("core/encryption")
+					->decrypt ( $tokens );
+				$tokens = json_decode ( $tokens );
+				$domain = $this->getDomainName ();
+				return $tokens->$domain;
+			}
+			return null;
 		}
 
 		/**
@@ -150,11 +157,25 @@
 		 * @param   string       token                Set CF auth token to this
 		 */
 		public function setAuthToken ( $token ) {
+			$config = Mage::getConfig ();
+			$prefix = self::XPATH_SCOPE . "/";
+			$tokens = strval ( $config->getNode (
+				$prefix . self::XPATH_AUTH_TOKEN
+			));
+			$map = (object) [];
+			if ( $tokens ) {
+				$tokens = Mage::getSingleton ("core/encryption")
+					->decrypt ( $tokens );
+				$map = json_decode ( $tokens );
+			}
+			$domain = $this->getDomainName ();
 			$token = trim ( strval ( $token ) );
-			$token = Mage::getSingleton ("core/encryption")->encrypt ( $token );
+			$map->$domain = $token;
+			$map = json_encode ( $map );
+			$map = Mage::getSingleton ("core/encryption")->encrypt ( $map );
 			Mage::getConfig ()->saveConfig (
 				self::XPATH_AUTH_TOKEN,
-				$token,
+				$map,
 				self::XPATH_SCOPE,
 				0
 			);
