@@ -46,7 +46,7 @@
 			$api->setData ( array ( "value" => $value ) );
 			$response = $api->resolve ( $endpoint );
 			if ( $response->success && $value != "off" ) {
-				$endpoint = sprintf ( "zones/%s/settings/webp", $zoneId );
+				$endpoint = $this->getEndpoint ("settings/webp");
 				$api = Mage::getModel ("cloudflare/api_request");
 				$api->setType ( $api::REQUEST_PATCH );
 				$api->setData ( array ( "value" => $webp ? "on" : "off" ) );

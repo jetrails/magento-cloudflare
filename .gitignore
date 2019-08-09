@@ -1,7 +1,11 @@
+# Files
 .DS_Store
-yarn-error.log
-/.docker-sync/
-/node_modules/
-/public_html/
-/build/
-/dist/
+*.log
+*.tar.gz
+
+# Directories
+.docker-sync
+node_modules
+public_html
+build
+dist

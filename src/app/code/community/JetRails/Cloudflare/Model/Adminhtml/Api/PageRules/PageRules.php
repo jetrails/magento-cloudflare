@@ -41,10 +41,10 @@
 			$endpoint = $this->getEndpoint ("entitlements");
 			$api = Mage::getModel ("cloudflare/api_request");
 			$api->setType ( $api::REQUEST_GET );
-			$result = $api->resolve ( $endpoint );
-			return array_filter ( $result->result, function ( $i ) {
-				return $i->id == "page_rules";
-			}) [0];
+			$response = $api->resolve ( $endpoint );
+			return current ( array_filter ( $response->result, function ( $i ) {
+				return $i->id === "page_rules";
+			}));
 		}
 
 		/**
