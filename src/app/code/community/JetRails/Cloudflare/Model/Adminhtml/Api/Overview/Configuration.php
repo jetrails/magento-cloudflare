@@ -1,10 +1,9 @@
 <?php
 
 	/**
-	 * This class handles the logic to authenticate an email/token pair through
-	 * the use of the Cloudflare API. It also has a very popular method that
-	 * retrieves the currently selected domain's zone id.
-	 * @version     1.0.3
+	 * This class handles the logic to authenticate a zone/token pair through
+	 * the use of the Cloudflare API.
+	 * @version     1.1.0
 	 * @package     JetRails® Cloudflare
 	 * @author      Rafael Grigorian <development@jetrails.com>
 	 * @copyright   © 2018 JETRAILS, All rights reserved
@@ -43,7 +42,7 @@
 			$session = Mage::getSingleton ("core/session");
 			$lookup = $session->getDomainZone ();
 			if ( !empty ( $lookup )
-				  && is_array ( $lookup )
+				 && is_array ( $lookup )
 				 && array_key_exists ( "$domain", $lookup ) ) {
 				return $lookup ["$domain"];
 			}
@@ -51,19 +50,16 @@
 		}
 
 		/**
-		 * This method takes in an email and a token. It then makes an API call
-		 * to Cloudflare and finds out if the supplied email and token is valid.
-		 * @param   string       email               CF authentication email
+		 * This method takes in a zone and a token. It then makes an API call to
+		 * Cloudflare and finds out if the supplied token for the zone is valid.
+		 * @param   string       zone                CF authentication zone
 		 * @param   string       token               CF authentication token
 		 * @return  boolean                          Is user authenticated?
 		 */
-		public function validateAuth ( $email = null, $token = null ) {
+		public function validateAuth ( $zone = null, $token = null ) {
 			$api = Mage::getModel ("cloudflare/api_request");
 			$api->setType ( $api::REQUEST_GET );
-			if ( !empty ( $email ) && !empty ( $token ) ) {
-				$api->setAuth ( $email, $token );
-			}
-			$response = $api->resolve ("zones");
+			$response = $api->resolve ("user/tokens/verify");
 			return $response->success;
 		}
 
@@ -80,15 +76,9 @@
 			if ( $cached !== false ) {
 				return $cached;
 			}
-			$api = Mage::getModel ("cloudflare/api_request");
-			$api->setType ( $api::REQUEST_GET );
-			$api->setQuery ( "name", $domain );
-			$response = $api->resolve ("zones");
-			 if ( $response->success && count ( $response->result ) > 0 ) {
-				$this->_setCached ( "$domain", $response->result [ 0 ]->id );
-				return $response->result [ 0 ]->id;
-			}
-			return null;
+			$zone = $data->getAuthZone ();
+			$this->_setCached ( "$domain", $zone );
+			return $zone;
 		}
 
 	}

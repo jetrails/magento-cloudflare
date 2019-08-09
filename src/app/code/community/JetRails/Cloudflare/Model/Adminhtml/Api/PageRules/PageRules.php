@@ -5,7 +5,7 @@
 	 * functionality that asks the Cloudflare API for a current setting value.
 	 * It then adds on to that functionality by adding more methods that
 	 * interact with the Cloudflare API.
-	 * @version     1.0.3
+	 * @version     1.1.0
 	 * @package     JetRails® Cloudflare
 	 * @author      Rafael Grigorian <development@jetrails.com>
 	 * @copyright   © 2018 JETRAILS, All rights reserved
@@ -41,10 +41,10 @@
 			$endpoint = $this->getEndpoint ("entitlements");
 			$api = Mage::getModel ("cloudflare/api_request");
 			$api->setType ( $api::REQUEST_GET );
-			$result = $api->resolve ( $endpoint );
-			return array_filter ( $result->result, function ( $i ) {
-				return $i->id == "page_rules";
-			}) [0];
+			$response = $api->resolve ( $endpoint );
+			return current ( array_filter ( $response->result, function ( $i ) {
+				return $i->id === "page_rules";
+			}));
 		}
 
 		/**

@@ -3,10 +3,10 @@
 	/**
 	 * This controller is used to render the dashboard template with the index
 	 * action. It also has a save action that is used to update the Cloudflare
-	 * email and token that is used for API access. Finally it contains an
+	 * zone and token that is used for API access. Finally it contains an
 	 * action to change the domain to use with the Cloudflare dashboard. This
 	 * domain selection is saved within the user's session.
-	 * @version     1.0.3
+	 * @version     1.1.0
 	 * @package     JetRails® Cloudflare
 	 * @author      Rafael Grigorian <development@jetrails.com>
 	 * @copyright   © 2018 JETRAILS, All rights reserved
@@ -51,7 +51,7 @@
 		/**
 		 * This action is used only by the overview/configuration section and
 		 * therefore access to the resource is checked right away. It takes in
-		 * an email and a token and saves it with the use of the cloudflare/data
+		 * a zone and a token and saves it with the use of the cloudflare/data
 		 * helper class.
 		 * @return  void
 		 */
@@ -60,9 +60,9 @@
 			if ( $session->isAllowed ("jetrails/cloudflare/overview/configuration") ) {
 				$api = Mage::getSingleton ("cloudflare/api_overview_configuration");
 				$data = Mage::helper ("cloudflare/data");
-				$email = $this->getRequest ()->getPost ("email");
+				$zone = $this->getRequest ()->getPost ("zone");
 				$token = $this->getRequest ()->getPost ("token");
-				$data->setAuthEmail ( $email );
+				$data->setAuthZone ( $zone );
 				$data->setAuthToken ( $token );
 			}
 			$this->_redirect ("*/*/index");
