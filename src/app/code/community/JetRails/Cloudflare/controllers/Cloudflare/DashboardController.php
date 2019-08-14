@@ -6,7 +6,7 @@
 	 * zone and token that is used for API access. Finally it contains an
 	 * action to change the domain to use with the Cloudflare dashboard. This
 	 * domain selection is saved within the user's session.
-	 * @version     1.1.0
+	 * @version     1.1.1
 	 * @package     JetRails® Cloudflare
 	 * @author      Rafael Grigorian <development@jetrails.com>
 	 * @copyright   © 2018 JETRAILS, All rights reserved
