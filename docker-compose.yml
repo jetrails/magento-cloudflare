@@ -26,7 +26,6 @@ services:
             - "9000"
         links:
             - mysql
-            - redis
     php-cli:
         image: jetrails/magento-alpine:php-cli-5.6
         volumes:
@@ -37,7 +36,6 @@ services:
                     - php-cli.docker.internal
         links:
             - mysql
-            - redis
     php-cron:
         image: jetrails/magento-alpine:php-cron-5.6
         restart: unless-stopped
@@ -51,7 +49,6 @@ services:
             - VERBOSE=false
         links:
             - mysql
-            - redis
     nginx:
         image: jetrails/magento-alpine:nginx
         restart: unless-stopped
@@ -97,12 +94,3 @@ services:
             - nginx
         ports:
             - "80:80"
-    redis:
-        image: jetrails/magento-alpine:redis
-        restart: unless-stopped
-        networks:
-            default:
-                aliases:
-                    - redis.docker.internal
-        environment:
-            - VERBOSE=false
