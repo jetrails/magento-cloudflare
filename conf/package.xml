@@ -1,4 +1,4 @@
-<?xml version="1.0"?>
+<?xml version="1.0" ?>
 <package>
 	<name>JetRails_Cloudflare</name>
 	<version></version>
@@ -10,7 +10,7 @@
 	<extends/>
 	<summary>Interact with popular Cloudflare features though Magento's backend portal.</summary>
 	<description>https://github.com/jetrails/magento-cloudflare</description>
-	<notes>Released Version 1.1.1</notes>
+	<notes>Released Version 1.1.2</notes>
 	<authors>
 		<author>
 			<name>Rafael Grigorian</name>
