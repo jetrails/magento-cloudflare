@@ -12,7 +12,7 @@
 
 ## Documentation
 
-The user manual can be found in [here](https://learn.jetrails.com/article/magento-cloudflare-extension).  The user manual goes through the installation process as well as explains all the features that comes with this plugin. For furthur support, please email [development@jetrails.com](mailto://development@jetrails.com).
+The user manual can be found in [here](https://learn.jetrails.com/article/magento-1-cloudflare-extension).  The user manual goes through the installation process as well as explains all the features that comes with this plugin. For furthur support, please email [development@jetrails.com](mailto://development@jetrails.com).
 
 ## Build System
 
