@@ -4,7 +4,7 @@
 	 * This controller inherits from a generic controller that implements the
 	 * base functionality for interfacing with a getter model. This section
 	 * simply loads the initial value through the Cloudflare API.
-	 * @version     1.1.2
+	 * @version     1.1.3
 	 * @package     JetRails® Cloudflare
 	 * @author      Rafael Grigorian <development@jetrails.com>
 	 * @copyright   © 2018 JETRAILS, All rights reserved
