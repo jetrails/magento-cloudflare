@@ -9,3 +9,4 @@ node_modules
 public_html
 build
 dist
+private
