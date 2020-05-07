@@ -3,7 +3,7 @@
 	/**
 	 * This class handles the logic to authenticate a zone/token pair through
 	 * the use of the Cloudflare API.
-	 * @version     1.1.3
+	 * @version     1.1.4
 	 * @package     JetRails® Cloudflare
 	 * @author      Rafael Grigorian <development@jetrails.com>
 	 * @copyright   © 2018 JETRAILS, All rights reserved
