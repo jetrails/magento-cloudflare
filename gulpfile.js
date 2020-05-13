@@ -57,6 +57,7 @@ gulp.task ( "build-styles", ["init"], ( callback ) => {
 		.pipe ( sass ({ includePaths: `${SOURCE_DIR}/skin/adminhtml/base/default/scss` }) )
 		.pipe ( minify () )
 		.pipe ( concat ("bundle.min.css") )
+		.pipe ( replace ( /src\/skin\/adminhtml\/base\/default\/scss\/cloudflare\//g, "" ) )
 		.pipe ( gulp.dest (`${BUILD_DIR}/skin/adminhtml/base/default/css/${PACKAGE_SHORTNAME}`) )
 		.on ( "done", callback )
 })
