@@ -29,7 +29,7 @@
 		 */
 		public function getValue () {
 			$response = parent::getValue ();
-			if ( $response->success ) {
+			if ( isset ( $response->success ) && $response->success ) {
 				$response->result = $response->result->name_servers;
 			}
 			return $response;

@@ -45,7 +45,7 @@
 			$api->setType ( $api::REQUEST_PATCH );
 			$api->setData ( array ( "value" => $value ) );
 			$response = $api->resolve ( $endpoint );
-			if ( $response->success && $value != "off" ) {
+			if ( isset ( $response->success ) && $response->success && $value != "off" ) {
 				$endpoint = $this->getEndpoint ("settings/webp");
 				$api = Mage::getModel ("cloudflare/api_request");
 				$api->setType ( $api::REQUEST_PATCH );

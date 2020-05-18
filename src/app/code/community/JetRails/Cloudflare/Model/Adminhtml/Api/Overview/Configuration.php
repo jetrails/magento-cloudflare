@@ -23,12 +23,12 @@
 			$api = Mage::getModel ("cloudflare/api_request");
 			$api->setType ( $api::REQUEST_GET );
 			$response = $api->resolve ("user/tokens/verify");
-			if ( !$response->success ) {
+			if ( !isset ( $response->success ) && $response->success ) {
 				return false;
 			}
 			if ( !$zone ) $zone = $this->getZoneId ();
 			$response = $api->resolve ("zones/$zone");
-			return $response->success;
+			return isset ( $response->success ) && $response->success;
 		}
 
 		/**

@@ -106,10 +106,16 @@
 			$api = Mage::getModel ("cloudflare/api_request");
 			$api->setType ( $api::REQUEST_GET );
 			$result = $api->resolve ( $endpoint );
-			$result = array_filter ( $result->result, function ( $i ) {
-				return $i->scope === "zone";
-			});
-			return $result [ 0 ];
+			if ( isset ( $result->result ) ) {
+				$result = array_filter ( $result->result, function ( $i ) {
+					return $i->scope === "zone";
+				});
+				return $result [ 0 ];
+			}
+			return [
+				"used" => 0,
+				"max" => 0
+			];
 		}
 
 	}
