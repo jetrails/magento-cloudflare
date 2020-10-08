@@ -10,7 +10,7 @@
 						<sort_order>0</sort_order>
 						<children>
 							<cloudflare translate="title" module="cloudflare" >
-								<title>Cloudflare</title>
+								<title>Cloudflare Dashboard</title>
 								<sort_order>100</sort_order>
 								<children>
 									<overview translate="title" module="cloudflare" >
@@ -71,8 +71,8 @@
 											</cloudflare_nameservers>
 										</children>
 									</dns>
-									<crypto translate="title" module="cloudflare" >
-										<title>Crypto</title>
+									<ssl_tls translate="title" module="cloudflare" >
+										<title>SSL/TLS</title>
 										<sort_order>400</sort_order>
 										<children>
 											<ssl translate="title" module="cloudflare" >
@@ -116,7 +116,7 @@
 												<sort_order>1100</sort_order>
 											</disable_universal_ssl>
 										</children>
-									</crypto>
+									</ssl_tls>
 									<firewall translate="title" module="cloudflare" >
 										<title>Firewall</title>
 										<sort_order>500</sort_order>
@@ -275,7 +275,7 @@
 			<sort_order>1000</sort_order>
 			<children>
 				<cloudflare translate="title" module="cloudflare" >
-					<title>Cloudflare</title>
+					<title>Cloudflare Dashboard</title>
 					<sort_order>10</sort_order>
 					<action>adminhtml/cloudflare_dashboard/index</action>
 				</cloudflare>
