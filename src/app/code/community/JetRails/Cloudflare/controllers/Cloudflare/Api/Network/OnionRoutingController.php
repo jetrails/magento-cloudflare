@@ -12,5 +12,5 @@
 	 * @copyright   © 2018 JETRAILS, All rights reserved
 	 * @license     MIT https://opensource.org/licenses/MIT
 	 */
-	class JetRails_Cloudflare_Cloudflare_Api_SslTls_OnionRoutingController
+	class JetRails_Cloudflare_Cloudflare_Api_Network_OnionRoutingController
 	extends JetRails_Cloudflare_Controller_Toggle {}

@@ -9,7 +9,7 @@
 	 * @copyright   © 2018 JETRAILS, All rights reserved
 	 * @license     MIT https://opensource.org/licenses/MIT
 	 */
-	class JetRails_Cloudflare_Model_Adminhtml_Api_SslTls_OnionRouting
+	class JetRails_Cloudflare_Model_Adminhtml_Api_Network_OnionRouting
 	extends JetRails_Cloudflare_Model_Adminhtml_Api_Setter {
 
 		/**

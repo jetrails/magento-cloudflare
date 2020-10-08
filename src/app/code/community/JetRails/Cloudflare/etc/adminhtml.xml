@@ -99,10 +99,6 @@
 												<title>Minimum TLS Version</title>
 												<sort_order>800</sort_order>
 											</minimum_tls_version>
-											<onion_routing translate="title" module="cloudflare" >
-												<title>Onion Routing</title>
-												<sort_order>850</sort_order>
-											</onion_routing>
 											<tls_13 translate="title" module="cloudflare" >
 												<title>TLS 1.3</title>
 												<sort_order>900</sort_order>
@@ -239,6 +235,10 @@
 												<title>WebSockets</title>
 												<sort_order>300</sort_order>
 											</websockets>
+											<onion_routing translate="title" module="cloudflare" >
+												<title>Onion Routing</title>
+												<sort_order>350</sort_order>
+											</onion_routing>
 											<pseudo_ipv4 translate="title" module="cloudflare" >
 												<title>Pseudo IPv4</title>
 												<sort_order>400</sort_order>
