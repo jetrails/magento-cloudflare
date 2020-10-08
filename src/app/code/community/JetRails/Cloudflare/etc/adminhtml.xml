@@ -185,10 +185,10 @@
 												<title>Rocket Loader</title>
 												<sort_order>500</sort_order>
 											</rocket_loader>
-											<prefetching_urls_from_http_headers translate="title" module="cloudflare" >
-												<title>Prefetching URLs From HTTP Headers.</title>
+											<prefetch_urls translate="title" module="cloudflare" >
+												<title>Prefetch URLs</title>
 												<sort_order>600</sort_order>
-											</prefetching_urls_from_http_headers>
+											</prefetch_urls>
 											<amp_real_url translate="title" module="cloudflare" >
 												<title>AMP Real URL</title>
 												<sort_order>700</sort_order>
