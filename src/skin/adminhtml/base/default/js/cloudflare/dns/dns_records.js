@@ -175,7 +175,7 @@ function populateResult ( section ) {
 			)
 			$( row ).append ( $("<td>")
 				.attr ( "class", "status" )
-				.html ( entry.proxiable ? entry.proxied ? "<img class='proxied change' src='" + imageBase + "/proxied_on.png' />" : "<img class='proxied change' src='" + imageBase + "/proxied_off.png' />" : "" )
+				.html ( entry.proxiable ? entry.proxied ? "<img class='proxied change' src='" + imageBase + "/proxied_on.svg' />" : "<img class='proxied change' src='" + imageBase + "/proxied_off.svg' />" : "" )
 			)
 			$( row ).append ( $("<td>").attr ( "class", "delete" )
 				.html ( $("<div class='trigger delete_entry cloudflare-font' >")

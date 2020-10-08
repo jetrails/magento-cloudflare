@@ -109,6 +109,7 @@
 				background: $color-white;
 				width: 220px;
 				border: none;
+				border-right: solid 1px $color-border_gray;
 				li {
 					height: 65px;
 					display: flex;
@@ -127,8 +128,8 @@
 						padding: 0;
 						height: 50px;
 						width: 50px;
-						background: #2968A2;
-						border-radius: 3px;
+						background: #2C7CB0;
+						border-radius: 5px;
 						line-height: 50px;
 						color: #FFF;
 						text-align: center;
@@ -143,7 +144,7 @@
 					&.selected {
 						background: $color-fill_gray_dark;
 						span:nth-child( 1 ) {
-							background: #1F4E78;
+							background: #163D57;
 						}
 					}
 				}
@@ -154,7 +155,7 @@
 				padding: 0 30px 30px 30px;
 				flex-grow: 1;
 				display: flex;
-				background: $color-fill_gray_dark;
+				background: $color-white;
 				.content {
 					display: none;
 					width: 100%;
