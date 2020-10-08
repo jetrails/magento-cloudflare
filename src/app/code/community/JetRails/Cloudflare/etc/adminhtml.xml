@@ -189,6 +189,10 @@
 												<title>Prefetching URLs From HTTP Headers.</title>
 												<sort_order>600</sort_order>
 											</prefetching_urls_from_http_headers>
+											<amp_real_url translate="title" module="cloudflare" >
+												<title>AMP Real URL</title>
+												<sort_order>700</sort_order>
+											</amp_real_url>
 										</children>
 									</speed>
 									<page_rules translate="title" module="cloudflare" >
