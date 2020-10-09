@@ -219,6 +219,10 @@
 												<title>AMP Real URL</title>
 												<sort_order>700</sort_order>
 											</amp_real_url>
+											<mobile_redirect translate="title" module="cloudflare" >
+												<title>Mobile Redirect</title>
+												<sort_order>800</sort_order>
+											</mobile_redirect>
 										</children>
 									</speed>
 									<page_rules translate="title" module="cloudflare" >
