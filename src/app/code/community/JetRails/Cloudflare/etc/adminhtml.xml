@@ -187,6 +187,10 @@
 												<title>Image Resizing</title>
 												<sort_order>10</sort_order>
 											</image_resizing>
+											<automatic_platform_optimization translate="title" module="cloudflare" >
+												<title>Automatic Platform Optimization for WordPress</title>
+												<sort_order>15</sort_order>
+											</automatic_platform_optimization>
 											<enhanced_http2_prioritization translate="title" module="cloudflare" >
 												<title>Enhanced HTTP/2 Prioritization</title>
 												<sort_order>20</sort_order>
