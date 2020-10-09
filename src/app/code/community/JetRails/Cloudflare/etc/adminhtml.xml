@@ -79,6 +79,10 @@
 										<title>SSL/TLS</title>
 										<sort_order>400</sort_order>
 										<children>
+											<ssl_tls_recommender translate="title" module="cloudflare" >
+												<title>SSL/TLS Recommender</title>
+												<sort_order>50</sort_order>
+											</ssl_tls_recommender>
 											<ssl translate="title" module="cloudflare" >
 												<title>SSL</title>
 												<sort_order>100</sort_order>
