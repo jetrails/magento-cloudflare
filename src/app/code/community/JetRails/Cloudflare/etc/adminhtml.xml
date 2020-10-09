@@ -69,6 +69,10 @@
 												<title>Cloudflare Nameservers</title>
 												<sort_order>200</sort_order>
 											</cloudflare_nameservers>
+											<cname_flattening translate="title" module="cloudflare" >
+												<title>CNAME Flattening</title>
+												<sort_order>400</sort_order>
+											</cname_flattening>
 										</children>
 									</dns>
 									<ssl_tls translate="title" module="cloudflare" >
