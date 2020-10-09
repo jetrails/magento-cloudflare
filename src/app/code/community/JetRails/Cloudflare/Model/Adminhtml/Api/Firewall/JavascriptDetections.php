@@ -9,7 +9,7 @@
 	 * @copyright   © 2018 JETRAILS, All rights reserved
 	 * @license     MIT https://opensource.org/licenses/MIT
 	 */
-	class JetRails_Cloudflare_Model_Adminhtml_Api_Speed_AmpRealUrl
+	class JetRails_Cloudflare_Model_Adminhtml_Api_Firewall_JavascriptDetections
 	extends JetRails_Cloudflare_Model_Adminhtml_Api_Setter {
 
 		/**
@@ -18,8 +18,8 @@
 		 * @var     integer     _settingType    Value cast type before sending
 		 * @var     boolean     _usePatchToSet  Use PUT HTTP method
 		 */
-		protected $_endpoint = "amp/sxg";
-		protected $_dataKey = "enabled";
+		protected $_endpoint = "bot_management";
+		protected $_dataKey = "enable_js";
 		protected $_settingType = self::TYPE_BOOLEAN;
 		protected $_usePatchToSet = false;
 

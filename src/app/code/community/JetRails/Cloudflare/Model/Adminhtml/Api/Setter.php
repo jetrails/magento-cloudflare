@@ -27,9 +27,11 @@
 		/**
 		 * @var     string       _dataKey             The key name for val obj
 		 * @var     integer      _settingType         Enum value that is chosen
+		 * @var     boolean      _usePatchToSet       Should use PATCH method to set
 		 */
 		protected $_dataKey = "value";
 		protected $_settingType = self::TYPE_STRING;
+		protected $_usePatchToSet = true;
 
 		/**
 		 * This method takes in a value that can be of mixed type and it casts
@@ -59,7 +61,7 @@
 			$zoneId = Mage::getSingleton ("cloudflare/api_overview_configuration")->getZoneId ();
 			$endpoint = sprintf ( "zones/%s/%s", $zoneId, $this->_endpoint );
 			$api = Mage::getModel ("cloudflare/api_request");
-			$api->setType ( $api::REQUEST_PATCH );
+			$api->setType ( $this->_usePatchToSet ? $api::REQUEST_PATCH : $api::REQUEST_PUT );
 			$api->setData ( array ( "$this->_dataKey" => $value ) );
 			return $api->resolve ( $endpoint );
 		}
