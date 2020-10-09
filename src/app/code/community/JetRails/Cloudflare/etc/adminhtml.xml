@@ -115,6 +115,10 @@
 												<title>Automatic HTTPS Rewrites</title>
 												<sort_order>1000</sort_order>
 											</automatic_https_rewrites>
+											<certificate_transparency_monitoring translate="title" module="cloudflare" >
+												<title>Certificate Transparency Monitoring</title>
+												<sort_order>1050</sort_order>
+											</certificate_transparency_monitoring>
 											<disable_universal_ssl translate="title" module="cloudflare" >
 												<title>Disable Universal SSL</title>
 												<sort_order>1100</sort_order>
