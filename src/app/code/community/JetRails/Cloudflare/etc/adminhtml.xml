@@ -191,6 +191,10 @@
 												<title>Enhanced HTTP/2 Prioritization</title>
 												<sort_order>20</sort_order>
 											</enhanced_http2_prioritization>
+											<tcp_turbo translate="title" module="cloudflare" >
+												<title>TCP Turbo</title>
+												<sort_order>30</sort_order>
+											</tcp_turbo>
 											<auto_minify translate="title" module="cloudflare" >
 												<title>Auto Minify</title>
 												<sort_order>100</sort_order>
