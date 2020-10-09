@@ -163,6 +163,16 @@
 													</unmetered_ddos_mitigation>
 												</children>
 											</ip_firewall>
+											<waf translate="title" module="cloudflare" >
+												<title>Web Application Firewall</title>
+												<sort_order>600</sort_order>
+												<children>
+													<web_application_firewall translate="title" module="cloudflare" >
+														<title>Web Application Firewall</title>
+														<sort_order>100</sort_order>
+													</web_application_firewall>
+												</children>
+											</waf>
 										</children>
 									</firewall>
 									<speed translate="title" module="cloudflare" >
