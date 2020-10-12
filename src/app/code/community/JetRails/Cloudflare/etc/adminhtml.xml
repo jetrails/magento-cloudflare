@@ -179,6 +179,10 @@
 														<title>Unmetered DDoS Mitigation</title>
 														<sort_order>300</sort_order>
 													</unmetered_ddos_mitigation>
+													<zone_lockdown translate="title" module="cloudflare" >
+														<title>Zone Lockdown</title>
+														<sort_order>400</sort_order>
+													</zone_lockdown>
 												</children>
 											</tools>
 											<settings translate="title" module="cloudflare" >
