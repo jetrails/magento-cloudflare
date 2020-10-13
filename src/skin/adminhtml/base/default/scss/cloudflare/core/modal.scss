@@ -1,12 +1,12 @@
 .cloudflare_modal {
 	font-family: "Open Sans", sans-serif;
-    font-weight: 100;
+	font-weight: 100;
 	font-size: 12px;
 	color: $color-text_gray_dark;
 	position: fixed;
-    align-items: center;
+	align-items: center;
 	justify-content: center;
-    display: flex;
+	display: flex;
 	top: 0;
 	left: 0;
 	height: 100%;
@@ -32,8 +32,8 @@
 			top: 12px;
 			right: 6px;
 			color: #777;
-		    height: 50px;
-		    width: 50px;
+			height: 50px;
+			width: 50px;
 			line-height: 50px;
 			transition: all 200ms;
 			cursor: pointer;
@@ -62,7 +62,7 @@
 		}
 		.message_container {
 			max-height: 300px;
-		    overflow-y: scroll;
+			overflow-y: scroll;
 			font-smoothing: antialiased;
 			-webkit-font-smoothing: antialiased;
 			-moz-osx-font-smoothing: grayscale;
@@ -84,7 +84,7 @@
 			width: 100%;
 			box-sizing: border-box;
 			align-items: center;
- 			.label {
+			.label {
 				text-align: right;
 				width: 120px;
 				padding-right: 30px;
@@ -175,7 +175,7 @@
 				padding-top: 5px;
 				padding-bottom: 5px;
 				padding-left: 0;
-	    		padding-right: 0;
+				padding-right: 0;
 				.delete {
 					background: $color-border_gray;
 					border-radius: 5px;
@@ -215,8 +215,8 @@
 			padding: 0;
 			margin-left: 60px;
 			font-size: 15.5px;
-		    line-height: 1.5em;
-		    padding-right: 22.5px;
+			line-height: 1.5em;
+			padding-right: 22.5px;
 		}
 		> a {
 			margin-left: 22.5px;
@@ -227,15 +227,15 @@
 		}
 		table.configure {
 			font-size: 15.5px;
-		    line-height: 23px;
-		    padding: 0 22.5px;
+			line-height: 23px;
+			padding: 0 22.5px;
 			td {
 				padding: 10px 0;
 				&:nth-child(1) {
 					padding-right: 15px;
 				}
 				&:nth-child(2) {
-				    min-width: 160px;
+					min-width: 160px;
 					vertical-align: middle;
 					text-align: center;
 				}
@@ -243,8 +243,8 @@
 					display: block;
 				}
 				b:before {
-				    display: block;
-				    content: "";
+					display: block;
+					content: "";
 				}
 			}
 		}
@@ -257,10 +257,10 @@
 			&:after {
 				position: absolute;
 				background-color: #FFF;
-			    transition: all .2s;
-			    background-repeat: no-repeat;
-			    background-position: center;
-			    background-size: 70px;
+				transition: all .2s;
+				background-repeat: no-repeat;
+				background-position: center;
+				background-size: 70px;
 				visibility: hidden;
 				width: 100%;
 				height: 100%;
