@@ -14,13 +14,12 @@
 	extends JetRails_Cloudflare_Controller_Action {
 
 		/**
-		 * This action simply triggers the Cloudflare API to purge all the cache
-		 * related to the zone.
-		 * @return 	void
+		 * This helper method simply looks if the response is successful and it
+		 * appends a success message to the response that Cloudflare fails to
+		 * attach.
+		 * @return  void
 		 */
-		public function everythingAction () {
-			$api = Mage::getModel ("cloudflare/api_caching_purgeCache");
-			$response = $api->purgeEverything ();
+		private function _handleResponse ( $response ) {
 			if ( isset ( $response->success ) && $response->success ) {
 				$response->messages = array_merge (
 					array (
@@ -34,24 +33,62 @@
 		}
 
 		/**
-		 * This action takes in a list of files from the 'files' parameter and
-		 * it asks the Cloudflare API to purge the cache related to said files.
-		 * @return 	void
+		 * This action simply triggers the Cloudflare API to purge all the cache
+		 * related to the zone.
+		 * @return  void
 		 */
-		public function individualAction () {
+		public function everythingAction () {
 			$api = Mage::getModel ("cloudflare/api_caching_purgeCache");
-			$files = $this->_request->getParam ("files");
-			$response = $api->purgeIndividual ( $files );
-			if ( isset ( $response->success ) && $response->success ) {
-				$response->messages = array_merge (
-					array (
-						"Successfully purged assets. Please allow up to 30 " .
-						"seconds for changes to take effect."
-					),
-					$response->messages
-				);
-			}
-			return $this->_sendResponse ( $response );
+			$response = $api->purgeEverything ();
+			return $this->_handleResponse ( $response );
+		}
+
+		/**
+		 * This action simply triggers the Cloudflare API to purge all the cache
+		 * related that matches a passed list of urls.
+		 * @return  void
+		 */
+		public function urlAction () {
+			$api = Mage::getModel ("cloudflare/api_caching_purgeCache");
+			$items = $this->_request->getParam ("items");
+			$response = $api->purgeUrls ( $items );
+			return $this->_handleResponse ( $response );
+		}
+
+		/**
+		 * This action simply triggers the Cloudflare API to purge all the cache
+		 * related that matches a passed list of hostnames.
+		 * @return  void
+		 */
+		public function hostnameAction () {
+			$api = Mage::getModel ("cloudflare/api_caching_purgeCache");
+			$items = $this->_request->getParam ("items");
+			$response = $api->purgeHosts ( $items );
+			return $this->_handleResponse ( $response );
+		}
+
+		/**
+		 * This action simply triggers the Cloudflare API to purge all the cache
+		 * related that matches a passed list of tags.
+		 * @return  void
+		 */
+		public function tagAction () {
+			$api = Mage::getModel ("cloudflare/api_caching_purgeCache");
+			$items = $this->_request->getParam ("items");
+			$response = $api->purgeTags ( $items );
+			return $this->_handleResponse ( $response );
+		}
+
+		/**
+		 * This action simply triggers the Cloudflare API to purge all the cache
+		 * related that matches a passed list of prefixes.
+		 * @return  void
+		 */
+		public function prefixAction () {
+			$api = Mage::getModel ("cloudflare/api_caching_purgeCache");
+			$items = $this->_request->getParam ("items");
+			$response = $api->purgePrefixes ( $items );
+			return $this->_handleResponse ( $response );
 		}
 
 	}

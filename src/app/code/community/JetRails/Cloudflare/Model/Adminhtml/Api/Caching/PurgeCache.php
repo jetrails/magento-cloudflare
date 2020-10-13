@@ -30,19 +30,66 @@
 		}
 
 		/**
-		 * This method asks the Cloudflare API to purge all the cache in the
-		 * currently selected zone and that match any of the URLs found in the
-		 * passed array.
-		 * @param   array        urls                 URLs to purge in zone
+		 * Given a list of items, ask Cloudflare to purge cache that matches the
+		 * list of urls.
+		 * @param   array        items                Items to purge
 		 * @return  stdClass                          Cloudflare response
 		 */
-		public function purgeIndividual ( $urls ) {
+		public function purgeUrls ( $items ) {
 			$modelPath = "cloudflare/api_overview_configuration";
 			$zoneId = Mage::getSingleton ("$modelPath")->getZoneId ();
 			$endpoint = sprintf ( "zones/%s/purge_cache", $zoneId );
 			$api = Mage::getModel ("cloudflare/api_request");
 			$api->setType ( $api::REQUEST_DELETE );
-			$api->setData ( array ( "files" => $urls ) );
+			$api->setData ( array ( "files" => $items ) );
+			return $api->resolve ( $endpoint );
+		}
+
+		/**
+		 * Given a list of items, ask Cloudflare to purge cache that matches the
+		 * list of hostnames.
+		 * @param   array        items                Items to purge
+		 * @return  stdClass                          Cloudflare response
+		 */
+		public function purgeHosts ( $items ) {
+			$modelPath = "cloudflare/api_overview_configuration";
+			$zoneId = Mage::getSingleton ("$modelPath")->getZoneId ();
+			$endpoint = sprintf ( "zones/%s/purge_cache", $zoneId );
+			$api = Mage::getModel ("cloudflare/api_request");
+			$api->setType ( $api::REQUEST_DELETE );
+			$api->setData ( array ( "hosts" => $items ) );
+			return $api->resolve ( $endpoint );
+		}
+
+		/**
+		 * Given a list of items, ask Cloudflare to purge cache that matches the
+		 * list of tags.
+		 * @param   array        items                Items to purge
+		 * @return  stdClass                          Cloudflare response
+		 */
+		public function purgeTags ( $items ) {
+			$modelPath = "cloudflare/api_overview_configuration";
+			$zoneId = Mage::getSingleton ("$modelPath")->getZoneId ();
+			$endpoint = sprintf ( "zones/%s/purge_cache", $zoneId );
+			$api = Mage::getModel ("cloudflare/api_request");
+			$api->setType ( $api::REQUEST_DELETE );
+			$api->setData ( array ( "tags" => $items ) );
+			return $api->resolve ( $endpoint );
+		}
+
+		/**
+		 * Given a list of items, ask Cloudflare to purge cache that matches the
+		 * list of prefixes.
+		 * @param   array        items                Items to purge
+		 * @return  stdClass                          Cloudflare response
+		 */
+		public function purgePrefixes ( $items ) {
+			$modelPath = "cloudflare/api_overview_configuration";
+			$zoneId = Mage::getSingleton ("$modelPath")->getZoneId ();
+			$endpoint = sprintf ( "zones/%s/purge_cache", $zoneId );
+			$api = Mage::getModel ("cloudflare/api_request");
+			$api->setType ( $api::REQUEST_DELETE );
+			$api->setData ( array ( "prefixes" => $items ) );
 			return $api->resolve ( $endpoint );
 		}
 
