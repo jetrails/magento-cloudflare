@@ -168,7 +168,7 @@
 												</children>
 											</managed_rules>
 											<tools translate="title" module="cloudflare" >
-												<title>IP Firewall</title>
+												<title>Tools</title>
 												<sort_order>400</sort_order>
 												<children>
 													<access_rules translate="title" module="cloudflare" >
