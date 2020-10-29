@@ -78,7 +78,7 @@
 			}
 			$domain = Mage::getBaseUrl ( Mage_Core_Model_Store::URL_TYPE_WEB );
 			$domain = parse_url ( $domain ) ["host"];
-			preg_match ( "/\.?([^.]+\.[^.]+)$/im", $domain, $matches );
+			preg_match ( "/([^.\s]+\.([^.\s]{3,}|[^.\s]{2}\.[^.\s]{2}|[^.\s]{2}))\b$/im", $domain, $matches );
 			return $matches [ 1 ];
 		}
 
@@ -98,7 +98,7 @@
 					$stores = $group->getStores ();
 					foreach ( $stores as $store ) {
 						$domain = parse_url ( $store->getBaseUrl () ) ["host"];
-						preg_match ( "/\.?([^.]+\.[^.]+)$/im", $domain, $matches );
+						preg_match ( "/([^.\s]+\.([^.\s]{3,}|[^.\s]{2}\.[^.\s]{2}|[^.\s]{2}))\b$/im", $domain, $matches );
 						$domain = $matches [ 1 ];
 						array_push ( $domains, $domain );
 					}
