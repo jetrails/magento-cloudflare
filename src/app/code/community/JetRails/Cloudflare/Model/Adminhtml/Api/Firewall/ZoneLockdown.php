@@ -63,7 +63,7 @@
 			$endpoint = $this->getEndpoint ();
 			$api = Mage::getModel ("cloudflare/api_request");
 			$api->setType ( $api::REQUEST_POST );
-			$api->setData ( array (
+			$api->setPayload ( array (
 				"description" => $desc,
 				"urls" => $urls,
 				"configurations" => $config,
@@ -89,7 +89,7 @@
 			$endpoint = $this->getEndpoint ( $this->_endpoint . "/$id" );
 			$api = Mage::getModel ("cloudflare/api_request");
 			$api->setType ( $this->_usePatchToSet ? $api::REQUEST_PATCH : $api::REQUEST_PUT );
-			$api->setData ( array (
+			$api->setPayload ( array (
 				"description" => $desc,
 				"urls" => $urls,
 				"configurations" => $config,

@@ -57,7 +57,7 @@
 			$endpoint = $this->getEndpoint ("firewall/ua_rules/$id");
 			$api = Mage::getModel ("cloudflare/api_request");
 			$api->setType ( $api::REQUEST_PUT );
-			$api->setData ( array (
+			$api->setPayload ( array (
 				"configuration" => array (
 					"target" => "ua",
 					"value" => $value
@@ -83,7 +83,7 @@
 			$endpoint = $this->getEndpoint ();
 			$api = Mage::getModel ("cloudflare/api_request");
 			$api->setType ( $api::REQUEST_POST );
-			$api->setData ( array (
+			$api->setPayload ( array (
 				"configuration" => array (
 					"target" => "ua",
 					"value" => $value

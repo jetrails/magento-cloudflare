@@ -62,7 +62,7 @@
 			$endpoint = sprintf ( "zones/%s/%s", $zoneId, $this->_endpoint );
 			$api = Mage::getModel ("cloudflare/api_request");
 			$api->setType ( $this->_usePatchToSet ? $api::REQUEST_PATCH : $api::REQUEST_PUT );
-			$api->setData ( array ( "$this->_dataKey" => $value ) );
+			$api->setPayload ( array ( "$this->_dataKey" => $value ) );
 			return $api->resolve ( $endpoint );
 		}
 

@@ -32,7 +32,7 @@
 			$endpoint = $this->getEndpoint ();
 			$api = Mage::getModel ("cloudflare/api_request");
 			$api->setType ( $api::REQUEST_PATCH );
-			$api->setData ( array ( "value" => array (
+			$api->setPayload ( array ( "value" => array (
 				"js" => $js == "true" ? "on" : "off",
 				"css" => $css == "true" ? "on" : "off",
 				"html" => $html == "true" ? "on" : "off"

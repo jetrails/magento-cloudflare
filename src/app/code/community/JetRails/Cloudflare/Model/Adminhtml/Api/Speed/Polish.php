@@ -43,13 +43,13 @@
 			$endpoint = $this->getEndpoint ();
 			$api = Mage::getModel ("cloudflare/api_request");
 			$api->setType ( $api::REQUEST_PATCH );
-			$api->setData ( array ( "value" => $value ) );
+			$api->setPayload ( array ( "value" => $value ) );
 			$response = $api->resolve ( $endpoint );
 			if ( isset ( $response->success ) && $response->success && $value != "off" ) {
 				$endpoint = $this->getEndpoint ("settings/webp");
 				$api = Mage::getModel ("cloudflare/api_request");
 				$api->setType ( $api::REQUEST_PATCH );
-				$api->setData ( array ( "value" => $webp ? "on" : "off" ) );
+				$api->setPayload ( array ( "value" => $webp ? "on" : "off" ) );
 				$response = $api->resolve ( $endpoint );
 			}
 			return $response;

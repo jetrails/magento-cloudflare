@@ -43,7 +43,7 @@
 			$endpoint = $this->getEndpoint ("firewall/access_rules/rules");
 			$api = Mage::getModel ("cloudflare/api_request");
 			$api->setType ( $api::REQUEST_POST );
-			$api->setData ( array (
+			$api->setPayload ( array (
 				"mode" => $mode,
 				"configuration" => array (
 					"target" => $target,
@@ -65,7 +65,7 @@
 			$endpoint = $this->getEndpoint ("firewall/access_rules/rules/$id");
 			$api = Mage::getModel ("cloudflare/api_request");
 			$api->setType ( $api::REQUEST_PATCH );
-			$api->setData ( array (
+			$api->setPayload ( array (
 				"mode" => $mode
 			));
 			return $api->resolve ( $endpoint );
@@ -83,7 +83,7 @@
 			$endpoint = $this->getEndpoint ("firewall/access_rules/rules/$id");
 			$api = Mage::getModel ("cloudflare/api_request");
 			$api->setType ( $api::REQUEST_PATCH );
-			$api->setData ( array (
+			$api->setPayload ( array (
 				"notes" => $notes
 			));
 			return $api->resolve ( $endpoint );

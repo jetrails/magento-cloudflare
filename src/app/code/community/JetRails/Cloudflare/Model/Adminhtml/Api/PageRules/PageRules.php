@@ -75,7 +75,7 @@
 			$endpoint = $this->getEndpoint ();
 			$api = Mage::getModel ("cloudflare/api_request");
 			$api->setType ( $api::REQUEST_POST );
-			$api->setData ( array (
+			$api->setPayload ( array (
 				"targets" => array (
 					array (
 						"target" => "url",
@@ -121,7 +121,7 @@
 			$endpoint = $this->getEndpoint ("pagerules/$id");
 			$api = Mage::getModel ("cloudflare/api_request");
 			$api->setType ( $api::REQUEST_PATCH );
-			$api->setData ( array (
+			$api->setPayload ( array (
 				"targets" => array (
 					array (
 						"target" => "url",
@@ -148,7 +148,7 @@
 			$endpoint = $this->getEndpoint ("pagerules/$id");
 			$api = Mage::getModel ("cloudflare/api_request");
 			$api->setType ( $api::REQUEST_PATCH );
-			$api->setData ( array (
+			$api->setPayload ( array (
 				"status" => $state === true ? "active" : "disabled"
 			));
 			return $api->resolve ( $endpoint );
@@ -178,7 +178,7 @@
 			$endpoint = $this->getEndpoint ("pagerules/priorities");
 			$api = Mage::getModel ("cloudflare/api_request");
 			$api->setType ( $api::REQUEST_PUT );
-			$api->setData ( $priorites );
+			$api->setPayload ( $priorites );
 			return $api->resolve ( $endpoint );
 		}
 

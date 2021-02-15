@@ -41,7 +41,7 @@
 			$api = Mage::getModel ("cloudflare/api_request");
 			$api->setHeader ( "Content-Type", "multipart/form-data" );
 			$api->setType ( $api::REQUEST_POST );
-			$api->setData ( array (
+			$api->setPayload ( array (
 				"file" => new CurlFile (
 					$file ["tmp_name"],
 					"text/plain",
@@ -159,7 +159,7 @@
 			$endpoint = $this->getEndpoint ("dns_records/$id");
 			$api = Mage::getModel ("cloudflare/api_request");
 			$api->setType ( $api::REQUEST_PUT );
-			$api->setData ( $data );
+			$api->setPayload ( $data );
 			return $api->resolve ( $endpoint );
 		}
 
@@ -255,7 +255,7 @@
 			$endpoint = $this->getEndpoint ();
 			$api = Mage::getModel ("cloudflare/api_request");
 			$api->setType ( $api::REQUEST_POST );
-			$api->setData ( $data );
+			$api->setPayload ( $data );
 			return $api->resolve ( $endpoint );
 		}
 

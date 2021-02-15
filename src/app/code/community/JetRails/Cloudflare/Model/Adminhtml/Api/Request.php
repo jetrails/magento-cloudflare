@@ -134,7 +134,7 @@
 		 * @param   mixed        value                Payload for CF API request
 		 * @return  void
 		 */
-		public function setData ( $value ) {
+		public function setPayload ( $value ) {
 			$this->_data = $value;
 		}
 

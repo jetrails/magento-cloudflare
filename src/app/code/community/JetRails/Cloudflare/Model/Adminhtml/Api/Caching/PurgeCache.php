@@ -25,7 +25,7 @@
 			$endpoint = sprintf ( "zones/%s/purge_cache", $zoneId );
 			$api = Mage::getModel ("cloudflare/api_request");
 			$api->setType ( $api::REQUEST_DELETE );
-			$api->setData ( array ( "purge_everything" => true ) );
+			$api->setPayload ( array ( "purge_everything" => true ) );
 			return $api->resolve ( $endpoint );
 		}
 
@@ -41,7 +41,7 @@
 			$endpoint = sprintf ( "zones/%s/purge_cache", $zoneId );
 			$api = Mage::getModel ("cloudflare/api_request");
 			$api->setType ( $api::REQUEST_DELETE );
-			$api->setData ( array ( "files" => $items ) );
+			$api->setPayload ( array ( "files" => $items ) );
 			return $api->resolve ( $endpoint );
 		}
 
@@ -57,7 +57,7 @@
 			$endpoint = sprintf ( "zones/%s/purge_cache", $zoneId );
 			$api = Mage::getModel ("cloudflare/api_request");
 			$api->setType ( $api::REQUEST_DELETE );
-			$api->setData ( array ( "hosts" => $items ) );
+			$api->setPayload ( array ( "hosts" => $items ) );
 			return $api->resolve ( $endpoint );
 		}
 
@@ -73,7 +73,7 @@
 			$endpoint = sprintf ( "zones/%s/purge_cache", $zoneId );
 			$api = Mage::getModel ("cloudflare/api_request");
 			$api->setType ( $api::REQUEST_DELETE );
-			$api->setData ( array ( "tags" => $items ) );
+			$api->setPayload ( array ( "tags" => $items ) );
 			return $api->resolve ( $endpoint );
 		}
 
@@ -89,7 +89,7 @@
 			$endpoint = sprintf ( "zones/%s/purge_cache", $zoneId );
 			$api = Mage::getModel ("cloudflare/api_request");
 			$api->setType ( $api::REQUEST_DELETE );
-			$api->setData ( array ( "prefixes" => $items ) );
+			$api->setPayload ( array ( "prefixes" => $items ) );
 			return $api->resolve ( $endpoint );
 		}
 

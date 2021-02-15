@@ -49,7 +49,7 @@
 			$endpoint = $this->getEndpoint ();
 			$api = Mage::getModel ("cloudflare/api_request");
 			$api->setType ( $api::REQUEST_PATCH );
-			$api->setData ( array ( "vanity_name_servers" => $records ));
+			$api->setPayload ( array ( "vanity_name_servers" => $records ));
 			$response = $api->resolve ( $endpoint );
 			if ( $response->success ) {
 				$response->result = $response->result->vanity_name_servers_ips

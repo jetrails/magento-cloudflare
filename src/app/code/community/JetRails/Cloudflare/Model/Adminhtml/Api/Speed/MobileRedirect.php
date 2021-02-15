@@ -63,7 +63,7 @@
 			$endpoint = $this->getEndpoint ();
 			$api = Mage::getModel ("cloudflare/api_request");
 			$api->setType ( $api::REQUEST_PATCH );
-			$api->setData ( array ( "value" => $data ) );
+			$api->setPayload ( array ( "value" => $data ) );
 			$response = $api->resolve ( $endpoint );
 			return $response;
 		}
