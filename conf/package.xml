@@ -10,7 +10,7 @@
 	<extends/>
 	<summary>Interact with popular Cloudflare features though Magento's backend portal.</summary>
 	<description>https://github.com/jetrails/magento-cloudflare</description>
-	<notes>Released Version 1.2.4</notes>
+	<notes>Released Version 1.2.5</notes>
 	<authors>
 		<author>
 			<name>Rafael Grigorian</name>
