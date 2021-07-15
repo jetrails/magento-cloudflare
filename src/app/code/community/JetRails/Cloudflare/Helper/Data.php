@@ -24,6 +24,22 @@
 		const XPATH_AUTH_TOKEN = "cloudflare/configuration/auth_token";
 
 		/**
+		 * This method returns the public suffix list either from cache based on
+		 * the user session, or downloads it directly
+		 * @return  array[string]                      Public Suffix List
+		 */
+		public function refreshPSL () {
+			$session = Mage::getSingleton ("core/session");
+			$data = $session->getPSL ();
+			if ( $data == null ) {
+				$psl = Mage::helper ("cloudflare/publicSuffixList");
+				$data = array_values ( $psl->getPSL () );
+				$session->setPSL ( $data );
+			}
+			return $data;
+		}
+
+		/**
 		 * This method gets the value for the authorization zone and decrypts
 		 * it. It then returns that result to the caller.
 		 * @return  string                            CF Authorization zone
@@ -73,13 +89,12 @@
 		 */
 		public function getDomainName () {
 			$session = Mage::getSingleton ("core/session");
+			$psl = Mage::helper ("cloudflare/publicSuffixList");
 			if ( !empty ( $session->getCloudflareSelectedDomain () ) ) {
 				return $session->getCloudflareSelectedDomain ();
 			}
 			$domain = Mage::getBaseUrl ( Mage_Core_Model_Store::URL_TYPE_WEB );
-			$domain = parse_url ( $domain ) ["host"];
-			preg_match ( "/([^.\s]+\.([^.\s]{3,}|[^.\s]{2}\.[^.\s]{2}|[^.\s]{2}))\b$/im", $domain, $matches );
-			return $matches [ 1 ];
+			return $psl->extract ( $domain, $this->refreshPSL () ) ["root_domain"];
 		}
 
 		/**
@@ -91,15 +106,15 @@
 		 * @return  array                             All domains for all stores
 		 */
 		public function getDomainNames () {
+			$psl = Mage::helper ("cloudflare/publicSuffixList");
 			$selection = $this->getDomainName ();
 			$domains = array ();
+			$pslData = $this->refreshPSL ();
 			foreach ( Mage::app ()->getWebsites () as $website ) {
 				foreach ( $website->getGroups () as $group ) {
 					$stores = $group->getStores ();
 					foreach ( $stores as $store ) {
-						$domain = parse_url ( $store->getBaseUrl () ) ["host"];
-						preg_match ( "/([^.\s]+\.([^.\s]{3,}|[^.\s]{2}\.[^.\s]{2}|[^.\s]{2}))\b$/im", $domain, $matches );
-						$domain = $matches [ 1 ];
+						$domain = $psl->extract ( $store->getBaseUrl (), $pslData ) ["root_domain"];
 						array_push ( $domains, $domain );
 					}
 				}
