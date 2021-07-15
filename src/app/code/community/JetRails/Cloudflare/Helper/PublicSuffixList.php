@@ -17,7 +17,6 @@
 		}
 
 		public function getPSL () {
-			error_log ("Downloading PSL...");
 			$handle = curl_init ();
 			curl_setopt ( $handle, CURLOPT_URL, "https://publicsuffix.org/list/public_suffix_list.dat" );
 			curl_setopt ( $handle, CURLOPT_RETURNTRANSFER, 1 );
