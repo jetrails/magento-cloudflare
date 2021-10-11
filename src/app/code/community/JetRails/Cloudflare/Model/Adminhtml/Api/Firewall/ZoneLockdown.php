@@ -105,7 +105,7 @@
 		 * @param   string       id                   Page rule ID
 		 * @return  stdClass                          CF response to request
 		 */
-		public function delete ( $id ) {
+		public function deleteEntry ( $id ) {
 			$endpoint = $this->getEndpoint ( $this->_endpoint . "/$id" );
 			$api = Mage::getModel ("cloudflare/api_request");
 			$api->setType ( $api::REQUEST_DELETE );

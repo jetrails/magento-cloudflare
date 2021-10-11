@@ -22,7 +22,7 @@
 		 */
 		public function deleteAction () {
 			$api = Mage::getModel ("cloudflare/api_firewall_accessRules");
-			$response = $api->delete (
+			$response = $api->deleteEntry (
 				$this->_request->getParam ("id")
 			);
 			return $this->_sendResponse ( $response );

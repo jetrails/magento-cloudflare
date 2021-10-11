@@ -23,7 +23,7 @@
 		 * @param   string       id                  Access rule id
 		 * @return  stdClass                         CF response to request
 		 */
-		public function delete ( $id ) {
+		public function deleteEntry ( $id ) {
 			$endpoint = $this->getEndpoint ("firewall/access_rules/rules/$id");
 			$api = Mage::getModel ("cloudflare/api_request");
 			$api->setType ( $api::REQUEST_DELETE );

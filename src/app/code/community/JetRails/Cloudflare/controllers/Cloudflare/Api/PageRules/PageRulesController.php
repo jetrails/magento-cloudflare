@@ -72,7 +72,7 @@
 		 */
 		public function deleteAction () {
 			$api = Mage::getModel ("cloudflare/api_pageRules_pageRules");
-			$response = $api->delete ( $this->_request->getParam ("id") );
+			$response = $api->deleteEntry ( $this->_request->getParam ("id") );
 			return $this->_sendResponse ( $response );
 		}
 

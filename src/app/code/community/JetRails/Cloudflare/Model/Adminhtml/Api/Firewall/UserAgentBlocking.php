@@ -36,7 +36,7 @@
 		 * @param   string       id                  User agent blocking id
 		 * @return  stdClass                         CF response to request
 		 */
-		public function delete ( $id ) {
+		public function deleteEntry ( $id ) {
 			$endpoint = $this->getEndpoint ("firewall/ua_rules/$id");
 			$api = Mage::getModel ("cloudflare/api_request");
 			$api->setType ( $api::REQUEST_DELETE );
