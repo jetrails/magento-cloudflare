@@ -47,6 +47,10 @@
 														<title>Browser Cache Expiration</title>
 														<sort_order>300</sort_order>
 													</browser_cache_expiration>
+													<crawler_hints translate="title" module="cloudflare" >
+														<title>Crawler Hints</title>
+														<sort_order>350</sort_order>
+													</crawler_hints>
 													<always_online translate="title" module="cloudflare" >
 														<title>Always Online</title>
 														<sort_order>400</sort_order>
@@ -61,6 +65,20 @@
 													</enable_query_string_sort>
 												</children>
 											</configuration>
+											<tiered_cache translate="title" module="cloudflare" >
+												<title>Tiered Cache</title>
+												<sort_order>100</sort_order>
+												<children>
+													<argo_tiered_cache translate="title" module="cloudflare" >
+														<title>Argo Tiered Cache</title>
+														<sort_order>100</sort_order>
+													</argo_tiered_cache>
+													<tiered_cache_topology translate="title" module="cloudflare" >
+														<title>Tiered Cache Topology</title>
+														<sort_order>200</sort_order>
+													</tiered_cache_topology>
+												</children>
+											</tiered_cache>
 										</children>
 									</caching>
 									<dns translate="title" module="cloudflare" >
@@ -157,16 +175,20 @@
 										<title>Firewall</title>
 										<sort_order>500</sort_order>
 										<children>
-											<managed_rules translate="title" module="cloudflare" >
-												<title>Managed Rules</title>
+											<waf translate="title" module="cloudflare" >
+												<title>WAF</title>
 												<sort_order>200</sort_order>
 												<children>
 													<web_application_firewall translate="title" module="cloudflare" >
 														<title>Web Application Firewall</title>
 														<sort_order>100</sort_order>
 													</web_application_firewall>
+													<firewall_rules translate="title" module="cloudflare" >
+														<title>Firewall Rules</title>
+														<sort_order>200</sort_order>
+													</firewall_rules>
 												</children>
-											</managed_rules>
+											</waf>
 											<tools translate="title" module="cloudflare" >
 												<title>Tools</title>
 												<sort_order>400</sort_order>
@@ -241,6 +263,10 @@
 														<title>Automatic Platform Optimization for WordPress</title>
 														<sort_order>15</sort_order>
 													</automatic_platform_optimization>
+													<early_hints translate="title" module="cloudflare" >
+														<title>Early Hints</title>
+														<sort_order>16</sort_order>
+													</early_hints>
 													<enhanced_http2_prioritization translate="title" module="cloudflare" >
 														<title>Enhanced HTTP/2 Prioritization</title>
 														<sort_order>20</sort_order>
@@ -321,10 +347,22 @@
 												<title>HTTP/2</title>
 												<sort_order>100</sort_order>
 											</http_2>
+											<http_2_to_origin translate="title" module="cloudflare" >
+												<title>HTTP/2 to Origin</title>
+												<sort_order>125</sort_order>
+											</http_2_to_origin>
+											<http_3 translate="title" module="cloudflare" >
+												<title>HTTP/3 (with QUIC)</title>
+												<sort_order>150</sort_order>
+											</http_3>
 											<ipv6_compatibility translate="title" module="cloudflare" >
 												<title>IPv6 Compatibility</title>
 												<sort_order>200</sort_order>
 											</ipv6_compatibility>
+											<grpc translate="title" module="cloudflare" >
+												<title>gRPC</title>
+												<sort_order>250</sort_order>
+											</grpc>
 											<websockets translate="title" module="cloudflare" >
 												<title>WebSockets</title>
 												<sort_order>300</sort_order>
